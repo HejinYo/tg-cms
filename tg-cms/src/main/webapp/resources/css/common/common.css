@@ -1,0 +1,61 @@
+/* CSS Document */
+.modal-title {
+	border-bottom: 0px;
+}
+
+.panel-heading {
+	padding: 1px 15px;
+}
+
+.webuploader-container {
+	padding: 0px;
+	border-color: #2980b9;
+	background-color: #03a9f4;
+}
+
+.webuploader-pick {
+	border: 0px;
+	background: #03a9f4;
+}
+
+.btn-xs {
+	padding: 2px 8px;
+}
+
+.btn-sm {
+	padding: 4px 10px;
+}
+
+/* Validation */
+label.error {
+	color: #cc5965;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+label.display-label {
+	padding-top: 7px;
+	margin-bottom: 0;
+}
+
+.form-control.error {
+	border: 1px dotted #cc5965;
+}
+/* table */
+.table tbody>tr>td:first-child {
+	font-size: 0.875em;
+}
+
+@media ( max-height : 1080px) {
+	.modal-body {
+		max-height: 700px;
+		overflow-y: scroll;
+	}
+}
+
+@media ( max-height : 768px) {
+	.modal-body {
+		max-height: 500px;
+		overflow-y: scroll;
+	}
+}

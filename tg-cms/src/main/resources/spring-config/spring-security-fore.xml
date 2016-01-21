@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <description>spring security权限控制 前台</description>
+
+    <!-- 前台登录filter -->
+    <bean id="authenticaionFilter4fore"
+        class="com.turingoal.cms.core.commons.TgSecurityAuthenticationFilter4fore">
+        <property name="filterProcessesUrl" value="${security.loginUrl}" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationFailureHandler" ref="authenticationFailureHandler4fore" />
+        <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler4fore" />
+        <!-- 用户名和密码 -->
+        <property name="usernameParameter" value="tg_username" />
+        <property name="passwordParameter" value="tg_password" />
+    </bean>
+
+    <!-- 前台自定义登录成功handler -->
+    <bean id="authenticationSuccessHandler4fore"
+        class="com.turingoal.cms.core.commons.TgSecurityLoginSuccessHandler4fore">
+        <property name="defaultTargetUrl" value="${security.defaultUrl}"></property>
+        <!-- 可以配置相应的跳转方式。属性forwardToDestination为true采用forward false为sendRedirect -->
+        <property name="forwardToDestination" value="false"></property>
+        <!-- 是否总是跳转到默认页面 -->
+        <property name="alwaysUseDefaultTargetUrl" value="true" />
+    </bean>
+
+    <!-- 前台自定义登录失败handler -->
+    <bean id="authenticationFailureHandler4fore"
+        class="com.turingoal.cms.core.commons.TgSecurityLoginFailureHandler4fore">
+        <!-- 登录失败跳转页面 -->
+        <property name="failureUrl" value="${security.loginPageUrl}?type=error" />
+        <!-- 用来在日志中保存用户登录信息 -->
+        <property name="usernameParameter" value="tg_username" />
+    </bean>
+
+    <!-- 前台退出过滤器，完成前台用户注销时的定向功能 -->
+    <bean id="logoutFilter4fore"
+        class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg ref="logoutSuccessHandler4fore" />
+        <constructor-arg>
+            <list>
+                <bean
+                    class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+            </list>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="${security.logoutUrl}" />
+    </bean>
+
+    <!-- 前台退出成功handler -->
+    <bean id="logoutSuccessHandler4fore"
+        class="com.turingoal.cms.core.commons.TgSecurityLogoutSuccessHandler4fore">
+        <property name="defaultTargetUrl" value="${security.loginPageUrl}?type=logout" />
+    </bean>
+</beans>

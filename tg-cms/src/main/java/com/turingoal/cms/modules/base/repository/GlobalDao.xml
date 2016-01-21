@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.GlobalDao">
+    
+    <!-- 查询全局配置 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.GlobalQuery" resultType="com.turingoal.cms.modules.base.domain.Global">
+        SELECT * FROM tg_cms_m_base_global
+    </select>
+    
+    <!-- 通过id得到一个全局配置 -->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Global">
+        SELECT * FROM tg_cms_m_base_global WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 全局配置  -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.GlobalForm">
+        INSERT INTO tg_cms_m_base_global (
+            id, sys_protocol, sys_port, context_path, with_domain, 
+            uploads_publishpoint_id, sys_version
+        )
+        VALUES(
+            #{id}, #{sysProtocol}, #{sysPort}, #{contextPath}, #{withDomain}, 
+            #{uploadsPublishpointId}, #{syVersion}
+        )
+    </insert>
+    
+    <!-- 修改 全局配置  -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.GlobalForm">
+        UPDATE tg_cms_m_base_global SET
+            sys_protocol = #{sysProtocol}, 
+            sys_port = #{sysPort}, 
+            context_path = #{contextPath}, 
+            with_domain = #{withDomain}, 
+            uploads_publishpoint_id = #{uploadsPublishpointId}, 
+            sys_version = #{sysVersion}
+        WHERE id = #{id}
+    </update>
+</mapper>

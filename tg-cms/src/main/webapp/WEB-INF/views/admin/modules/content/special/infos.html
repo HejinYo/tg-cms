@@ -1,0 +1,168 @@
+<style type="text/css">
+.myhidden {
+	width: 170px; /*宽度的定义很重要*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	display: block;
+}
+</style>
+
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h4 class="modal-title">文章列表</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div class="main-box-body clearfix">
+			<div class="col-md-6" id="left">
+				<div class="col-md-12">
+					<div class="input-group">
+						<input name="specialId" th:value="${specialId}" type="hidden" /> <input name="simpleQueryParam_un" type="text" placeholder="请输入标题进行搜索" class=" form-control" /> <span class="input-group-btn">
+							<button onclick="selInfoTable.filter()" type="button" class="btn btn-sm btn-primary">搜索</button>
+						</span>
+					</div>
+				</div>
+				<br />
+				<div class="col-md-12">
+					<table id="dataTable_ch" cellspacing="0" width="100%" class="table table-striped table-hover text-center">
+						<thead>
+							<tr>
+								<th width="40%" class="text-center">标题1</th>
+								<th width="40%" class="text-center">发布日期</th>
+								<th width="20%" class="text-center">操作</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-6" id="right">
+				<div class="col-md-12">
+					<div class="input-group">
+						<input name="specialId" th:value="${specialId}" type="hidden" /> <input name="simpleQueryParam_un" type="text" placeholder="请输入标题进行搜索" class=" form-control" /> <span class="input-group-btn">
+							<button onclick="selInfoTable.filter()" type="button" class="btn btn-sm btn-primary">搜索</button>
+						</span>
+					</div>
+				</div>
+				<br />
+				<div class="col-md-12">
+					<table id="dataTable_un" cellspacing="0" width="100%" class="table table-striped table-hover text-center">
+						<thead>
+							<tr>
+								<th width="20%" class="text-center">操作</th>
+								<th width="40%" class="text-center">标题</th>
+								<th width="40%" class="text-center">发布日期</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">
+		<strong>关 闭</strong>
+	</button>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var specialId = /*[[${specialId}]]*/'specialId';
+    var columns_un = [{
+        "data" : null,
+        render : function(data, type, row, meta) {
+            return '<button class="btn btn-xs" type="button" onclick="addSysField(\''+specialId+'\', \''+row.id+'\')"><i class="fa fa-chevron-left"></i></button>';
+        }
+    }, {
+        "data" : "title"
+    }, {
+        "data" : "publishTime"
+    },{
+        "data" : "id",
+        "visible": false
+        
+    }];
+    var ajaxDataParamFun_un = function(d) {
+        d.simpleQueryParam = $('#simpleQueryParam_un').val(); //模糊查询
+        d.specialId=specialId;
+    };
+    //表格setting
+    var selSetting_un = {
+        listUrl : /*[[@{/admin/m/base/special/findUnInfoByPage.gsp}]]*/'url',
+        columns : columns_un, //表格列
+        dataTableDiv : 'dataTable_un', //表格
+        ajaxDataParamFun : ajaxDataParamFun_un, //ajax参数
+        pageable : false, //是否分页
+        showIndexColumn : false, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    var unInfoTable = new TG_Tabel.createNew(selSetting_un);
+    
+    ///yixuan
+    var columns_ch = [ {
+        "data" : "title"
+    }, {
+        "data" : "publishTime"
+    },{
+        "data" : null,
+        render : function(data, type, row, meta) {
+            return '<button class="btn btn-xs" type="button" onclick="chInfoTable.deleteItem(\''+row.infoSpecialId+'\')"><i class="fa fa-chevron-right"></i></button>';
+        }
+    },{
+        "data" : "infoSpecialId",
+        "visible": false
+    }];
+    
+    var ajaxDataParamFun_ch = function(d) {
+        d.simpleQueryParam = $('#simpleQueryParam_ch').val(); //模糊查询
+        d.specialId=specialId;
+    };
+    //表格setting
+    var selSetting_ch = {
+        listUrl : /*[[@{/admin/m/base/special/findInfoByPage.gsp}]]*/'url',
+        columns : columns_ch, //表格列
+        dataTableDiv : 'dataTable_ch', //表格
+        ajaxDataParamFun : ajaxDataParamFun_ch, //ajax参数
+        pageable : false, //是否分页
+        showIndexColumn : false, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    var chInfoTable = new TG_Tabel.createNew(selSetting_ch);
+    
+    // 删除
+    chInfoTable.deleteItem = function(id) {
+        var deleteUrl=/*[[@{/admin/m/base/special/deleteRelation_}]]*/'url';
+        var deleteUrlPath = deleteUrl + id + '.gsp';
+        tg_dleteItem(deleteUrlPath, function() {
+            unInfoTable.refresh();
+            chInfoTable.refresh();
+            tg_alertSuccess();
+        });
+    }
+	// 选择添加
+    function addSysField(specialId, infoId) {
+        var url = /*[[@{/admin/m/base/special/addRelation.gsp}]]*/'url';
+        var parms = {
+            specialId : specialId,
+            id : infoId
+        }
+        tg_simpleAjaxPost(url, parms, function() {
+            unInfoTable.refresh();
+            chInfoTable.refresh();
+        });
+    }
+    
+    
+    
+    //加载完成后执行
+    $(function() {
+        //表格初始化
+        unInfoTable.init();
+        chInfoTable.init();
+    });
+
+    /*]]>*/
+</script>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.QuestionItemDao">
+    
+    <!-- 查询 调查问卷项 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.QuestionItemQuery" resultType="com.turingoal.cms.modules.ext.domain.QuestionItem">
+        SELECT * FROM tg_cms_m_ext_question_item
+    </select>
+
+    <!-- 通过id得到一个 调查问卷项-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.QuestionItem">
+        SELECT * FROM tg_cms_m_ext_question_item WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 调查问卷项 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.QuestionItemForm">
+        INSERT INTO tg_cms_m_ext_question_item (
+            id, question_id, title, type, max_selected, sort_order,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{questionId}, #{title}, #{type}, #{maxSelected}, #{sortOrder},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 调查问卷项 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.QuestionItemForm">
+        UPDATE tg_cms_m_ext_question_item SET
+            title = #{title}, 
+            type = #{type}, 
+            max_selected = #{maxSelected}, 
+            sort_order = #{sortOrder},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 调查问卷项 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_question_item WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据问卷id获取问卷调查项  -->
+    <select id="findByQuestionId" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.QuestionItem">
+        SELECT * FROM tg_cms_m_ext_question_item WHERE question_id = #{questionId}
+    </select>
+    
+</mapper>

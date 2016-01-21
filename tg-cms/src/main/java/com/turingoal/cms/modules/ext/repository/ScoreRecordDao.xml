@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.ScoreRecordDao">
+    
+    <!-- 查询 计分牌 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.ScoreRecordQuery" resultType="com.turingoal.cms.modules.ext.domain.ScoreRecord">
+        SELECT * FROM tg_cms_m_ext_score_record
+    </select>
+    
+    <!-- 通过id得到一个 计分牌-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.ScoreRecord">
+        SELECT * FROM tg_cms_m_ext_score_record WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 计分牌 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.ScoreRecordForm">
+        INSERT INTO tg_cms_m_ext_score_record (
+            id, score_item_id, votes_count, owner_type, owner_id,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{scoreItemId}, #{votesCount}, #{ownerType}, #{ownerId},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 计分牌 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.ScoreRecordForm">
+        UPDATE tg_cms_m_ext_score_record SET
+            score_item_id = #{scoreItemId}, 
+            votes_count = #{votesCount}, 
+            owner_type = #{ownerType}, 
+            owner_id = #{ownerId},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 计分牌 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_score_record WHERE id = #{id}
+    </delete>
+</mapper>

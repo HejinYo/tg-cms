@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.TagDao">
+    
+    <!-- 查询全部 Tag -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.TagQuery" resultType="com.turingoal.cms.modules.base.domain.Tag">
+        SELECT * FROM tg_cms_m_base_tag
+        <if test="simpleQueryParam != null and simpleQueryParam!=''">  
+            WHERE tag_name LIKE CONCAT('%',#{simpleQueryParam},'%')
+        </if>
+    </select>
+    
+    <!-- 通过id得到一个 Tag-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Tag">
+        SELECT * FROM tg_cms_m_base_tag WHERE id = #{id}
+    </select>
+    
+    <!-- 通过name得到一个 Tag-->
+    <select id="findByName" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Tag">
+        SELECT * FROM tg_cms_m_base_tag WHERE tag_name = #{name}
+    </select>
+    
+    <!-- 根据infoId获取 Tag-->
+    <select id="findByInfoId" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Tag">
+        SELECT info_tag.id as relation_id,tag.* FROM tg_cms_m_base_info_tags as info_tag
+        LEFT JOIN tg_cms_m_base_tag tag ON info_tag.tag_id = tag.id
+        WHERE info_tag.info_id = #{infoId}
+    </select>
+    
+    <!-- 新增 Tag -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.TagForm">
+        INSERT INTO tg_cms_m_base_tag (
+            id, tag_name, refers,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{tagName}, #{refers},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 Tag -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.TagForm">
+        UPDATE tg_cms_m_base_tag SET
+            tag_name = #{tagName}, refers = #{refers},
+            update_data_time = #{updateDataTime}, update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 修改 Tag -->
+    <update id="updateRefersSubtract" parameterType="string">
+        UPDATE tg_cms_m_base_tag SET
+            refers = refers - 1
+        WHERE id = #{id}
+    </update>
+    
+    <!-- 修改 Tag -->
+    <update id="updateRefersAdd" parameterType="string">
+        UPDATE tg_cms_m_base_tag SET
+            refers = refers + 1
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 Tag -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_tag WHERE id = #{id}
+    </delete>
+    
+    <!-- 新增 relation -->
+    <insert id="addRelation" parameterType="com.turingoal.cms.modules.base.domain.form.TagForm">
+        INSERT INTO tg_cms_m_base_info_tags (
+            id, info_id, tag_id
+        )
+        VALUES(
+            #{id}, #{infoId}, #{id}
+        )
+    </insert>
+    
+    <!-- 根据id删除一个 Tag -->
+    <delete id="deleteRelation" parameterType="string">
+        DELETE FROM tg_cms_m_base_info_tags WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据id删除一个 Tag -->
+    <delete id="deleteRelationByInfoId" parameterType="string">
+        DELETE FROM tg_cms_m_base_info_tags WHERE info_id = #{infoId}
+    </delete>
+</mapper>

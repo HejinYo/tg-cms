@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>图灵谷-素材管理-文档管理</title>
+<div th:replace="fragments/head_admin">head</div>
+<link th:href="@{/resources/vendor/webuploader/webuploader.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/webuploader/demo.css}" rel="stylesheet" />
+<style type="text/css">
+.webuploader-pick-hover{
+	background: none;
+}
+</style>
+</head>
+<body class="pace-done fixed-sidebar">
+	<div id="wrapper">
+		<div th:replace="fragments/menu_admin::menu(root=material,current=doc)">菜单栏</div>
+		<div id="page-wrapper" class="gray-bg">
+			<div th:replace="fragments/nav_admin">导航栏</div>
+			<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=素材管理,current=文档管理)">面包屑栏</div>
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-3">
+						<div class="col-lg-12">
+							<a th:href="@{/admin/m/base/doc/fileUpload.gsp}" data-target="#commonWin" class="btn btn-primary btn-block" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;上传文件</a>
+						</div>
+						<div class="ibox float-e-margins">
+							<div class="ibox-content">
+								<div class="file-manager">
+									<form th:action="@{/admin/m/base/doc/list.gsp}" class="form-horizontal" id="dataTableFilterForm" role="form" action="#" method="post">
+										<div class="row">
+											<div class="form-group">
+												<label class="col-md-4 control-label">文档名称：</label>
+												<div class="col-md-8">
+													<input type="text" name="docName" class="form-control"> </input>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-4 control-label">文档类型：</label>
+												<div class="col-md-8">
+													<select class="form-control" name="format">
+							                             <option th:each="data : ${format}" th:value="${data.format}" th:text="${data.format}"></option>
+							                        </select>
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-md-4 control-label">来　　源：</label>
+												<div class="col-md-8">
+													<input type="text" class="form-control"> </input>
+												</div>
+											</div>
+											<div class="form-group">
+							                    <label class="col-md-4 control-label">开始时间：</label>
+							                    <div class="col-md-8">
+							                        <div class="input-group date">
+							                            <input name="startDate" type="text" class="form-control"/>
+							                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							                        </div>
+							                    </div>
+							                </div>
+							                <div class="form-group">
+							                    <label class="col-md-4 control-label">结束时间：</label>
+							                    <div class="col-md-8">
+							                        <div class="input-group date">
+							                            <input name="endDate" type="text" class="form-control"/>
+							                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+							                        </div>
+							                    </div>
+							                </div>
+							                <div class="form-group">
+							                    <label class="col-md-4 control-label">文件大于：</label>
+							                    <div class="col-md-8">
+													<input type="text" name="maxLength" class="form-control"> </input>
+							                    </div>
+							                </div>
+							                <div class="form-group">
+							                    <label class="col-md-4 control-label">文件小于：</label>
+							                    <div class="col-md-8">
+													<input type="text" name="minLength" class="form-control"> </input>
+							                    </div>
+							                </div>
+							                <div class="form-group">
+							                    <label class="col-md-10 control-label"></label>
+							                    <div class="col-md-2">
+							                         <button onclick="myTable.filter()" type="button" class="btn btn-sm btn-primary">搜索</button>
+							                    </div>
+							                </div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-9 animated fadeInRight">
+						<div class="row m-b-sm m-t-sm"></div>
+						<div class="col-lg-12" id="dataTableDiv"></div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer_admin">底部</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+
+<script th:src="@{/resources/vendor/webuploader/webuploader.js}"></script>
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript" id="dataTableTpl" type="text/html">
+<![CDATA[*/
+<br/>
+{{# 
+var editUrlPre= /*[[@{/admin/m/base/doc/edit_}]]*/'url'; 
+var len = d.records.length;
+if(len>0){
+	for(var i = 0, len = d.records.length; i < len; i++){ 
+		var record=d.records[i];
+	}}
+<div class="file-box">
+		<div class="ibox-content">
+				<button class="btn btn-xs btn-danger" type="button" onclick="myTable.deleteItem('{{record.id}}')">
+					<i class="fa fa-times"></i>
+				</button>
+				<a href="{{editUrlPre+record.id}}.gsp" data-target="#commonWin" type="button" data-toggle="modal">
+				編輯</a>
+		<div class="file">
+		        <span class="corner"></span>
+		        <div class="icon">
+	                <i class="img-responsive fa fa-file-text"></i>
+	            </div>
+		        <div class="file-name" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+		            <small class="text-success">{{record.docName}}</small>
+		            <br/>
+		            <small>{{record.createDataTime}}</small>
+		        </div>
+		</div>
+</div>
+		<div class="clearfix"></div>
+</div>
+
+	{{# } }}
+{{# } }}
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var setting = {
+        deleteUrl : /*[[@{/admin/m/base/doc/delete_}]]*/'url',
+        enabledChange : true, //修改是否可用
+        dataTableTpl : 'dataTableTpl', //模板
+        dataTableDiv : 'dataTableDiv', //表格
+        dataTableFilterForm : 'dataTableFilterForm' //过滤表单
+    };
+    var myTable = new TG_Tabel.createNew(setting);
+    $(function() {
+        $('.date').datepicker({
+            todayBtn : "linked",
+            keyboardNavigation : false,
+            forceParse : false,
+            initialDate : new Date(),
+            altField : '#actualDate',
+            calendarWeeks : true,
+            autoclose : true
+        });
+        $('.ibox-title').each(function () {
+            animationHover(this, 'pulse');
+        });
+        //初始化表格
+        myTable.init();
+    });
+    /*]]>*/
+</script>
+</html>

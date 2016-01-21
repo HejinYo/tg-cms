@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.CmsDocDao">
+    
+    <!-- 查询 Doc -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.CmsDocQuery" resultType="com.turingoal.cms.modules.base.domain.CmsDoc">
+        SELECT * FROM tg_cms_m_base_doc where 1=1
+        <if test="docName!=null">
+            AND file_name like  '%${docName}%'
+        </if>
+        <if test="minLength!=null">
+            AND file_length >= #{minLength}
+        </if>
+        <if test="maxLength!=null">
+            AND file_length &lt;= #{maxLength}
+        </if>
+        <if test="startDate!=null and startDate!=''"> 
+            AND DATE_FORMAT(publish_time, '%Y-%m-%d') &gt;= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+        </if>
+        <if test="endDate!=null and endDate!=''"> 
+            AND DATE_FORMAT(publish_time, '%Y-%m-%d') &lt;= DATE_FORMAT(#{endDate}, '%Y-%m-%d') 
+        </if>
+        <if test="format!=null">
+            AND format = #{format}
+        </if>
+        ORDER BY create_data_time DESC
+    </select>
+    
+    <!-- 通过ids得到-->
+    <select id="findByIds" resultType="com.turingoal.cms.modules.base.domain.CmsDoc">
+        SELECT *, doc_path as src FROM tg_cms_m_base_doc 
+        WHERE id in 
+        <foreach collection="array" item="item" index="index"  open="(" separator="," close=")">
+            #{item}
+        </foreach>  
+    </select>
+    
+    <!-- 通过md5得到一个 FileForm-->
+    <select id="getByMd5" parameterType="String" resultType="com.turingoal.cms.modules.base.domain.form.CmsDocForm">
+        SELECT * FROM tg_cms_m_base_doc WHERE md5 = #{md5}
+    </select>
+    
+    <!-- 通过id得到一个 Doc-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.CmsDoc">
+        SELECT * FROM tg_cms_m_base_doc WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 Doc -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.CmsDocForm">
+        INSERT INTO tg_cms_m_base_doc (
+            id, format, doc_name, doc_length, doc_path, publish_time, create_data_time, description, md5
+        )
+        VALUES(
+            #{id}, #{format}, #{docName}, #{docLength}, #{docPath}, #{publishTime}, #{createDataTime}, #{description}, #{md5}
+        )
+    </insert>
+    
+    <!-- 修改 Doc -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.CmsDocForm">
+        UPDATE tg_cms_m_base_doc SET
+            format = #{format}, 
+            doc_name = #{docName}, 
+            doc_length = #{docLength}, 
+            doc_path = #{docPath}, 
+            publish_time = #{publishTime}, 
+            update_data_time = #{updateDataTime}, 
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 Doc -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_doc WHERE id = #{id}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_base_doc SET state=#{state} WHERE id = #{id}
+    </update>
+    
+    <!-- 获取所有文件的格式-->
+    <select id="findFormat" resultType="com.turingoal.cms.modules.base.domain.CmsDoc">
+        select * from tg_cms_m_base_doc GROUP BY format
+    </select>
+</mapper>

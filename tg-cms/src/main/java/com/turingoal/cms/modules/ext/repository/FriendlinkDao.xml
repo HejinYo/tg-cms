@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.FriendlinkDao">
+    
+    <!-- 查询所有友情链接信息 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">
+        SELECT linktype.type_name as type_name,image.img_path as img_path, link.* FROM tg_cms_m_ext_friendlink link
+        LEFT JOIN tg_cms_m_ext_friendlink_type linktype ON link.type_id = linktype.id
+        LEFT JOIN tg_cms_m_base_image image ON link.fl_logo = image.id
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 通过id得到一个友情链接信息-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">
+        SELECT linktype.type_name as type_name,link.* FROM tg_cms_m_ext_friendlink link
+        LEFT JOIN tg_cms_m_ext_friendlink_type linktype ON link.type_id = linktype.id
+        WHERE link.id = #{id}
+    </select>
+    
+    <!-- 新增一个友情链接信息 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.FriendlinkForm">
+        INSERT INTO tg_cms_m_ext_friendlink (
+            id, type_id, fl_name, fl_url, fl_logo, 
+            fl_email, recommend, sort_order, description, enabled,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{typeId}, #{flName}, #{flUrl}, #{flLogo}, 
+            #{flEmail}, #{recommend}, #{sort_order}, #{description}, #{enabled},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 一个友情链接信息 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.FriendlinkForm">
+        UPDATE tg_cms_m_ext_friendlink SET
+            type_id = #{typeId}, 
+            fl_name = #{flName}, 
+            fl_url = #{flUrl}, 
+            fl_logo = #{flLogo}, 
+            fl_email = #{flEmail}, 
+            recommend = #{recommend}, 
+            sort_order = #{sort_order}, 
+            description = #{description}, 
+            enabled = #{enabled},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 友情链接信息 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_friendlink WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据typeId删除友情链接信息-->
+    <delete id="deleteByTypeId" parameterType="string">
+        DELETE FROM tg_cms_m_ext_friendlink WHERE type_id = #{typeId}
+    </delete> 
+    
+    <!-- 修改友情链接状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_ext_friendlink SET enabled = #{enabled} WHERE id = #{id}
+    </update>
+    
+    <!-- 修改友情链接状态-->
+    <update id="changeRecommend" parameterType="com.turingoal.cms.modules.ext.domain.form.FriendlinkForm">
+        UPDATE tg_cms_m_ext_friendlink SET recommend=#{recommend} WHERE id = #{id}
+    </update>
+    
+    <!-- 根据类型获取友情链接 -->
+    <select id="findByTypeId" parameterType="com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">
+        SELECT * FROM tg_cms_m_ext_friendlink
+        WHERE enabled = 1
+        <if test="typeId!=null and typeId!=0">
+            AND type_id=#{typeId}
+        </if>
+        <if test="limit!=null and typeId!=0">
+            limit 0,#{limit}
+        </if>
+        ORDER BY sort_order ASC
+    </select>
+</mapper>

@@ -1,0 +1,96 @@
+<form th:action="@{/admin/m/ext/guestbook/edit.gsp}" th:object="${result}" id="editForm" class="form-horizontal" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">回复留言</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">状　　态<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{state}">
+                             <option value="1">审核通过</option>
+                             <option value="2">屏蔽</option>
+                             <option value="10">待审核</option>
+                        </select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">是否推荐<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{recommend}" name="recommend">
+                             <option value="1"> 是</option>
+                             <option value="2"> 否</option>
+                        </select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">回复IP<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+                        <input th:field="*{replyIp}" placeholder="请输入回复IP" type="text" class="form-control" />
+                    </div>
+				</div>
+				<div class="form-group">
+                    <label class="col-md-3 control-label">回复时间<label class="text-danger">*</label>：</label>
+                    <div class="col-md-7">
+                        <div class="input-group date">
+                            <input th:field="*{replyTime}" id="replyTime" readOnly="true" type="text" class="form-control"/>
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+					<label class="col-md-3 control-label">回复内容<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<textarea  class="form-control"  th:field="*{replyContent}"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+	$('.date').datepicker({
+	    todayBtn: "linked",
+	    keyboardNavigation: false,
+	    forceParse: false,
+	    initialDate : new Date(),
+	    altField: '#actualDate',
+	    calendarWeeks: true,
+	    autoclose: true
+	});
+    /*<![CDATA[*/
+    $(function() {
+    	//$("#replyTime").val(new Date().toLocaleString().substring(0,10));
+        var rules = {
+            replyIp : {
+                required : true,
+                maxlength : 20,
+                minlength : 9
+            },
+            replyTime : {
+            	required : true
+            },
+            replyContent : {
+                required : true,
+                maxlength : 140,
+                minlength : 5
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

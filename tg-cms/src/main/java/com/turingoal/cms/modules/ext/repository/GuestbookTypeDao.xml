@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.GuestbookTypeDao">
+    
+    <!-- 查询 所有留言板类型 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.GuestbookTypeQuery" resultType="com.turingoal.cms.modules.ext.domain.GuestbookType">
+        SELECT * FROM tg_cms_m_ext_guestbook_type
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 通过id得到一个 留言板类型-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.GuestbookType">
+        SELECT * FROM tg_cms_m_ext_guestbook_type WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 一个留言板类型 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.GuestbookTypeForm">
+        INSERT INTO tg_cms_m_ext_guestbook_type (
+            id, type_name, code_num, open_type, verify_type, 
+            captcha_type, max_length, description, sort_order,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id},  #{typeName}, #{codeNum}, #{openType}, #{verifyType}, 
+            #{captchaType}, #{maxLength}, #{description}, #{sortOrder},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 一个留言板类型 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.GuestbookTypeForm">
+        UPDATE tg_cms_m_ext_guestbook_type SET
+            type_name = #{typeName}, 
+            code_num = #{codeNum}, 
+            open_type = #{openType}, 
+            verify_type = #{verifyType}, 
+            captcha_type = #{captchaType}, 
+            max_length = #{maxLength},
+            description = #{description}, 
+            sort_order = #{sortOrder},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 留言板类型 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_guestbook_type WHERE id = #{id}
+    </delete>
+</mapper>

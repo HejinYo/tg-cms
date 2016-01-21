@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>图灵谷-内容管理-评论管理</title>
+<link th:href="@{/resources/vendor/hplus/css/plugins/treeview/bootstrap-treeview.css}" rel="stylesheet" />
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body class="pace-done fixed-sidebar">
+	<div id="wrapper">
+		<div th:replace="fragments/menu_admin::menu(root=gconfig,current=scoreGroup)">菜单栏</div>
+		<div id="page-wrapper" class="gray-bg">
+			<div th:replace="fragments/nav_admin">导航栏</div>
+			<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=内容管理,current=评论管理)">面包屑栏</div>
+			<div class="wrapper wrapper-content animated fadeInRight">
+				<div class="row">
+					<div class="col-lg-2">
+						<div class="ibox float-e-margins">
+							<div class="ibox-content">
+	                            <div id="noddTreeView" class="test"></div>
+	                        </div>
+						</div>
+					</div>
+					<div class="col-lg-10">
+						<div class="ibox float-e-margins" id="infos">
+							<div class="ibox-title">
+								<h5>评论管理</h5>
+								<div class="ibox-tools">
+									<a th:href="@{/admin/m/base/comment/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+								</div>
+							</div>
+							<div class="ibox-content">
+								<div class="row m-b-sm m-t-sm">
+									<form th:action="@{/admin/m/base/comment/get.gsp}" id="dataNodeTableFilterForm" role="form" action="#" method="post">
+										<input type="hidden" name="id" />
+									</form>
+								</div>
+								<div id="dataGroupTableDiv"></div>
+								<div class="row m-b-sm m-t-sm">
+									<form th:action="@{/admin/m/base/comment/list.gsp}" id="dataCommentTableFilterForm" role="form" action="#" method="post">
+										<input type="hidden" name="nodeId" />
+									</form>
+								</div>
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>状态</th>
+											<th>文章标题</th>
+											<th>评论内容</th>
+											<th>评论日期</th>
+										</tr>
+									</thead>
+									<tbody id="dataTableDiv">
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer_admin">底部</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript" id="dataCommentTableTpl" type="text/html">
+/*<![CDATA[*/
+{{# 
+var editUrlPre= /*[[@{/admin/m/base/comment/edit_}]]*/'url'; 
+var len = d.records.length;
+if(len>0){
+	for(var i = 0; i < len; i++){ 
+		var record=d.records[i];
+		var num=d.pageSize*(d.page-1)+i+1;
+	}}
+<tr class="gradeX">
+	<td>{{num}}</td>
+	<td>
+		{{# if(record.state===10){ }}
+			<span class="text-success">待审核</span>
+   	 	{{# } }}
+		{{# if(record.state===1){ }}
+			<span class="text-success">已审核</span>
+   	 	{{# } }}
+		{{# if(record.state===2){ }}
+			<span class="text-danger">推荐</span>
+		{{# } }}
+		{{# if(record.state===3){ }}
+			<span class="text-success">屏蔽</span>
+   	 	{{# } }}
+	</td>
+	<td class="text-success">{{record.title}}</td>
+	<td>{{record.content||""}}</td>
+	<td>{{record.createDataTime||""}}</td>
+	<td>
+		<a href="{{editUrlPre+record.id}}.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;修改</a>
+		<button class="btn btn-warning btn-xs" type="button" onclick="myTable.deleteItem('{{record.id}}')"><i class="fa fa-trash-o"></i>&nbsp;删除</button>
+	</td>
+</tr>
+	{{# } }}
+{{# }else{ }}
+    <tr><td colspan="9"><br/><div class="alert alert-danger alert-dismissable">对不起，暂时没有数据可以显示，请更换查询条件重新再试！ <div></td></tr>
+{{# } }}
+ /*]]>*/
+</script>
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript" id="dataNodeTableTpl" type="text/html">
+{{# }}
+<div class="col-lg-6">
+	<dl class="dl-horizontal">
+		<dt>栏目名称：</dt>
+		<dd>{{d.noddName||''}}</dd>
+		<dt>状　　态：</dt>
+		<dd>
+			{{# if(record.enabled===1){ }}
+				<span class="text-success">开启</span>
+   	 		{{# } }}
+			{{# if(record.enabled===2){ }}
+				<span class="text-success">停用</span>
+   	 		{{# } }}
+		</dd>
+		<dd>{{d.sortOrder||''}}</dd>
+			<dt>描　　述：</dt>
+		</dl>
+</div>
+<div class="col-lg-6" id="cluster_info">
+	<dl class="dl-horizontal">
+		<dt>栏目编码：</dt>
+		<dd>{{d.codeNum||''}}</dd>
+		<dt>创建时间：</dt>
+		<dd>{{d.createDataTime||''}}</dd>
+	</dl>
+</div>
+{{# }}
+</script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+    var nodeSetting = {
+        deleteUrl : /*[[@{/admin/m/base/comment/delete_}]]*/'url',
+        dataTableTpl : 'dataNodeTableTpl', //模板
+        dataTableDiv : 'dataNodeTableDiv', //表格
+        dataTableFilterForm : 'dataNodeTableFilterForm' //过滤表单
+    };
+    var myNodeTable = new TG_Tabel.createNew(nodeSetting);
+    var commentSetting = {
+            deleteUrl : /*[[@{/admin/m/base/comment/delete_}]]*/'url',
+            dataTableTpl : 'dataCommentTableTpl', //模板
+            dataTableDiv : 'dataTableDiv', //表格
+            dataTableFilterForm : 'dataCommentTableFilterForm' //过滤表单
+        };
+    var myCommentTable = new TG_Tabel.createNew(commentSetting);
+    $(function() {
+        $('#noddTreeView').treeview({
+            color: "#428bca",
+            showBorder: false,
+            nodeIcon : null,
+            data: /*[[${nodeTree.nodes}]]*/'',
+            onNodeSelected:function(event,node){
+                $('#dataCommentTableFilterForm').find('input[name="nodeId"]').val(node.id);
+                myCommentTable.refresh();
+            }
+        });
+        //初始化表格
+        myNodeTable.init();
+        myCommentTable.init();
+    });
+    /*]]>*/
+</script>
+<script th:src="@{/resources/vendor/hplus/js/plugins/treeview/bootstrap-treeview.js}"></script>
+</html>

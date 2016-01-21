@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.SpecialDao">
+    
+    <!-- 查询全部 Special -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.SpecialQuery" resultType="com.turingoal.cms.modules.base.domain.Special">
+        SELECT b_special.*, b_specialtype.type_name FROM tg_cms_m_base_special b_special
+        LEFT JOIN tg_cms_m_base_special_type b_specialtype ON b_special.type_id = b_specialtype.id
+        <if test="simpleQueryParam != null and simpleQueryParam!=''">  
+            WHERE title LIKE CONCAT('%',#{simpleQueryParam},'%')
+        </if>
+    </select>
+    
+    <!-- 通过id得到一个 Special-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Special">
+        SELECT * FROM tg_cms_m_base_special WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 Special -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.SpecialForm">
+        INSERT INTO tg_cms_m_base_special (
+            id, model_id, type_id, create_data_time, title, 
+            meta_keywords, meta_description, special_template, refers_count, 
+            image, video, views_count, with_image, recommend, enabled
+        )
+        VALUES(
+            #{id}, #{modelId}, #{typeId}, #{createDataTime}, #{title}, 
+            #{metaKeywords}, #{metaDescription}, #{specialTemplate}, #{refersCount},
+            #{image},#{video}, #{viewsCount}, #{withImage}, #{recommend}, #{enabled}
+        )
+    </insert>
+    
+    <!-- 修改 Special -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.SpecialForm">
+        UPDATE tg_cms_m_base_special SET
+            model_id = #{modelId}, 
+            type_id = #{typeId}, 
+            create_data_time = #{createDataTime}, 
+            title = #{title}, 
+            meta_keywords = #{metaKeywords}, 
+            meta_description = #{metaDescription}, 
+            special_template = #{specialTemplate}, 
+            image = #{image},video = #{video}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 Special -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_special WHERE id = #{id}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_base_special SET enabled = #{state} WHERE id = #{id}
+    </update>
+</mapper>

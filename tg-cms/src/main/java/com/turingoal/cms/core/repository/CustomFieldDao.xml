@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.core.repository.CustomFieldDao">
+    
+    <!-- 查询全部 自定义字段 -->
+    <select id="find" parameterType="com.turingoal.cms.core.domain.query.CustomFieldQuery" resultType="com.turingoal.cms.core.domain.CustomField">
+        SELECT * FROM tg_c_custom_field
+        WHERE owner_type = #{ownerType} AND owner_id = #{ownerId}
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 获取所有模型字段 带输入值 -->
+    <select id="findFieldAndValueByModel" parameterType="com.turingoal.cms.core.domain.query.CustomFieldQuery" resultType="com.turingoal.cms.core.domain.CustomField">
+        SELECT f_value.value_str,f_value.value_for_double,f_value.value_for_long_text,f_value.value_for_date,c_field.* 
+        FROM tg_c_custom_field c_field
+        LEFT JOIN tg_c_custom_field_value f_value  ON c_field.field_name=f_value.key_str AND f_value.owner_type=c_field.owner_type AND f_value.owner_id=#{valueOwnerId}
+        WHERE c_field.owner_type= #{ownerType} AND c_field.owner_id=#{ownerId}
+        ORDER BY c_field.sort_order ASC
+    </select>
+    
+    <!-- 通过id得到一个  自定义字段-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.core.domain.CustomField">
+        SELECT * FROM tg_c_custom_field WHERE id = #{id}
+    </select>
+    
+    <!-- 通过模型map得到  自定义字段-->
+    <select id="findByModel" parameterType="map" resultType="com.turingoal.cms.core.domain.form.CustomFieldForm">
+        SELECT * FROM tg_c_custom_field 
+        WHERE owner_type = #{ownerType} ANd owner_id = #{ownerId} 
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 新增  自定义字段 -->
+    <insert id="add" parameterType="com.turingoal.cms.core.domain.form.CustomFieldForm">
+        INSERT INTO tg_c_custom_field (
+            id,type,inner_type,field_label,field_name,prompt,field_default_value,
+            required,sort_order,newline,enabled,regex_str,field_max_length,
+            field_min_length,field_max_value,field_min_value,date_format,
+            checkbox_options,img_width,img_height,img_transcode,img_format,
+            img_compress,img_extrude,img_watermark,video_transcode,
+            video_format,video_codec,video_rate,owner_type,owner_id,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id},#{type},#{innerType},#{fieldLabel},#{fieldName},#{prompt},
+            #{fieldDefaultValue},#{required},#{sortOrder},#{newline},
+            #{enabled},#{regexStr},#{fieldMaxLength},#{fieldMinLength},
+            #{fieldMaxValue},#{fieldMinValue},#{dateFormat},#{checkboxOptions},
+            #{imgWidth},#{imgHeight},#{imgTranscode},#{imgFormat},#{imgCompress},
+            #{imgExtrude},#{imgWatermark},#{videoTranscode},#{videoFormat},
+            #{videoCodec},#{videoRate},#{ownerType},#{ownerId},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改  自定义字段 -->
+    <update id="update" parameterType="com.turingoal.cms.core.domain.form.CustomFieldForm">
+        UPDATE tg_c_custom_field SET
+            type=#{type},
+            inner_type=#{innerType},
+            field_label=#{fieldLabel},
+            field_name=#{fieldName},
+            prompt=#{prompt},
+            field_default_value=#{fieldDefaultValue},
+            required=#{required},
+            sort_order=#{sortOrder},
+            newline=#{newline},
+            regex_str=#{regexStr},
+            field_max_length=#{fieldMaxLength},
+            field_min_length=#{fieldMinLength},
+            field_max_value=#{fieldMaxValue},
+            field_min_value=#{fieldMinValue},
+            date_format=#{dateFormat},
+            checkbox_options=#{checkboxOptions},
+            img_width=#{imgWidth},
+            img_height=#{imgHeight},
+            img_transcode=#{imgTranscode},
+            img_format=#{imgFormat},
+            img_compress=#{imgCompress},
+            img_extrude=#{imgExtrude},
+            img_watermark=#{imgWatermark},
+            video_transcode=#{videoTranscode},
+            video_format=#{videoFormat},
+            video_codec=#{videoCodec},
+            video_rate=#{videoRate},
+        <!--
+            state=#{state},
+            ownerType=#{ownerType},
+            ownerId=#{ownerId}, -->
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个  自定义字段 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_c_custom_field WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据model删除  自定义字段 -->
+    <delete id="deleteByModel" parameterType="map">
+        DELETE FROM tg_c_custom_field WHERE owner_type = #{modelType}
+        AND owner_id = #{modelId}
+    </delete>
+    
+    <!-- 根据id删除多个  自定义字段 -->
+    <delete id="deleteAll" parameterType="string">
+        DELETE FROM tg_c_custom_field WHERE id IN #{ids}
+    </delete>
+    
+     <!-- 修改是否可用-->
+    <update id="changeEnabled">
+        UPDATE tg_c_custom_field SET enabled = #{enabled} WHERE id = #{id} AND editable = 1
+    </update>
+    
+    <!-- 校验同一模型下的字段名称、字段标签是否重复 -->
+    <select id="validateField" resultType="int" parameterType="com.turingoal.cms.core.domain.form.CustomFieldForm">
+        SELECT count(*) FROM tg_c_custom_field
+        WHERE owner_type = #{ownerType} AND owner_id = #{ownerId}
+        <if test="fieldLabel != null and fieldLabel != ''">
+            AND field_label = #{fieldLabel}
+        </if>
+        <if test="fieldName!=null and fieldName != ''">
+            AND field_name = #{fieldName}
+        </if>
+        <if test="id != null">
+            AND id != #{id}
+        </if>
+    </select>
+</mapper>

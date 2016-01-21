@@ -1,0 +1,83 @@
+<form th:action="@{/admin/c/user/edit.gsp}" th:object="${result}" id="editForm" role="form" action="#" class="form-horizontal" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改用户</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 用户名：</label>
+					<div class="col-md-7">
+						<input th:field="*{username}" readonly="true" placeholder="请输入用户名" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 真实姓名：</label>
+					<div class="col-md-7">
+						<input th:field="*{realname}" placeholder="请输入真实姓名" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">性 别：</label>
+					<div class="col-md-7">
+						<select th:field="*{gender}" placeholder="请输入性别" class="form-control">
+							<option selected="selected" value="1">男</option>
+							<option value="2">女</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">手 机：</label>
+					<div class="col-md-7">
+						<input th:field="*{cellphoneNumber}" placeholder="请输入手机" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">邮 箱：</label>
+					<div class="col-md-7">
+						<input th:field="*{email}" placeholder="请输入邮箱" type="text" class="form-control" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            username : {
+                required : true,
+                maxlength : 30,
+                minlength : 5
+            },
+            realname : {
+                required : true,
+                maxlength : 20,
+                minlength : 2
+            },
+            email : {
+                email : true,
+                maxlength : 60
+            },
+            cellphoneNumber : {
+                phoneNum : true
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

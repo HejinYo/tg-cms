@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.core.repository.ResourceDao">
+
+    <!-- 缓存 <cache type="org.mybatis.caches.ehcache.LoggingEhcache" /> -->
+    
+    <!--  获取所有启用的菜单 -->
+    <select id="findAllMenusEnabled" resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT tg_c_resource.*,tg_c_resource.resource_name as text 
+        FROM tg_c_resource 
+            WHERE enabled = 1 AND type = 1 
+        ORDER BY sort_order ASC
+    </select>
+
+    <!-- 获取启用的一级菜单 -->
+    <select id="findFirstLevelMenusEnabled" resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT * FROM tg_c_resource 
+            WHERE enabled = 1 AND type = 1 AND parent_id = 0 
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 根据父菜单获取启用的子菜单 -->
+    <select id="findChildrenMenusEnabled" parameterType="string"
+        resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT tg_c_resource.*,tg_c_resource.resource_name as text 
+        FROM tg_c_resource 
+            WHERE enabled = 1 AND type = 1 AND parent_id = #{parentId}
+        ORDER BY sort_order ASC
+    </select>
+
+    <!-- 根据用户id获取资源id -->
+    <select id="findIdsEnabledByUserId" parameterType="string" resultType="string">
+        SELECT tg_c_resource.id FROM tg_c_resource 
+            WHERE enabled = 1 AND id in
+        (SELECT resource_id FROM tg_c_role_resource
+            WHERE role_id IN
+        (SELECT ur.role_id FROM tg_c_user_role as ur WHERE
+            ur.user_id = #{id}))
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 查询所有的Permission -->
+    <select id="findPermissions" resultType="string">
+        SELECT permission FROM tg_c_resource
+    </select>
+
+    <!-- 查询所有可用的Permission -->
+    <select id="findPermissionsEnabled" resultType="string">
+        SELECT permission FROM tg_c_resource WHERE enabled = 1
+    </select>
+
+    <!-- 根据用户id查询所有可用的Permission -->
+    <select id="findPermissionsByUser" parameterType="string" resultType="string">
+        SELECT permission 
+        FROM tg_c_resource 
+        WHERE enabled = 1 AND id in
+        (SELECT resource_id FROM tg_c_role_resource WHERE role_id IN
+        (SELECT ur.role_id FROM tg_c_user_role as ur WHERE ur.user_id = #{id}))
+    </select>
+
+    <!-- 查询全部 Resource -->
+    <select id="find" resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT *, resource_name as text FROM tg_c_resource 
+        ORDER BY code_num, sort_order ASC
+    </select>
+    
+    <!-- 查询全部 Resource -->
+    <select id="getResourceTree" parameterType="com.turingoal.cms.core.domain.query.ResourceQuery" resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT resource.*,resource.resource_name as text ,r_s.role_id as role_id
+        FROM tg_c_resource resource
+        LEFT JOIN tg_c_role_resource r_s ON r_s.resourceId=resource.id and r_s.role_id=#{roleId}
+        WHERE enabled = 1
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 查询全部 启用的Resource -->
+    <select id="findEnabled" resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT id, resource_name as text, parent_id, permission, perm_value  
+        FROM tg_c_resource WHERE enabled = 1 
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 查询全部 启用的Resource -->
+    <select id="get" resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT * FROM tg_c_resource WHERE id = #{id}
+    </select>
+
+    <!-- 新增 Resource -->
+    <insert id="add" parameterType="com.turingoal.cms.core.domain.form.ResourceForm">
+        INSERT INTO tg_c_resource (
+            id, resource_name, icon_cls, type, code, permission,code_num,
+            perm_value, sort_order, description, parent_id, enabled, 
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{resourceName}, #{iconCls}, #{type}, #{code}, #{permission}, #{codeNum},
+            #{permValue}, #{sortOrder}, #{description}, #{parentId}, #{enabled},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+
+    <!-- 修改 Resource -->
+    <update id="update" parameterType="com.turingoal.cms.core.domain.form.RoleForm">
+        UPDATE tg_c_resource SET
+            resource_name = #{resourceName}, type = #{type}, code = #{code}, 
+            icon_cls = #{iconCls}, permission = #{permission}, perm_value = #{permValue}, 
+            sort_order = #{sortOrder}, description = #{description}, parent_id = #{parentId}, enabled = #{enabled}, 
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id} AND editable = 1
+    </update>
+
+    <!-- 根据id删除一个 Resource -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_c_resource 
+        WHERE id = #{id} AND editable = 1
+    </delete>
+
+    <!-- 修改是否可用 -->
+    <update id="changeEnabled">
+        UPDATE tg_c_resource 
+        SET enabled = #{enabled} 
+        WHERE id = #{id} AND editable = 1
+    </update>
+    
+    <!-- 检测数据是否可编辑 -->
+    <select id="checkEditable" parameterType="string" resultType="int">
+        SELECT editable FROM tg_c_resource WHERE id = #{id}
+    </select>
+</mapper>

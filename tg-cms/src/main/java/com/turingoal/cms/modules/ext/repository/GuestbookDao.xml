@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.GuestbookDao">
+    
+    <!-- 查询 留言板信息 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.GuestbookQuery" resultType="com.turingoal.cms.modules.ext.domain.Guestbook">
+        SELECT guestbook.*, gbtype.type_name as type_name FROM tg_cms_m_ext_guestbook guestbook
+        LEFT JOIN tg_cms_m_ext_guestbook_type gbtype ON guestbook.type_id = gbtype.id
+        <if test="typeId != null and typeId != '' ">
+             WHERE guestbook.type_id = #{typeId}
+        </if>
+        ORDER BY
+            guestbook.create_data_time DESC
+    </select>
+    
+    <!-- 通过id得到一个 留言板信息-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.Guestbook">
+        SELECT * FROM tg_cms_m_ext_guestbook WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 一个留言板信息 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.GuestbookForm">
+        INSERT INTO tg_cms_m_ext_guestbook (
+            id, type_id, create_data_username, replyer_name, title,
+            gb_content, gb_date, cretae_time, cretae_ip, reply_content, reply_time, 
+            reply_ip, replyed, recommend, username, gender, 
+            telephone_num, cellphone_num, qq, email, state,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id},  #{typeId}, #{createDataUsername}, #{replyerName}, #{title}, 
+            #{gbContent}, #{gbDate}, #{cretaeTime}, #{cretaeIp}, #{replyContent}, #{replyTime},
+            #{replyIp}, #{replyed}, #{recommend}, #{username}, #{gender},
+            #{telephoneNum}, #{cellphoneNum}, #{qq}, #{email}, #{state},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 一个留言板信息 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.GuestbookForm">
+        UPDATE tg_cms_m_ext_guestbook SET
+            replyer_id = #{replyerId}, 
+            reply_content = #{replyContent}, 
+            reply_time = #{replyTime}, 
+            reply_ip = #{replyIp}, 
+            replyed = #{replyed}, 
+            recommend = #{recommend},
+            state = #{state},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 留言板信息 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_guestbook WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据typeId删除 留言板信息 -->
+    <delete id="deleteByTypeId" parameterType="string">
+        DELETE FROM tg_cms_m_ext_guestbook WHERE type_id = #{typeId}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_ext_guestbook SET state=#{state} WHERE id = #{id}
+    </update>
+    
+    <!-- 获取留言排行 -->
+    <select id="top" parameterType="com.turingoal.cms.modules.ext.domain.query.GuestbookQuery" resultType="com.turingoal.cms.modules.ext.domain.Guestbook">
+        SELECT guestbook.* FROM tg_cms_m_ext_guestbook guestbook
+        LEFT JOIN tg_cms_m_ext_guestbook_type book_type ON guestbook.type_id = book_type.id
+        WHERE guestbook.state = 1
+        <if test="codeNum!=null and codeNum!=0">
+            AND book_type.code_num=#{codeNum}
+        </if>
+        <if test="recommend!=null and recommend!=0">
+            AND guestbook.recommend=#{recommend}
+        </if>
+        <if test="limit!=null and limit!=0">
+            limit 0,#{limit}
+        </if>
+    </select>
+</mapper>

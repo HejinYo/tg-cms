@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.PublishPointDao">
+    
+    <!-- 查询全部 PublishPoint -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.PublishPointQuery" resultType="com.turingoal.cms.modules.base.domain.PublishPoint">
+        SELECT * FROM tg_cms_m_base_publish_point ORDER BY sort_order DESC
+    </select>
+    
+    <!-- 通过id得到一个 PublishPoint-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.PublishPoint">
+        SELECT * FROM tg_cms_m_base_publish_point WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 PublishPoint -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.PublishPointForm">
+        INSERT INTO tg_cms_m_base_publish_point (
+            id, p_name, description, store_path, display_path, ftp_hostname, 
+            ftp_port, ftp_username, ftp_password, p_method, p_type, sort_order
+        )
+        VALUES(
+            #{id}, #{pName}, #{description}, #{storePath}, #{displayPath}, #{ftpHostname}, 
+            #{ftpPort}, #{ftpUsername}, #{ftpPassword}, #{pMethod}, #{pType}, #{sortOrder}
+        )
+    </insert>
+    
+    <!-- 修改 PublishPoint -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.PublishPointForm">
+        UPDATE tg_cms_m_base_publish_point SET
+            p_name = #{pName}, description = #{description}, store_path = #{storePath}, 
+            display_path = #{displayPath}, ftp_hostname = #{ftpHostname}, ftp_port = #{ftpPort}, 
+            ftp_username = #{ftpUsername}, ftp_password = #{ftpPassword}, p_method = #{pMethod}, 
+            p_type = #{pType}, sort_order = #{sortOrder}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 PublishPoint -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_publish_point WHERE id = #{id}
+    </delete>
+    
+    <!-- 查询发布类型为1的全部数据  -->
+    <select id="findByType" parameterType="com.turingoal.cms.modules.base.domain.query.PublishPointQuery" resultType="com.turingoal.cms.modules.base.domain.PublishPoint">
+        SELECT * FROM tg_cms_m_base_publish_point where type = 1
+    </select>
+</mapper>

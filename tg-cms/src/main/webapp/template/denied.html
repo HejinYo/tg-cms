@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle} 【没有权限】-重新登录|">【没有权限】-重新登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" href="resources/imgs/common/favicon.ico" />
+<!--/*******session过期跳转到登陆页面并跳出iframe框架 *******/-->
+<script type="text/javascript">
+    if (window != top)
+        top.location.href = location.href;
+</script>
+<!--/*******浏览器标题栏小图标favicon *******/-->
+<link th:href="@{/resources/imgs/common/favicon.ico}" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+	<div id="floater"></div>
+	<!--/*******错误信息*******/-->
+	<div th:replace="loginErrorMsg">错误信息</div>
+	<div id="loginbox" class="loginbox">
+		<div class="logintopbox">
+			<img th:src="@{/resources/imgs/login/login_logo.png}" />
+		</div>
+		<div class="loginminbox">
+			<div id="loginfr" class="loginfr"></div>
+		</div>
+	</div>
+</body>
+</html>

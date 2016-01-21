@@ -1,0 +1,271 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h4 class="modal-title">文件上传</h4>
+</div>
+<div class="modal-body">
+	<div class="panel blank-panel">
+		<div class="panel-heading">
+			<div class="panel-options">
+				<ul class="nav nav-tabs" id="nav-tabs-selFile">
+					<li upType='single' class="active"><a data-toggle="tab" href="#tab-1">单个上传</a></li>
+					<li upType='multi' th:if="${#httpServletRequest.getParameter('fieldName')==null}"><a data-toggle="tab" href="#tab-2">多文件上传</a></li>
+					<li upType='online' th:if="${#httpServletRequest.getParameter('fieldName')!=null}"><a data-toggle="tab" href="#tab-3">在线文件</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="panel-body" style="min-height: 200px;">
+			<div class="tab-content" th:if="${#httpServletRequest.getParameter('fieldName')==null}">
+				<div id="tab-1" class="tab-pane active">
+					<form id="uploadForm" role="form" class="form-horizontal" method="post">
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-7">
+								<div class="row">
+									<div class="thelist uploader-list"></div>
+								</div>
+								<div class="btn picker">选择文件</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label">文件名称：</label>
+							<div class="col-md-7">
+								<input id="title" name="title" placeholder="请输入文件名称" type="text" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label">文件描述：</label>
+							<div class="col-md-7">
+								<textarea id="description" name="description" rows="4" class="form-control" placeholder="最大140个字符"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-7">
+								<div class="btns">
+									<button type="submit" class="ctlBtn btn btn-primary">开始上传</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="tab-2" class="tab-pane">
+					<div class="uploader wu-example">
+						<div class="row">
+							<div class="thelist uploader-list"></div>
+						</div>
+						<div class="btns">
+							<div class="btn picker">选择文件</div>
+							<button class="ctlBtn btn btn-primary">开始上传</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-content" th:if="${#httpServletRequest.getParameter('fieldName')!=null}">
+				<div id="tab-1" class="tab-pane active">
+					<div class="col-md-9">
+						<div class="row">
+							<div class="btn picker">选择文件</div>
+							<button class="ctlBtn btn btn-primary">开始上传</button>
+						</div>
+						<div class="row">
+							<div class="thelist uploader-list"></div>
+						</div>
+					</div>
+				</div>
+				<div id="tab-3" class="tab-pane">
+					<form th:if="${upType=='file'}" th:action="@{/admin/m/base/file/list.gsp}" id="onlineImageFilterForm" role="form" action="#" method="post"></form>
+					<form th:if="${upType=='doc'}" th:action="@{/admin/m/base/doc/list.gsp}" id="onlineImageFilterForm" role="form" action="#" method="post"></form>
+					<form th:if="${upType=='video'}" th:action="@{/admin/m/base/video/list.gsp}" id="onlineImageFilterForm" role="form" action="#" method="post"></form>
+					<div class="row">
+						<div id="onlineImageTableDiv" class="thelist uploader-list"></div>
+						<div id="onlineImagePageDiv" class="text-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer" th:if="${#httpServletRequest.getParameter('fieldName')!=null}">
+	<button class="btn btn-primary selectFileBtn" type="button">
+		<strong>确 定</strong>
+	</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">
+		<strong>关 闭</strong>
+	</button>
+</div>
+<script th:src="@{/resources/vendor/webuploader/webuploader.js}"></script>
+<script th:src="@{/resources/js/common/fileUpload.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var type = /*[[${upType}]]*/'';
+    var accept = {};
+    var filedName = /*[[${#httpServletRequest.getParameter('fieldName')}]]*/'fieldName';
+    var showFileId = '#'+filedName;
+    var fileUploadUrl = /*[[@{/admin/m/base/file/uploadFile.gsp}]]*/'';
+    var fileGetUrl = /*[[@{/admin/m/base/file/findByIds.gsp}]]*/'';
+    var fileIcon = 'fa fa-file';
+    if (type == 'video') {
+        fileUploadUrl = /*[[@{/admin/m/base/video/uploadFile.gsp}]]*/'';
+        var fileGetUrl = /*[[@{/admin/m/base/video/findByIds.gsp}]]*/'';
+        accept = {
+            extensions : 'flv,swf,rm,rmvb,wmv,avi,mp4,3gp,mkv'
+        };
+        fileIcon = 'fa fa-film';
+    } else if (type == 'doc') {
+        fileUploadUrl = /*[[@{/admin/m/base/doc/uploadFile.gsp}]]*/'';
+        var fileGetUrl = /*[[@{/admin/m/base/doc/findByIds.gsp}]]*/'';
+        accept = {};
+        fileIcon = 'fa fa-file-text-o';
+    }
+    /*]]>*/
+</script>
+<script th:inline="javascript" th:if="${#httpServletRequest.getParameter('fieldName')==null}">
+    /*<![CDATA[*/
+    $(function() {
+        var title = "";
+        var description = "";
+        var singUploader = createFileUpload($('#tab-1'), fileUploadUrl, false, 'fileInputIdName', accept);
+        var mulitUploader = createFileUpload($('#tab-2'), fileUploadUrl, true, 'fileInputIdName', accept);
+        singUploader.on('uploadBeforeSend', function(block, data) {
+            data.title = title;
+            data.description = description;
+        });
+        singUploader.on('uploadSuccess', function(file) {
+            myTable.refresh();
+            tg_alertSuccess();
+            $('#commonWin').modal('hide');
+        });
+        mulitUploader.on('uploadFinished', function(file) {
+            myTable.refresh();
+            tg_alertSuccess();
+            $('#commonWin').modal('hide');
+        });
+        $('#uploadForm').validate({
+            rules : {
+                title : {
+                    maxlength : 40
+                },
+                description : {
+                    maxlength : 140
+                }
+            },
+            messages : {
+
+            },
+            submitHandler : function(f) {
+                title = $('#title').val();
+                description = $('#description').val();
+                singUploader.upload();
+            }
+        });
+    });
+    /*]]>*/
+</script>
+
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript" id="onlineImageTpl" type="text/html" th:if="${#httpServletRequest.getParameter('fieldName')!=null}">
+<![CDATA[*/
+<br/>
+{{# 
+var glUrl = /*[[${session.global.contextPath}]]*/'url'; 
+var len = d.records.length;
+if(len>0){
+	for(var i = 0, len = d.records.length; i < len; i++){ 
+		var record=d.records[i];
+	}}
+<div class="pull-left" style="width:160px;">
+	<div class="file" onclick="onlinSelect(this)" fileChecked="no" id="{{record.id}}">
+		<div class="icon">
+			<i class="img-responsive {{fileIcon}}"></i>
+	    </div>
+		<div class="file-name" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">
+			<small class="text-success">{{record.videoName||""}}</small>
+			<br/>
+		    <small>{{record.createDataTime||""}}</small>
+		</div>
+	</div>
+<div class="clearfix"></div>
+</div>
+	{{# } }}
+{{# } }}
+</script>
+<script th:inline="javascript" th:if="${#httpServletRequest.getParameter('fieldName')!=null}">
+    /*<![CDATA[*/
+    var onlineSetting = {
+        dataTableTpl : 'onlineImageTpl', //模板
+        dataTableDiv : 'onlineImageTableDiv', //表格
+        dataTableFilterForm : 'onlineImageFilterForm', //过滤表单
+        dataTablePageDiv : 'onlineImagePageDiv', //分页
+        pageable : true, //分页
+        page : 1
+    };
+    
+    var onlineTable = new TG_Tabel.createNew(onlineSetting);
+    
+    $(function() {
+        var singUploader = createFileUpload($('#tab-1'), fileUploadUrl, false, 'fileInputIdName', accept);
+        $('#tab-1 .ctlBtn').on('click', function() {
+			singUploader.gi_uploaderBtnClick();
+		});
+        onlineTable.init();
+    });
+    
+    var ids = '';
+    var idInputs = {};
+    $('.selectFileBtn').click(function() {
+        var currTabType = $('#nav-tabs-selFile .active').attr('upType');
+        if (currTabType === 'online') {
+            idInputs = $('#tab-3 input[name="fileInputIdName"]').first();
+        } else if(currTabType === 'single'){
+            idInputs = $('#tab-1 input[name="fileInputIdName"]');
+        }
+        if (idInputs == null || idInputs.length==0) {
+            bootstrapQ.alert("请选择文件进行上传！");
+        } else {
+            idInputs.each(function(){
+                ids+=$(this).val()+',';
+            });
+            
+            tg_simpleAjaxPost(fileGetUrl, {
+                ids : ids
+            }, function(d) {
+                var result = $.parseJSON(d);
+                $(showFileId).html('');
+                if (result.obj != null && result.obj.length > 0) {
+                    for (var i = 0; i < result.obj.length; i++) {
+                        var id = null;
+                        var fileName = null;
+                        if (type == 'video') {
+                            fileName = result.obj[0].videoName;
+                            id = result.obj[0].id;
+						} else if (type == 'file') {
+						    fileName = result.obj[0].fileName;
+						    id = result.obj[0].id;
+						} else if (type == 'doc') {
+						    fileName = result.obj[0].docName;
+						    id = result.obj[0].id;
+						}
+                        var divId = new Date().getTime()+i;
+                        var $li = $('<div style="width:160px;" class="file" id="'+divId+'"><div class="icon"><i class="img-responsive '+fileIcon+'"></i></div><div class="file-name">'+fileName+'</div><a class="pull-right delBtn">删除</a></div>');
+                        $li.append($('<input type="hidden" name="'+filedName+'" value="'+id+'">'));
+                        $(showFileId).append($li);
+                    }
+                    $(showFileId).on('click', '.delBtn', function() {
+                        $(this).parent().remove();
+                    }); 
+                    $('#uploaderWin').modal('hide');
+                }
+            });
+        }
+    });
+    
+    function onlinSelect(obj) {
+        var $this = $(obj);
+        $('#tab-3').find('.fa-check').remove();
+        $('#tab-3').find('.fileNameInput').remove();
+        $('#tab-3').find('.file').attr('imageChecked', 'no');
+        $this.append($('<span class="fa fa-check pull-right" style="font-size:25px;position: absolute;right: 0px;bottom: 0px;color: #00b7ee;"></span>'));
+        $this.append($('<input type="hidden" class="fileNameInput" name="fileInputIdName" value="' + $this.attr('id') + '">'));
+    }
+    /*]]>*/
+</script>

@@ -1,0 +1,105 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <description>Spring MVC</description>
+    
+    <!-- 属性和配置文件读入 ,多个用逗号隔开 数据库参数和系统参数 -->
+    <context:property-placeholder location="classpath:application.properties" />
+
+    <!-- 只搜索@Controller和@ControllerAdvice标注的类 不搜索其他标注的类 -->
+    <context:component-scan
+        base-package="com.turingoal.cms.core.web.controller.admin,com.turingoal.cms.core.web.controller.admin.advice,com.turingoal.cms.modules.**.web.controller.admin"
+        use-default-filters="false">
+        <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Controller" />
+        <context:include-filter type="annotation"
+            expression="org.springframework.web.bind.annotation.RestController" />
+        <context:include-filter type="annotation"
+            expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+        <context:exclude-filter type="annotation"
+            expression="org.springframework.stereotype.Service" />
+    </context:component-scan>
+
+    <!-- 如果Proxy-targer-class=false，默认是用jdk动态代理。 所以代理不了controller类,需要配置为true 
+        shiro配置注解方式和事务有冲突，新增、修改、删除不能用。shiro改为动态filterChainDefinitions ******************** 
+        <aop:aspectj-autoproxy proxy-target-class="true" /> -->
+
+    <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射. 指定自己定义的validator -->
+    <mvc:annotation-driven validator="validator">
+        <!-- 异步支持 默认30秒超时 <mvc:async-support default-timeout="30000" task-executor="executor" 
+            /> -->
+        <!--用fastJson需要在这配置 -->
+        <mvc:message-converters>
+            <ref bean="jsonConverter" />
+        </mvc:message-converters>
+        <!-- Atmosphere服务器推送 <mvc:argument-resolvers> <bean class="com.turingoal.common.util.net.AtmosphereArgumentResolver" 
+            /> </mvc:argument-resolvers> -->
+    </mvc:annotation-driven>
+
+    <!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+    <mvc:default-servlet-handler />
+    <!-- 资源 映射 -->
+    <mvc:resources mapping="/resources/**" location="/resources/" />
+    <mvc:resources mapping="/app/**" location="/app/" />
+    <mvc:resources mapping="/files/**" location="/files/" />
+    
+    <!-- thymeleaf -->
+    <bean id="templateResolver"
+        class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+        <property name="prefix" value="/WEB-INF/views/admin/" />
+        <property name="suffix" value=".html" />
+        <property name="templateMode" value="HTML5" />
+        <property name="characterEncoding" value="UTF-8"/>
+        <property name="cacheable" value="false"/> <!-- 后台模板，部署时加缓存 -->
+        <property name="cacheablePatterns" value="/*"></property>
+    </bean>
+        
+    <bean id="templateEngine"
+        class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver" />
+        <property name="additionalDialects">
+            <set>
+                <bean class="com.turingoal.cms.core.web.processor.CmsCoreDialect"/>
+                <bean class="com.turingoal.cms.modules.base.web.processor.CmsBaseDialect"/>
+                <bean class="com.turingoal.cms.modules.ext.web.processor.CmsExtDialect"/>
+                <bean class="com.turingoal.cms.modules.plug.web.processor.CmsPlugDialect"/>
+            </set>
+        </property>
+    </bean>
+    
+    <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine" />
+        <property name="characterEncoding" value="UTF-8"/>
+    </bean>
+
+    <!-- 文件上传 -->
+    <bean id="multipartResolver"
+        class="com.turingoal.cms.core.commons.TgMultipartResolver">
+        <property name="excludeUrl" value="controller.gsp"/>
+        <!-- 解析request的编码 ，默认是 ISO-8859-1 -->
+        <property name="defaultEncoding" value="UTF-8" />
+        <!-- 设置最大允许的大小(字节)。-1表示没有限制(默认) 1024*1024*100=100MB -->
+        <property name="maxUploadSize" value="${system.maxUploadSize}" />
+        <!--被允许的最大的内存的大小，Default is 10240 bytes -->
+        <property name="maxInMemorySize" value="20480" />
+        <!-- 一个类似懒加载的属性.可以定义该属性.让解析文件的时候再抛异常,然后Controller中定义异常处理的方法 -->
+        <property name="resolveLazily" value="true" />
+    </bean>
+
+    <!-- 设置本地化信息的拦截器 -->
+    <mvc:interceptors>
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="language" />
+        </bean>
+    </mvc:interceptors>
+</beans>

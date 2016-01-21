@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.AttrDao">
+    
+    <!-- 查询全部 Attr -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.AttrQuery" resultType="com.turingoal.cms.modules.base.domain.Attr">
+        SELECT * FROM tg_cms_m_base_attr ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 通过id得到一个 Attr-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Attr">
+        SELECT * FROM tg_cms_m_base_attr WHERE id = #{id}
+    </select>
+    
+    <!-- 根据文章id获取 Attr-->
+    <select id="findByInfoId" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Attr">
+        SELECT attr.*, attrs_info.*, image.img_path as image_path FROM tg_cms_m_base_attr as attr
+        LEFT JOIN tg_cms_m_base_info_attrs as attrs_info ON attr.id = attrs_info.attribute_id and attrs_info.info_id = #{id}
+        LEFT JOIN tg_cms_m_base_image as image ON attrs_info.image = image.id
+    </select>
+    
+    <!-- 通过codeNum得到一个 Attr-->
+    <select id="getByCode" parameterType="String" resultType="com.turingoal.cms.modules.base.domain.Attr">
+        SELECT * FROM tg_cms_m_base_attr WHERE code_num = #{codeNum}
+    </select>
+    
+    <!-- 新增 Attr -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.AttrForm">
+        INSERT INTO tg_cms_m_base_attr (
+            id, code_num, att_name, with_image, img_scale, img_exacte, add_watermark, img_width, img_height, sort_order 
+        )
+        VALUES(
+            #{id}, #{codeNum}, #{attName}, #{withImage}, #{imgScale}, #{imgExacte}, #{addWatermark}, #{imgWidth}, #{imgHeight}, #{sortOrder}
+        )
+    </insert>
+    
+    <!-- 修改 Attr -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.AttrForm">
+        UPDATE tg_cms_m_base_attr SET
+            code_num = #{codeNum}, 
+            att_name = #{attName}, 
+            with_image = #{withImage}, 
+            img_scale = #{imgScale}, 
+            img_exacte = #{imgExacte}, 
+            add_watermark = #{addWatermark}, 
+            img_width = #{imgWidth}, 
+            img_height = #{imgHeight}, 
+            sort_order = #{sortOrder}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 Attr -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_attr WHERE id = #{id}
+    </delete>
+</mapper>

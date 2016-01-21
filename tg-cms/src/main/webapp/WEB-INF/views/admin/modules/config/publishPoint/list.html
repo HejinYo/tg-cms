@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-发布点配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
+</head>
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=gconfig,current=publishPoint)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=全局配置,current=发布点配置)">面包屑栏</div>
+				<div class="main-box clearfix">
+					<header class="main-box-header clearfix">
+						<h2>发布点配置</h2>
+					</header>
+					<div class="main-box-body clearfix">
+						<div class="row m-b-sm m-t-sm">
+							<div th:if="${#checkAuth.checkAuth('publishPoint_add')}" class="col-md-8">
+								<a th:href="@{/admin/m/base/publishPoint/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+							</div>
+						</div>
+						<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover ">
+							<thead>
+								<tr>
+									<th width="60">#</th>
+									<th>名称</th>
+									<th>发布类型</th>
+									<th>发布方式</th>
+									<th>描述</th>
+									<th width="120">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div th:replace="fragments/footer_admin">底部</div>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/***** 当前页js start *****/-->
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
+<!--/***** 当前页js end *****/-->
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript">
+/*<![CDATA[*/
+//表格
+var myTable;
+//表格列定义
+var columnDefs = [ {
+    //第一列，用来显示序号
+    "searchable" : false,
+    "orderable" : false,
+    "targets" : 0
+} ];
+var columns = [ {
+    //第一列，用来显示序号
+    "data" : null
+},{
+	"data" : "pName"
+},{
+    "data" : "pType",
+    render : function(data, type, row, meta) {
+        if(data === 1){
+            return "<span>HTML发布点</span>";
+        }else if(data === 2){
+            return "<span>附件发布点</span>";
+        }
+    }
+},{
+    "data" : "pMethod",
+    render : function(data, type, row, meta) {
+        if(data === 1){
+            return "<span>文件系统</span>";
+        }else if(data === 2){
+            return "<span>FTP</span>";
+        }
+    }
+},{
+    "data" : "description"
+},{
+    "data" : null, //最后一列，操作按钮
+    render : function(data, type, row, meta) {
+        var editCheck = /*[[${#checkAuth.checkAuth('publishPoint_edit')}]]*/;
+        var delCheck = /*[[${#checkAuth.checkAuth('publishPoint_delete')}]]*/;
+        var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
+        var result = '';        
+        if(editCheck){
+          //修改按钮
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+        }else{
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
+        }
+        if(delCheck){
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
+        }else{
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
+        }  
+        return result;
+    } 
+} ];
+//ajax参数
+var ajaxDataParamFun = function(d) {
+};
+//表格setting
+var setting = {
+    listUrl : /*[[@{/admin/m/base/publishPoint/list.gsp}]]*/'url',
+    editUrl : /*[[@{/admin/m/base/publishPoint/edit_}]]*/'url',
+    deleteUrl : /*[[@{/admin/m/base/publishPoint/delete_}]]*/'url',
+    columnDefs : columnDefs, //表格列定义
+    columns : columns, //表格列
+    dataTableDiv : 'dataTable', //表格
+    ajaxDataParamFun : ajaxDataParamFun, //ajax参数
+    pageable : true, //是否分页
+    showIndexColumn : true, //是否显示第一列的索引列
+    enabledChange : true
+};
+//创建表格
+myTable = new TG_Tabel.createNew(setting);
+//加载完成后执行
+$(function() {
+    //表格初始化
+    myTable.init();
+});      
+/*]]>*/
+</script>
+</html>

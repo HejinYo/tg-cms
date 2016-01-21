@@ -1,0 +1,18 @@
+<!--/*******公共窗口*******/-->
+<div th:fragment="window(windowId)" th:id="${windowId}" tabIndex="-2" class="modal fade bs-example-modal-lg" aria-hidden="true" data-keyboard="false" data-backdrop="static">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content"></div>
+	</div>
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+        $(function() {
+            var windowId = /*[[${windowId}]]*/'windowId';
+            $("#" + windowId).on("hidden.bs.modal", function() {
+                $(this).removeData("bs.modal");
+            });
+        });
+        /*]]>*/
+    </script>
+</div>
+
+

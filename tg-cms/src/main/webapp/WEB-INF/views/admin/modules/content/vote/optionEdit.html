@@ -1,0 +1,65 @@
+<form th:action="@{/admin/m/ext/vote/editOption.gsp}" th:object="${result}" id="editOptionForm" class="form-horizontal" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改选项信息</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<input th:field="*{voteId}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-2 control-label">选项标题<label class="text-danger">*</label>：</label>
+					<div class="col-md-10">
+                        <input th:field="*{title}" placeholder="请输入选项标题" type="text" class="form-control" />
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">投票数<label class="text-danger">*</label>：</label>
+					<div class="col-md-10">
+                        <input th:field="*{voteCount}" placeholder="请输入投票数" type="text" class="form-control" />
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">描　　述：</label>
+					<div class="col-md-10">
+						<textarea th:field="*{description}" placeholder="最多输入140字" class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            title : {
+                required : true,
+                maxlength : 40
+            },
+            voteCount : {
+                required : true,
+                digits:true,
+            	max : 20,
+            	min : 0
+            },
+            description : {
+            	maxlength : 140
+            }
+        }
+        var messages = {
+			
+        }
+        myOptionTable.add('commonOptionWin', 'editOptionForm', rules, messages);
+    });
+    /*]]>*/
+</script>

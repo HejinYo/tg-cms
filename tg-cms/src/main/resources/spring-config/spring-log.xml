@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <description>spring 基于AOP的日志处理</description>
+
+    <bean id="logHelper" class="com.turingoal.common.util.spring.SpringAopLogHelper"></bean>
+    <!-- (execution(public com.turingoal.cms.core.service.*.*(..))) or (execution(public 
+        com.turingoal.cms.modules.communal.service.*.*(..))) -->
+    <aop:config expose-proxy="true" proxy-target-class="true">
+        <!--切入点 使用了自定义的MethodLog的注解 -->
+        <aop:pointcut expression="@annotation(com.turingoal.common.annotation.MethodLog)"
+            id="logPointcut" />
+        <!-- 切面： 将哪个对象中的哪个方法，织入到哪个切入点 -->
+        <aop:aspect id="logAspect" ref="logHelper">
+            <!-- 前置通知 -->
+            <aop:before method="log" pointcut-ref="logPointcut" />
+            <aop:after method="logArg" pointcut-ref="logPointcut" />
+            <aop:after-returning method="logArgAndReturn"
+                returning="returnObj" pointcut-ref="logPointcut" />
+        </aop:aspect>
+    </aop:config>
+</beans> 

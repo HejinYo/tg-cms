@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ehcache>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
+    updateCheck="true" monitoring="autodetect" dynamicConfig="true">
+
+    <!-- 如果使用的DiskStore（磁盘缓存），需要配置DiskStore。如果不配置，Ehcache将会使用java.io.tmpdir。diskStroe的“path”属性是用来配置磁盘缓存使用的物理路径的，Ehcache磁盘缓存使用的文件后缀名是.data和.index。 
+        当需要使用磁盘保存的时候，需要对象实现序列化接口。path 配置文件存储位置，如user.home，user.dir，java.io.tmpdir -->
+    <!--<diskStore path="d:/ehcache/turingoal-cms/tmpdir" />-->
+
+    <!-- name：Cache的唯一标识 
+             maxElementsInMemory：内存中最大缓存对象数 
+             maxElementsOnDisk：磁盘中最大缓存对象数，若是0表示无穷大 
+             eternal：Element是否永久有效，一但设置了，timeout将不起作用 
+             overflowToDisk：配置此属性，当内存中Element数量达到maxElementsInMemory时，Ehcache将会Element写到磁盘中 
+             timeToIdleSeconds：设置Element在失效前的允许闲置时间。仅当element不是永久有效时使用，可选属性，默认值是0，也就是可闲置时间无穷大 
+             timeToLiveSeconds：设置Element在失效前允许存活时间。最大时间介于创建时间和失效时间之间。仅当element不是永久有效时使用，默认是0.，也就是element存活时间无穷大 
+             diskPersistent：是否缓存虚拟机重启期数据 diskExpiryThreadIntervalSeconds：磁盘失效线程运行时间间隔，默认是120秒 
+             diskSpoolBufferSizeMB：这个参数设置DiskStore（磁盘缓存）的缓存区大小。默认是30MB。每个Cache都应该有自己的一个缓冲区 
+             memoryStoreEvictionPolicy：当达到maxElementsInMemory限制时，Ehcache将会根据指定的策略去清理内存。默认策略是LRU（最近最少使用）。你可以设置为FIFO（先进先出）或是LFU（较少使用） 
+        -->
+
+    <!-- 默认缓存 -->
+    <!-- 内存中最多可缓存10000个Element，其中的element会在闲置5分钟或是存活10分钟之后失效。 超过10000element时，element将会输出到磁盘中，输出路径是java.io.tmpdir。 -->
+    <defaultCache 
+        maxElementsInMemory="10000" 
+        eternal="false"
+        timeToIdleSeconds="300" 
+        timeToLiveSeconds="600" 
+        overflowToDisk="true"
+        diskSpoolBufferSizeMB="100" 
+        maxElementsOnDisk="10000000"
+        diskPersistent="false" 
+        diskExpiryThreadIntervalSeconds="600"
+        memoryStoreEvictionPolicy="LRU" 
+        statistics="false" />
+
+    <!-- service 缓存配置 -->   
+    <cache name="serviceCache"  
+        maxElementsInMemory="10000"    
+        eternal="false"    
+        overflowToDisk="false"    
+        diskPersistent="false"     
+        timeToIdleSeconds="0"    
+        timeToLiveSeconds="300"     
+        memoryStoreEvictionPolicy="LRU" > 
+    </cache>  
+
+    <!-- 系统用户缓存  没必要过期 -->
+    <cache name="sys-userCache"
+        maxEntriesLocalHeap="10000"
+        overflowToDisk="false"
+        eternal="false"
+        diskPersistent="false"
+        timeToLiveSeconds="0"
+        timeToIdleSeconds="0"
+        statistics="true"/>
+
+    <!-- 系统用户授权缓存  没必要过期 -->
+    <cache name="sys-resourceCache"
+        maxEntriesLocalHeap="10000"
+        overflowToDisk="false"
+        eternal="false"
+        diskPersistent="false"
+        timeToLiveSeconds="0"
+        timeToIdleSeconds="0"
+        memoryStoreEvictionPolicy="LRU"
+        statistics="true"/>
+        
+    <!-- security userCache -->
+    <cache name="secruity-userCache"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+    <!-- secruity 登录记录缓存 锁定10分钟 -->
+    <cache name="secruity-passwordRetryCache"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+    <!-- secruity authenticationCache -->
+    <cache name="secruity-authenticationCache"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="3600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+    <!-- secruity  authorizationCache -->
+    <cache name="secruity-authorizationCache"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="3600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+    <!-- activeSessionCache -->
+    <cache name="secruity-activeSessionCache"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="3600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+    <!-- secruity-kickout-session -->
+    <cache name="secruity-kickout-session"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="3600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+    <!-- dev-iconCache -->
+    <cache name="dev-iconCache"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="3600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+    <!-- dev-keyValueCache -->
+    <cache name="dev-keyValueCache"
+        maxEntriesLocalHeap="2000"
+        eternal="false"
+        timeToIdleSeconds="3600"
+        timeToLiveSeconds="0"
+        overflowToDisk="false"
+        statistics="true">
+    </cache>
+</ehcache>

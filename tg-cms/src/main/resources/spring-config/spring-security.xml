@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <description>spring security权限控制</description>
+
+    <!-- 开发环境 配置debug，会输出详细Security处理日志，正式环境建议去掉 -->
+    <sec:debug />
+    <!-- 配置不过滤的资源（静态资源及登录相关）, 当指定一个http元素的security属性为none时，表示其对应pattern的filter链为空 -->
+    <sec:http pattern="/files/**" security="none" />
+    <sec:http pattern="/resources/**" security="none" />
+    <!-- 登录页面需要配置成可以直接访问的， 登录页面加*因为后面可能带参数 -->
+    <sec:http pattern="${security.loginPageUrl}*" security="none" />
+    <!-- 登录页面需要配置成可以直接访问的， 登录页面加*因为后面可能带参数 -->
+    <sec:http pattern="${security.adminLoginPageUrl}*" security="none" />
+    <!-- 获取验证码的路径 -->
+    <sec:http pattern="${security.getCaptchaUrl}" security="none" />
+    <sec:http pattern="${security.adminGetCaptchaUrl}" security="none" />
+    <!-- 拒绝访问页面路径 -->
+    <sec:http pattern="${security.deniedPageUrl}" security="none" />
+
+    <!-- http元素用于定义Web相关权限控制 -->
+    <sec:http auto-config="false" use-expressions="false"
+        entry-point-ref="authenticationEntryPoint"
+        access-decision-manager-ref="accessDecisionManager">
+        <!-- headers 默认启用 -->
+        <sec:headers />
+        <!-- 未登录用户 -->
+        <sec:anonymous enabled="false" username="游客" />
+        <!-- 自定义权限不足处理handler -->
+        <sec:access-denied-handler ref="accessDeniedHandler" />
+        <!-- 表达式 说明 hasRole([role]) 返回 true 如果当前主体拥有特定角色。 hasAnyRole([role1,role2]) 
+            返回 true 如果当前主体拥有任何一个提供的角色 （使用逗号分隔的字符串队列） principal 允许直接访问主体对象，表示当前用户 authentication 
+            允许直接访问当前 Authentication对象 从SecurityContext中获得 permitAll 一直返回true denyAll 
+            一直返回false isAnonymous() 如果用户是一个匿名登录的用户 就会返回 true isRememberMe() 如果用户是通过remember-me 
+            登录的用户 就会返回 true isAuthenticated() 如果用户不是匿名用户就会返回true isFullyAuthenticated() 
+            如果用户不是通过匿名也不是通过remember-me登录的用户时， 就会返回true。 -->
+        <sec:intercept-url pattern="/admin/**" access="IS_AUTHENTICATED_FULLY" />
+        <!-- session管理 invalid-session-url:session超时跳转页面 -->
+        <sec:session-management invalid-session-url="${security.indexUrl}?type=timeout">
+            <!-- 同一个用户最大session数，后来的踢掉前面的 -->
+            <sec:concurrency-control max-sessions="1"
+                error-if-maximum-exceeded="false" expired-url="${security.indexUrl}?type=expired" />
+        </sec:session-management>
+        <!-- 通过数据库管理url 要在默认的FILTER_SECURITY_INTERCEPTOR之前。3.0以后不能取代默认的filter -->
+        <sec:custom-filter ref="filterSecurityInterceptor"
+            before="FILTER_SECURITY_INTERCEPTOR" />
+        <!-- 前台filter 在FORM_LOGIN_FILTER 之前 -->
+        <sec:custom-filter before="FORM_LOGIN_FILTER" ref="authenticaionFilter4fore" />
+        <!-- 后台filter 替换掉FORM_LOGIN_FILTER -->
+        <sec:custom-filter position="FORM_LOGIN_FILTER"
+            ref="authenticaionFilter4admin" />
+        <!-- 退出过滤器 -->
+        <sec:custom-filter before="LOGOUT_FILTER" ref="logoutFilter4fore" />
+        <sec:custom-filter position="LOGOUT_FILTER" ref="logoutFilter4admin" />
+        <!-- 防止跨站提交攻击, 需要禁用，不然springmvc的rest的post方法都不好用了 -->
+        <sec:csrf disabled="true" />
+        <!-- 防止跨站提交攻击, 但是rest服务会失效，需要自定义一个Matcher <sec:csrf disabled="true" request-matcher-ref="csrfSecurityRequestMatcher" 
+            /> -->
+    </sec:http>
+
+    <!-- 入口EntryPoint -->
+    <bean id="authenticationEntryPoint"
+        class="com.turingoal.cms.core.commons.TgSecurityLoginAuthenticationEntryPoint">
+        <!-- spring security4 采用以下方式 -->
+        <constructor-arg value="${security.loginPageUrl}" />
+        <!-- 前台登录路径 -->
+        <property name="foreLoginPageUrl" value="${security.loginPageUrl}" />
+        <!-- 后台登录路径 -->
+        <property name="adminLoginPageUrl" value="${security.adminLoginPageUrl}" />
+    </bean>
+
+    <!-- 权限不足handler4fore -->
+    <bean id="accessDeniedHandler"
+        class="com.turingoal.cms.core.commons.TgSecurityAccessDeniedHandler">
+        <property name="accessDeniedUrl" value="${security.deniedPageUrl}"></property>
+    </bean>
+
+    <!-- 决策管理器,为Web或方法的安全提供访问决策：AffirmativeBased 一票通过，只要有一个投票器通过就允许访问 ConsensusBased 
+        有一半以上投票器通过才允许访问资源 UnanimousBased 所有投票器都通过才允许访问 -->
+    <bean id="accessDecisionManager"
+        class="org.springframework.security.access.vote.AffirmativeBased">
+        <constructor-arg name="decisionVoters">
+            <list>
+                <ref bean="roleVoter" />
+                <ref bean="authenticatedVoter" />
+            </list>
+        </constructor-arg>
+        <property name="messageSource" ref="messageSource"></property>
+    </bean>
+
+    <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
+        <property name="rolePrefix" value=""></property>
+    </bean>
+
+    <bean id="authenticatedVoter"
+        class="org.springframework.security.access.vote.AuthenticatedVoter" />
+
+    <!-- 通过数据库管理url -->
+    <bean id="filterSecurityInterceptor"
+        class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <property name="accessDecisionManager" ref="accessDecisionManager" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="securityMetadataSource" ref="securityMetadataSource" />
+    </bean>
+
+    <!-- 通过数据库管理url -->
+    <bean id="securityMetadataSource"
+        class="com.turingoal.cms.core.commons.TgSecurityURLFilterInvocationSecurityMetadataSource">
+        <!-- intercept-url。顺序很重要，spring security按顺序获得第一个匹配的url，通过放行不继续匹配，不通过结束 -->
+        <property name="interceptUrlsMap">
+            <map>
+                <entry key="/admin/**" value="IS_AUTHENTICATED_FULLY" />
+            </map>
+        </property>
+    </bean>
+
+    <!-- 启用用户的缓存功能 -->
+    <bean id="ehcacheManagerFactory"
+        class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
+    <bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheName" value="secruity-cache" />
+        <property name="cacheManager" ref="ehcacheManagerFactory" />
+    </bean>
+    <bean id="userCache"
+        class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+        <property name="cache" ref="userEhCache" />
+    </bean>
+
+    <!-- 用于认证的AuthenticationManager -->
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider ref="authenticationProvider" />
+    </sec:authentication-manager>
+
+    <!-- authenticationProvider, AuthenticationManager是通过它来认证用户的 -->
+    <bean id="authenticationProvider"
+        class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <!-- 用户名不存在抛出UserNotFoundException -->
+        <property name="hideUserNotFoundExceptions" value="false" />
+        <property name="userDetailsService" ref="userDetailsService" />
+        <!--<property name="userCache" ref="userCache" /> -->
+        <property name="messageSource" ref="messageSource" />
+        <property name="passwordEncoder" ref="passwordEncoder" />
+    </bean>
+
+    <!-- 用来获取用户信息 -->
+    <bean id="userDetailsService"
+        class="com.turingoal.cms.core.commons.TgSecurityUserDetailsService" />
+
+    <!-- 密码生成器。 bcrypt算法与md5/sha算法有一个很大的区别，每次生成的hash值都是不同的，这样暴力猜解起来或许要更困难一些 -->
+    <bean id="passwordEncoder"
+        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength"
+            value="${security.passwordEncoderStrength}" />
+    </bean>
+
+    <!-- 防止跨站提交攻击, 但是rest服务会失效，需要自定义一个Matcher -->
+    <bean id="csrfSecurityRequestMatcher"
+        class="com.turingoal.cms.core.commons.TgSecurityCsrfRequestMatcher">
+        <property name="execludeUrls">
+            <list>
+                <value>/rest/</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--日志 loggerListener -->
+    <bean id="loggerListener"
+        class="org.springframework.security.authentication.event.LoggerListener" />
+
+    <!-- 导入其它spring security 配置文件 -->
+    <import resource="classpath:spring-config/spring-security-fore.xml" />
+    <import resource="classpath:spring-config/spring-security-admin.xml" />
+</beans>

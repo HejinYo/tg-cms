@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- status="OFF"，可以去掉，它的含义为是否记录log4j2本身的event信息，默认是OFF -->
+<Configuration>
+    <!-- ****************日志存放的路径等**************** -->
+    <Properties>
+        <!-- 应用名称  -->
+        <Property name="APPLICATION_NAME">turingoal-tgcms</Property>
+        <!-- 日志基本配置 -->
+        <Property name="ROOT_LEVEL">DEBUG</Property>
+        <Property name="LOG_HOME">../temp/log4j/</Property>
+        <Property name="LOG_FILE_NAME">${LOG_HOME}/${APPLICATION_NAME}/temp.log</Property>
+        <Property name="LOG_ROLLING_FILE_NAME">${LOG_HOME}/${APPLICATION_NAME}/%d{yyyy-MM-dd}/%d{yyyy-MM-dd}-log%i.gz</Property>
+        <Property name="LOG_PATTERN">[%p]-[%d{yyyy年-MM月-dd日 HH:mm:ss.SSS}]-[%t]-[%c]-{%m}%n</Property>
+        <!--数据库参数-->
+        <Property name="db.tableName">tg_c_log</Property>
+        <Property name="db.connectionFactoryClass">com.turingoal.cms.core.commons.SystemConnectionFactory</Property>
+        <Property name="db.connectionFactoryMethod">getDatabaseConnection</Property>
+        <!--邮件配置参数-->
+        <Property name="mail.subject">错误日志</Property>
+        <Property name="mail.from">aaa@aaa.com</Property>
+        <Property name="mail.to">aaa@aaa.com</Property>
+        <Property name="mail.smtpHost">localhost</Property>
+        <Property name="mail.smtpPort">25</Property>
+        <Property name="mail.smtpUsername">admin</Property>
+        <Property name="mail.smtpPassword">admin</Property>
+    </Properties>
+    <!-- ****************Appenders**************** -->
+    <Appenders>
+        <!-- ######日志输出到窗口 target可以是"SYSTEM_OUT"或者"SYSTEM_ERR".默认是"SYSTEM_ERR".###### -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout charset="UTF-8" pattern="${LOG_PATTERN}" />
+        </Console>
+        <!-- ######日志输出到文件###### -->
+        <RollingRandomAccessFile name="RollingRandomAccessFile" fileName="${LOG_FILE_NAME}" filePattern="${LOG_ROLLING_FILE_NAME}" immediateFlush="false" append="false">
+            <PatternLayout>
+                <Pattern>${LOG_PATTERN}</Pattern>
+            </PatternLayout>
+            <Policies>
+                <!--每次启动生成一个新的日志文件 -->
+                <OnStartupTriggeringPolicy />
+                <!--每隔六小时生成一个新的日志文件 24/4=6 modulate调节到整倍数 -->
+                <TimeBasedTriggeringPolicy interval="4"
+                    modulate="true" />
+                <!--每到10MB生成一个新的日志文件 -->
+                <SizeBasedTriggeringPolicy size="10 MB" />
+            </Policies>
+            <!-- 最大保持文件数 超过后会删除旧的文件 -->
+            <DefaultRolloverStrategy max="1000" />
+        </RollingRandomAccessFile>
+        <Async name="AsyncRollingRandomAccessFile">
+            <AppenderRef ref="RollingRandomAccessFile" />
+        </Async>
+        <!-- ######日志写到数据库######--> 
+        <JDBC name="DatabaseAppender" tableName="${db.tableName}" bufferSize="1" ignoreExceptions="true"> 
+            <ConnectionFactory class="${db.connectionFactoryClass}" method="${db.connectionFactoryMethod}" /> 
+            <Column name="event_date" isEventTimestamp="true"/> 
+            <Column name="log_type" pattern="%X{logType}" isUnicode="false"/> 
+            <Column name="ip_address" pattern="%X{ipAddress}" isUnicode="false"/> 
+            <Column name="username" pattern="%X{username}" isUnicode="false"/> 
+            <Column name="message" pattern="%message" isUnicode="false"/> 
+            <Column name="exception" pattern="%ex{full}" isUnicode="false"/> 
+        </JDBC> 
+        <!-- ######日志发送到邮件###### <SMTP name="Mail" subject="${mail.subject}" from="${mail.from}" 
+            to="${mail.to}" smtpHost="${mail.smtpHost}" smtpPort="${mail.smtpPort}" smtpUsername="${mail.smtpUsername}" 
+            smtpPassword="${mail.smtpPassword}" bufferSize="512" ignoreExceptions="true"> 
+            </SMTP> -->
+    </Appenders>
+    <!-- ****************Loggers**************** -->
+    <Loggers>
+        <!-- 第三方日志 AsyncLogger暂时不能用 -->
+        <Logger name="org.apache.http" level="ERROR" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Logger name="org.springframework" level="ERROR">
+        </Logger>
+        <Logger name="org.mybatis" level="ERROR">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Logger name="org.apache.shiro" level="ERROR" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Logger name="org.activiti.engine" level="ERROR" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Logger name="org.quartz" level="ERROR" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Logger name="org.apache.commons" level="ERROR" additivity="false">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <!-- 记录登录日志和操作日志到数据库 -->
+        <Logger name="com.turingoal.cms.core.commons.SystemLogHelper" level="INFO" additivity="false">
+            <AppenderRef ref="DatabaseAppender" />
+        </Logger>
+        <Logger name="com.turingoal.cms" level="DEBUG" additivity="false">
+            <AppenderRef ref="RollingRandomAccessFile" />
+        </Logger>
+        <!-- Root -->
+        <Root level="${ROOT_LEVEL}" includeLocation="false">
+            <AppenderRef ref="Console" level="ERROR" />
+            <AppenderRef ref="AsyncRollingRandomAccessFile" level="DEBUG" />
+        </Root>
+    </Loggers>
+</Configuration>

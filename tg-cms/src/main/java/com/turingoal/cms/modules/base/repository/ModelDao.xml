@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.ModelDao">
+    
+    <!-- 查询全部 Model -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.ModelQuery" resultType="com.turingoal.cms.modules.base.domain.Model">
+        SELECT * FROM tg_cms_m_base_model 
+        <if test="type!=null and type!=''">
+            WHERE type=#{type}
+        </if>  
+        ORDER BY sort_order DESC
+    </select>
+    
+    <!-- 通过id得到一个 Model-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Model">
+        SELECT * FROM tg_cms_m_base_model WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 Model -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.ModelForm">
+        INSERT INTO tg_cms_m_base_model (
+            id, type, model_name, description, sort_order
+        )
+        VALUES(
+            #{id}, #{type}, #{modelName}, #{description}, #{sortOrder}
+        )
+    </insert>
+    
+    <!-- 修改 Model -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.ModelForm">
+        UPDATE tg_cms_m_base_model SET
+            type = #{type}, 
+            model_name = #{modelName}, 
+            description = #{description}, 
+            sort_order = #{sortOrder}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 Model -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_model WHERE id = #{id}
+    </delete>
+
+    <!-- 获取所有模型字段 -->
+    <select id="findFieldByModel" parameterType="string" resultType="map">
+        SELECT * FROM tg_c_custom_field WHERE ownerType = '模型' AND ownerId = #{id}
+    </select>
+</mapper>

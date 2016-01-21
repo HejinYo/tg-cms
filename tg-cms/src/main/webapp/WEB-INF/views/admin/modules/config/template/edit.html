@@ -1,0 +1,64 @@
+<form th:action="@{/admin/m/base/template/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改模板</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">模板名称<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{templateName}" placeholder="请输入模板名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">模板代码<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{codeNum}" placeholder="请输入模板代码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">描 述：</label>
+					<div class="col-md-7">
+						<textarea th:field="*{description}" rows="4" class="form-control" placeholder="最大140个字符"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            templateName : {
+                required : true,
+                maxlength : 20
+            },
+            codeNum : {
+                required : true,
+                maxlength : 20
+            },
+            description : {
+                maxlength : 140
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

@@ -1,0 +1,113 @@
+<form th:action="@{/admin/m/ext/guestbookType/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改留言类型</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">类型名称<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<input th:field="*{typeName}" placeholder="请输入类型名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">类型编码<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<input th:field="*{codeNum}" placeholder="请输入类型编码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">开放模式<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{openType}">
+							<option value="1">关闭留言</option>
+							<option value="2">开放前台会员</option>
+							<option value="3">前台会员及游客</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">审核模式<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{verifyType}">
+							<option value="1">不需要审核</option>
+							<option value="2">游客需要审核</option>
+							<option value="3">游客及前台会员</option>
+							<option value="4">所有人员</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">验证码模式<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{captchaType}">
+							<option value="1">不需要验证码</option>
+							<option value="2">游客需要验证</option>
+							<option value="3">游客及前台会员</option>
+							<option value="4">所有人员</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">最大长度<label class="text-danger">*</label>：</label>
+					<div class="col-md-7">
+						<input th:field="*{maxLength}" placeholder="请输入最大长度" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">描　　述：</label>
+					<div class="col-md-7">
+						<textarea class="form-control" placeholder="最多输入140字" th:field="*{description}"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            typeName : {
+                required : true,
+                maxlength : 20
+            },
+            codeNum : {
+                required : true,
+                maxlength : 20
+            },
+            openType : {
+                required : true
+            },
+            verifyType : {
+                required : true
+            },
+            captchaType : {
+                required : true
+            },
+            maxLength : {
+                digits : true,
+                range : [ 1, 1000 ]
+            },
+            description : {
+                maxlength : 140
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

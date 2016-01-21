@@ -1,0 +1,35 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <description>spring 异常处理</description>
+
+    <!-- <bean id="springExceptionHandler" class="com.turingoal.cms.core.commons.SpringExceptionHandler"> 
+        </bean> -->
+
+    <!-- 自定义SimpleMappingExceptionResolver覆盖spring的SimpleMappingExceptionResolver -->
+    <bean id="springExceptionResolver"
+        class="com.turingoal.cms.core.commons.SpringSimpleMappingExceptionHandler">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="com.turingoal.common.exception.SystemException">/resources/html/errors/error_500.html</prop>
+                <prop key="com.turingoal.common.exception.BusinessException">/resources/html/errors/error_exception.html</prop>
+                <prop key="java.io.IOException">/resources/html/errors/error_exception.html</prop>
+                <prop key="java.sql.SQLException">/resources/html/errors/error_exception.html</prop>
+                <prop key="java.lang.Throwable">/resources/html/errors/error_exception.html</prop>
+                <prop key="java.lang.Exception">/resources/html/errors/error_exception.html</prop>
+            </props>
+        </property>
+        <!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+        <property name="warnLogCategory" value="WARN"></property>
+        <!-- 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 -->
+        <property name="defaultErrorView" value="/resources/html/errors/error_exception.html"></property>
+        <!-- 默认HTTP状态码 -->
+        <property name="defaultStatusCode" value="500"></property>
+        <!-- 定义异常处理页面用来获取异常信息的变量名，如果不添加exceptionAttribute属性，则默认为exception -->  
+        <property name="exceptionAttribute" value="exception"/>  
+    </bean>
+</beans>

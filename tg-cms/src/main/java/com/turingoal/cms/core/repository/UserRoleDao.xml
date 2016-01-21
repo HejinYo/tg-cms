@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.core.repository.UserRoleDao">
+    <!-- 查询用户拥有的角色 -->
+    <select id="findByUser" resultType="com.turingoal.cms.core.domain.Role" parameterType="string">
+        SELECT * 
+        FROM tg_c_user_role 
+        LEFT JOIN tg_c_role 
+        ON tg_c_user_role.role_id = tg_c_role.id 
+        WHERE tg_c_user_role.user_id = #{id}
+    </select>
+        
+    <!-- 通过用户id获得角色id集合-->
+    <select id="getRoleIdsByUser" resultType="string" parameterType="string">
+        SELECT tg_c_role.id FROM tg_c_user_role t_u_r
+            LEFT JOIN tg_c_role ON t_u_r.role_id = tg_c_role.id
+        WHERE tg_c_role.enabled = 1 AND t_u_r.user_id = #{userId}
+    </select>
+    
+    <!--根据userId删除一个用户的角色关系 -->
+    <delete id="deleteByUserId" parameterType="string">
+        DELETE FROM tg_c_user_role WHERE user_id = #{userId}
+    </delete>
+    
+    <!--为某个用户新增角色-->
+    <insert id="addUserRole" parameterType="com.turingoal.cms.core.domain.form.UserRoleForm">  
+        INSERT INTO tg_c_user_role(
+            id, user_id, role_id, create_data_time, create_data_username
+        ) VALUES (
+            #{id}, #{userId},#{roleId},#{createDataTime}, #{createDataUsername}
+        )     
+    </insert>  
+</mapper>

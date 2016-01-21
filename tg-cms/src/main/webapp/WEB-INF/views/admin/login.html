@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!--/*******session过期跳转到登陆页面并跳出iframe框架*******/-->
+<script type="text/javascript">
+    if (window != top)
+        top.location.href = location.href;
+</script>
+<!--/*******标题*******/-->
+<title th:text="#{customer.systemTitle}">首页</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!--/*******浏览器标题栏小图标favicon*******/-->
+<link th:href="@{/resources/imgs/common/favicon.ico}" rel="shortcut icon" type="image/x-icon" />
+<!-- bootstrap - css -->
+<link th:href="@{/resources/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<!-- index -->
+<link th:href="@{/resources/css/core/login.css}" rel="stylesheet" />
+</head>
+<body>
+	<div class="main_box">
+		<div class="login_box">
+			<!--/*******logo*******/-->
+			<div class="login_logo">
+				<img th:src="@{/resources/imgs/login/login_logo.png}" />
+			</div>
+			<!--/*******错误信息*******/-->
+			<div class="login_msg" th:if="${#httpServletRequest.getAttribute('errorMsg') != null}">
+				<font color="red"><span th:text="${#httpServletRequest.getAttribute('errorMsg')}">登录失败，请重新登录！</span></font><font color="red"><span th:if="${session.SPRING_SECURITY_LAST_EXCEPTION != null}" th:text="${session.SPRING_SECURITY_LAST_EXCEPTION.message}"></span></font>
+			</div>
+			<!--/*******表单*******/-->
+			<div class="login_form">
+				<form th:action="@{/admin/login}" id="loginForm" method="post">
+					<div class="form-group">
+						<label for="tg_username" class="t">用户名：</label> <input autofocus="autofocus" id="tg_username" value="" name="tg_username" placeholder="用户名" type="text" class="form-control x319 in" autocomplete="off" maxlength="25" />
+					</div>
+					<div class="form-group">
+						<label for="tg_password" class="t">密 码：</label> <input id="tg_password" value="" name="tg_password" placeholder="密码" type="password" class="form-control x319 in" autocomplete="off" maxlength="25" />
+					</div>
+					<div class="form-group">
+						<label for="tg_captchaCode" class="t">验证码：</label> <input id="tg_captchaCode" name="tg_captchaCode" type="text" class="form-control x164 in" autocomplete="off" maxlength="5" /> <img id="captchaImg" alt="点击更换" title="点击更换" th:src="@{/admin/getCaptcha.gsp}" class="m" />
+					</div>
+					<!--/*校验信息*/-->
+					<div class="validate_msg" id="validateMsg"></div>
+					<!--/*登录重置按钮*/-->
+					<div class="form-group space">
+						<label class="t"></label> <input type="submit" id="login_ok" value="&nbsp;登&nbsp;录&nbsp;" class="btn btn-primary btn-lg" />&nbsp;&nbsp;&nbsp;&nbsp; <input type="reset" id="resetBtn" value="&nbsp;重&nbsp;置&nbsp;" class="btn btn-default btn-lg" />
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--/*******版权信息*******/-->
+		<div class="bottom">
+			Copyright &copy; 2015 <a href="http://www.turingoal.com" target="_blank">图灵谷（北京）科技有限公司</a>
+		</div>
+	</div>
+</body>
+<!--<script th:src="@{/resources/js/sha256.js}"></script>-->
+<script th:src="@{/resources/vendor/jquery/jquery-2.1.1.min.js}"></script>
+<script th:src="@{/resources/vendor/jquery/validation/jquery.validate.min.js}"></script>
+<script th:src="@{/resources/js/core/login.js}"></script>
+</html>

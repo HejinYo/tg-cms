@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.QuestionOptionDao">
+    
+    <!-- 查询 调查问卷选项 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.QuestionOptionQuery" resultType="com.turingoal.cms.modules.ext.domain.QuestionOption">
+        SELECT * FROM tg_cms_m_ext_question_option
+    </select>
+    
+    <!-- 通过id得到一个 调查问卷选项-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.QuestionOption">
+        SELECT * FROM tg_cms_m_ext_question_option WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 调查问卷选项 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.QuestionOptionForm">
+        INSERT INTO tg_cms_m_ext_question_option (
+            id, item_id, title, input_field, select_count, sort_order,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{itemId}, #{title}, #{inputField}, #{selectCount}, #{sortOrder},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 调查问卷选项 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.QuestionOptionForm">
+        UPDATE tg_cms_m_ext_question_option SET
+            title = #{title}, 
+            input_field = #{inputField}, 
+            select_count = #{selectCount}, 
+            sort_order = #{sortOrder},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 调查问卷选项 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_question_option WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据问卷调查项查询选项  -->
+    <select id="findByItemId" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.QuestionOption">
+        SELECT * FROM tg_cms_m_ext_question_option WHERE item_id = #{itemId}
+    </select>
+    
+</mapper>

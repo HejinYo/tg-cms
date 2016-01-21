@@ -1,0 +1,122 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h4 class="modal-title">图片上传</h4>
+</div>
+<div class="modal-body">
+	<div class="panel blank-panel">
+		<div class="panel-heading">
+			<div class="panel-options">
+				<ul class="nav nav-tabs">
+					<li class="active"><a data-toggle="tab" href="#tab-1">单张上传</a></li>
+					<li><a data-toggle="tab" href="#tab-2">多图上传</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="tab-content">
+				<div id="tab-1" class="tab-pane active">
+					<form id="uploadForm" role="form" class="form-horizontal" method="post">
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-9">
+								<div class="row">
+									<div class="thelist uploader-list"></div>
+								</div>
+								<div class="btn picker">选择图片</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label">图片名称：</label>
+							<div class="col-md-7">
+								<input id="title" name="title" placeholder="请输入图片名称" type="text" class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label">图片描述：</label>
+							<div class="col-md-7">
+								<textarea id="description" name="description" rows="4" class="form-control" placeholder="最大140个字符"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-3 control-label"></label>
+							<div class="col-md-7">
+								<div class="btns">
+									<button type="submit" class="ctlBtn btn btn-primary">开始上传</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div id="tab-2" class="tab-pane">
+					<div class="uploader wu-example">
+						<div class="btns">
+							<div class="picker btn">选择图片</div>
+							<button class="ctlBtn btn btn-primary">开始上传</button>
+						</div>
+						<div class="clearfix"></div>
+						<div class="row">
+							<div class="thelist uploader-list"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script th:src="@{/resources/vendor/webuploader/webuploader.js}"></script>
+<script th:src="@{/resources/js/common/imageUpload.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var accept = {};
+    var fileUploadUrl = /*[[@{/admin/m/base/image/uploadImg}]]*/'';
+    $(function() {
+        // 单张上传
+        var title = "";
+        var description = "";
+        var singUploader = createImageUploader($('#tab-1'), fileUploadUrl, false);
+        singUploader.options.auto = false;
+        // 单张上传传递参数
+        singUploader.on('uploadBeforeSend', function(block, data) {
+            data.title = title;
+            data.description = description;
+        });
+        // 单张上传成功后
+        singUploader.on('uploadSuccess', function(file) {
+            myTable.refresh();
+            tg_alertSuccess();
+            $('#commonWin').modal('hide');
+        });
+        // 单张上传
+        $('#uploadForm').validate({
+            rules : {
+                title : {
+                    maxlength : 40
+                },
+                description : {
+                    maxlength : 140
+                }
+            },
+            messages : {
+
+            },
+            submitHandler : function(f) {
+                if(singUploader.getFiles().length>0){
+                    title = $('#title').val();
+                    description = $('#description').val();
+                    singUploader.upload();
+                }else{
+                    bootstrapQ.alert("请选择上传的图片！");
+                }
+            }
+        });
+        
+		// 多张上传初始化
+        var mulitUploader = createImageUploader($('#tab-2'), fileUploadUrl, true);
+        mulitUploader.on('uploadFinished', function(file) {
+            myTable.refresh();
+            tg_alertSuccess();
+           	$('#commonWin').modal('hide');
+        });
+    });
+    /*]]>*/
+</script>

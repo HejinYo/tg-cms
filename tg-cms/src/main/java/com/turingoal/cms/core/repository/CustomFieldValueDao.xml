@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.core.repository.CustomFieldValueDao">
+    
+    <!-- 查询全部 自定义字段值 -->
+    <select id="find" parameterType="com.turingoal.cms.core.domain.query.CustomFieldValueQuery" resultType="com.turingoal.cms.core.domain.CustomFieldValue">
+        SELECT * FROM tg_c_custom_field_value
+    </select>
+    
+    <select id="findByOwner" parameterType="com.turingoal.cms.core.domain.query.CustomFieldValueQuery" resultType="com.turingoal.cms.core.domain.CustomFieldValue">
+        SELECT * FROM tg_c_custom_field_value WHERE owner_type=#{ownerType} AND owner_id=#{ownerId}
+    </select>
+    
+    <!-- 通过id得到一个 自定义字段值-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.core.domain.CustomFieldValue">
+        SELECT * FROM tg_c_custom_field_value WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 自定义字段值 -->
+    <insert id="add" parameterType="com.turingoal.cms.core.domain.form.CustomFieldValueForm">
+        INSERT INTO tg_c_custom_field_value (
+            id, key_str, value_str,value_for_double,value_for_long_text,value_for_date, owner_type, owner_id
+        )
+        VALUES(
+            #{id}, #{keyStr}, #{valueStr},#{valueForDouble},#{valueForLongText},#{valueForDate}, #{ownerType}, #{ownerId}
+        )
+    </insert>
+    
+    <!-- 修改 自定义字段值 -->
+    <update id="update" parameterType="com.turingoal.cms.core.domain.form.CustomFieldValueForm">
+        UPDATE tg_c_custom_field_value SET
+            key_str = #{keyStr}, 
+            value_str = #{valueStr}, 
+            owner_type = #{ownerType}, 
+            owner_id = #{ownerId}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 自定义字段值 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_c_custom_field_value WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据model删除用户自定义值 -->
+    <delete id="deleteByModel" parameterType="map">
+        DELETE FROM tg_c_custom_field_value WHERE owner_id = #{ownerId} AND owner_type=#{ownerType}
+    </delete>
+    
+    
+    <!-- 根据id删除多个 自定义字段值 -->
+    <delete id="deleteAll" parameterType="string">
+        DELETE FROM tg_c_custom_field_value WHERE id IN #{ids}
+    </delete>
+    
+       <!-- 修改是否可用-->
+    <update id="changeEnabled">
+        UPDATE tg_c_custom_field_value SET enabled = #{enabled} WHERE id = #{id} AND editable = 1
+    </update>
+</mapper>

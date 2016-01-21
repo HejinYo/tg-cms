@@ -1,0 +1,164 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.InfoDao">
+    
+    <!-- 查询 Info -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.InfoQuery" resultType="com.turingoal.cms.modules.base.domain.Info">
+        SELECT 
+            b_info.*, attrs.image as attr_image, b_node.nodd_name, b_node.info_model_id, 
+            node_model.model_name as node_model_name, info_model.model_name as info_model_name
+        FROM tg_cms_m_base_info b_info
+        LEFT JOIN tg_cms_m_base_node b_node ON b_info.node_id=b_node.id 
+        LEFT JOIN tg_cms_m_base_info_attrs attrs ON b_info.id=attrs.info_id AND attrs.attribute_id = #{attrId}
+        LEFT JOIN tg_cms_m_base_info_special special ON b_info.id=special.info_id
+        LEFT JOIN tg_cms_m_base_model node_model ON b_node.node_model_id = node_model.id
+        LEFT JOIN tg_cms_m_base_model info_model On b_node.info_model_id = info_model.id
+        <where>
+            <if test="nodeId!=null and nodeId!=''"> AND b_info.node_id = #{nodeId}</if>
+            <if test="attrId!=null and attrId!=''"> AND attrs.attribute_id = #{attrId} </if>
+            <if test="withImage!=null"> AND b_info.with_image = #{withImage}</if>
+            <if test="specialId!=null and specialId!=''"> AND special.special_id = #{specialId} </if>
+            <if test="state!=null and state!=0"> AND b_info.state = #{state} </if>
+            <if test="publishTime!=null"> AND b_info.publish_time &lt;= #{publishTime} AND (b_info.off_time IS NULL OR b_info.off_time &gt;= #{publishTime}) </if>
+            <if test="simpleQueryParam != null and simpleQueryParam!=''">  
+                AND b_info.title LIKE CONCAT('%',#{simpleQueryParam},'%')
+            </if>
+        </where>
+        ORDER BY b_info.sort_order ASC, b_info.publish_time DESC
+    </select>
+    
+    <!-- 通过id得到一个 Info-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Info">
+        SELECT b_info.*, b_node.info_model_id FROM tg_cms_m_base_info b_info
+        LEFT JOIN tg_cms_m_base_node b_node ON b_info.node_id=b_node.id 
+        WHERE b_info.id = #{id}
+    </select>
+    
+    <!-- 根据tagId获取 Info-->
+    <select id="findByTagId" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Info">
+        SELECT tag_info.id as relation_id,info.* FROM tg_cms_m_base_info_tags tag_info
+        LEFT JOIN tg_cms_m_base_info info ON tag_info.info_id = info.id
+        WHERE tag_info.tag_id = #{tagId}
+    </select>
+    
+    <!-- 新增 Info -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.InfoForm">
+        INSERT INTO tg_cms_m_base_info (
+            id, node_id, publish_time, off_time, 
+            sort_order, title, subtitle, full_title, link_path, new_window, title_color, 
+            title_strong, title_em, info_path, info_template,meta_keywords, meta_description, 
+            source, source_url, author, allow_comment, state,
+            last_update_time, image, video, doc, info_text, 
+            create_data_username, create_data_time
+        )
+        VALUES(
+            #{id}, #{nodeId}, #{publishTime}, #{offTime}, 
+            #{sortOrder}, #{title}, #{subtitle}, #{fullTitle}, #{linkPath}, #{newWindow}, #{titleColor}, 
+            #{titleStrong}, #{titleEm}, #{infoPath}, #{infoTemplate}, #{metaKeywords}, #{metaDescription}, 
+            #{source}, #{sourceUrl}, #{author}, #{allowComment}, #{state},
+            #{lastUpdateTime}, #{image}, #{video}, #{doc}, #{infoText}, 
+            #{createDataUsername}, #{createDataTime}
+        )
+    </insert>
+    
+    <!-- 修改 Info -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.InfoForm">
+        UPDATE tg_cms_m_base_info SET
+            node_id = #{nodeId}, 
+            publish_time = #{publishTime}, 
+            off_time = #{offTime}, 
+            sort_order = #{sortOrder}, 
+            html_path = #{htmlPath}, 
+            title = #{title}, 
+            subtitle = #{subtitle}, 
+            full_title = #{fullTitle}, 
+            link_path = #{linkPath}, 
+            new_window = #{newWindow}, 
+            title_color = #{titleColor}, 
+            title_strong = #{titleStrong}, 
+            title_em = #{titleEm}, 
+            info_path = #{infoPath}, 
+            info_template = #{infoTemplate}, 
+            meta_keywords = #{metaKeywords},
+            meta_description = #{metaDescription}, 
+            source = #{source}, 
+            source_url = #{sourceUrl}, 
+            author = #{author}, 
+            image = #{image},
+            video = #{video},
+            state = #{state},
+            doc = #{doc},
+            info_text = #{infoText},
+            allow_comment = #{allowComment},
+            last_update_time = #{lastUpdateTime},
+            update_data_username = #{updateDataUsername}, 
+            update_data_time = #{updateDataTime}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 Info -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_info WHERE id = #{id}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_base_info SET state=#{state} WHERE id = #{id}
+    </update>
+    
+    <!-- 修改文章关键字信息  -->
+    <update id="updateMetaKeywords" parameterType="com.turingoal.cms.modules.base.domain.form.InfoForm">
+        UPDATE tg_cms_m_base_info SET meta_keywords=#{metaKeywords} WHERE id = #{id}
+    </update>
+    
+    <!-- 通过ids得到多个Info-->
+    <select id="findByIds" resultType="com.turingoal.cms.modules.base.domain.Info">
+        SELECT b_info.*, node.code_num FROM tg_cms_m_base_info b_info
+        LEFT JOIN tg_cms_m_base_node node ON b_info.node_id = node.id WHERE b_info.id IN
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    
+    <!-- 修改文章浏览次数  -->
+    <update id="updateViewsCount" parameterType="com.turingoal.cms.modules.base.domain.form.InfoForm">
+        UPDATE tg_cms_m_base_info SET views_count=views_count+1 WHERE id = #{id} 
+    </update>
+    
+    <!-- 根据专题id获取所有文章id -->
+    <select id="findIds" parameterType="com.turingoal.cms.modules.base.domain.query.InfoQuery" resultType="String">
+        SELECT b_info.id FROM tg_cms_m_base_info b_info
+        LEFT JOIN tg_cms_m_base_info_special special ON b_info.id = special.info_id
+        WHERE special.special_id = #{specialId}
+    </select>
+    
+    <!-- 分页查询未选择 Info -->
+    <select id="findUnInfoByPage" parameterType="com.turingoal.cms.modules.base.domain.query.InfoQuery" resultType="com.turingoal.cms.modules.base.domain.Info">
+        SELECT b_info.* FROM tg_cms_m_base_info b_info
+        WHERE 1=1
+        <if test="ids!=null and ids!=''"> 
+            AND b_info.id not in 
+            <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="simpleQueryParam != null and simpleQueryParam!=''">  
+            AND b_info.title LIKE CONCAT('%',#{simpleQueryParam},'%')
+        </if>
+    </select>
+    
+    <!-- 分页查询已选择 Info -->
+    <select id="findInfoByPage" parameterType="com.turingoal.cms.modules.base.domain.query.InfoQuery" resultType="com.turingoal.cms.modules.base.domain.Info">
+        SELECT b_info.*, special.id as info_special_id
+        FROM tg_cms_m_base_info b_info
+        INNER JOIN tg_cms_m_base_info_special special ON b_info.id=special.info_id
+        WHERE 1=1
+        <if test="specialId!=null">
+            AND special.special_id = #{specialId}
+        </if>
+        <if test="simpleQueryParam != null and simpleQueryParam!=''">  
+            AND b_info.title LIKE CONCAT('%',#{simpleQueryParam},'%')
+        </if>
+    </select>
+</mapper>

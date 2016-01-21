@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.1//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--设置-->
+    <settings>
+        <!-- 全局映射器启用缓存 -->  
+        <setting name="cacheEnabled" value="false" />  
+        <!-- 查询时，关闭关联对象即时加载以提高性能 -->  
+        <setting name="lazyLoadingEnabled" value="true" />  
+        <!-- 设置关联对象加载的形态，此处为按需加载字段(加载字段由SQL指定)，不会加载关联表的所有字段，以提高性能 -->  
+        <setting name="aggressiveLazyLoading" value="false" />  
+        <!-- 对于未知的SQL查询，允许返回不同的结果集以达到通用的效果 -->  
+        <setting name="multipleResultSetsEnabled" value="true" />  
+        <!-- 允许使用列标签代替列名 -->  
+        <setting name="useColumnLabel" value="true" />  
+        <!-- 允许使用自定义的主键值(比如由程序生成的UUID 32位编码作为键值)，数据表的PK生成策略将被覆盖 -->  
+        <setting name="useGeneratedKeys" value="true" />  
+        <!-- 给予被嵌套的resultMap以字段-属性的映射支持 -->  
+        <setting name="autoMappingBehavior" value="FULL" />  
+        <!-- 对于批量更新操作缓存SQL以提高性能  但是返回id有问题-->  
+        <setting name="defaultExecutorType" value="SIMPLE" />  
+        <!-- 数据库超过36000秒仍未响应则超时 -->  
+        <setting name="defaultStatementTimeout" value="36000" />  
+        <!-- 日志使用log4j2实现 -->  
+        <setting name="logImpl" value="LOG4J2"/>  
+        <!--是否开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射。 -->  
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--插件-->
+    <plugins>
+        <!-- 分页插件PageHelper -->
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <!--<property name="dialect" value="mysql"/> -->
+            <property name="dialect" value="postgresql"/>
+            <!-- 该参数默认为false -->
+            <!-- 设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用 -->
+            <!-- 和startPage中的pageNum效果一样-->
+            <property name="offsetAsPageNum" value="false"/>
+            <!-- 该参数默认为false -->
+            <!-- 设置为true时，使用RowBounds分页会进行count查询 -->
+            <property name="rowBoundsWithCount" value="true"/>
+            <!-- 设置为true时，如果pageSize=0或者RowBounds.limit = 0就会查询出全部的结果 -->
+            <!-- （相当于没有执行分页查询，但是返回结果仍然是Page类型）-->
+            <property name="pageSizeZero" value="true"/>
+            <!-- 3.3.0版本可用 - 分页参数合理化，默认false禁用 -->
+            <!-- 启用合理化时，如果pageNum<1会查询第一页，如果pageNum>pages会查询最后一页 -->
+            <!-- 禁用合理化时，如果pageNum<1或pageNum>pages会返回空数据 -->
+            <property name="reasonable" value="true"/>
+            <!-- 3.5.0版本可用 - 为了支持startPage(Object params)方法 -->
+            <!-- 增加了一个`params`参数来配置参数映射，用于从Map或ServletRequest中取值 -->
+            <!-- 可以配置pageNum,pageSize,count,pageSizeZero,reasonable,不配置映射的用默认值 -->
+            <property name="params" value="pageNum=start;pageSize=limit;pageSizeZero=zero;reasonable=heli;count=contsql"/>
+        </plugin>
+    </plugins>
+</configuration>

@@ -1,0 +1,168 @@
+<form th:action="@{/admin/m/base/site/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改站点</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">发布点<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{htmlPublishpointId}">
+							<option th:each="data:${publishPoints}" th:value="${data.id}" th:text="${data.pName}">左上</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">模板主题<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{templateId}">
+							<option th:each="data : ${templates}" th:value="${data.id}" th:text="${data.templateName}">左上</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">站点名称<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{siteName}" placeholder="请输入站点名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">站点代码<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{codeNum}" placeholder="请输入站点代码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">完整名称<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{fullName}" placeholder="请输入完整名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">默认图片<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7" id="defImage"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">水印图片：</label>
+					<div class="col-md-7" id="watermarkImage"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">水印位置：</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{watermarkPosition}">
+							<option value="1">左上</option>
+							<option value="2">右上</option>
+							<option value="3">左下</option>
+							<option value="4">右下</option>
+							<option value="5">中央</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">站点域名<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{domainStr}" placeholder="请输入站点域名" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">是否识别域名<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{identifyDomain}">
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">是否静态首页<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{staticHomePage}">
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var uploadUrl = /*[[@{/admin}]]*/'uploadUrl';
+        var record = {
+            innerType : 1,
+            fieldName : 'defaultPicture',
+            valueStr : /*[[${result.defaultPicture}]]*/'value'
+        };
+        $("#defImage").append(createImagUpload(record, uploadUrl));
+
+        var record2 = {
+            innerType : 1,
+            fieldName : 'watermarkPicture',
+            valueStr : /*[[${result.watermarkPicture}]]*/'value'
+        };
+        $("#watermarkImage").append(createImagUpload(record2, uploadUrl));
+
+        var rules = {
+            htmlPublishpointId : {
+                required : true
+            },
+            templateId : {
+                required : true
+            },
+            siteName : {
+                required : true,
+                maxlength : 20
+            },
+            codeNum : {
+                required : true,
+                maxlength : 20
+            },
+            fullName : {
+                required : true,
+                maxlength : 40
+            },
+            defaultPicture : {
+                required : true
+            },
+            watermarkPicture : {},
+            watermarkPosition : {},
+            domainStr : {
+                required : true,
+                maxlength : 40
+            },
+            identifyDomain : {
+                required : true
+            },
+            staticHomePage : {
+                required : true
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

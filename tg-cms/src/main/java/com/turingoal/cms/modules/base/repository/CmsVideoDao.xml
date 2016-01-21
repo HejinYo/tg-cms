@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.CmsVideoDao">
+    
+    <!-- 查询全部 CmsVideo -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.CmsVideoQuery" resultType="com.turingoal.cms.modules.base.domain.CmsVideo">
+        SELECT * FROM tg_cms_m_base_video where 1=1
+        <if test="videoName!=null">
+            AND video_name like '%${videoName}%'
+        </if>
+        <if test="minLength!=null">
+            AND video_length >= #{minLength}
+        </if>
+        <if test="maxLength!=null">
+            AND video_length &lt;= #{maxLength}
+        </if>
+        <if test="startDate!=null and startDate!=''"> 
+            AND DATE_FORMAT(publishTime, '%Y-%m-%d') &gt;= DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+        </if>
+        <if test="endDate!=null and endDate!=''"> 
+            AND DATE_FORMAT(publishTime, '%Y-%m-%d') &lt;= DATE_FORMAT(#{endDate}, '%Y-%m-%d') 
+        </if>
+        <if test="format!=null">
+            AND format = #{format}
+        </if>
+        ORDER BY create_data_time DESC
+    </select>
+    
+    <!-- 通过ids得到-->
+    <select id="findByIds" resultType="com.turingoal.cms.modules.base.domain.CmsVideo">
+        SELECT *, video_path as src FROM tg_cms_m_base_video 
+        WHERE id in 
+        <foreach collection="array" item="item" index="index"  open="(" separator="," close=")">
+            #{item}
+        </foreach>  
+    </select>
+    
+    <!-- 通过id得到一个 CmsVideo-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.CmsVideo">
+        SELECT * FROM tg_cms_m_base_video WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 CmsVideo -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.CmsVideoForm">
+        INSERT INTO tg_cms_m_base_video (
+            id, format,video_name, video_path, video_length, 
+            video_time, publish_time, create_data_time, description, md5
+        )
+        VALUES(
+            #{id}, #{format}, #{videoName}, #{videoPath}, #{videoLength}, 
+            #{videoTime}, #{publishTime}, #{createDataTime}, #{description}, #{md5}
+        )
+    </insert>
+    
+    <!-- 修改 CmsVideo -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.CmsVideoForm">
+        UPDATE tg_cms_m_base_video SET
+            video_name = #{videoName}, 
+            update_data_time = #{updateDataTime}, 
+            description = #{description}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 CmsVideo -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_video WHERE id = #{id}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_base_video SET state=#{state} WHERE id = #{id}
+    </update>
+    
+    <!-- 通过md5得到一个 FileForm-->
+    <select id="getByMd5" parameterType="String" resultType="com.turingoal.cms.modules.base.domain.form.CmsVideoForm">
+        SELECT * FROM tg_cms_m_base_video WHERE md5 = #{md5}
+    </select>
+    
+    <!-- 获取所有文件的格式-->
+    <select id="findFormat" resultType="com.turingoal.cms.modules.base.domain.CmsVideo">
+        select format from tg_cms_m_base_video GROUP BY format
+    </select>
+</mapper>

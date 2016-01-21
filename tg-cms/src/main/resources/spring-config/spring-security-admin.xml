@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/security 
+    http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <description>spring security权限控制 后台</description>
+
+    <!-- 后台登录filter -->
+    <bean id="authenticaionFilter4admin"
+        class="com.turingoal.cms.core.commons.TgSecurityAuthenticationFilter4admin">
+        <property name="filterProcessesUrl" value="${security.adminLoginUrl}" />
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationFailureHandler" ref="authenticationFailureHandler4admin" />
+        <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler4admin" />
+        <!-- 用户名和密码，验证码名称 -->
+        <property name="usernameParameter" value="tg_username" />
+        <property name="passwordParameter" value="tg_password" />
+        <property name="captchaParameter" value="tg_captchaCode" />
+        <property name="openValidateCaptchaCode" value="${security.openValidateCaptchaCode}" />
+        <property name="errorsLock" value="${security.errorsLock}" />
+        <property name="maxRetryCount" value="${security.maxRetryCount}" />
+    </bean>
+
+    <!-- 后台自定义登录成功handler -->
+    <bean id="authenticationSuccessHandler4admin"
+        class="com.turingoal.cms.core.commons.TgSecurityLoginSuccessHandler4admin">
+        <property name="defaultTargetUrl" value="${security.adminDefaultUrl}"></property>
+        <!-- 可以配置相应的跳转方式。属性forwardToDestination为true采用forward false为sendRedirect -->
+        <property name="forwardToDestination" value="false"></property>
+        <!-- 是否总是跳转到默认页面 -->
+        <property name="alwaysUseDefaultTargetUrl" value="true" />
+    </bean>
+
+    <!-- 后台自定义登录失败handler -->
+    <bean id="authenticationFailureHandler4admin"
+        class="com.turingoal.cms.core.commons.TgSecurityLoginFailureHandler4admin">
+        <!-- 登录失败跳转页面 -->
+        <property name="failureUrl" value="${security.adminLoginPageUrl}?type=error" />
+        <!-- 用来在日志中保存用户登录信息 -->
+        <property name="usernameParameter" value="tg_username" />
+    </bean>
+
+    <!-- 后台退出过滤器，完成后台用户注销时的定向功能 -->
+    <bean id="logoutFilter4admin"
+        class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg ref="logoutSuccessHandler4admin" />
+        <constructor-arg>
+            <list>
+                <bean
+                    class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+            </list>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="${security.adminLogoutUrl}" />
+    </bean>
+
+    <!-- 后台退出成功handler -->
+    <bean id="logoutSuccessHandler4admin"
+        class="com.turingoal.cms.core.commons.TgSecurityLogoutSuccessHandler4admin">
+        <property name="defaultTargetUrl" value="${security.adminLoginPageUrl}?type=logout" />
+    </bean>
+</beans>

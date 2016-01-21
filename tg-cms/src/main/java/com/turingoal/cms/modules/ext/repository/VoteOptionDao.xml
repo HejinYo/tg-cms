@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.VoteOptionDao">
+    
+    <!-- 查询 投票项表 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.VoteOptionQuery" resultType="com.turingoal.cms.modules.ext.domain.VoteOption">
+        SELECT * FROM tg_cms_m_ext_vote_option WHERE vote_id=#{voteId}
+    </select>
+    
+    <!-- 通过id得到一个 投票项表-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.VoteOption">
+        SELECT * FROM tg_cms_m_ext_vote_option WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 投票项表 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.VoteOptionForm">
+        INSERT INTO tg_cms_m_ext_vote_option (
+            id, vote_id, title, vote_count, description, sort_order,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{voteId}, #{title}, #{voteCount}, #{description}, #{sortOrder},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 投票项表 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.VoteOptionForm">
+        UPDATE tg_cms_m_ext_vote_option SET
+            vote_id = #{voteId}, 
+            title = #{title}, 
+            vote_count = #{voteCount}, 
+            description = #{description}, 
+            sort_order = #{sortOrder},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 投票项表 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_vote_option WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据id删除多个 投票项表 -->
+    <delete id="deleteAll">
+        DELETE FROM tg_cms_m_ext_vote_option WHERE id IN 
+        <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+</mapper>

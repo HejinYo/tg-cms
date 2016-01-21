@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-内容管理-文章管理|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/tgCube/css/libs/datepicker.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/treeTable/themes/vsStyle/treeTable.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/webuploader/webuploader.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
+</head>
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=content,current=info)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=内容管理,current=文章管理)">面包屑栏</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="main-box">
+							<div class="main-box-body clearfix">
+								<br />
+								<div class="col-md-2">
+									<table id="nodeDataTable" class="table table-hover">
+										<tbody></tbody>
+									</table>
+								</div>
+								<div class="col-md-10" id="infoContent"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div th:replace="fragments/footer_admin">底部</div>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/***** 当前页js start *****/-->
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
+<script th:src="@{/resources/vendor/bootstrap/plugins/bootstrap-datepicker.js}"></script>
+<script th:src="@{/resources/vendor/treeTable/jquery.treeTable.min.js}"></script>
+<!-- ueditor -->
+<script th:src="@{/resources/vendor/ueditor/ueditor.config.js}"></script>
+<script th:src="@{/resources/vendor/ueditor/ueditor.all.min.js}"></script>
+<!--/* web uploader */-->
+<script th:src="@{/resources/vendor/webuploader/webuploader.js}"></script>
+<script th:src="@{/resources/js/common/formBuilder.js}"></script>
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    //加载完成后执行
+    $(function() {
+        loadTreeData();
+        loadInfoByNode("0")
+    });
+    function loadInfoByNode(nodeId) {
+        $("#nodeDataTable tr").removeClass("active");
+        $("#nodeDataTable tr[id='" + nodeId + "'").addClass("active");
+        var infoListUrl = /*[[@{/admin/m/base/info/infoList_}]]*/'';
+        $("#infoContent").load(infoListUrl + nodeId + '.gsp');
+    }
+    function loadTreeData() {
+        var listUrl = /*[[@{/admin/m/base/node/list.gsp}]]*/'';
+        tg_simpleAjaxPost(listUrl, null, function(d) {
+            var result = $.parseJSON(d);
+            var records = result.records;
+            $("#nodeDataTable tbody").html("");
+            for (var i = 0; i < records.length; i++) {
+                var record = records[i];
+                var $tr = $('<tr style="cursor: pointer;" onclick="loadInfoByNode(\'' + record.id + '\')"></tr>').attr("id", record.id).attr("pId", record.parentId);
+                $tr.append($('<td></td>').html('<a href="#">' + record.noddName + '</a>'));
+                $("#nodeDataTable tbody").append($tr);
+            }
+
+            $('#nodeDataTable').treeTable({
+                expandLevel : 3
+            });
+        });
+    }
+    /*]]>*/
+</script>
+</html>

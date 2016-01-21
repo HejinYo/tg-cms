@@ -1,0 +1,14 @@
+<!--/*******导航栏*******/-->
+<div class="header">
+	<div class="container header_top">
+		<div class="logo">
+			<a th:href="@{/index.htm}"><img th:src="@{/template/default/_resources/images/logo.png}" /></a>
+		</div>
+		<div class="menu">
+			<a class="toggleMenu" th:href="@{/index.htm}"><img th:src="@{/template/default/_resources/images/nav_icon.png}" alt="" /> </a>
+			<ul class="nav" id="nav">
+				<li th:each="nodd:${#NODE.top(null,null)}" th:classappend="${nodd.codeNum==codeNum?'current':''}"><a th:href="@{/{codeNum}_0.htm(codeNum=${nodd.codeNum})}" th:text="${nodd.noddName}">首页</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

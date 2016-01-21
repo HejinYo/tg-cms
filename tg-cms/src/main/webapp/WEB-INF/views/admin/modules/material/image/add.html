@@ -1,0 +1,85 @@
+<form th:action="@{/admin/m/ext/adSlot/add.gsp}" id="addForm" role="form" class="form-horizontal" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">新增广告信息</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告位名称：</label>
+					<div class="col-md-7">
+						<input name="slotName" placeholder="请输入广告位名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告位编码：</label>
+					<div class="col-md-7">
+						<input name="codeNum" placeholder="请输入广告位编码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告位类型：</label>
+					<div class="col-md-7">
+						<select class="form-control" name="slotType">
+                             <option value="1"> 图片</option>
+                             <option value="2"> 文字</option>
+                             <option value="3"> FLASH</option>
+                             <option value="4"> 代码</option>
+                        </select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">模　　板：</label>
+					<div class="col-md-7">
+						<input name="slotTemplate" placeholder="请输入模板" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">宽　　度：</label>
+					<div class="col-md-7">
+						<input name="width" placeholder="请输入宽度" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">高　　度：</label>
+					<div class="col-md-7">
+						<input name="height" placeholder="请输入高度" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">描　　述：</label>
+					<div class="col-md-7">
+						<textarea  class="form-control"  name="description"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            username : {
+                required : true
+            },
+            realname : {
+                required : true
+            }
+        };
+        var messages = {
+
+        };
+        myTable.add('commonWin', 'addForm', rules, messages);
+    });
+    /*]]>*/
+</script>

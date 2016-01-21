@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.CommentDao">
+    
+    <!-- 查询 Comment -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.CommentQuery" resultType="com.turingoal.cms.modules.base.domain.Comment">
+        SELECT * FROM tg_cms_m_base_comment
+        <if test="simpleQueryParam != null and simpleQueryParam!=''">  
+            WHERE title LIKE "%"#{simpleQueryParam}"%"
+            OR gb_content LIKE "%"#{simpleQueryParam}"%"
+        </if>
+    </select>
+    
+    <!-- 通过id得到一个 Comment-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Comment">
+        SELECT * FROM tg_cms_m_base_comment WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 Comment -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.CommentForm">
+        INSERT INTO tg_cms_m_base_comment (
+            id, auditor_id, owner_type, owner_id, 
+            content, audit_time, user_ip, score, status, 
+            create_data_time,create_data_username
+        )
+        VALUES(
+            #{id}, #{auditorId}, #{ownerType}, #{ownerId}, 
+            #{content}, #{auditTime}, #{userIp}, #{score}, #{status}, 
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 Comment -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.CommentForm">
+        UPDATE tg_cms_m_base_comment SET
+            auditor_id = #{auditorId}, owner_type = #{ownerType}, owner_id = #{ownerId}, 
+            content = #{content}, audit_time = #{auditTime}, user_ip = #{userIp}, 
+            score = #{score}, status = #{status},
+            create_data_time = #{createDataTime}, 
+            create_data_username = #{createDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 Comment -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_comment WHERE id = #{id}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_base_comment SET state=#{state} WHERE id = #{id}
+    </update>
+</mapper>

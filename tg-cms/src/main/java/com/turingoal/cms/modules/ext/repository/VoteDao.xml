@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.VoteDao">
+    
+    <!-- 查询 投票 -->
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.VoteQuery" resultType="com.turingoal.cms.modules.ext.domain.Vote">
+        SELECT * FROM tg_cms_m_ext_vote
+    </select>
+    
+    <!-- 通过id得到一个 投票-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.Vote">
+        SELECT * FROM tg_cms_m_ext_vote WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 投票 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.VoteForm">
+        INSERT INTO tg_cms_m_ext_vote (
+            id, title, code_num, start_time, end_time, 
+            interval_days, max_selected, vote_mode, total_count, description, 
+            sort_order, enabled,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id},  #{title}, #{codeNum}, #{startTime}, #{endTime}, 
+            #{intervalDays}, #{maxSelected}, #{voteMode}, 0, #{description}, 
+            #{sortOrder}, 1,
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改 投票 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.VoteForm">
+        UPDATE tg_cms_m_ext_vote SET
+            title = #{title}, 
+            code_num = #{codeNum}, 
+            start_time = #{startTime}, 
+            end_time = #{endTime}, 
+            interval_days = #{intervalDays}, 
+            max_selected = #{maxSelected}, 
+            vote_mode = #{voteMode}, 
+            total_count = 0, 
+            description = #{description}, 
+            sort_order = #{sortOrder}, 
+            enabled = #{enabled},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 投票 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_vote WHERE id = #{id}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+            UPDATE tg_cms_m_ext_vote SET enabled = #{enabled} WHERE id = #{id}
+    </update>
+</mapper>

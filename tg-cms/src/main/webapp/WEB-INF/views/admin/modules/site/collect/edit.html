@@ -1,0 +1,67 @@
+<form th:action="@{/admin/m/base/collect/edit.gsp}" class="form-horizontal" th:object="${result}" id="editForm" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改键值对</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<input th:field="*{nodeId}" type="text" class="form-control" />
+				<div class="form-group">
+					<label class="col-md-3 text-right">采集名称：</label>
+					<div class="col-md-7">
+						<input th:field="*{collectName}" placeholder="请输入采集名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 text-right">列表地址：</label>
+					<div class="col-md-7">
+						<input th:field="*{listPattern}" placeholder="请输入列表地址" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 text-right">下一页地址：</label>
+					<div class="col-md-7">
+						<input th:field="*{listNextPattern}" placeholder="请输入下一页列表地址" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 text-right">文章地址：</label>
+					<div class="col-md-7">
+						<input th:field="*{itemPattern}" placeholder="请输入文章地址" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 text-right">文章地址区域：</label>
+					<div class="col-md-7">
+						<textarea th:field="*{itemAreaPattern}" placeholder="请输入文章区域" rows="4" class="form-control" ></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            collectName : {
+                required : true
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

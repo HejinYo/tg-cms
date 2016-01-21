@@ -1,0 +1,23 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <description>Spring 整合 MyBatis</description>
+
+    <!-- 在基本的MyBatis中，session 工厂可以使用SqlSessionFactoryBuilder.来创建。在MyBatis-Spring中，使用了SqlSessionFactoryBean来替代。 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 指定sqlMapConfig总配置文件，订制的environment在spring容器中不在生效 -->
+        <property name="configLocation" value="classpath:mybatis.xml" />
+    </bean>
+
+    <!-- Mybatis 映射文件路径 用逗号隔开 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage"
+            value="com.turingoal.cms.core.repository,com.turingoal.cms.modules.**.repository" />
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+    </bean>
+</beans>

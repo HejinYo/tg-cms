@@ -1,0 +1,133 @@
+<form th:action="@{/admin/m/base/publishPoint/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改发布点</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">发布点名称<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{pName}" placeholder="请输入发布点名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">发布类型<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{pType}">
+							<option value="1">文件系统</option>
+							<option value="2">FTP</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">发布方式<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{pMethod}">
+							<option value="1">HTML发布</option>
+							<option value="2">附件发布</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">保存路径<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{storePath}" placeholder="请输入保存路径" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">显示路径<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{displayPath}" placeholder="请输入显示路径" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">ftp服务器<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{ftpHostname}" placeholder="请输入ftp服务器地址" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">ftp端口<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{ftpPort}" placeholder="请输入ftp端口" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">ftp用户名<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{ftpUsername}" placeholder="请输入ftp用户名" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">ftp密码<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{ftpPassword}" placeholder="请输入ftp密码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">描述：</label>
+					<div class="col-md-7">
+						<textarea th:field="*{description}" rows="3" placeholder="最长140个字符" class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            slotName : {
+                required : true,
+                maxlength : 20
+            },
+            codeNum : {
+                required : true,
+                maxlength : 20
+            },
+            slotType : {
+                required : true
+            },
+            slotTemplate : {
+                required : true
+            },
+            width : {
+                required : true,
+                range : [ 1, 2000 ]
+            },
+            height : {
+                required : true,
+                range : [ 1, 2000 ]
+            },
+            description : {
+                maxlength : 140
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.core.repository.RoleResourceDao">
+
+    <!-- 查询所有url和对应的role-->
+    <select id="findResourcesWithRole" resultType="java.util.HashMap">
+        SELECT
+            rs.perm_value AS auth_url, r.code_num AS role_code
+        FROM
+            tg_c_role_resource rrs
+        LEFT JOIN tg_c_role r ON rrs.role_id = r.id
+        LEFT JOIN tg_c_resource rs ON rrs.resource_id = rs.id
+    </select>
+        
+    <!-- 根据角色id查询角色所具有的权限id-->
+    <select id="getResourceIdsByRole" resultType="string" parameterType="string">
+        SELECT t_res.id FROM tg_c_role_resource t_role_res
+            LEFT JOIN tg_c_resource t_res ON t_role_res.resource_id = t_res.id
+        WHERE t_res.enabled = 1 AND t_role_res.role_id = #{roleId}
+    </select>
+    
+    <!-- 删除某个角色拥有的某些权限 -->
+    <delete id="deleteRoleResourcesByRole" parameterType="map">
+        DELETE FROM tg_c_role_resource WHERE role_id = #{roleId} AND resource_id IN
+        <foreach collection="resourceIds" item="resourceId" index="index" open="(" separator="," close=")">
+            #{resourceId}
+        </foreach>
+    </delete>
+    
+    <!-- 删除某个角色拥有的所有权限 -->
+    <delete id="deleteRoleResourcesByRoleId" parameterType="string">
+        DELETE FROM tg_c_role_resource WHERE role_id = #{roleId}         
+    </delete>
+    
+    <!-- 为某个角色新增资源 同时插入多条数据 -->
+    <insert id="addRoleResourcesByRole" parameterType="map">  
+        INSERT INTO tg_c_role_resource(
+            id, role_id, resource_id,
+            create_data_time, create_data_username
+        ) 
+        VALUES (
+            #{id}, #{roleId},#{resourceId},
+            #{createDataTime}, #{createDataUsername}
+        )  
+    </insert> 
+</mapper>

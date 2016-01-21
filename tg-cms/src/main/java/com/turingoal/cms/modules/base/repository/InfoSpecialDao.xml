@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.base.repository.InfoSpecialDao">
+    
+    <!-- 查询 InfoSpecial -->
+    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.InfoSpecialQuery" resultType="com.turingoal.cms.modules.base.domain.InfoSpecial">
+        SELECT * FROM tg_cms_m_base_info_special
+    </select>
+    
+    <!-- 通过id得到一个 InfoSpecial-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.InfoSpecial">
+        SELECT * FROM tg_cms_m_base_info_special WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 InfoSpecial -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
+        INSERT INTO tg_cms_m_base_info_special (
+            id, info_id, special_id
+        )
+        VALUES(
+            #{id}, #{infoId}, #{specialId}
+        )
+    </insert>
+    
+    <!-- 修改 InfoSpecial -->
+    <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
+        UPDATE tg_cms_m_base_info_special SET
+            info_id = #{infoId}, 
+            special_id = #{specialId}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一个 InfoSpecial -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_base_info_special WHERE id = #{id}
+    </delete>
+    
+    <!-- 修改状态-->
+    <update id="changeState" parameterType="map">
+        UPDATE tg_cms_m_base_info_special SET state=#{state} WHERE id = #{id}
+    </update>
+    
+    <!-- 根据文章id、专题id删除一个 InfoSpecial -->
+    <delete id="deleteRelation" parameterType="string">
+        DELETE FROM tg_cms_m_base_info_special WHERE info_id = #{infoId}
+        AND special_id = #{specialId}
+    </delete>
+    
+    <!-- 根据专题id获取最大序号 -->
+    <select id="getMaxOrder" parameterType="string" resultType="int">
+        SELECT MAX(specialOrder) FROM tg_cms_m_base_info_special WHERE special_id = #{specialId}
+    </select>
+    
+    <!-- 修改序号（加1） -->
+    <update id="updateOrderAdd" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
+        UPDATE tg_cms_m_base_info_special SET
+            special_order = special_order + 1
+        WHERE special_id = #{specialId} AND 
+        <![CDATA[ specialOrder >= #{specialOrder} ]]>    
+    </update>
+    
+    <!-- 修改序号（减1） -->
+    <update id="updateOrderSubtract" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
+        UPDATE tg_cms_m_base_info_special SET
+            special_order = special_order - 1
+        WHERE special_id = #{specialId} AND
+        <![CDATA[ specialOrder > #{specialOrder} ]]>    
+    </update>
+    
+    <!-- 修改文章、专题关系排序（递减）-->
+    <update id="subtractOrder" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
+        UPDATE tg_cms_m_base_info_special SET special_order=special_order-1 WHERE special_order &gt; #{startDrop} AND special_order &lt; #{endDrop} AND special_id = #{specialId}
+    </update>
+    
+    <!-- 修改文章、专题关系排序（递增）-->
+    <update id="addOrder" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
+        UPDATE tg_cms_m_base_info_special SET special_order=special_order+1 WHERE special_order &gt; #{endDrop} AND special_order &lt; #{startDrop} AND special_id = #{specialId}
+    </update>
+    
+    <!-- 修改文章、专题关系排序-->
+    <update id="updateOrder" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
+        UPDATE tg_cms_m_base_info_special SET special_order=#{specialOrder} WHERE id = #{id}
+    </update>
+</mapper>

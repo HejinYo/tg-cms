@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.modules.ext.repository.AdDao">
+    
+    <!-- 查询 广告管理信息 -->
+    <select id="findAll" parameterType="com.turingoal.cms.modules.ext.domain.query.AdQuery" resultType="com.turingoal.cms.modules.ext.domain.Ad">
+        SELECT ad.*,slot.slot_name as slotName FROM tg_cms_m_ext_ad ad
+        LEFT JOIN tg_cms_m_ext_ad_slot slot ON ad.ad_slot_id = slot.id where 1=1
+        <if test="adSlotId != null and adSlotId != '' ">
+            and ad.ad_slot_id = #{adSlotId}
+        </if>
+        <if test="simpleQueryParam !=null and simpleQueryParam != ''">
+            and ad_name like CONCAT('%',#{simpleQueryParam},'%')
+        </if>
+    </select>
+    
+    <!-- 通过id得到一条广告信息-->
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.Ad">
+        SELECT * FROM tg_cms_m_ext_ad WHERE id = #{id}
+    </select>
+    
+    <!-- 新增 一条广告管理信息 -->
+    <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.AdForm">
+        INSERT INTO tg_cms_m_ext_ad (
+            id,  ad_slot_id, ad_name, begin_time, end_time, 
+            ad_url, ad_text, ad_script, ad_iimage, ad_flash, sort_order,
+            create_data_time, create_data_username
+        )
+        VALUES(
+            #{id}, #{adSlotId}, #{adName}, #{beginTime}, #{endTime}, 
+            #{adUrl}, #{adText}, #{adScript}, #{adIimage}, #{adFlash}, #{sortOrder},
+            #{createDataTime}, #{createDataUsername}
+        )
+    </insert>
+    
+    <!-- 修改一条广告信息 -->
+    <update id="update" parameterType="com.turingoal.cms.modules.ext.domain.form.AdForm">
+        UPDATE tg_cms_m_ext_ad SET
+            ad_slot_id = #{adSlotId}, 
+            ad_name = #{adName}, 
+            begin_time = #{beginTime}, 
+            end_time = #{endTime}, 
+            ad_url = #{adUrl}, 
+            ad_text = #{adText}, 
+            ad_script = #{adScript}, 
+            ad_iimage = #{adIimage}, 
+            ad_flash = #{adFlash}, 
+            sort_order = #{sortOrder},
+            update_data_time = #{updateDataTime},
+            update_data_username = #{updateDataUsername}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 根据id删除一条广告信息 -->
+    <delete id="delete" parameterType="string">
+        DELETE FROM tg_cms_m_ext_ad WHERE id = #{id}
+    </delete>
+    
+    <!-- 根据typeId删除广告管理信息 -->
+    <delete id="deleteByTypeId" parameterType="string">
+        DELETE FROM tg_cms_m_ext_ad WHERE ad_slot_id = #{adSlotId}
+    </delete>
+    
+    <!-- 根据广告位编码获取广告 -->
+    <select id="findByCodeNum" parameterType="com.turingoal.cms.modules.ext.domain.query.AdQuery" resultType="com.turingoal.cms.modules.ext.domain.Ad">
+        SELECT ext_ad.* FROM tg_cms_m_ext_ad ext_ad
+        LEFT JOIN tg_cms_m_ext_ad_slot ext_ad_slot ON ext_ad.ad_slot_id
+        WHERE 1=1  AND NOW() BETWEEN ext_ad.begin_time AND ext_ad.end_time
+        <if test="codeNum!=null and codeNum!=''">
+            AND ext_ad_slot.code_num = #{codeNum}
+        </if>
+        <if test="limit!=null and limit!=0">
+            LIMIT 0,#{limit}
+        </if>
+    </select>
+</mapper>

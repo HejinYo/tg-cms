@@ -1,0 +1,31 @@
+<!--/*******公共窗口*******/-->
+<div th:fragment="confrimDialog(callbackFun)" th:id="commonConfigDialog" class="modal fade" aria-hidden="true" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+				<h4 class="modal-title">确认？</h4>
+			</div>
+			<div class="modal-body">
+				<p>您确认执行该操作吗？</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="submit" onclick="${callbackFun}()">
+					<strong>确 定</strong>
+				</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">
+					<strong>关 闭</strong>
+				</button>
+			</div>
+		</div>
+	</div>
+	<script th:inline="javascript">
+        /*<![CDATA[*/
+        $(function() {
+            $("#commonConfigDialog").on("hidden.bs.modal", function() {
+                $(this).removeData("bs.modal");
+            });
+        });
+        /*]]>*/
+    </script>
+</div>

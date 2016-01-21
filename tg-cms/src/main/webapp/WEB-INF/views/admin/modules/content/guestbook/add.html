@@ -1,0 +1,109 @@
+<form th:action="@{/admin/m/ext/ad/add.gsp}" id="addForm" role="form" class="form-horizontal" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">新增广告信息</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告位：</label>
+					<div class="col-md-7">
+                        <select class="form-control" name="adSlotId">
+                             <option th:each="data : ${result}" th:value="${data.id}" th:text="${data.slotName}"></option>
+                        </select>
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告名称：</label>
+					<div class="col-md-7">
+						<input name="adName" placeholder="请输入广告名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+                    <label class="col-md-3 control-label">开始时间：</label>
+                    <div class="col-md-7">
+                        <div class="input-group date">
+                            <input name="beginTime" type="text" class="form-control"/>
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label">结束时间：</label>
+                    <div class="col-md-7">
+                        <div class="input-group date">
+                            <input name="endTime" type="text" class="form-control"/>
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+					<label class="col-md-3 control-label">广告url：</label>
+					<div class="col-md-7">
+						<input name="adUrl" placeholder="请输入广告url" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告文字：</label>
+					<div class="col-md-7">
+						<input name="adText" placeholder="请输入广告文字" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告代码：</label>
+					<div class="col-md-7">
+						<input name="adScript" placeholder="请输入广告代码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告图片：</label>
+					<div class="col-md-7">
+						<input name="adIimage" placeholder="请输入广告图片" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">广告flash：</label>
+					<div class="col-md-7">
+						<input name="adFlash" placeholder="请输入广告flash" type="text" class="form-control" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+	$('.date').datepicker({
+	    todayBtn: "linked",
+	    keyboardNavigation: false,
+	    forceParse: false,
+	    initialDate : new Date(),
+	    altField: '#actualDate',
+	    calendarWeeks: true,
+	    autoclose: true
+	});
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            username : {
+                required : true
+            },
+            realname : {
+                required : true
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'addForm', rules, messages);
+    });
+    /*]]>*/
+</script>

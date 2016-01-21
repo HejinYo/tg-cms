@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
+    
+    <description>spring lucene整合</description>
+    
+    <!--lucene版本-->
+    <util:constant id="LUCENE_VERSION" static-field="org.apache.lucene.util.Version.LUCENE_4_10_3"></util:constant>
+    
+    
+    <!--路径-->
+    <bean id="luceneDrectory" class="org.apache.lucene.store.SimpleFSDirectory">
+        <constructor-arg >
+            <bean class="java.nio.file.Paths" factory-method="get" >
+                <constructor-arg value="D:/develop/temp" />
+                <constructor-arg value="index" />
+            </bean>
+        </constructor-arg>
+    </bean>
+
+    <!--分词器-->
+    <bean id="luceneAnalyzer" class="org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer">
+        <constructor-arg value="true"></constructor-arg>
+    </bean>
+
+    <!--indexWriterConfig-->
+    <bean id="indexWriterConfig" class="org.apache.lucene.index.IndexWriterConfig">
+        <constructor-arg name="analyzer" ref="luceneAnalyzer"></constructor-arg>
+    </bean>
+    
+    <!--indexWriter-->
+    <bean id="indexWriter" class="org.apache.lucene.index.IndexWriter">
+        <constructor-arg name="d" ref="luceneDrectory" />
+        <constructor-arg name="conf" ref="indexWriterConfig" />
+    </bean>
+    
+    <!--luceneHelper-->
+    <bean id="luceneHelper" class="com.turingoal.common.util.lucene.LuceneHelper">
+        <constructor-arg ref="luceneDrectory" />
+        <constructor-arg ref="indexWriter" />
+        <constructor-arg ref="luceneAnalyzer" />
+    </bean>
+    
+    <!-- define the IndexSearcher ,这里创建IndexSearcher
+        <bean id="indexSearcher" class="org.apache.lucene.search.IndexSearcher">  
+              <constructor-arg ref="luceneDrectory" />  
+           </bean>   -->  
+</beans>  
