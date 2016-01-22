@@ -70,10 +70,8 @@
 							<li th:if="${#checkAuth.checkAuth('logLoginList')}" th:class="${current == 'logLoginList'}? 'active'"><a th:href="@{/admin/c/monitor/log/listLogin.gsp}"> 登录日志</a></li>
 							<li th:if="${#checkAuth.checkAuth('logOperateList')}" th:class="${current == 'logOperateList'}? 'active'"><a th:href="@{/admin/c/monitor/log/listOperate.gsp}"> 操作日志</a></li>
 							<li th:if="${#checkAuth.checkAuth('sysinfo')}" th:class="${current == 'sysinfo'}? 'active'"><a th:href="@{/admin/c/monitor/sysinfo/list.gsp}"> 系统信息</a></li>
-							<li th:if="${#checkAuth.checkAuth('thread')}" th:class="${current == 'thread'}? 'active'"><a th:href="@{/admin/c/monitor/thread/list.gsp}"> 线程监控</a></li>
-							<li th:if="${#checkAuth.checkAuth('cache')}" th:class="${current == 'cache'}? 'active'"><a th:href="@{/admin/c/monitor/cache/list.gsp}"> 缓存监控</a></li>
 						</ul></li>
-					<li  th:if="${#checkAuth.checkAuth('about')}" th:class="${current == 'about'}? 'active'"><a th:href="@{/admin/c/index/about.gsp}"><i class="fa fa-info-circle"></i><span> 关于系统</span></a></li>
+					<li th:if="${#checkAuth.checkAuth('about')}" th:class="${current == 'about'}? 'active'"><a th:href="@{/admin/c/index/about.gsp}"><i class="fa fa-info-circle"></i><span> 关于系统</span></a></li>
 				</ul>
 			</div>
 		</div>
