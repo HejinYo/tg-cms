@@ -39,7 +39,10 @@ public final class SystemHelper {
      * 得到request
      */
     public static HttpServletRequest getRequest() {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpServletRequest request = null;
+        if (RequestContextHolder.getRequestAttributes() != null) {
+            request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        }
         return request;
     }
 
