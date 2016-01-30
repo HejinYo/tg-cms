@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.core.commons.TgSecurityPasswordHelper;
-import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.core.service.ResourceService;
 import com.turingoal.cms.modules.base.service.GlobalService;
 import com.turingoal.common.bean.JsonResultBean;
@@ -31,8 +30,6 @@ public class SysIndexController {
     private ResourceService resourceService;
     @Autowired
     private GlobalService globalService;
-    @Autowired
-    private LogInfoDao loginfoDao;
 
 
     /**

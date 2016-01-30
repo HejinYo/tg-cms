@@ -156,10 +156,6 @@ public class CustomFieldServiceImpl implements CustomFieldService {
         form.setOwnerId(ownerId);
         form.setOwnerType(ownerType);
         customFieldDao.add(form);
-        // } else {
-        // customFieldDao.updateOrderAdd(form);
-        // customFieldDao.add(form);
-        // }
     }
 
     /**
