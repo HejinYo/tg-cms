@@ -52,7 +52,6 @@
     <mvc:default-servlet-handler />
     <!-- 资源 映射 -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
-    <mvc:resources mapping="/app/**" location="/app/" />
     <mvc:resources mapping="/files/**" location="/files/" />
     
     <!--默认界面 -->
