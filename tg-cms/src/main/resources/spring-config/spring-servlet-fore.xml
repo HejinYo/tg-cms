@@ -98,7 +98,7 @@
         <property name="resolveLazily" value="true" />
     </bean>
 
-    <!-- 设置本地化信息的拦截器 -->
+    <!-- 设置本地化信息的拦截器, 即请求参数中通过language设置语言 http://***?***&language=en_US-->
     <mvc:interceptors>
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="language" />
