@@ -2,9 +2,9 @@ package com.turingoal.cms.core.domain.form;
 
 import java.io.Serializable;
 import java.util.Date;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import org.apache.bval.constraints.Email;
+import org.apache.bval.constraints.NotEmpty;
 import com.turingoal.common.bean.BaseFormBean;
 import com.turingoal.common.util.validator.ValidGroupAdd;
 import com.turingoal.common.util.validator.ValidGroupUpdate;
@@ -19,10 +19,10 @@ import lombok.EqualsAndHashCode;
 public class UserForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
     @NotEmpty(message = "【用户名】不能为空！", groups = { ValidGroupAdd.class })
-    @Length(min = 5, max = 30, message = "【用户名】最少5个字符，最大30个字符！", groups = { ValidGroupAdd.class, ValidGroupUpdate.class })
+    @Size(min = 5, max = 30, message = "【用户名】最少5个字符，最大30个字符！", groups = { ValidGroupAdd.class, ValidGroupUpdate.class })
     private String username; // 用户名
     @NotEmpty(message = "【 真实姓名】不能为空！", groups = { ValidGroupAdd.class })
-    @Length(min = 1, max = 20, message = "【 真实姓名】最少1个字符，最大20个字符！", groups = { ValidGroupAdd.class, ValidGroupUpdate.class })
+    @Size(min = 1, max = 20, message = "【 真实姓名】最少1个字符，最大20个字符！", groups = { ValidGroupAdd.class, ValidGroupUpdate.class })
     private String realname; // 真实姓名
     private String userPass; // 密码
     private String idCardNum; // 身份证号

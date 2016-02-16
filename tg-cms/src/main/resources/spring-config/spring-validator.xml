@@ -11,8 +11,8 @@
     <!-- 以下 validator ConversionService 在使用 mvc:annotation-driven 会自动注册 -->
     <bean id="validator"
         class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
-        <property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+        <property name="providerClass" value="org.apache.bval.jsr.ApacheValidationProvider" />
         <!-- 如果不加,默认使用classpath下的 ValidationMessages.properties 此处主要把bean validation的消息查找委托给spring的messageSource -->
-        <property name="validationMessageSource" ref="messageSource" />
+        <!-- <property name="validationMessageSource" ref="messageSource" />-->
     </bean>
 </beans>
