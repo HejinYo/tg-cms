@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle} 【系统维护】-稍后再试|">【系统维护】-稍后再试</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="shortcut icon" href="resources/imgs/common/favicon.ico" />
+<!--/*******session过期跳转到登陆页面并跳出iframe框架 *******/-->
+<script type="text/javascript">
+    if (window != top)
+        top.location.href = location.href;
+</script>
+<!--/*******浏览器标题栏小图标favicon *******/-->
+<link th:href="@{/resources/imgs/common/favicon.ico}" rel="shortcut icon" type="image/x-icon" />
+</head>
+<body>
+	<p>系统维护，请稍后再试</p>
+</body>
+</html>

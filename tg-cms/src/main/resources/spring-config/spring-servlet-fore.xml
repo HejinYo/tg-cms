@@ -98,8 +98,14 @@
         <property name="resolveLazily" value="true" />
     </bean>
 
-    <!-- 设置本地化信息的拦截器, 即请求参数中通过language设置语言 http://***?***&language=en_US-->
     <mvc:interceptors>
+        <!--定时显示系统维护界面的拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.htm" />
+            <mvc:exclude-mapping path="${system.maintenancePage}"/> 
+            <bean class="com.turingoal.cms.core.commons.TGMaintenanceInterceptor"></bean>
+        </mvc:interceptor>
+        <!-- 设置本地化信息的拦截器, 即请求参数中通过language设置语言 http://***?***&language=en_US-->
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="language" />
         </bean>
