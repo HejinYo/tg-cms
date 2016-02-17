@@ -15,27 +15,7 @@ import com.turingoal.cms.core.commons.SystemHelper;
  */
 @Controller
 public class ForeLoginController {
-    private static final String MAINTENANCE_PAGE = "maintenance";
-
-    /**
-     * 维护页面
-     */
-    @RequestMapping(value = "/maintenance.htm", method = RequestMethod.GET)
-    public ModelAndView maintenance() {
-        ModelAndView mav = new ModelAndView(MAINTENANCE_PAGE);
-        return mav;
-    }
-
-    /**
-     * 跳转到拒绝访问页面
-     */
-    @RequestMapping(value = "/denied.htm")
-    public ModelAndView denied() {
-        ModelAndView model = new ModelAndView("denied");
-        // 传递用户名到页面中
-        model.addObject("username", SystemHelper.getCurrentUsername());
-        return model;
-    }
+   
 
     /**
      * 将form表单里面的字符串去掉空白
