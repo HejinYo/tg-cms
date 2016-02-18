@@ -1,0 +1,46 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/aop 
+    http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <description>quartz 调度任务</description>
+
+    <!--****************作业*************************** -->
+    <!-- 删除日志 -->
+    <bean id="removeLogDetail" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <property name="jobClass" value="com.turingoal.cms.core.task.RemoveLogJob" />
+        <property name="durability" value="true"></property>
+    </bean>
+    <!--******************触发器************************** -->
+    <!-- 删除日志 -->
+    <bean id="removeLogTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="removeLogDetail" />
+        <!-- 每周一3点30触发一次 0 30 3 ? * MON-->
+        <property name="cronExpression" value="0 30 3 ? * MON" />
+    </bean>
+    <!-- ************SchedulerFactoryBean************ -->
+    <bean id="quartzScheduler" lazy-init="false" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <!-- quartz属性文件 -->
+        <property name="configLocation" ref="configLocationResource"></property>
+        <property name="applicationContextSchedulerContextKey" value="applicationContextKey" />
+        <!--QuartzScheduler 启动时更新己存在的Job QuartzScheduler 启动时更新己存在的Job，这样就不用每次修改targetObject后删除qrtz_job_details表对应记录了 -->
+        <property name="overwriteExistingJobs" value="true" />
+        <!-- 这个是必须的，QuartzScheduler 延时启动，应用启动完后 QuartzScheduler 再启动 <property name="startupDelay" value="30" /> -->
+        <!-- 表示是否调度随工程启动自动启动，如果是false表示不自动启动，则需要调用scheduler.start()进行启动 -->
+        <property name="autoStartup" value="true" />
+        <property name="triggers">
+            <list>
+                <ref bean="removeLogTrigger" />
+            </list>
+        </property>
+    </bean>
+    <!-- ************配置文件************ -->
+    <bean id="configLocationResource" class="org.springframework.core.io.ClassPathResource">
+        <constructor-arg value="quartz.properties" type="java.lang.String"></constructor-arg>
+    </bean> 
+</beans>
