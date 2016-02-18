@@ -36,7 +36,6 @@ cms那么多，为什么我们还要重复发明一个轮子？
 
 ### 案例
 图灵谷（北京）科技有限公司官网  www.turingoal.com  
-影通网 http://www.mtons.com/  
 
 ### 演示地址  
 前台：http://120.24.92.11/tg-cms  
