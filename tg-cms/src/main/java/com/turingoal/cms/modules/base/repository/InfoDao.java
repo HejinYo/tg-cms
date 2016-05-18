@@ -70,20 +70,20 @@ public interface InfoDao {
      * 更新文章浏览次数
      */
     Integer updateViewsCount(InfoQuery query);
-    
+
     /**
      * 根据专题id获取所有文章id
      */
     List<String> findIds(final InfoQuery query);
-    
+
     /**
      * 分页查询未选择 Info
      */
     List<Info> findUnInfoByPage(final InfoQuery query);
-    
+
     /**
      * 分页查询已选择 Info
      */
     List<Info> findInfoByPage(final InfoQuery query);
-    
+
 }

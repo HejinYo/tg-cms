@@ -15,7 +15,7 @@ public interface RoleResourceDao {
     /**
      * 通过用角色id获得资源id集合
      */
-    List<String> getResourceIdsByRole(String roleId);
+    List<String> findResourceIdsByRole(String roleId);
 
     /**
      * 删除某个角色下部分权限

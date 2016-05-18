@@ -37,9 +37,9 @@ import com.turingoal.common.util.validator.ValidGroupUpdate;
 @Controller
 @RequestMapping("/m/base/tag")
 public class TagController {
-    private static final  String LIST_PAGE = "modules/content/tag/list";
-    private static final  String ADD_PAGE = "modules/content/tag/add";
-    private static final  String EDIT_PAGE = "modules/content/tag/edit";
+    private static final String LIST_PAGE = "modules/content/tag/list";
+    private static final String ADD_PAGE = "modules/content/tag/add";
+    private static final String EDIT_PAGE = "modules/content/tag/edit";
 
     @Autowired
     private TagService tagService;

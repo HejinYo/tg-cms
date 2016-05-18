@@ -3,27 +3,10 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.turingoal.cms.modules.base.repository.GlobalDao">
     
-    <!-- 查询全局配置 -->
-    <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.GlobalQuery" resultType="com.turingoal.cms.modules.base.domain.Global">
-        SELECT * FROM tg_cms_m_base_global
-    </select>
-    
     <!-- 通过id得到一个全局配置 -->
-    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Global">
-        SELECT * FROM tg_cms_m_base_global WHERE id = #{id}
+    <select id="get" parameterType="string">
+        SELECT * FROM tg_cms_m_base_global WHERE LIMIT 1
     </select>
-    
-    <!-- 新增 全局配置  -->
-    <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.GlobalForm">
-        INSERT INTO tg_cms_m_base_global (
-            id, sys_protocol, sys_port, context_path, with_domain, 
-            uploads_publishpoint_id, sys_version
-        )
-        VALUES(
-            #{id}, #{sysProtocol}, #{sysPort}, #{contextPath}, #{withDomain}, 
-            #{uploadsPublishpointId}, #{syVersion}
-        )
-    </insert>
     
     <!-- 修改 全局配置  -->
     <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.GlobalForm">

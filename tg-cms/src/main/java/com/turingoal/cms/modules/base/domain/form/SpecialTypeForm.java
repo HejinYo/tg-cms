@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * SpecialTypeForm
+ * 专题类型Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SpecialTypeForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String typeName; // 名称
     private Integer viewsCount; // 浏览总数
     private String metaKeywords; // 关键字

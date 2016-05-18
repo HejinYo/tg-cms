@@ -4,7 +4,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * NodeRole 
+ * NodeRole
  */
 @Data
 public class NodeRole implements Serializable {

@@ -2,7 +2,6 @@ package com.turingoal.cms.core.web.controller.admin;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,9 +20,6 @@ import com.baidu.ueditor.ActionEnter;
 import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.core.service.MonitorSysinfoService;
 import com.turingoal.cms.core.service.ResourceService;
-import com.turingoal.cms.modules.base.domain.Global;
-import com.turingoal.cms.modules.base.domain.query.GlobalQuery;
-import com.turingoal.cms.modules.base.service.GlobalService;
 import com.turingoal.common.util.math.CaptchaUtil;
 
 /**
@@ -33,8 +29,6 @@ import com.turingoal.common.util.math.CaptchaUtil;
 public class SysLoginController {
     @Autowired
     private ResourceService resourceService;
-    @Autowired
-    private GlobalService globalService;
     @Autowired
     private MonitorSysinfoService sysinfoService;
 
@@ -80,10 +74,6 @@ public class SysLoginController {
         ModelAndView mav;
         if (SystemHelper.isAuthenticated()) {
             mav = new ModelAndView("index");
-            if (SystemHelper.getGlobal() == null) {
-                List<Global> gs = globalService.findAll(new GlobalQuery());
-                SystemHelper.setGlobal(gs.get(0));
-            }
             SystemHelper.setSessionAttibute("auths", resourceService.findPermissionsEnabledByUser(SystemHelper.getCurrentUsername()));
             mav.addObject("resultList", sysinfoService.getInfo(request));
             return mav;

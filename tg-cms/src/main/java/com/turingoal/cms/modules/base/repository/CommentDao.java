@@ -7,20 +7,20 @@ import com.turingoal.cms.modules.base.domain.form.CommentForm;
 import com.turingoal.cms.modules.base.domain.query.CommentQuery;
 
 /**
- * CommentDao 
+ * CommentDao
  */
 public interface CommentDao {
-    
+
     /**
      * 查询 Comment
      */
     List<Comment> find(final CommentQuery query);
-    
+
     /**
      * 通过id得到一个 Comment
      */
     Comment get(final String id);
-    
+
     /**
      * 新增 Comment
      */
@@ -30,12 +30,12 @@ public interface CommentDao {
      * 修改 Comment
      */
     int update(final CommentForm form);
-    
+
     /**
      * 根据id删除一个 Comment
      */
     int delete(final String id);
-    
+
     /**
      * 修改状态
      */

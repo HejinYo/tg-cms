@@ -21,15 +21,15 @@
 				<div class="main-box clearfix">
 					<header class="main-box-header clearfix">
 						<h2>友情链接管理</h2>
-					</header>					
+					</header>
 					<div class="main-box-body clearfix">
-					
-					<div class="row m-b-sm m-t-sm">
-						<div class="col-md-2">
-							<a th:href="@{/admin/m/ext/friendlink/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus-circle"></i>&nbsp;新增</a>
-						</div>	
-					</div>
-					<br/>
+
+						<div class="row m-b-sm m-t-sm">
+							<div class="col-md-2">
+								<a th:href="@{/admin/m/ext/friendlink/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus-circle"></i>&nbsp;新增</a>
+							</div>
+						</div>
+						<br />
 						<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover ">
 							<thead>
 								<tr>
@@ -64,115 +64,96 @@
 <script th:src="@{/resources/vendor/webuploader/webuploader.js}"></script>
 <script th:src="@{/resources/js/common/formBuilder.js}"></script>
 <script th:inline="javascript">
-/*<![CDATA[*/
-//表格
-var myTable;
-//表格列定义
-var columnDefs = [ {
-    //第一列，用来显示序号
-    "searchable" : false,
-    "orderable" : false,
-    "targets" : 0
-} ];
-var columns = [ {
-    //第一列，用来显示序号
-    "data" : null
-},{
-    "data" : "enabled",
-    render : function(data, type, row, meta) {
-        var enabledChange = /*[[${#checkAuth.checkAuth('friendlink_enabled')}]]*/;
-        if (enabledChange) {
+    /*<![CDATA[*/
+    //表格
+    var myTable;
+    //表格列定义
+    var columnDefs = [ {
+        //第一列，用来显示序号
+        "searchable" : false,
+        "orderable" : false,
+        "targets" : 0
+    } ];
+    var columns = [ {
+        //第一列，用来显示序号
+        "data" : null
+    }, {
+        "data" : "enabled",
+        render : function(data, type, row, meta) {
             if (data === 1) {
                 return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
             } else if (data !== 1) {
                 return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
             }
-        } else {
-            //不可编辑的都是启用的
-            return '<input type="checkbox" data-size="mini" class="js-switch" data-on="启用" data-off="停用" checked="checked" disabled/> ';
         }
-    }
-},{
-    "data" : "recommend",
-    render : function(data, type, row, meta) {
-        var recommendCheck = /*[[${#checkAuth.checkAuth('friendlink_recommend')}]]*/;
-        if (recommendCheck) {
+    }, {
+        "data" : "recommend",
+        render : function(data, type, row, meta) {
             if (data === 1) {
-               // var sf=row.id;
-                return '<a type="button" class="btn btn-xs btn-primary" onclick="recommend(this,\''+row.id+'\',\''+data+'\')"><i class="fa fa-thumbs-up text-danger"></i>&nbsp;荐</a>';
+                // var sf=row.id;
+                return '<a type="button" class="btn btn-xs btn-primary" onclick="recommend(this,\'' + row.id + '\',\'' + data + '\')"><i class="fa fa-thumbs-up text-danger"></i>&nbsp;荐</a>';
             } else if (data !== 1) {
-				return '<a type="button" class="btn btn-xs btn-primary" onclick="recommend(this,\''+row.id+'\',\''+data+'\')"><i class="fa fa-thumbs-up"></i>&nbsp;荐</a>';
+                return '<a type="button" class="btn btn-xs btn-primary" onclick="recommend(this,\'' + row.id + '\',\'' + data + '\')"><i class="fa fa-thumbs-up"></i>&nbsp;荐</a>';
             }
         }
-    }
-},{
-	"data" : "typeName"
-},{
-    "data" : "flName"
-},{
-    "data" : "flEmail"
-},{   
-    "data" : "flUrl"
-},{
-    "data" : "description"
-},{
-    "data" : null, //最后一列，操作按钮
-    render : function(data, type, row, meta) {
-        var editCheck = /*[[${#checkAuth.checkAuth('friendlink_edit')}]]*/;
-        var delCheck = /*[[${#checkAuth.checkAuth('friendlink_delete')}]]*/;               
-        var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
-        var result = '';        
-        if(editCheck){
-          //修改按钮
+    }, {
+        "data" : "typeName"
+    }, {
+        "data" : "flName"
+    }, {
+        "data" : "flEmail"
+    }, {
+        "data" : "flUrl"
+    }, {
+        "data" : "description"
+    }, {
+        "data" : null, //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
+            var result = '';
+            //修改按钮
             result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-        }else{
-            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-        }
-        if(delCheck){
             //删除按钮
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
-        }else{
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-        }  
-        return result;
-    } 
-} ];
-//ajax参数
-var ajaxDataParamFun = function(d) {
-    d.simpleQueryParam = $('#simpleQueryParam').val(); //模糊查询
-};
-//推荐
-function recommend(r, id, recommend) {
-    var parms = {
-        id : id,
-        recommend : recommend == 2 ? 1 : 2
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
+            return result;
+        }
+    } ];
+    //ajax参数
+    var ajaxDataParamFun = function(d) {
+        d.simpleQueryParam = $('#simpleQueryParam').val(); //模糊查询
+    };
+    //推荐
+    function recommend(r, id, recommend) {
+        var parms = {
+            id : id,
+            recommend : recommend == 2 ? 1 : 2
+        }
+        var url = /*[[@{/admin/m/ext/friendlink/changeRecommend.gsp}]]*/'url';
+        tg_simpleAjaxPost(url, parms, myTable.refresh(), myTable.refresh())
     }
-    var url = /*[[@{/admin/m/ext/friendlink/changeRecommend.gsp}]]*/'url';
-    tg_simpleAjaxPost(url, parms, myTable.refresh(), myTable.refresh())
-}
 
-//表格setting
-var setting = {
-    listUrl : /*[[@{/admin/m/ext/friendlink/list.gsp}]]*/'url',
-    editUrl : /*[[@{/admin/m/ext/friendlink/edit_}]]*/'url',
-    deleteUrl : /*[[@{/admin/m/ext/friendlink/delete_}]]*/'url',
-    enableUrl : /*[[@{/admin/m/ext/friendlink/enable_}]]*/'url',
-    disableUrl : /*[[@{/admin/m/ext/friendlink/disable_}]]*/'url',
-    columnDefs : columnDefs, //表格列定义
-    columns : columns, //表格列
-    dataTableDiv : 'dataTable', //表格
-    ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-    pageable : true, //是否分页
-    showIndexColumn : true, //是否显示第一列的索引列
-    enabledChange : true
-};
-//创建表格
-myTable = new TG_Tabel.createNew(setting);
-//加载完成后执行
-$(function() {
-    //表格初始化
-    myTable.init();
-});      
-/*]]>*/
+    //表格setting
+    var setting = {
+        listUrl : /*[[@{/admin/m/ext/friendlink/list.gsp}]]*/'url',
+        editUrl : /*[[@{/admin/m/ext/friendlink/edit_}]]*/'url',
+        deleteUrl : /*[[@{/admin/m/ext/friendlink/delete_}]]*/'url',
+        enableUrl : /*[[@{/admin/m/ext/friendlink/enable_}]]*/'url',
+        disableUrl : /*[[@{/admin/m/ext/friendlink/disable_}]]*/'url',
+        columnDefs : columnDefs, //表格列定义
+        columns : columns, //表格列
+        dataTableDiv : 'dataTable', //表格
+        ajaxDataParamFun : ajaxDataParamFun, //ajax参数
+        pageable : true, //是否分页
+        showIndexColumn : true, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    myTable = new TG_Tabel.createNew(setting);
+    //加载完成后执行
+    $(function() {
+        //表格初始化
+        myTable.init();
+    });
+    /*]]>*/
 </script>
 </html>

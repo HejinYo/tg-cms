@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * 广告位Query 
+ * 广告位Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class AdSlotQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     private String id; // 广告位
     private String slotName; // 名称
     private String codeNum; // 编码
@@ -21,4 +20,6 @@ public class AdSlotQuery extends BaseQueryBean implements Serializable {
     private Integer width; // 宽度
     private Integer height; // 高度
     private String description; // 描述
+    private Integer sortOrder; // 排序
+    private Integer enabled; // 是否可用
 }

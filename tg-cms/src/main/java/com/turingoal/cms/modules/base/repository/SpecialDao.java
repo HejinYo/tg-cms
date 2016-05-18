@@ -7,10 +7,10 @@ import com.turingoal.cms.modules.base.domain.form.SpecialForm;
 import com.turingoal.cms.modules.base.domain.query.SpecialQuery;
 
 /**
- * SpecialDao 
+ * SpecialDao
  */
 public interface SpecialDao {
-    
+
     /**
      * 查询 Special
      */
@@ -20,7 +20,7 @@ public interface SpecialDao {
      * 通过id得到一个 Special
      */
     Special get(final String id);
-    
+
     /**
      * 新增 Special
      */
@@ -30,12 +30,12 @@ public interface SpecialDao {
      * 修改 Special
      */
     int update(final SpecialForm form);
-    
+
     /**
      * 根据id删除一个 Special
      */
     int delete(final String id);
-    
+
     /**
      * 修改状态
      */

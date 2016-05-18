@@ -32,20 +32,22 @@
             expression="org.springframework.stereotype.Service" />
     </context:component-scan>
 
-    <!-- 如果Proxy-targer-class=false，默认是用jdk动态代理。 所以代理不了controller类,需要配置为true 
-        shiro配置注解方式和事务有冲突，新增、修改、删除不能用。shiro改为动态filterChainDefinitions ******************** 
-        <aop:aspectj-autoproxy proxy-target-class="true" /> -->
-
     <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射. 指定自己定义的validator -->
     <mvc:annotation-driven validator="validator">
-        <!-- 异步支持 默认30秒超时 <mvc:async-support default-timeout="30000" task-executor="executor" 
-            /> -->
-        <!--用fastJson需要在这配置 -->
+        <!-- 异步支持 默认30秒超时  -->
+        <!-- <mvc:async-support default-timeout="30000" task-executor="executor"  /> -->
         <mvc:message-converters>
+            <!--用fastJson需要在这配置 -->
             <ref bean="jsonConverter" />
+            <!-- 方法直接返回字符串时，中文字符乱码。需要更改为URF-8-->
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                    <constructor-arg value="UTF-8" />
+            </bean>
         </mvc:message-converters>
-        <!-- Atmosphere服务器推送 <mvc:argument-resolvers> <bean class="com.turingoal.common.util.net.AtmosphereArgumentResolver" 
-            /> </mvc:argument-resolvers> -->
+        <!-- Atmosphere服务器推送 /> -->
+        <!-- <mvc:argument-resolvers> -->
+        <!--     <bean class="com.turingoal.common.util.net.AtmosphereArgumentResolver" /> -->
+        <!-- </mvc:argument-resolvers> -->
     </mvc:annotation-driven>
 
     <!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
@@ -57,34 +59,46 @@
     <!--默认界面 -->
     <mvc:view-controller path="/" view-name="redirect:/index.htm" />
 
-    <!-- thymeleaf -->
-    <bean id="templateResolver"
-        class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
+    <!-- thymeleaf templateResolver -->
+    <bean id="templateResolver" class="org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver">
         <property name="prefix" value="/template/" />
         <property name="suffix" value=".html" />
-        <property name="templateMode" value="HTML5" />
+        <property name="templateMode" value="HTML" />
         <property name="characterEncoding" value="UTF-8"/>
-        <property name="cacheable" value="false"/> <!-- ！！！前台模板不需要加缓存！！！ -->
+        <!-- 开发时设置为false，上线设置为true -->
+        <property name="cacheable" value="${thymeleaf.cacheableFore}" />
         <property name="cacheablePatterns" value="/*"></property>
     </bean>
-        
-    <bean id="templateEngine"
-        class="org.thymeleaf.spring4.SpringTemplateEngine">
-        <property name="templateResolver" ref="templateResolver" />
+    
+    <!--****** thymeleaf 自定义Processor ****** -->
+    <!-- 友情链接 frendlinkProcessor -->
+    <bean id="frendlinkProcessor" class="com.turingoal.cms.modules.ext.web.dialect.FrendlinkProcessor"/>
+    <!--****** thymeleaf 自定义ExpressionObjectFactory ****** -->
+    
+    <!-- thymeleaf templateEngine-->
+    <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">
+        <property name="templateResolvers">
+            <set>
+                <ref bean="templateResolver" />
+            </set>
+        </property>
+        <!-- 自定义方言 -->
         <property name="additionalDialects">
             <set>
-                <bean class="com.turingoal.cms.modules.base.web.processor.CmsBaseDialect"/>
-                <bean class="com.turingoal.cms.modules.ext.web.processor.CmsExtDialect"/>
-                <bean class="com.turingoal.cms.modules.plug.web.processor.CmsPlugDialect"/>
+                <!-- TgThymeleafCoreProcessorDialect -->
+                <bean class="com.turingoal.cms.core.web.dialect.TgThymeleafCoreProcessorDialect"/>
+                <!-- TgThymeleafCmsProcessorDialect -->
+                <bean class="com.turingoal.cms.modules.base.web.dialect.TgThymeleafCmsProcessorDialect"/>
             </set>
         </property>
     </bean>
     
+     <!-- thymeleaf thymeleafViewResolver-->
     <bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
         <property name="templateEngine" ref="templateEngine" />
-        <property name="characterEncoding" value="UTF-8"/>
+        <property name="characterEncoding" value="UTF-8" />
     </bean>
-
+    
     <!-- 文件上传 -->
     <bean id="multipartResolver"
         class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -98,16 +112,22 @@
         <property name="resolveLazily" value="true" />
     </bean>
 
+    <!-- 拦截器 -->
     <mvc:interceptors>
-        <!--定时显示系统维护界面的拦截器 -->
-        <mvc:interceptor>
-            <mvc:mapping path="/**/*.htm" />
-            <mvc:exclude-mapping path="${system.maintenancePage}"/> 
-            <bean class="com.turingoal.cms.core.commons.TGMaintenanceInterceptor"></bean>
-        </mvc:interceptor>
         <!-- 设置本地化信息的拦截器, 即请求参数中通过language设置语言 http://***?***&language=en_US-->
         <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="language" />
         </bean>
+        <!--定时显示系统维护界面的拦截器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.htm" />
+            <mvc:exclude-mapping path="${system.maintenancePage}"/> 
+            <bean class="com.turingoal.cms.core.commons.TgMaintenanceInterceptor"></bean>
+        </mvc:interceptor>
+        <!-- 配置Token拦截器，防止用户重复提交数据 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*.htm"/>
+            <bean class="com.turingoal.common.util.spring.SpringAvoidRepeatSubmitInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 </beans>

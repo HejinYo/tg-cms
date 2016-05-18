@@ -6,10 +6,10 @@ import com.turingoal.cms.modules.ext.domain.form.VoteMarkForm;
 import com.turingoal.cms.modules.ext.domain.query.VoteMarkQuery;
 
 /**
- * 投票标记Dao 
+ * 投票标记Dao
  */
 public interface VoteMarkDao {
-    
+
     /**
      * 查询 投票标记
      */
@@ -19,7 +19,7 @@ public interface VoteMarkDao {
      * 通过id得到一个 投票标记
      */
     VoteMark get(final String id);
-    
+
     /**
      * 新增 投票标记
      */
@@ -29,7 +29,7 @@ public interface VoteMarkDao {
      * 修改 投票标记
      */
     int update(final VoteMarkForm form);
-    
+
     /**
      * 根据id删除一个 投票标记
      */

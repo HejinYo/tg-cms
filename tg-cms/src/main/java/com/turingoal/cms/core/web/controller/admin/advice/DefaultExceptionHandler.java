@@ -43,24 +43,24 @@ public class DefaultExceptionHandler {
     /**
      * 没有认证 UnauthenticatedException @ResponseStatus 返回制定的状态码
      */
-//    @ExceptionHandler(UnauthenticatedException.class)
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    @ResponseBody
-//    public JsonResultBean processUnauthenticatedException(final NativeWebRequest request, final UnauthenticatedException e) {
-//        request.setAttribute(ConstantSystemValues.ERROR_MESSAGE, "对不起，没有认证", WebRequest.SCOPE_REQUEST); // 存入request 异常信息
-//        log.error("系统异常：", e);
-//        return new JsonResultBean(JsonResultBean.FAULT, "对不起，您还没有登录！");
-//    }
+    // @ExceptionHandler(UnauthenticatedException.class)
+    // @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    // @ResponseBody
+    // public JsonResultBean processUnauthenticatedException(final NativeWebRequest request, final UnauthenticatedException e) {
+    // request.setAttribute(ConstantSystemValues.ERROR_MESSAGE, "对不起，没有认证", WebRequest.SCOPE_REQUEST); // 存入request 异常信息
+    // log.error("系统异常：", e);
+    // return new JsonResultBean(JsonResultBean.FAULT, "对不起，您还没有登录！");
+    // }
 
     /**
      * 没有权限 UnauthorizedException
      */
-//    @ExceptionHandler({ UnauthorizedException.class })
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    @ResponseBody
-//    public JsonResultBean processUnauthentizatedException(final NativeWebRequest request, final UnauthorizedException e) {
-//        request.setAttribute(ConstantSystemValues.ERROR_MESSAGE, "对不起，没有授权", WebRequest.SCOPE_REQUEST); // 存入request 异常信息
-//        log.error("系系统异常：", e);
-//        return new JsonResultBean(JsonResultBean.FAULT, "对不起，您没有该操作权限！");
-//    }
+    // @ExceptionHandler({ UnauthorizedException.class })
+    // @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    // @ResponseBody
+    // public JsonResultBean processUnauthentizatedException(final NativeWebRequest request, final UnauthorizedException e) {
+    // request.setAttribute(ConstantSystemValues.ERROR_MESSAGE, "对不起，没有授权", WebRequest.SCOPE_REQUEST); // 存入request 异常信息
+    // log.error("系系统异常：", e);
+    // return new JsonResultBean(JsonResultBean.FAULT, "对不起，您没有该操作权限！");
+    // }
 }

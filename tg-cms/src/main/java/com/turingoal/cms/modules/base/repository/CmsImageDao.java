@@ -53,7 +53,7 @@ public interface CmsImageDao {
      * @return
      */
     List<CmsImageForm> getByMd5(String md5);
-    
+
     /**
      * 获取所有文件的格式
      */

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- 通用异常信息GE开头 0网络，1数据库，3文件  9其它。具体项目异常信息CE开头-->
+<exceptions>
+    <!-- ********** 通用异常信息 **********-->
+    <!-- 网络异常 -->
+    <exception>
+        <code>GE0000</code>
+        <type>网络异常</type>
+        <detailMsg>网络异常！</detailMsg>
+        <suggestionMsg>请检查网络配置！</suggestionMsg>
+    </exception>
+    <!-- 数据库操作异常 -->
+    <exception>
+        <code>GE1000</code>
+        <type>数据操作异常</type>
+        <detailMsg>数据操作异常！</detailMsg>
+        <suggestionMsg>请检查数据操作！</suggestionMsg>
+    </exception>
+    <exception>
+        <code>GE1001</code>
+        <type>数据操作异常</type>
+        <detailMsg>字段已存在！</detailMsg>
+        <suggestionMsg>字段已存在，请修改后重新操作！</suggestionMsg>
+    </exception>
+    <!-- 文件操作异常 -->
+    <exception>
+        <code>GE2000</code>
+        <type>数据操作异常</type>
+        <detailMsg>文件操作异常！</detailMsg>
+        <suggestionMsg>文件操作异常，请检查文件操作！</suggestionMsg>
+    </exception>
+    <!-- 其它错误 -->
+    <exception>
+        <code>GE9999</code>
+        <type>系统异常</type>
+        <detailMsg>系统异常！</detailMsg>
+        <suggestionMsg>系统发生错误，请联系管理员！</suggestionMsg>
+    </exception>
+    <!-- ********** 自定义异常信息 **********-->
+    <exception>
+        <code>CE9999</code>
+        <type>账户异常</type>
+        <detailMsg>余额不足！</detailMsg>
+        <suggestionMsg>余额不足，请充值！</suggestionMsg>
+    </exception>
+</exceptions>

@@ -12,7 +12,6 @@ import com.turingoal.common.bean.BaseFormBean;
 @EqualsAndHashCode(callSuper = false)
 public class FriendlinkTypeForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String typeName; // 名称
     private String codeNum; // 编码
     private String description; // 描述

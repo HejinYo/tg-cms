@@ -4,12 +4,11 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 广告位 
+ * 广告位
  */
 @Data
 public class AdSlot implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     private String id; // 广告位
     private String slotName; // 名称
     private String codeNum; // 编码
@@ -18,4 +17,6 @@ public class AdSlot implements Serializable {
     private Integer width; // 宽度
     private Integer height; // 高度
     private String description; // 描述
+    private Integer sortOrder; // 排序
+    private Integer enabled; // 是否可用
 }

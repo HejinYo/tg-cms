@@ -19,12 +19,12 @@ public interface TagDao {
      * 通过id得到一个 Tag
      */
     Tag get(final String id);
-    
+
     /**
      * 通过name得到一个 Tag
      */
     Tag findByName(final String name);
-    
+
     /**
      * 根据infoId获取 Tag
      */
@@ -39,12 +39,12 @@ public interface TagDao {
      * 修改 Tag
      */
     int update(final TagForm form);
-    
+
     /**
      * 修改 Tag引用次数(减1)
      */
     int updateRefersSubtract(final String id);
-    
+
     /**
      * 修改 Tag引用次数(加1)
      */
@@ -59,12 +59,12 @@ public interface TagDao {
      * 新增文章、标签关系
      */
     void addRelation(final TagForm form);
-    
+
     /**
      * 删除文章、标签关系
      */
     int deleteRelation(final String id);
-    
+
     /**
      * 删除文章、标签关系
      */

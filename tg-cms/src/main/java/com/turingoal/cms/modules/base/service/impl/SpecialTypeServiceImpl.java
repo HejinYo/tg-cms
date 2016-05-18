@@ -11,6 +11,7 @@ import com.turingoal.cms.modules.base.domain.query.SpecialTypeQuery;
 import com.turingoal.cms.modules.base.repository.SpecialTypeDao;
 import com.turingoal.cms.modules.base.service.SpecialTypeService;
 import com.turingoal.common.annotation.MethodLog;
+import com.turingoal.common.constants.ConstantEnabledValue;
 
 /**
  * 专题类型 Service
@@ -63,5 +64,21 @@ public class SpecialTypeServiceImpl implements SpecialTypeService {
     @MethodLog(name = "删除专题类型", description = "根据id删除一个专题类型")
     public int delete(final String id) {
         return specialTypeDao.delete(id);
+    }
+
+    /**
+     * 启用
+     */
+    @MethodLog(name = "启用专题类型", description = "根据id启用一个专题类型")
+    public void enable(final String id) {
+        specialTypeDao.changeEnabled(id, ConstantEnabledValue.ENABLED_INT);
+    }
+
+    /**
+     * 停用
+     */
+    @MethodLog(name = "停用专题类型", description = "根据id停用一个专题类型")
+    public void disable(final String id) {
+        specialTypeDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
     }
 }

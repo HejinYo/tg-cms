@@ -162,6 +162,30 @@ public final class SystemHelper {
     }
 
     /**
+     * 检查Permission
+     */
+    public static boolean checkPermission(final String permission) {
+        boolean result = false;
+        // 判断是否超级管理员
+        if (isAdmin()) {
+            result = true;
+        } else {
+            List<String> userPermissions = getCurrentUser().getUserPermissions();
+            if (userPermissions != null) {
+                result = userPermissions.contains(permission);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 是否超级管理员
+     */
+    public static boolean isAdmin() {
+        return ConstantSystemValues.ADMIN_USER.equals(getCurrentUsername());
+    }
+
+    /**
      * 得到当前用户用户名
      */
     public static String getCurrentUsername() {
@@ -240,5 +264,37 @@ public final class SystemHelper {
             resutlt = (Global) session.getAttribute("global");
         }
         return resutlt;
+    }
+
+    /**
+     * 锁定系统屏幕
+     */
+    public static void lockScreen() {
+        setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, true);
+    }
+
+    /**
+     * 检查是否锁定系统
+     */
+    public static boolean checkLockScreen() {
+        boolean flag = false;
+        if (getSessionAttibute(ConstantSystemValues.LOGIN_LOCK) != null) {
+            if ((Boolean) getSessionAttibute(ConstantSystemValues.LOGIN_LOCK)) {
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    /**
+     * 解锁系统屏幕
+     */
+    public static boolean unlockScreen(final String userPass) {
+        boolean flag = false;
+        flag = TgSecurityPasswordHelper.isPasswordValid(getCurrentUser().getPassword(), userPass);
+        if (flag) {
+            setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, false);
+        }
+        return flag;
     }
 }

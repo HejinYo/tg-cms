@@ -23,7 +23,7 @@
 					</header>
 					<div class="main-box-body clearfix">
 						<div class="row m-b-sm m-t-sm">
-							<div th:if="${#checkAuth.checkAuth('publishPoint_add')}" class="col-md-8">
+							<div class="col-md-8">
 								<a th:href="@{/admin/m/base/publishPoint/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
 							</div>
 						</div>
@@ -57,86 +57,76 @@
 <script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
 <!--/* 模板引擎生成数据 */-->
 <script th:inline="javascript">
-/*<![CDATA[*/
-//表格
-var myTable;
-//表格列定义
-var columnDefs = [ {
-    //第一列，用来显示序号
-    "searchable" : false,
-    "orderable" : false,
-    "targets" : 0
-} ];
-var columns = [ {
-    //第一列，用来显示序号
-    "data" : null
-},{
-	"data" : "pName"
-},{
-    "data" : "pType",
-    render : function(data, type, row, meta) {
-        if(data === 1){
-            return "<span>HTML发布点</span>";
-        }else if(data === 2){
-            return "<span>附件发布点</span>";
+    /*<![CDATA[*/
+    //表格
+    var myTable;
+    //表格列定义
+    var columnDefs = [ {
+        //第一列，用来显示序号
+        "searchable" : false,
+        "orderable" : false,
+        "targets" : 0
+    } ];
+    var columns = [ {
+        //第一列，用来显示序号
+        "data" : null
+    }, {
+        "data" : "pName"
+    }, {
+        "data" : "pType",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return "<span>HTML发布点</span>";
+            } else if (data === 2) {
+                return "<span>附件发布点</span>";
+            }
         }
-    }
-},{
-    "data" : "pMethod",
-    render : function(data, type, row, meta) {
-        if(data === 1){
-            return "<span>文件系统</span>";
-        }else if(data === 2){
-            return "<span>FTP</span>";
+    }, {
+        "data" : "pMethod",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return "<span>文件系统</span>";
+            } else if (data === 2) {
+                return "<span>FTP</span>";
+            }
         }
-    }
-},{
-    "data" : "description"
-},{
-    "data" : null, //最后一列，操作按钮
-    render : function(data, type, row, meta) {
-        var editCheck = /*[[${#checkAuth.checkAuth('publishPoint_edit')}]]*/;
-        var delCheck = /*[[${#checkAuth.checkAuth('publishPoint_delete')}]]*/;
-        var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
-        var result = '';        
-        if(editCheck){
-          //修改按钮
+    }, {
+        "data" : "description"
+    }, {
+        "data" : null, //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
+            var result = '';
+            //修改按钮
             result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-        }else{
-            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-        }
-        if(delCheck){
             //删除按钮
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
-        }else{
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-        }  
-        return result;
-    } 
-} ];
-//ajax参数
-var ajaxDataParamFun = function(d) {
-};
-//表格setting
-var setting = {
-    listUrl : /*[[@{/admin/m/base/publishPoint/list.gsp}]]*/'url',
-    editUrl : /*[[@{/admin/m/base/publishPoint/edit_}]]*/'url',
-    deleteUrl : /*[[@{/admin/m/base/publishPoint/delete_}]]*/'url',
-    columnDefs : columnDefs, //表格列定义
-    columns : columns, //表格列
-    dataTableDiv : 'dataTable', //表格
-    ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-    pageable : true, //是否分页
-    showIndexColumn : true, //是否显示第一列的索引列
-    enabledChange : true
-};
-//创建表格
-myTable = new TG_Tabel.createNew(setting);
-//加载完成后执行
-$(function() {
-    //表格初始化
-    myTable.init();
-});      
-/*]]>*/
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
+            return result;
+        }
+    } ];
+    //ajax参数
+    var ajaxDataParamFun = function(d) {
+    };
+    //表格setting
+    var setting = {
+        listUrl : /*[[@{/admin/m/base/publishPoint/list.gsp}]]*/'url',
+        editUrl : /*[[@{/admin/m/base/publishPoint/edit_}]]*/'url',
+        deleteUrl : /*[[@{/admin/m/base/publishPoint/delete_}]]*/'url',
+        columnDefs : columnDefs, //表格列定义
+        columns : columns, //表格列
+        dataTableDiv : 'dataTable', //表格
+        ajaxDataParamFun : ajaxDataParamFun, //ajax参数
+        pageable : true, //是否分页
+        showIndexColumn : true, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    myTable = new TG_Tabel.createNew(setting);
+    //加载完成后执行
+    $(function() {
+        //表格初始化
+        myTable.init();
+    });
+    /*]]>*/
 </script>
 </html>

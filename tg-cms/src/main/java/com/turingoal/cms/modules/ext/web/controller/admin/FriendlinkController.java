@@ -57,7 +57,7 @@ public class FriendlinkController {
     public ModelAndView listPage() throws BusinessException {
         ModelAndView mav = new ModelAndView(LIST_PAGE);
         FriendlinkQuery query = new FriendlinkQuery();
-        mav.addObject("friendlink", friendlinkService.findAll(query));
+        mav.addObject("friendlink", friendlinkService.find(query));
         return mav;
     }
 
@@ -67,7 +67,7 @@ public class FriendlinkController {
     @RequestMapping(value = "/list.gsp", method = RequestMethod.POST)
     @ResponseBody
     public PageGridBean list(final FriendlinkQuery query) throws BusinessException {
-        Page<Friendlink> result = friendlinkService.findAll(query);
+        Page<Friendlink> result = friendlinkService.find(query);
         return new PageGridBean(query, result, true);
     }
 

@@ -1,32 +1,20 @@
 package com.turingoal.cms.modules.base.service;
 
-import java.util.List;
 import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.cms.modules.base.domain.form.GlobalForm;
-import com.turingoal.cms.modules.base.domain.query.GlobalQuery;
 
 /**
- * GlobalService
+ * 全局参数Service
  */
 public interface GlobalService {
 
     /**
-     * 查询全部 Global
+     * 获得全局参数
      */
-    List<Global> findAll(final GlobalQuery query);
+    Global get();
 
     /**
-     * 通过id得到一个 Global
-     */
-    Global get(final String id);
-
-    /**
-     * 新增 Global
-     */
-    void add(final GlobalForm form);
-
-    /**
-     * 修改 Global
+     * 修改全局参数
      */
     int update(final GlobalForm form);
 }

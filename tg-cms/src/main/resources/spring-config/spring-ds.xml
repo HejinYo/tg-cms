@@ -11,6 +11,7 @@
         <!--<property name="dbType" value="mysql" />-->
         <property name="dbType" value="postgresql" />
     </bean>
+    <!-- 监控信息过滤器 -->
     <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
         <!-- slowSqlMillis用来配置SQL慢的标准，执行时间超过slowSqlMillis的就是慢。 -->
         <property name="slowSqlMillis" value="10000" />
@@ -18,13 +19,15 @@
         <property name="mergeSql" value="true" />
     </bean>
 
+    <!-- 数据库连接池 dataSource-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
         init-method="init" destroy-method="close">
         <!-- 基本属性 url、user、password -->
         <property name="url" value="${db.url}" />
         <property name="username" value="${db.username}" />
         <!-- 密码加密 -->
-        <property name="connectionProperties" value="config.decrypt=false" />
+        <property name="filters" value="config" />
+        <property name="connectionProperties" value="config.decrypt=true;config.decrypt.key=${db.publicKey}" />
         <property name="password" value="${db.password}" />
         <!-- 配置初始化大小、最小、最大 -->
         <property name="initialSize" value="10" />
@@ -42,17 +45,19 @@
         <property name="testOnReturn" value="false" />
         <!-- 打开PSCache，并且指定每个连接上PSCache的大小 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。 -->
         <property name="poolPreparedStatements" value="false" />
-        <property name="maxPoolPreparedStatementPerConnectionSize"
-            value="20" />
-        <!-- 配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。当程序存在缺陷时，申请的连接忘记关闭，这时候，就存在连接泄漏了。Druid提供了RemoveAbandanded相关配置，用来关闭长时间不使用的连接。 
-            <property name="removeAbandoned" value="true" /> <property name="removeAbandonedTimeout" 
-            value="1800" /> <property name="logAbandoned" value="true" /> -->
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+        <!-- 配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。当程序存在缺陷时，申请的连接忘记关闭，这时候，就存在连接泄漏了。Druid提供了RemoveAbandanded相关配置，用来关闭长时间不使用的连接。--> 
+        <!-- <property name="removeAbandoned" value="true" /> -->
+        <!-- <property name="removeAbandonedTimeout" value="1800" /> -->
+        <!-- <property name="logAbandoned" value="true" /> -->
         <!-- 配置监控统计拦截的filters -->
         <!-- <property name="filters" value="wall,stat" /> -->
         <property name="proxyFilters">
             <list>
+                <!-- 监控信息过滤器 -->
                 <ref bean="stat-filter" />
-                <!-- <ref bean="wall-filter" /> 防注入的话排序不好用 -->
+                <!-- 防注入的话从前台传排序字段排序不好用 -->
+                <ref bean="wall-filter" /> 
             </list>
         </property>
     </bean>

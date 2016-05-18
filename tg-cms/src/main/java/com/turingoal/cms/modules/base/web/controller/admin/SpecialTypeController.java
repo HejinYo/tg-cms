@@ -132,6 +132,26 @@ public class SpecialTypeController {
     }
 
     /**
+     * 根据id启用留言板类型
+     */
+    @RequestMapping(value = "/enable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean enable(@PathVariable("id") final String id) throws BusinessException {
+        specialTypeService.enable(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 根据id停用留言板类型
+     */
+    @RequestMapping(value = "/disable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean disable(@PathVariable("id") final String id) throws BusinessException {
+        specialTypeService.disable(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
      * 将form表单里面的String Date转换成Date型，字符串去掉空白
      */
     @InitBinder

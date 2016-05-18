@@ -27,10 +27,18 @@ public class FriendlinkServiceImpl implements FriendlinkService {
      * 查询全部 友情链接
      */
     @MethodLog(name = "查询全部友情链接", description = "根据条件查询全部的友情链接，不分页")
-    public Page<Friendlink> findAll(final FriendlinkQuery query) {
+    public Page<Friendlink> find(final FriendlinkQuery query) {
         PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
         Page<Friendlink> result = (Page<Friendlink>) friendlinkDao.find(query);
         return result;
+    }
+
+    /**
+     * 查询全部 友情链接
+     */
+    @MethodLog(name = "查询全部友情链接", description = "根据条件查询全部的友情链接，不分页")
+    public List<Friendlink> findEnabled(final FriendlinkQuery query) {
+        return friendlinkDao.findEnabled(query);
     }
 
     /**
@@ -95,7 +103,7 @@ public class FriendlinkServiceImpl implements FriendlinkService {
      */
     @MethodLog(name = "根据类型获取友情链接", description = "根据类型获取友情链接")
     public List<Friendlink> findByTypeId(final FriendlinkQuery query) {
-        return friendlinkDao.findByTypeId(query);
+        return friendlinkDao.find(query);
     }
 
     /**

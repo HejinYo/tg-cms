@@ -1,43 +1,43 @@
 package com.turingoal.cms.modules.base.repository;
 
 import java.util.List;
-import java.util.Map;
+import org.apache.ibatis.annotations.Param;
 import com.turingoal.cms.modules.base.domain.SpecialType;
 import com.turingoal.cms.modules.base.domain.form.SpecialTypeForm;
 import com.turingoal.cms.modules.base.domain.query.SpecialTypeQuery;
 
 /**
- * SpecialTypeDao
+ * 友情链接类型
  */
 public interface SpecialTypeDao {
 
     /**
-     * 查询 SpecialType
+     * 查询 友情链接类型
      */
     List<SpecialType> find(final SpecialTypeQuery query);
 
     /**
-     * 通过id得到一个 SpecialType
+     * 通过id得到一个 友情链接类型
      */
     SpecialType get(final String id);
 
     /**
-     * 新增 SpecialType
+     * 新增 友情链接类型
      */
     void add(final SpecialTypeForm form);
 
     /**
-     * 修改 SpecialType
+     * 修改 友情链接类型
      */
     int update(final SpecialTypeForm form);
 
     /**
-     * 根据id删除一个 SpecialType
+     * 根据id删除一个 友情链接类型
      */
     int delete(final String id);
 
     /**
-     * 修改状态
+     * 修改是否可用
      */
-    int changeState(final Map<String, Object> map);
+    int changeEnabled(@Param("id") final String id, @Param("enabled") final Integer enabled);
 }

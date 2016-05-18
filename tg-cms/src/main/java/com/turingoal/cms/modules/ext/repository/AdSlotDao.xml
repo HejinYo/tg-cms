@@ -5,7 +5,7 @@
     
     <!-- 查询 所有广告位信息 -->
     <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.AdSlotQuery" resultType="com.turingoal.cms.modules.ext.domain.AdSlot">
-        SELECT * FROM tg_cms_m_ext_ad_slot
+        SELECT * FROM tg_cms_m_ext_ad_slot ORDER BY slot_type ASC, sort_order ASC
     </select>
     
     <!-- 通过id得到一个 广告位信息-->
@@ -17,12 +17,12 @@
     <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.AdSlotForm">
         INSERT INTO tg_cms_m_ext_ad_slot (
             id, slot_name, code_num, slot_type, slot_template, 
-            width, height, description,
+            width, height, description, sort_order,
             create_data_time, create_data_username
         )
         VALUES(
             #{id}, #{slotName}, #{codeNum}, #{slotType}, #{slotTemplate}, 
-            #{width}, #{height}, #{description},
+            #{width}, #{height}, #{description}, #{sortOrder},
             #{createDataTime}, #{createDataUsername}
         )
     </insert>
@@ -37,6 +37,7 @@
             width = #{width}, 
             height = #{height}, 
             description = #{description},
+            sort_order = #{sortOrder},
             update_data_time = #{updateDataTime},
             update_data_username = #{updateDataUsername}
         WHERE id = #{id}
@@ -46,6 +47,11 @@
     <delete id="delete" parameterType="string">
         DELETE FROM tg_cms_m_ext_ad_slot WHERE id = #{id}
     </delete>
+    
+    <!-- 修改是否可用-->
+    <update id="changeEnabled">
+        UPDATE tg_cms_m_ext_ad_slot SET enabled = #{enabled} WHERE id = #{id}
+    </update>
     
     <!-- 根据广告位类型获取广告位 -->
     <select id="findBySlotType" parameterType="com.turingoal.cms.modules.ext.domain.query.AdSlotQuery" resultType="com.turingoal.cms.modules.ext.domain.AdSlot">

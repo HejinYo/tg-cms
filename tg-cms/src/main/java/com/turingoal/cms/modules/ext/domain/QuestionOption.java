@@ -4,12 +4,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 调查问卷选项 
+ * 调查问卷选项
  */
 @Data
 public class QuestionOption implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 调查问卷选项
     private String itemId; // itemId
     private String title; // 标题

@@ -102,24 +102,14 @@ var columns = [ {
     "data" : null,
     "class":"text-center", //最后一列，操作按钮
     render : function(data, type, row, meta) {
-        var showCheck = /*[[${#checkAuth.checkAuth('resume_show')}]]*/'';
-        var delCheck = /*[[${#checkAuth.checkAuth('resume_delete')}]]*/'';
         var showUrl = /*[[@{/admin/m/plug/resume/show_}]]*/
         var showUrlPath = showUrl + row.id + ".gsp"; 
     	//var deleteUrlPath = myTable.deleteUrl + row.id + ".gsp";
         var result = '';        
-        if(showCheck){
-          //修改按钮
-            result += ' <a href="'+showUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>';
-        }else{
-            result += ' <a href="'+showUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-eye"></i></a>';
-        }
-        if(delCheck){
-            //删除按钮
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
-        }else{
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-        }  
+        //修改按钮
+        result += ' <a href="'+showUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>';
+        //删除按钮
+        result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
         return result;
     } 
 } ];

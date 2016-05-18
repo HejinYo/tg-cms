@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * 留言板Query 
+ * 留言板Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class GuestbookTypeQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     private String id; // 留言板
     private String typeName; // 名称
     private String codeNum; // 编码
@@ -22,4 +21,5 @@ public class GuestbookTypeQuery extends BaseQueryBean implements Serializable {
     private Integer maxLength; // 最大长度
     private String description; // 描述
     private Integer sortOrder; // 排序
+    private Integer enabled; // 是否可用
 }

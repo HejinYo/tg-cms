@@ -20,6 +20,7 @@ public interface AdSlotService {
      * 查询全部 广告位
      */
     List<AdSlot> findList(final AdSlotQuery query);
+
     /**
      * 通过id得到一个 广告位
      */
@@ -39,6 +40,16 @@ public interface AdSlotService {
      * 根据id删除一个 广告位
      */
     int delete(final String id);
+
+    /**
+     * 启用
+     */
+    void enable(final String id);
+
+    /**
+     * 停用
+     */
+    void disable(final String id);
 
     /**
      * 根据广告位类型获取广告位

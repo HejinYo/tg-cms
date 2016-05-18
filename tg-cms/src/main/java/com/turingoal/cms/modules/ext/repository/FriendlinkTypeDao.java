@@ -1,6 +1,7 @@
 package com.turingoal.cms.modules.ext.repository;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 import com.turingoal.cms.modules.ext.domain.FriendlinkType;
 import com.turingoal.cms.modules.ext.domain.form.FriendlinkTypeForm;
 import com.turingoal.cms.modules.ext.domain.query.FriendlinkTypeQuery;
@@ -34,4 +35,9 @@ public interface FriendlinkTypeDao {
      * 根据id删除一个 友情链接类型
      */
     int delete(final String id);
+
+    /**
+     * 修改是否可用
+     */
+    int changeEnabled(@Param("id") final String id, @Param("enabled") final Integer enabled);
 }

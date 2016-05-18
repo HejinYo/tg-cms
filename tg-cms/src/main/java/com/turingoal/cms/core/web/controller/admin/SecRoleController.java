@@ -190,7 +190,7 @@ public class SecRoleController {
     @RequestMapping(value = "/tree.gsp", method = RequestMethod.POST)
     @ResponseBody
     public final BaseTreeNodeBean resourceTree(final RoleQuery query) throws BusinessException {
-        return resourceService.getResourceTree(query.getId());
+        return resourceService.getResourceTreeByRole(query.getId());
     }
 
     /**

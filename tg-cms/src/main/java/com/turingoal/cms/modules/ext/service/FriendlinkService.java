@@ -14,7 +14,12 @@ public interface FriendlinkService {
     /**
      * 查询全部 友情链接
      */
-    Page<Friendlink> findAll(final FriendlinkQuery query);
+    Page<Friendlink> find(final FriendlinkQuery query);
+
+    /**
+     * 查询全部 友情链接
+     */
+    List<Friendlink> findEnabled(final FriendlinkQuery query);
 
     /**
      * 通过id得到一个 友情链接

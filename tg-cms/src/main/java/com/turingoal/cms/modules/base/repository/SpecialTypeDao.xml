@@ -3,18 +3,17 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.turingoal.cms.modules.base.repository.SpecialTypeDao">
     
-    <!-- 查询全部 SpecialType -->
+    <!-- 查询全部 友情链接类型 -->
     <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.SpecialTypeQuery" resultType="com.turingoal.cms.modules.base.domain.SpecialType">
-        SELECT * FROM tg_cms_m_base_special_type
-        ORDER BY sort_order DESC
+        SELECT * FROM tg_cms_m_base_special_type ORDER BY sort_order ASC
     </select>
     
-    <!-- 通过id得到一个 SpecialType-->
+    <!-- 通过id得到一个 友情链接类型-->
     <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.SpecialType">
         SELECT * FROM tg_cms_m_base_special_type WHERE id = #{id}
     </select>
     
-    <!-- 新增 SpecialType -->
+    <!-- 新增 友情链接类型 -->
     <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.SpecialTypeForm">
         INSERT INTO tg_cms_m_base_special_type (
             id, type_name, views_count, meta_keywords, 
@@ -28,7 +27,7 @@
         )
     </insert>
     
-    <!-- 修改 SpecialType -->
+    <!-- 修改 友情链接类型 -->
     <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.SpecialTypeForm">
         UPDATE tg_cms_m_base_special_type SET
             type_name = #{typeName}, 
@@ -40,8 +39,13 @@
         WHERE id = #{id}
     </update>
 
-    <!-- 根据id删除一个 SpecialType -->
+    <!-- 根据id删除一个 友情链接类型 -->
     <delete id="delete" parameterType="string">
         DELETE FROM tg_cms_m_base_special_type WHERE id = #{id}
     </delete>
+    
+    <!-- 修改是否可用-->
+    <update id="changeEnabled">
+        UPDATE tg_cms_m_base_special_type SET enabled = #{enabled} WHERE id = #{id}
+    </update>
 </mapper>

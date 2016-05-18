@@ -35,7 +35,7 @@ public interface GuestbookDao {
      * 根据id删除一个 留言板
      */
     int delete(final String id);
-    
+
     /**
      * 根据typeId删除留言板信息
      */

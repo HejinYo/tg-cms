@@ -210,7 +210,7 @@ public class SecUserController {
     public ModelAndView roleList(@PathVariable final String userId) throws BusinessException {
         ModelAndView mav = new ModelAndView(USER_ROLE_PAGE);
         User user = userService.get(userId);
-        List<Role> roles = userService.getRolesByUser(userId);
+        List<Role> roles = userService.findRolesByUser(userId);
         mav.addObject("result", user);
         mav.addObject("roles", roles);
         return mav;

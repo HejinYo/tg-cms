@@ -5,12 +5,7 @@
     
     <!-- 查询所有友情链接类型 -->
     <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.FriendlinkTypeQuery" resultType="com.turingoal.cms.modules.ext.domain.FriendlinkType">
-        SELECT * FROM tg_cms_m_ext_friendlink_type
-        WHERE 1=1
-        <if test='id != null and id != "" '>
-            AND id = #{id}
-        </if>
-        ORDER BY sort_order ASC
+        SELECT * FROM tg_cms_m_ext_friendlink_type ORDER BY sort_order ASC
     </select>
     
     <!-- 通过id得到一个 友情链接类型-->
@@ -21,11 +16,11 @@
     <!-- 新增 一个友情链接类型 -->
     <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.FriendlinkTypeForm">
         INSERT INTO tg_cms_m_ext_friendlink_type (
-            id,type_name, code_num, description, sort_order,
+            id, type_name, code_num, description, sort_order,
             create_data_time, create_data_username
         )
         VALUES(
-            #{id},#{typeName}, #{codeNum}, #{description}, #{sortOrder},
+            #{id}, #{typeName}, #{codeNum}, #{description}, #{sortOrder},
             #{createDataTime}, #{createDataUsername}
         )
     </insert>
@@ -46,4 +41,9 @@
     <delete id="delete" parameterType="string">
         DELETE FROM tg_cms_m_ext_friendlink_type WHERE id = #{id}
     </delete>
+    
+    <!-- 修改是否可用-->
+    <update id="changeEnabled">
+        UPDATE tg_cms_m_ext_friendlink_type SET enabled = #{enabled} WHERE id = #{id}
+    </update>
 </mapper>

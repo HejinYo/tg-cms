@@ -16,7 +16,7 @@
 		<div id="page-wrapper" class="container">
 			<div th:replace="fragments/menu_admin::menu(root=site,current=guestbookType)">菜单栏</div>
 			<div id="content-wrapper">
-				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=站点管理,current=留言类型)">面包屑栏</div>
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=站点管理,current=留言板类型)">面包屑栏</div>
 				<div class="main-box clearfix">
 					<header class="main-box-header clearfix">
 						<div class="row m-b-sm m-t-sm">
@@ -29,13 +29,14 @@
 						<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover">
 							<thead>
 								<tr>
-									<th width="60" class="text-center">#</th>
+									<th>状态</th>
 									<th>类型名称</th>
 									<th>类型编码</th>
 									<th>开放模式</th>
 									<th>审核模式</th>
 									<th>验证码模式</th>
 									<th>最大长度</th>
+									<th>排序</th>
 									<th width="100" class="text-center">操作</th>
 								</tr>
 							</thead>
@@ -63,16 +64,16 @@
     //表格
     var myTable;
     //表格列定义
-    var columnDefs = [ {
-        //第一列，用来拖拽
-        "searchable" : false,
-        "orderable" : false,
-        "targets" : 0
-    } ];
+    var columnDefs = [];
     var columns = [ {
-        //第一列，用来拖拽
-        "data" : null,
-        "class" : "text-center"
+        "data" : "enabled",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+            } else if (data !== 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+            }
+        }
     }, {
         "data" : "typeName"
     }, {
@@ -117,28 +118,17 @@
     }, {
         "data" : "maxLength"
     }, {
+        "data" : "sortOrder"
+    }, {
         "data" : null,
         "class" : "text-center", //最后一列，操作按钮
         render : function(data, type, row, meta) {
-            var editCheck = /*[[${#checkAuth.checkAuth('guestbookType_edit')}]]*/'';
-            var delCheck = /*[[${#checkAuth.checkAuth('guestbookType_delete')}]]*/'';
             var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
             var result = '';
-            if (editCheck) {
-                //修改按钮
-                result += '<a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-
-            } else {
-                //修改按钮
-                result += '<a class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-            }
-            if (delCheck) {
-                //删除按钮
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
-            } else {
-                //删除按钮
-                result += ' <a class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-            }
+            //修改按钮
+            result += '<a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
             return result;
         }
     } ];
@@ -147,12 +137,14 @@
         listUrl : /*[[@{/admin/m/ext/guestbookType/list.gsp}]]*/'url',
         editUrl : /*[[@{/admin/m/ext/guestbookType/edit_}]]*/'url',
         deleteUrl : /*[[@{/admin/m/ext/guestbookType/delete_}]]*/'url',
+        enableUrl : /*[[@{/admin/m/ext/guestbookType/enable_}]]*/'url',
+        disableUrl : /*[[@{/admin/m/ext/guestbookType/disable_}]]*/'url',
         columnDefs : columnDefs, //表格列定义
         columns : columns, //表格列
         dataTableDiv : 'dataTable', //表格
         pageable : false, //是否分页
-        showIndexColumn : true, //是否显示第一列的索引列
-        enabledChange : false
+        showIndexColumn : false, //是否显示第一列的索引列
+        enabledChange : true
     };
     //创建表格
     myTable = new TG_Tabel.createNew(setting);

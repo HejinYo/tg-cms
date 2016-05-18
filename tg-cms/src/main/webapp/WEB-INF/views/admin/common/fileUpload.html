@@ -100,7 +100,7 @@
     var type = /*[[${upType}]]*/'';
     var accept = {};
     var filedName = /*[[${#httpServletRequest.getParameter('fieldName')}]]*/'fieldName';
-    var showFileId = '#'+filedName;
+    var showFileId = '#' + filedName;
     var fileUploadUrl = /*[[@{/admin/m/base/file/uploadFile.gsp}]]*/'';
     var fileGetUrl = /*[[@{/admin/m/base/file/findByIds.gsp}]]*/'';
     var fileIcon = 'fa fa-file';
@@ -199,33 +199,33 @@ if(len>0){
         pageable : true, //分页
         page : 1
     };
-    
+
     var onlineTable = new TG_Tabel.createNew(onlineSetting);
-    
+
     $(function() {
         var singUploader = createFileUpload($('#tab-1'), fileUploadUrl, false, 'fileInputIdName', accept);
         $('#tab-1 .ctlBtn').on('click', function() {
-			singUploader.gi_uploaderBtnClick();
-		});
+            singUploader.gi_uploaderBtnClick();
+        });
         onlineTable.init();
     });
-    
+
     var ids = '';
     var idInputs = {};
     $('.selectFileBtn').click(function() {
         var currTabType = $('#nav-tabs-selFile .active').attr('upType');
         if (currTabType === 'online') {
             idInputs = $('#tab-3 input[name="fileInputIdName"]').first();
-        } else if(currTabType === 'single'){
+        } else if (currTabType === 'single') {
             idInputs = $('#tab-1 input[name="fileInputIdName"]');
         }
-        if (idInputs == null || idInputs.length==0) {
-            bootstrapQ.alert("请选择文件进行上传！");
+        if (idInputs == null || idInputs.length == 0) {
+            layer.alert("请选择文件进行上传！");
         } else {
-            idInputs.each(function(){
-                ids+=$(this).val()+',';
+            idInputs.each(function() {
+                ids += $(this).val() + ',';
             });
-            
+
             tg_simpleAjaxPost(fileGetUrl, {
                 ids : ids
             }, function(d) {
@@ -238,27 +238,27 @@ if(len>0){
                         if (type == 'video') {
                             fileName = result.obj[0].videoName;
                             id = result.obj[0].id;
-						} else if (type == 'file') {
-						    fileName = result.obj[0].fileName;
-						    id = result.obj[0].id;
-						} else if (type == 'doc') {
-						    fileName = result.obj[0].docName;
-						    id = result.obj[0].id;
-						}
-                        var divId = new Date().getTime()+i;
-                        var $li = $('<div style="width:160px;" class="file" id="'+divId+'"><div class="icon"><i class="img-responsive '+fileIcon+'"></i></div><div class="file-name">'+fileName+'</div><a class="pull-right delBtn">删除</a></div>');
+                        } else if (type == 'file') {
+                            fileName = result.obj[0].fileName;
+                            id = result.obj[0].id;
+                        } else if (type == 'doc') {
+                            fileName = result.obj[0].docName;
+                            id = result.obj[0].id;
+                        }
+                        var divId = new Date().getTime() + i;
+                        var $li = $('<div style="width:160px;" class="file" id="'+divId+'"><div class="icon"><i class="img-responsive '+fileIcon+'"></i></div><div class="file-name">' + fileName + '</div><a class="pull-right delBtn">删除</a></div>');
                         $li.append($('<input type="hidden" name="'+filedName+'" value="'+id+'">'));
                         $(showFileId).append($li);
                     }
                     $(showFileId).on('click', '.delBtn', function() {
                         $(this).parent().remove();
-                    }); 
+                    });
                     $('#uploaderWin').modal('hide');
                 }
             });
         }
     });
-    
+
     function onlinSelect(obj) {
         var $this = $(obj);
         $('#tab-3').find('.fa-check').remove();

@@ -1,7 +1,7 @@
 <!DOCTYPE>
 <html>
 <head>
-<title>出错了</title>
+<title>出错了-401</title>
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 <style type="text/css">
 body {
@@ -11,12 +11,12 @@ body {
 	color: #3c3c3c;
 }
 
-.demo {
+.banner {
 	width: 600px;
 	margin: 0 auto;
 }
 
-.demo p:first-child {
+.banner p:first-child {
 	text-align: center;
 	font-family: cursive;
 	font-size: 150px;
@@ -26,7 +26,7 @@ body {
 	color: #fff;
 }
 
-.demo p:first-child span {
+.banner p:first-child span {
 	cursor: pointer;
 	text-shadow: 0px 0px 2px #686868, 0px 1px 1px #ddd, 0px 2px 1px #d6d6d6,
 		0px 3px 1px #ccc, 0px 4px 1px #c5c5c5, 0px 5px 1px #c1c1c1, 0px 6px
@@ -39,7 +39,7 @@ body {
 	transition: all .1s linear;
 }
 
-.demo p:first-child span:hover {
+.banner p:first-child span:hover {
 	text-shadow: 0px 0px 2px #686868, 0px 1px 1px #fff, 0px 2px 1px #fff,
 		0px 3px 1px #fff, 0px 4px 1px #fff, 0px 5px 1px #fff, 0px 6px 1px #fff,
 		0px 7px 1px #777, 0px 8px 3px #fff, 0px 9px 5px #fff, 0px 10px 7px
@@ -48,82 +48,17 @@ body {
 	transition: all .1s linear;
 }
 
-.demo
- 
-p
-:not
- 
-(
-:first-child
- 
-)
-{
-text-align
-:
- 
-center
-;
-
-	
-color
-:
- 
-#666
-;
-
-	
-font-family
-:
- 
-cursive
-;
-
-	
-font-size
-:
- 
-20
-px
-;
-
-	
-text-shadow
-:
- 
-0
-1
-px
- 
-0
-#fff
-;
-
-	
-letter-spacing
-:
- 
-1
-px
-;
-
-	
-line-height
-:
- 
-2
-em
-;
-
-	
-margin-top
-:
- 
--50
-px
-;
-
-
+.banner p:not (:first-child ) {
+    text-align: center;
+    color: #666;
+    font-family: cursive;
+    font-size: 20px;
+    text-shadow: 0 1px 0 #fff;
+    letter-spacing: 1px;
+    line-height: 2em;
+    margin-top: -50px;
 }
+
 * {
 	margin: 0;
 	padding: 0;
@@ -230,7 +165,7 @@ a:hover {
 	<div class="container">
 		<div style="position: relative; width: 600px; margin: 0 auto;">
 			<div class="cont">
-				<div class="c1 demo">
+				<div class="c1 banner">
 					<p>
 						<span>4</span><span>0</span><span>1</span>
 					</p>

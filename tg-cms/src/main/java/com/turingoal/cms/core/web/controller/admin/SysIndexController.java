@@ -10,15 +10,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.core.commons.TgSecurityPasswordHelper;
 import com.turingoal.cms.core.service.ResourceService;
 import com.turingoal.cms.modules.base.service.GlobalService;
 import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.constants.ConstantDateFormatTypes;
-import com.turingoal.common.constants.ConstantSystemValues;
 import com.turingoal.common.exception.BusinessException;
+import jodd.util.StringUtil;
 
 /**
  * 系统首页
@@ -30,7 +30,6 @@ public class SysIndexController {
     private ResourceService resourceService;
     @Autowired
     private GlobalService globalService;
-
 
     /**
      * 跳转到欢迎界面
@@ -46,6 +45,14 @@ public class SysIndexController {
     @RequestMapping(value = "/home.gsp")
     public String home() {
         return "home";
+    }
+
+    /**
+     * 跳转到帮助页面
+     */
+    @RequestMapping(value = "/help.gsp")
+    public String help() {
+        return "redirect:/files/other/help.pdf";
     }
 
     /**
@@ -88,8 +95,8 @@ public class SysIndexController {
      */
     @RequestMapping(value = "/lock.gsp")
     @ResponseBody
-    public JsonResultBean lock() {
-        SystemHelper.setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, true);
+    public JsonResultBean lockScreen() {
+        SystemHelper.lockScreen();
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
 
@@ -99,13 +106,11 @@ public class SysIndexController {
     @RequestMapping(value = "/checkLock.gsp")
     @ResponseBody
     public JsonResultBean checkLock() {
-        if (SystemHelper.getSessionAttibute(ConstantSystemValues.LOGIN_LOCK) != null) {
-            boolean lock = (Boolean) SystemHelper.getSessionAttibute(ConstantSystemValues.LOGIN_LOCK);
-            if (lock) {
-                return new JsonResultBean(JsonResultBean.SUCCESS);
-            }
+        if (SystemHelper.checkLockScreen()) {
+            return new JsonResultBean(JsonResultBean.SUCCESS);
+        } else {
+            return new JsonResultBean(JsonResultBean.FAULT);
         }
-        return new JsonResultBean(JsonResultBean.FAULT);
     }
 
     /**
@@ -113,12 +118,9 @@ public class SysIndexController {
      */
     @RequestMapping(value = "/unlock.gsp")
     @ResponseBody
-    public JsonResultBean unlock(final HttpServletRequest request) {
-        String password = request.getParameter("password");
-        if (password != null) {
-            String userPass = SystemHelper.getCurrentUser().getUserPass();
-            if (userPass.equals(TgSecurityPasswordHelper.encodePassword(password))) {
-                SystemHelper.setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, false);
+    public JsonResultBean unlock(@RequestParam("userPass") final String userPass) {
+        if (StringUtil.isNotBlank(userPass)) {
+            if (SystemHelper.unlockScreen(userPass)) {
                 return new JsonResultBean();
             }
         }
@@ -128,20 +130,20 @@ public class SysIndexController {
     /**
      * 检查用户是否具有某个权限
      */
-//    @RequestMapping(value = "/checkAuth.gsp")
-//    @ResponseBody
-//    public JsonResultBean checkAuth(@RequestParam("authName") final String authName) {
-//        if (SystemHelper.isAuthenticated()) {
-//            if (ConstantSystemValues.ADMIN_USER.equals(SystemHelper.getCurrentUsername())) {
-//                return new JsonResultBean(JsonResultBean.SUCCESS);
-//            } else {
-//                if (SystemHelper.isPermitted(authName)) {
-//                    return new JsonResultBean(JsonResultBean.SUCCESS);
-//                }
-//            }
-//        }
-//        return new JsonResultBean(JsonResultBean.FAULT);
-//    }
+    // @RequestMapping(value = "/checkAuth.gsp")
+    // @ResponseBody
+    // public JsonResultBean checkAuth(@RequestParam("authName") final String authName) {
+    // if (SystemHelper.isAuthenticated()) {
+    // if (ConstantSystemValues.ADMIN_USER.equals(SystemHelper.getCurrentUsername())) {
+    // return new JsonResultBean(JsonResultBean.SUCCESS);
+    // } else {
+    // if (SystemHelper.isPermitted(authName)) {
+    // return new JsonResultBean(JsonResultBean.SUCCESS);
+    // }
+    // }
+    // }
+    // return new JsonResultBean(JsonResultBean.FAULT);
+    // }
 
     /**
      * 检查用户是否具有某些权限

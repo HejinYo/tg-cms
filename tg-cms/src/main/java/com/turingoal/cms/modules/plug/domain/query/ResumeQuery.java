@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * ResumeQuery 
+ * ResumeQuery
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class ResumeQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 招聘
     private String username; // 姓名
     private String applyPost; // 应聘职位

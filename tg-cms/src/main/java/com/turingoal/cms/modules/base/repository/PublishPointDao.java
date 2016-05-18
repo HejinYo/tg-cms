@@ -34,7 +34,7 @@ public interface PublishPointDao {
      * 根据id删除一个 PublishPoint
      */
     int delete(final String id);
-    
+
     /**
      * 查询发布类型为1的全部数据
      */

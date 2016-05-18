@@ -100,22 +100,22 @@
 
             },
             submitHandler : function(f) {
-                if(singUploader.getFiles().length>0){
+                if (singUploader.getFiles().length > 0) {
                     title = $('#title').val();
                     description = $('#description').val();
                     singUploader.upload();
-                }else{
-                    bootstrapQ.alert("请选择上传的图片！");
+                } else {
+                    layer.alert("请选择上传的图片！");
                 }
             }
         });
-        
-		// 多张上传初始化
+
+        // 多张上传初始化
         var mulitUploader = createImageUploader($('#tab-2'), fileUploadUrl, true);
         mulitUploader.on('uploadFinished', function(file) {
             myTable.refresh();
             tg_alertSuccess();
-           	$('#commonWin').modal('hide');
+            $('#commonWin').modal('hide');
         });
     });
     /*]]>*/

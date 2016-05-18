@@ -3,6 +3,7 @@ package com.turingoal.cms.core.domain;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.turingoal.common.constants.ConstantEditableValue;
@@ -36,6 +37,7 @@ public class User implements UserDetails, Serializable {
     private Integer editable = ConstantEditableValue.EDITABLE_INT; // 是否可编辑
     private Integer locked = ConstantLockedValue.UNLOCKED_INT; // 是否锁定
     private Integer userEnabled = ConstantEnabledValue.ENABLED_INT; // 是否启用
+    private List<String> userPermissions; // 用户拥有的Permission
 
     /**
      * 解决和spring security的isEnabled的冲突

@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * 调查问卷Form 
+ * 调查问卷Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class QuestionForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String codeNum; // 问卷编码
     private String title; // 标题
     private String description; // 描述

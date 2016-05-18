@@ -19,12 +19,12 @@ public interface AttrDao {
      * 通过id得到一个 Attr
      */
     Attr get(final String id);
-    
+
     /**
      * 根据文章id获取 Attr
      */
     List<Attr> findByInfoId(final String id);
-    
+
     /**
      * 通过code得到一个 Attr
      */

@@ -4,12 +4,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 广告 
+ * 广告
  */
 @Data
 public class Ad implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 广告
     private String adSlotId; // 广告板id
     private String adName; // 名称

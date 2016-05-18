@@ -20,7 +20,7 @@
 							<div class="ibox-content">
 								<div class="row m-b-sm m-t-sm">
 									<form th:action="@{/admin/m/base/collect/list.gsp}" id="dataTableFilterForm" role="form" action="#" method="post">
-										<div th:if="${#checkAuth.checkAuth('collect_add')}" class="col-md-8">
+										<div class="col-md-8">
 											<a th:href="@{/admin/m/base/collect/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
 										</div>
 										<div class="col-md-4">
@@ -60,10 +60,6 @@
 <script th:inline="javascript" id="dataTableTpl" type="text/html">
 /*<![CDATA[*/
 {{# 
-var editCheck = /*[[${#checkAuth.checkAuth('collect_edit')}]]*/;
-var delCheck = /*[[${#checkAuth.checkAuth('collect_delete')}]]*/;
-var enabledChange = /*[[${#checkAuth.checkAuth('collect_enabled')}]]*/;
-
 var editUrlPre= /*[[@{/admin/m/base/collect/edit_}]]*/'url'; 
 var len = d.length;
 if(len>0){
@@ -74,29 +70,17 @@ if(len>0){
 <tr class="gradeX">
 	<td>{{num}}</td>
 	<td>
-		{{# if(enabledChange){ }}
-			{{# if(record.enabled===1){ }}
-				<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this, '{{record.id}}')" /> 
-   	 		{{# }else{ }}
-				<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, '{{record.id}}')" />
-			{{# } }}
-		{{# } else { }}
-			{{# if(record.enabled===1){ }}
-				<span class="text-success">启用</span>
-   	 		{{# }else{ }}
-				<span class="text-danger">停用</span>
-			{{# } }}
+		{{# if(record.enabled===1){ }}
+			<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this, '{{record.id}}')" /> 
+   	 	{{# }else{ }}
+			<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, '{{record.id}}')" />
 		{{# } }}
 	</td>
 	<td>{{record.collectName}}</td>
 	<td class="text-success">{{record.noddName}}</td>
 	<td>
-		{{# if(editCheck){ }}
-			<a href="{{editUrlPre+record.id}}.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;修改</a>
-		{{# } }}
-		{{# if(delCheck){ }}
-			<button class="btn btn-warning btn-xs" type="button" onclick="myTable.deleteItem('{{record.id}}')"><i class="fa fa-trash-o"></i>&nbsp;删除</button>
-		{{# } }}
+		<a href="{{editUrlPre+record.id}}.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;修改</a>
+		<button class="btn btn-warning btn-xs" type="button" onclick="myTable.deleteItem('{{record.id}}')"><i class="fa fa-trash-o"></i>&nbsp;删除</button>
 	</td>
 </tr>
 	{{# } }}

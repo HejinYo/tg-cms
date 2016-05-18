@@ -4,12 +4,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 留言板 
+ * 留言板
  */
 @Data
 public class Guestbook implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 留言板
     private String typeId; // 留言类型
     private String createDataUsername; // 创建者

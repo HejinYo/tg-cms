@@ -5,10 +5,6 @@
 	version="3.1">
 	<display-name>tg-cms</display-name>
 	<description>图灵谷cms</description>
-	<!-- 初始化 -->
-	<listener>
-		<listener-class>com.turingoal.cms.core.filter.SystemInitListener</listener-class>
-	</listener>
 	<!--characterEncodingFilter -->
 	<filter>
 		<filter-name>characterEncodingFilter</filter-name>

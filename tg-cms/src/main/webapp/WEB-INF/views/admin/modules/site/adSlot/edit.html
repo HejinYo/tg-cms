@@ -8,19 +8,19 @@
 			<div class="col-md-12">
 				<input th:field="*{id}" type="text" hidden="true" />
 				<div class="form-group">
-					<label class="col-md-3 control-label">广告位名称<label class="text-danger">*</label>：</label>
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 广告位名称：</label>
 					<div class="col-md-7">
 						<input name="slotName" th:field="*{slotName}" placeholder="请输入广告位名称" type="text" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label">广告位编码<label class="text-danger">*</label>：</label>
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 广告位编码： </label>
 					<div class="col-md-7">
 						<input name="codeNum" th:field="*{codeNum}" placeholder="请输入广告位编码" type="text" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label">广告位类型<label class="text-danger">*</label>：</label>
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 广告位类型： </label>
 					<div class="col-md-7">
 						<select class="form-control" th:field="*{slotType}" name="slotType">
 							<option value="1">图片</option>
@@ -31,21 +31,27 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label">广告位模板<label class="text-danger">*</label>：</label>
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 广告位模板： </label>
 					<div class="col-md-7">
 						<input name="slotTemplate" th:field="*{slotTemplate}" placeholder="请输入广告位模板" type="text" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label">广告位宽度<label class="text-danger">*</label>：</label>
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 广告位宽度： </label>
 					<div class="col-md-7">
 						<input name="width" th:field="*{width}" placeholder="请输入广告位宽度" type="text" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-md-3 control-label">广告位高度<label class="text-danger">*</label>：</label>
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 广告位高度： </label>
 					<div class="col-md-7">
 						<input name="height" th:field="*{height}" placeholder="请输入广告位高度" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 control-label"><label class="text-danger">*</label> 排序：</label>
+					<div class="col-xs-7">
+						<input th:field="*{sortOrder}" type="number" min="1" max="99" step="1" value="1" class="form-control" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -94,6 +100,9 @@
                 digits : true,
                 required : true,
                 range : [ 1, 2000 ]
+            },
+            sortOrder : {
+                required : true
             },
             description : {
                 maxlength : 140

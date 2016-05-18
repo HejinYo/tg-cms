@@ -35,7 +35,7 @@ public interface ModelDao {
      * 根据id删除一个 Model
      */
     int delete(final String id);
-    
+
     /**
      * 获取所有模型字段
      */

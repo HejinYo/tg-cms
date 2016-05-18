@@ -46,40 +46,4 @@
         DELETE FROM tg_cms_m_base_info_special WHERE info_id = #{infoId}
         AND special_id = #{specialId}
     </delete>
-    
-    <!-- 根据专题id获取最大序号 -->
-    <select id="getMaxOrder" parameterType="string" resultType="int">
-        SELECT MAX(specialOrder) FROM tg_cms_m_base_info_special WHERE special_id = #{specialId}
-    </select>
-    
-    <!-- 修改序号（加1） -->
-    <update id="updateOrderAdd" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
-        UPDATE tg_cms_m_base_info_special SET
-            special_order = special_order + 1
-        WHERE special_id = #{specialId} AND 
-        <![CDATA[ specialOrder >= #{specialOrder} ]]>    
-    </update>
-    
-    <!-- 修改序号（减1） -->
-    <update id="updateOrderSubtract" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
-        UPDATE tg_cms_m_base_info_special SET
-            special_order = special_order - 1
-        WHERE special_id = #{specialId} AND
-        <![CDATA[ specialOrder > #{specialOrder} ]]>    
-    </update>
-    
-    <!-- 修改文章、专题关系排序（递减）-->
-    <update id="subtractOrder" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
-        UPDATE tg_cms_m_base_info_special SET special_order=special_order-1 WHERE special_order &gt; #{startDrop} AND special_order &lt; #{endDrop} AND special_id = #{specialId}
-    </update>
-    
-    <!-- 修改文章、专题关系排序（递增）-->
-    <update id="addOrder" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
-        UPDATE tg_cms_m_base_info_special SET special_order=special_order+1 WHERE special_order &gt; #{endDrop} AND special_order &lt; #{startDrop} AND special_id = #{specialId}
-    </update>
-    
-    <!-- 修改文章、专题关系排序-->
-    <update id="updateOrder" parameterType="com.turingoal.cms.modules.base.domain.form.InfoSpecialForm">
-        UPDATE tg_cms_m_base_info_special SET special_order=#{specialOrder} WHERE id = #{id}
-    </update>
 </mapper>

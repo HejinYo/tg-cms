@@ -12,6 +12,7 @@ import com.turingoal.cms.core.domain.form.CustomFieldForm;
 public class SystemFields {
     // 文档字段
     public static final Map<String, CustomFieldForm> SYS_INFO_FIELD = new HashMap<String, CustomFieldForm>();
+
     static {
         /*
          * SYS_INFO_FIELD.put("source", new CustomFieldForm(1, "来源", "source", 2, 1, 1)); SYS_INFO_FIELD.put("author", new CustomFieldForm(1, "作者", "author", 2, 1, 1)); SYS_INFO_FIELD.put("smallImage", new CustomFieldForm(1, "标题图", "smallImage", 2, 1, 1)); SYS_INFO_FIELD.put("attributes", new
@@ -35,6 +36,7 @@ public class SystemFields {
 
     // 栏目字段
     public static final Map<String, CustomFieldForm> SYS_NODE_FIELD = new HashMap<String, CustomFieldForm>();
+
     static {
         /*
          * SYS_NODE_FIELD.put("workflow", new CustomFieldForm(1, "审核流程", "workflow", 2, 1, 1)); SYS_NODE_FIELD.put("infoPerms", new CustomFieldForm(1, "文档权限", "infoPerms", 2, 1, 1)); SYS_NODE_FIELD.put("nodePerms", new CustomFieldForm(1, "栏目权限", "nodePerms", 2, 1, 1));
@@ -46,6 +48,7 @@ public class SystemFields {
 
     // 专题字段
     public static final Map<String, CustomFieldForm> SYS_SPECIAL_FIELD = new HashMap<String, CustomFieldForm>();
+
     static {
         /*
          * SYS_SPECIAL_FIELD.put("title", new CustomFieldForm(1, "标题", "title", 2, 1, 1)); SYS_SPECIAL_FIELD.put("metaKeywords", new CustomFieldForm(1, "关键词", "metaKeywords", 2, 1, 1)); SYS_SPECIAL_FIELD.put("metaDescription", new CustomFieldForm(1, "描述", "metaDescription", 2, 1, 1));

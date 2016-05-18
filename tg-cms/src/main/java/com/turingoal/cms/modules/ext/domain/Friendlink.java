@@ -4,12 +4,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 友情链接 
+ * 友情链接
  */
 @Data
 public class Friendlink implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 友情链接
     private String typeId; // 类型
     private String flName; // 网站名称

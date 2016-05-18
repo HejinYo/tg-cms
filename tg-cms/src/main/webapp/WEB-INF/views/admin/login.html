@@ -3,17 +3,21 @@
 <head>
 <!--/*******session过期跳转到登陆页面并跳出iframe框架*******/-->
 <script type="text/javascript">
-    if (window != top)
+    if (window != top) {
         top.location.href = location.href;
+    }
 </script>
 <!--/*******标题*******/-->
 <title th:text="#{customer.systemTitle}">首页</title>
+<meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <!--/*******浏览器标题栏小图标favicon*******/-->
 <link th:href="@{/resources/imgs/common/favicon.ico}" rel="shortcut icon" type="image/x-icon" />
-<!-- bootstrap - css -->
+<!--/*******当前页 css*******/-->
 <link th:href="@{/resources/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
-<!-- index -->
 <link th:href="@{/resources/css/core/login.css}" rel="stylesheet" />
 </head>
 <body>
@@ -36,7 +40,8 @@
 					<div class="form-group">
 						<label for="tg_password" class="t">密 码：</label> <input id="tg_password" value="" name="tg_password" placeholder="密码" type="password" class="form-control x319 in" autocomplete="off" maxlength="25" />
 					</div>
-					<div class="form-group">
+					<!--/* 验证码，根据系统配置是否显示 */-->
+					<div th:if="${application.openValidateCaptchaCode}" class="form-group">
 						<label for="tg_captchaCode" class="t">验证码：</label> <input id="tg_captchaCode" name="tg_captchaCode" type="text" class="form-control x164 in" autocomplete="off" maxlength="5" /> <img id="captchaImg" alt="点击更换" title="点击更换" th:src="@{/admin/getCaptcha.gsp}" class="m" />
 					</div>
 					<!--/*校验信息*/-->
@@ -50,12 +55,12 @@
 		</div>
 		<!--/*******版权信息*******/-->
 		<div class="bottom">
-			Copyright &copy; 2015 <a href="http://www.turingoal.com" target="_blank">图灵谷（北京）科技有限公司</a>
+			Copyright &copy; <span th:text="#{customer.copyYear}">2016</span> <a href="http://www.turingoal.com" target="_blank" th:text="#{customer.copyCompName}">图灵谷（北京）科技有限公司</a>
 		</div>
 	</div>
 </body>
 <!--<script th:src="@{/resources/js/sha256.js}"></script>-->
-<script th:src="@{/resources/vendor/jquery/jquery-2.1.1.min.js}"></script>
+<script th:src="@{/resources/vendor/jquery/jquery-2.2.2.min.js}"></script>
 <script th:src="@{/resources/vendor/jquery/validation/jquery.validate.min.js}"></script>
 <script th:src="@{/resources/js/core/login.js}"></script>
 </html>

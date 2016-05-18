@@ -50,12 +50,12 @@ public interface CommentService {
      * 停用
      */
     int disable(final String id);
-    
+
     /**
      * 屏蔽
      */
     int shieldById(final String id);
-    
+
     /**
      * 推荐
      */

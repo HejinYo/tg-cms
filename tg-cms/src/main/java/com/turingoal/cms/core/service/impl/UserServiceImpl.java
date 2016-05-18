@@ -18,11 +18,10 @@ import com.turingoal.cms.core.repository.UserDao;
 import com.turingoal.cms.core.repository.UserRoleDao;
 import com.turingoal.cms.core.service.UserService;
 import com.turingoal.common.annotation.MethodLog;
-import com.turingoal.common.constants.ConstantEnabledValue;
 import com.turingoal.common.constants.ConstantEditableValue;
+import com.turingoal.common.constants.ConstantEnabledValue;
 import com.turingoal.common.constants.ConstantSystemValues;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.exception.ExceptionCode;
 import com.turingoal.common.util.lang.StringUtil;
 
 /**
@@ -86,7 +85,7 @@ public class UserServiceImpl implements UserService {
      * 查询某个用户下的角色id
      */
     @MethodLog(name = "查询某个用户下的角色id", description = "查询某个用户下的角色id")
-    public List<String> getRoleIdsByUser(final String userId) {
+    public List<String> findRoleIdsByUser(final String userId) {
         return userRoleDao.getRoleIdsByUser(userId);
     }
 
@@ -94,7 +93,7 @@ public class UserServiceImpl implements UserService {
      * 查询某个用户下的所有角色信息
      */
     @MethodLog(name = "查询某个用户下的所有角色信息", description = "查询某个用户下的所有角色信息")
-    public List<Role> getRolesByUser(final String userId) {
+    public List<Role> findRolesByUser(final String userId) {
         return userRoleDao.findByUser(userId);
     }
 
@@ -103,7 +102,7 @@ public class UserServiceImpl implements UserService {
      */
     public boolean updateRolesByUser(final String userId, final String roleIds) throws BusinessException {
         if (userDao.checkEditable(userId) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             userRoleDao.deleteByUserId(userId);
             String[] roleIdArray = roleIds.split(",");
@@ -146,7 +145,7 @@ public class UserServiceImpl implements UserService {
     @MethodLog(name = "修改User", description = "修改User")
     public int update(final UserForm form) throws BusinessException {
         if (userDao.checkEditable(form.getId()) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             form.setUpdateDataUsername(SystemHelper.getCurrentUsername());
             return userDao.update(form);
@@ -159,7 +158,7 @@ public class UserServiceImpl implements UserService {
     @MethodLog(name = "修改当前User", description = "修改当前User")
     public int updateCurrentUser(final UserForm form) throws BusinessException {
         if (userDao.checkEditable(SystemHelper.getCurrentUserId()) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             return userDao.updateCurrentUser(form);
         }
@@ -171,7 +170,7 @@ public class UserServiceImpl implements UserService {
     @MethodLog(name = "删除User", description = " 根据id删除一个 User")
     public int delete(final String id) throws BusinessException {
         if (userDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             return userDao.delete(id);
         }
@@ -183,7 +182,7 @@ public class UserServiceImpl implements UserService {
     @MethodLog(name = "启用User", description = " 根据id启用一个User")
     public int enable(final String id) throws BusinessException {
         if (userDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             return userDao.changeEnabled(id, ConstantEnabledValue.ENABLED_INT);
         }
@@ -195,7 +194,7 @@ public class UserServiceImpl implements UserService {
     @MethodLog(name = "停用User", description = " 根据id停用一个User")
     public int disable(final String id) throws BusinessException {
         if (userDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             return userDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
         }

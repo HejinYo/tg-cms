@@ -4,12 +4,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 投票 
+ * 投票
  */
 @Data
 public class Vote implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 投票
     private String title; // 标题
     private String codeNum; // 编码

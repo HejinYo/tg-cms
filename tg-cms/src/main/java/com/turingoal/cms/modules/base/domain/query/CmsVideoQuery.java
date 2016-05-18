@@ -23,7 +23,7 @@ public class CmsVideoQuery extends BaseQueryBean implements Serializable {
     private java.util.Date publishTime; // publishTime
     private java.util.Date createDataTime; // 创建时间
     private String description; // 描述
-    
+
     private Date startDate;
     private Date endDate;
     private Integer maxLength;

@@ -21,7 +21,7 @@
 					<header class="main-box-header clearfix">
 						<div class="row m-b-sm m-t-sm">
 							<form th:action="@{/admin/m/base/tag/list.gsp}" id="dataTableFilterForm" role="form" action="#" method="post">
-								<div th:if="${#checkAuth.checkAuth('tag_add')}" class="col-md-8">
+								<div class="col-md-8">
 									<a th:href="@{/admin/m/base/tag/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
 								</div>
 								<div class="col-md-4">
@@ -86,22 +86,12 @@ var columns = [ {
 },{
     "data" : null, //最后一列，操作按钮
     render : function(data, type, row, meta) {
-        var editCheck = /*[[${#checkAuth.checkAuth('tag_edit')}]]*/;
-        var delCheck = /*[[${#checkAuth.checkAuth('tag_delete')}]]*/;
         var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
         var result = '';        
-        if(editCheck){
-          //修改按钮
-            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-        }else{
-            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-        }
-        if(delCheck){
-            //删除按钮
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
-        }else{
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-        }  
+        //修改按钮
+        result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+        //删除按钮
+        result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
         return result;
     } 
 } ];

@@ -9,10 +9,10 @@ import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.modules.ext.domain.AdSlot;
 import com.turingoal.cms.modules.ext.domain.form.AdSlotForm;
 import com.turingoal.cms.modules.ext.domain.query.AdSlotQuery;
-import com.turingoal.cms.modules.ext.repository.AdDao;
 import com.turingoal.cms.modules.ext.repository.AdSlotDao;
 import com.turingoal.cms.modules.ext.service.AdSlotService;
 import com.turingoal.common.annotation.MethodLog;
+import com.turingoal.common.constants.ConstantEnabledValue;
 
 /**
  * 广告位Service
@@ -21,13 +21,11 @@ import com.turingoal.common.annotation.MethodLog;
 public class AdSlotServiceImpl implements AdSlotService {
     @Autowired
     private AdSlotDao adSlotDao;
-    @Autowired
-    private AdDao adDao;
 
     /**
      * 查询全部 广告位
      */
-    @MethodLog(name = "查询全部AdSlot", description = "根据条件查询全部的AdSlot，不分页")
+    @MethodLog(name = "查询全部广告位", description = "根据条件查询全部的广告位，不分页")
     public Page<AdSlot> findAll(final AdSlotQuery query) {
         PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
         Page<AdSlot> result = (Page<AdSlot>) adSlotDao.find(query);
@@ -37,7 +35,7 @@ public class AdSlotServiceImpl implements AdSlotService {
     /**
      * 通过id得到一个 广告位
      */
-    @MethodLog(name = "通过id得到AdSlot", description = "通过id得到一个AdSlot")
+    @MethodLog(name = "通过id得到广告位", description = "通过id得到一个广告位")
     public AdSlot get(final String id) {
         return adSlotDao.get(id);
     }
@@ -45,7 +43,7 @@ public class AdSlotServiceImpl implements AdSlotService {
     /**
      * 新增 广告位
      */
-    @MethodLog(name = "新增AdSlot", description = "新增一个AdSlot，返回id")
+    @MethodLog(name = "新增广告位", description = "新增一个广告位")
     public void add(final AdSlotForm form) {
         form.setCreateDataUsername(SystemHelper.getCurrentUsername());
         adSlotDao.add(form);
@@ -54,7 +52,7 @@ public class AdSlotServiceImpl implements AdSlotService {
     /**
      * 修改 广告位
      */
-    @MethodLog(name = "修改AdSlot", description = "修改一个AdSlot")
+    @MethodLog(name = "修改广告位", description = "修改一个广告位")
     public int update(final AdSlotForm form) {
         form.setUpdateDataUsername(SystemHelper.getCurrentUsername());
         return adSlotDao.update(form);
@@ -63,10 +61,25 @@ public class AdSlotServiceImpl implements AdSlotService {
     /**
      * 根据id删除一个 广告位
      */
-    @MethodLog(name = "删除AdSlot", description = "根据id删除一个AdSlot")
+    @MethodLog(name = "删除广告位", description = "根据id删除一个广告位")
     public int delete(final String id) {
-        adDao.deleteByTypeId(id);
         return adSlotDao.delete(id);
+    }
+
+    /**
+     * 启用
+     */
+    @MethodLog(name = "启用友情链接类型", description = "根据id启用一个友情链接类型")
+    public void enable(final String id) {
+        adSlotDao.changeEnabled(id, ConstantEnabledValue.ENABLED_INT);
+    }
+
+    /**
+     * 停用
+     */
+    @MethodLog(name = "停用广告位", description = "根据id停用一个广告位")
+    public void disable(final String id) {
+        adSlotDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
     }
 
     /**
@@ -90,7 +103,6 @@ public class AdSlotServiceImpl implements AdSlotService {
      */
     @Override
     public List<AdSlot> findList(final AdSlotQuery query) {
-        // TODO Auto-generated method stub
         return adSlotDao.find(query);
     }
 }

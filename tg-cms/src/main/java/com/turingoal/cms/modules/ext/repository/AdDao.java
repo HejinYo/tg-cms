@@ -33,7 +33,7 @@ public interface AdDao {
      * 根据id删除一条广告管理信息
      */
     int delete(final String id);
-    
+
     /**
      * 根据typeId删除广告管理信息
      */

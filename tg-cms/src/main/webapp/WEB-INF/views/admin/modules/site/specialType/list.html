@@ -30,11 +30,13 @@
 							<thead>
 								<tr>
 									<th width="80" class="text-center">序号</th>
+									<th>状态</th>
 									<th>类型名称</th>
 									<th>关键字</th>
 									<th>描述</th>
 									<th class="text-center">浏览总数</th>
 									<th class="text-center">创建日期</th>
+									<th>排序</th>
 									<th width="90" class="text-center">操作</th>
 								</tr>
 							</thead>
@@ -71,6 +73,15 @@
         "data" : null,
         "class" : "text-center"
     }, {
+        "data" : "enabled",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+            } else if (data !== 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+            }
+        }
+    }, {
         "data" : "typeName"
     }, {
         "data" : "metaKeywords"
@@ -83,25 +94,17 @@
         "data" : "createDataTime",
         "class" : "text-center"
     }, {
+        "data" : "sortOrder"
+    }, {
         "data" : null,
         "class" : "text-center", //最后一列，操作按钮
         render : function(data, type, row, meta) {
-            var editCheck = /*[[${#checkAuth.checkAuth('specialType_edit')}]]*/'';
-            var delCheck = /*[[${#checkAuth.checkAuth('specialType_delete')}]]*/'';
             var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
             var result = '';
-            if (editCheck) {
-                //修改按钮
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-            } else {
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-            }
-            if (delCheck) {
-                //删除按钮
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
-            } else {
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-            }
+            //修改按钮
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
             return result;
         }
     } ];
@@ -114,6 +117,8 @@
         listUrl : /*[[@{/admin/m/base/specialType/list.gsp}]]*/'url',
         editUrl : /*[[@{/admin/m/base/specialType/edit_}]]*/'url',
         deleteUrl : /*[[@{/admin/m/base/specialType/delete_}]]*/'url',
+        enableUrl : /*[[@{/admin/m/base/specialType/enable_}]]*/'url',
+        disableUrl : /*[[@{/admin/m/base/specialType/disable_}]]*/'url',
         columnDefs : columnDefs, //表格列定义
         columns : columns, //表格列
         dataTableDiv : 'dataTable', //表格

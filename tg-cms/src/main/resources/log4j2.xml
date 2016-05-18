@@ -13,7 +13,7 @@
         <Property name="LOG_PATTERN">[%p]-[%d{yyyy年-MM月-dd日 HH:mm:ss.SSS}]-[%t]-[%c]-{%m}%n</Property>
         <!--数据库参数-->
         <Property name="db.tableName">tg_c_log</Property>
-        <Property name="db.connectionFactoryClass">com.turingoal.cms.core.commons.SystemConnectionFactory</Property>
+        <Property name="db.connectionFactoryClass">com.turingoal.cms.core.commons.TgSystemConnectionFactory</Property>
         <Property name="db.connectionFactoryMethod">getDatabaseConnection</Property>
         <!--邮件配置参数-->
         <Property name="mail.subject">错误日志</Property>
@@ -51,7 +51,7 @@
             <AppenderRef ref="RollingRandomAccessFile" />
         </Async>
         <!-- ######日志写到数据库######--> 
-        <JDBC name="DatabaseAppender" tableName="${db.tableName}" bufferSize="1" ignoreExceptions="true"> 
+        <JDBC name="DatabaseAppender" tableName="${db.tableName}" bufferSize="10" ignoreExceptions="true"> 
             <ConnectionFactory class="${db.connectionFactoryClass}" method="${db.connectionFactoryMethod}" /> 
             <Column name="event_date" isEventTimestamp="true"/> 
             <Column name="log_type" pattern="%X{logType}" isUnicode="false"/> 
@@ -74,12 +74,6 @@
         <Logger name="org.springframework" level="ERROR">
         </Logger>
         <Logger name="org.mybatis" level="ERROR">
-            <AppenderRef ref="Console" />
-        </Logger>
-        <Logger name="org.apache.shiro" level="ERROR" additivity="false">
-            <AppenderRef ref="Console" />
-        </Logger>
-        <Logger name="org.activiti.engine" level="ERROR" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
         <Logger name="org.quartz" level="ERROR" additivity="false">

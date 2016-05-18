@@ -14,7 +14,7 @@
     </select>
         
     <!-- 根据角色id查询角色所具有的权限id-->
-    <select id="getResourceIdsByRole" resultType="string" parameterType="string">
+    <select id="findResourceIdsByRole" resultType="string" parameterType="string">
         SELECT t_res.id FROM tg_c_role_resource t_role_res
             LEFT JOIN tg_c_resource t_res ON t_role_res.resource_id = t_res.id
         WHERE t_res.enabled = 1 AND t_role_res.role_id = #{roleId}

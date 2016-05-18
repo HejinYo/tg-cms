@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * 投票Query 
+ * 投票Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class VoteQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 投票
     private String title; // 标题
     private String codeNum; // 编码

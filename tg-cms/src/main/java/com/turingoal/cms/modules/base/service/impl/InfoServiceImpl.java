@@ -385,36 +385,6 @@ public class InfoServiceImpl implements InfoService {
         return infoSpecialDao.delete(id);
     }
 
-    /**
-     * 文章、专题关系排序
-     */
-    @MethodLog(name = " 文章、专题关系排序", description = "修改 文章、专题关系排序")
-    public int updateOrder(final InfoSpecialForm form) {
-        Integer order = 0;
-        // 向上拖拽
-        if (form.getStartDrop() > form.getEndDrop()) {
-            // 拖拽目标之上
-            if ("before".equals(form.getDropPosition())) {
-                order = form.getEndDrop();
-                form.setEndDrop(form.getEndDrop() - 1);
-            } else {
-                order = form.getEndDrop() + 1;
-            }
-            infoSpecialDao.addOrder(form);
-        } else { // 向下拖拽
-            // 拖拽目标之上
-            if ("before".equals(form.getDropPosition())) {
-                order = form.getEndDrop() - 1;
-            } else {
-                order = form.getEndDrop();
-                form.setEndDrop(form.getEndDrop() + 1);
-            }
-            infoSpecialDao.subtractOrder(form);
-        }
-        form.setSpecialOrder(order);
-        return infoSpecialDao.updateOrder(form);
-    }
-
     @Override
     public List<Info> findAll(final InfoQuery query) {
         return infoDao.find(query);

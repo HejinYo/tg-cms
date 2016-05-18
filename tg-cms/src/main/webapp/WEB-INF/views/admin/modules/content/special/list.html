@@ -84,20 +84,11 @@
     }, {
         "data" : "enabled",
         render : function(data,type,row,meta){
-            var enabledChange = /*[[${#checkAuth.checkAuth('special_enabled')}]]*/;
-			if(enabledChange==1){
-			    if(data==1){
-			        return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
-			    }else{
-                    return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
-			    }
-			}else{
-			    if(data==1){
-			        return '<span class="text-success">启用</span>';
-			    }else {
-			        return '<span class="text-danger">停用</span>';
-			    }
-			}
+		    if(data==1){
+		        return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+		    }else{
+	                  return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+		    }
         }
     }, {
         "data" : "title"
@@ -120,32 +111,15 @@
         "data" : null,
         "class" : "text-center", //最后一列，操作按钮
         render : function(data, type, row, meta) {
-            var editCheck = /*[[${#checkAuth.checkAuth('special_edit')}]]*/;
-            var infosCheck = /*[[${#checkAuth.checkAuth('special_infos')}]]*/;
-            var delCheck = /*[[${#checkAuth.checkAuth('special_delete')}]]*/;
             var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
             var infosUrl= /*[[@{/admin/m/base/special/infoList_}]]*/'url'
             var infosUrlPath= infosUrl + row.id + ".gsp"; //文章列表地址
-
             var result = '';
-            if (editCheck) {
-                //修改按钮
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-            } else {
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-            }
-            if(infosCheck){
-                result += ' <a href="'+infosUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-navicon">&nbsp;文章列表</i></a>';
-            }else{
-                result += ' <a href="'+infosUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-navicon">&nbsp;文章列表</i></a>';
-            }
-            if (delCheck) {
-                //删除按钮
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
-            } else {
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-            }
-           
+            //修改按钮
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            result += ' <a href="'+infosUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-navicon">&nbsp;文章列表</i></a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
             return result;
         }
     } ];

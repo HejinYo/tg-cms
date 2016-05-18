@@ -6,7 +6,7 @@ import com.turingoal.cms.core.domain.Resource;
 import com.turingoal.cms.core.domain.form.ResourceForm;
 
 /**
- * ResourceDao
+ * 资源Dao
  */
 public interface ResourceDao {
 
@@ -46,19 +46,19 @@ public interface ResourceDao {
     List<String> findPermissionsByUser(String userId);
 
     /**
-     * 查询全部 Resource
+     * 查询全部 资源
      */
     List<Resource> find();
 
     /**
-     * 查询全部 Resource
-     */
-    List<Resource> getResourceTree(final String roleId);
-
-    /**
-     * 查询全部启用的 Resource
+     * 查询全部启用的 资源
      */
     List<Resource> findEnabled();
+
+    /**
+     * 查询角色资源
+     */
+    List<Resource> findByRole(final String roleId);
 
     /**
      * 根据id获取资源信息
@@ -66,17 +66,17 @@ public interface ResourceDao {
     Resource get(final String id);
 
     /**
-     * 新增 Resource
+     * 新增 资源
      */
     void add(final ResourceForm form);
 
     /**
-     * 修改 Resource
+     * 修改 资源
      */
     int update(final ResourceForm form);
 
     /**
-     * 根据id删除一个 Resource
+     * 根据id删除一个 资源
      */
     int delete(final String id);
 

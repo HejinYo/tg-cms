@@ -34,20 +34,20 @@ import com.turingoal.common.util.validator.ValidGroupAdd;
 import com.turingoal.common.util.validator.ValidGroupUpdate;
 
 /**
- * 留言信息Controller 
+ * 留言信息Controller
  */
 @Controller
 @RequestMapping("/m/ext/guestbook")
 public class GuestbookController {
-    
+
     private static final String LIST_PAGE = "modules/content/guestbook/list";
     private static final String EDIT_PAGE = "modules/content/guestbook/edit";
-    
+
     @Autowired
     private GuestbookService guestbookService;
     @Autowired
     private GuestbookTypeService guestbookTypeService;
-    
+
     /**
      * 返回留言信息查询界面
      */
@@ -58,7 +58,7 @@ public class GuestbookController {
         mav.addObject("guestbookType", guestbookTypeService.findAll(query));
         return mav;
     }
-    
+
     /**
      * 返回留言查询信息
      */
@@ -77,7 +77,7 @@ public class GuestbookController {
     public Object get(@RequestParam("id") final String id) throws BusinessException {
         return guestbookService.get(id);
     }
-    
+
     /**
      * 新增 Guestbook
      */
@@ -102,7 +102,7 @@ public class GuestbookController {
         mav.addObject("result", guestbookService.get(id));
         return mav;
     }
-    
+
     /**
      * 回复修改 留言信息
      */
@@ -118,7 +118,7 @@ public class GuestbookController {
             return new JsonResultBean(JsonResultBean.SUCCESS);
         }
     }
-    
+
     /**
      * 根据id删除 Guestbook
      */
@@ -128,7 +128,7 @@ public class GuestbookController {
         guestbookService.delete(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
-    
+
     /**
      * 根据id启用 Guestbook
      */
@@ -138,7 +138,7 @@ public class GuestbookController {
         guestbookService.enable(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
-    
+
     /**
      * 根据id停用 Guestbook
      */
@@ -148,7 +148,7 @@ public class GuestbookController {
         guestbookService.disable(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
-    
+
     /**
      * 将form表单里面的String Date转换成Date型，字符串去掉空白
      */

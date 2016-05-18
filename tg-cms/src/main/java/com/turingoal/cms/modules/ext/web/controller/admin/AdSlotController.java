@@ -37,7 +37,6 @@ import com.turingoal.common.util.validator.ValidGroupUpdate;
 @Controller
 @RequestMapping("/m/ext/adSlot")
 public class AdSlotController {
-
     private static final String LIST_PAGE = "modules/site/adSlot/list";
     private static final String ADD_PAGE = "modules/site/adSlot/add";
     private static final String EDIT_PAGE = "modules/site/adSlot/edit";
@@ -129,6 +128,26 @@ public class AdSlotController {
     @ResponseBody
     public final JsonResultBean delete(@PathVariable("id") final String id) throws BusinessException {
         adSlotService.delete(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 根据id启用广告位
+     */
+    @RequestMapping(value = "/enable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean enable(@PathVariable("id") final String id) throws BusinessException {
+        adSlotService.enable(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 根据id停用广告位
+     */
+    @RequestMapping(value = "/disable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean disable(@PathVariable("id") final String id) throws BusinessException {
+        adSlotService.disable(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
 

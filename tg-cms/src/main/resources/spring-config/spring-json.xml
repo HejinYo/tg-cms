@@ -9,8 +9,7 @@
     <!-- 基于注解的定制的WebBindingInitializer，方法级别的处理器映射 要把 mvc:annotation-driven 放在后面 -->
 
     <!--fastJson -->
-    <bean id="jsonConverter"
-        class="com.turingoal.common.util.spring.SpringMessageConverterFastJson">
+    <bean id="jsonConverter" class="com.turingoal.common.util.spring.SpringMessageConverterFastJson">
         <property name="supportedMediaTypes">
             <list>
                 <value>text/plain;charset=utf-8</value>
@@ -29,10 +28,11 @@
         </property>
     </bean>
 
-    <!-- 转json MappingJackson2HttpMessageConverter <bean id="jaxbJacksonObjectMapper" 
-        class="com.turingoal.um.core.commons.JaxbJacksonObjectMapper" /> -->
-    <!-- jaskson <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"> 
-        <property name="supportedMediaTypes" value="application/json" /> <property 
-        name="objectMapper" ref="jaxbJacksonObjectMapper" /> </bean> -->
+    <!-- 转json MappingJackson2HttpMessageConverter -->
+    <!-- <bean id="jaxbJacksonObjectMapper" class="com.turingoal.um.core.commons.JaxbJacksonObjectMapper" /> -->
     <!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
+    <!-- <bean id="jsonConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">  -->
+    <!--    <property name="supportedMediaTypes" value="application/json" />  -->
+    <!--    <property name="objectMapper" ref="jaxbJacksonObjectMapper" />  -->
+    <!-- </bean> -->
 </beans>

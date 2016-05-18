@@ -4,12 +4,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 计分组 
+ * 计分组
  */
 @Data
 public class ScoreGroup implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 计分组
     private String groupName; // 名称
     private String codeNum; // 代码

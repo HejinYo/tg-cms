@@ -40,12 +40,12 @@ public interface UserService {
     /**
      * 查询某个用户下的角色id
      */
-    List<String> getRoleIdsByUser(final String userId);
+    List<String> findRoleIdsByUser(final String userId);
 
     /**
      * 查询某个用户下的角色信息
      */
-    List<Role> getRolesByUser(final String userId);
+    List<Role> findRolesByUser(final String userId);
 
     /**
      * 更新某个用户下的角色

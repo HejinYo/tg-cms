@@ -22,7 +22,7 @@ public class AdForm extends BaseFormBean implements Serializable {
     private String adScript; // 代码
     private String adIimage; // 图片
     private String adFlash; // flash
-    
+
     private Integer startDrop;
     private Integer endDrop;
     private String dropPosition;

@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * 留言板Form 
+ * 留言板Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class GuestbookForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String typeId; // 留言类型
     private String createDataUsername; // 创建者
     private String replyerId; // 回复者

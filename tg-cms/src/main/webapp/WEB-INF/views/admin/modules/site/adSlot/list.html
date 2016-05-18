@@ -29,13 +29,14 @@
 						<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover ">
 							<thead>
 								<tr>
-									<th width="60" class="text-center">序号</th>
+									<th>状态</th>
 									<th>广告位名称</th>
 									<th>广告位编码</th>
 									<th>广告位类型</th>
 									<th>模板</th>
 									<th class="text-center">宽度</th>
 									<th class="text-center">高度</th>
+									<th>排序</th>
 									<th width="90" class="text-center">操作</th>
 								</tr>
 							</thead>
@@ -50,8 +51,6 @@
 <div th:replace="fragments/import_js_admin">引入js</div>
 <!--/***** 当前页js start *****/-->
 <script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
-<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
-<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
 <script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
 <!--/* Switch复选框按钮  修改是否可用用*/-->
 <script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
@@ -61,16 +60,16 @@
     //表格
     var myTable;
     //表格列定义
-    var columnDefs = [ {
-        //第一列，用来显示序号
-        "searchable" : false,
-        "orderable" : false,
-        "targets" : 0
-    } ];
+    var columnDefs = [];
     var columns = [ {
-        //第一列，用来显示序号
-        "data" : null,
-        "class" : "text-center"
+        "data" : "enabled",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+            } else if (data !== 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+            }
+        }
     }, {
         "data" : "slotName"
     }, {
@@ -98,25 +97,17 @@
         "data" : "height",
         "class" : "text-center"
     }, {
+        "data" : "sortOrder"
+    }, {
         "data" : null,
         "class" : "text-center", //最后一列，操作按钮
         render : function(data, type, row, meta) {
-            var editCheck = /*[[${#checkAuth.checkAuth('adSlot_edit')}]]*/'';
-            var delCheck = /*[[${#checkAuth.checkAuth('adSlot_delete')}]]*/'';
             var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
             var result = '';
-            if (editCheck) {
-                //修改按钮
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-            } else {
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-            }
-            if (delCheck) {
-                //删除按钮
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
-            } else {
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-            }
+            //修改按钮
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
             return result;
         }
     } ];
@@ -129,12 +120,14 @@
         listUrl : /*[[@{/admin/m/ext/adSlot/list.gsp}]]*/'url',
         editUrl : /*[[@{/admin/m/ext/adSlot/edit_}]]*/'url',
         deleteUrl : /*[[@{/admin/m/ext/adSlot/delete_}]]*/'url',
+        enableUrl : /*[[@{/admin/m/ext/adSlot/enable_}]]*/'url',
+        disableUrl : /*[[@{/admin/m/ext/adSlot/disable_}]]*/'url',
         columnDefs : columnDefs, //表格列定义
         columns : columns, //表格列
         dataTableDiv : 'dataTable', //表格
         ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-        pageable : true, //是否分页
-        showIndexColumn : true, //是否显示第一列的索引列
+        pageable : false, //是否分页
+        showIndexColumn : false, //是否显示第一列的索引列
         enabledChange : true
     };
     //创建表格

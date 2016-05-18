@@ -23,11 +23,11 @@ public class CmsFileQuery extends BaseQueryBean implements Serializable {
     private java.util.Date createDataTime; // 创建时间
     private String description; // 描述
     private String md5; // md5值
-    
+
     private Date startDate;
     private Date endDate;
     private Integer maxLength;
     private Integer minLength;
     private String ids; // 查询id的字符串
-    private String [] idStrs;
+    private String[] idStrs;
 }

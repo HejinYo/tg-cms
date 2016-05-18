@@ -65,19 +65,19 @@
         ORDER BY code_num, sort_order ASC
     </select>
     
-    <!-- 查询全部 Resource -->
-    <select id="getResourceTree" parameterType="com.turingoal.cms.core.domain.query.ResourceQuery" resultType="com.turingoal.cms.core.domain.Resource">
-        SELECT resource.*,resource.resource_name as text ,r_s.role_id as role_id
-        FROM tg_c_resource resource
-        LEFT JOIN tg_c_role_resource r_s ON r_s.resourceId=resource.id and r_s.role_id=#{roleId}
-        WHERE enabled = 1
-        ORDER BY sort_order ASC
-    </select>
-    
     <!-- 查询全部 启用的Resource -->
     <select id="findEnabled" resultType="com.turingoal.cms.core.domain.Resource">
         SELECT id, resource_name as text, parent_id, permission, perm_value  
         FROM tg_c_resource WHERE enabled = 1 
+        ORDER BY sort_order ASC
+    </select>
+    
+    <!-- 查询角色资源 -->
+    <select id="findByRole" parameterType="com.turingoal.cms.core.domain.query.ResourceQuery" resultType="com.turingoal.cms.core.domain.Resource">
+        SELECT resource.*,resource.resource_name as text ,r_s.role_id as role_id
+        FROM tg_c_resource resource
+        LEFT JOIN tg_c_role_resource r_s ON r_s.resourceId=resource.id and r_s.role_id=#{roleId}
+        WHERE enabled = 1
         ORDER BY sort_order ASC
     </select>
     

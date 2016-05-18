@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * CommentQuery 
+ * CommentQuery
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CommentQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 评论
     private String createDataUsername; // 创建人
     private String auditorId; // 审核人

@@ -22,7 +22,6 @@ import com.turingoal.common.bean.BaseZTreeNodeBean;
 import com.turingoal.common.constants.ConstantEditableValue;
 import com.turingoal.common.constants.ConstantEnabledValue;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.exception.ExceptionCode;
 
 /**
  * 角色Service
@@ -80,7 +79,7 @@ public class RoleServiceImpl implements RoleService {
         List<Resource> allEnabledResources;
         List<String> roleAuthIds;
         allEnabledResources = resourceDao.findEnabled();
-        roleAuthIds = roleResourceDao.getResourceIdsByRole(roleId);
+        roleAuthIds = roleResourceDao.findResourceIdsByRole(roleId);
         List<BaseZTreeNodeBean> nodeList = new ArrayList<BaseZTreeNodeBean>();
         Resource resource;
         for (int i = 0, length = allEnabledResources.size(); i < length; i++) {
@@ -109,7 +108,7 @@ public class RoleServiceImpl implements RoleService {
      */
     public boolean updateResourcesByRole(final String roleId, final String resourceIds) throws BusinessException {
         if (roleDao.checkEditable(roleId) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             roleResourceDao.deleteRoleResourcesByRoleId(roleId);
             String[] idStrings = resourceIds.split(",");
@@ -175,7 +174,7 @@ public class RoleServiceImpl implements RoleService {
     @MethodLog(name = "修改Role", description = "修改Role")
     public void update(final RoleForm form) throws BusinessException {
         if (roleDao.checkEditable(form.getId()) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             form.setUpdateDataUsername(SystemHelper.getCurrentUsername());
             roleDao.update(form);
@@ -190,7 +189,7 @@ public class RoleServiceImpl implements RoleService {
     @MethodLog(name = "删除Role", description = "根据id删除一个 Role")
     public void delete(final String id) throws BusinessException {
         if (roleDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             roleDao.delete(id);
             // 刷新spring security缓存中的Attributes
@@ -204,7 +203,7 @@ public class RoleServiceImpl implements RoleService {
     @MethodLog(name = "启用Role", description = "根据id启用一个Role")
     public void enable(final String id) throws BusinessException {
         if (roleDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             roleDao.changeEnabled(id, ConstantEnabledValue.ENABLED_INT);
             // 刷新spring security缓存中的Attributes
@@ -218,7 +217,7 @@ public class RoleServiceImpl implements RoleService {
     @MethodLog(name = "停用Role", description = "根据id停用一个Role")
     public void disable(final String id) throws BusinessException {
         if (roleDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             roleDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
             // 刷新spring security缓存中的Attributes

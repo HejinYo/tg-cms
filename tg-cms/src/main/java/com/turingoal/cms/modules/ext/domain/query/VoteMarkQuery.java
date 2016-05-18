@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * 投票标记Query 
+ * 投票标记Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class VoteMarkQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 投票标记
     private java.util.Date createTime; // 日期
     private String voteOpentionId; // voteOpentionId

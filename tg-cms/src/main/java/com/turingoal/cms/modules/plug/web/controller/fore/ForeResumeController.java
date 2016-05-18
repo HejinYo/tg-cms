@@ -3,7 +3,6 @@ package com.turingoal.cms.modules.plug.web.controller.fore;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +14,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.modules.base.domain.Global;
-import com.turingoal.cms.modules.base.domain.query.GlobalQuery;
-import com.turingoal.cms.modules.base.service.GlobalService;
 import com.turingoal.cms.modules.base.web.controller.fore.TemplateEngineHelper;
 import com.turingoal.cms.modules.plug.domain.form.ResumeForm;
 import com.turingoal.cms.modules.plug.service.ResumeService;
@@ -34,8 +29,6 @@ public class ForeResumeController {
     @Autowired
     private ResumeService resumeService;
     @Autowired
-    private GlobalService globalService;
-    @Autowired
     private TemplateEngineHelper templateEngineHelper;
 
     /**
@@ -43,11 +36,6 @@ public class ForeResumeController {
      */
     @RequestMapping("/{codeNum}_resume.htm")
     public String resume(@PathVariable final String codeNum, @ModelAttribute("form") final ResumeForm form, final HttpServletRequest request, final HttpServletResponse response) throws BusinessException, IOException {
-        Global global = SystemHelper.getGlobal();
-        if (global == null) {
-            List<Global> gs = globalService.findAll(new GlobalQuery());
-            SystemHelper.setGlobal(gs.get(0));
-        }
         if (CaptchaUtil.checkCaptcha(request.getSession(), form.getCheckCode())) {
             resumeService.add(form);
         }

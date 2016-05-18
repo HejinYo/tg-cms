@@ -34,4 +34,14 @@ public interface FriendlinkTypeService {
      * 根据id删除一个 友情链接类型
      */
     int delete(final String id);
+
+    /**
+     * 启用
+     */
+    void enable(final String id);
+
+    /**
+     * 停用
+     */
+    void disable(final String id);
 }

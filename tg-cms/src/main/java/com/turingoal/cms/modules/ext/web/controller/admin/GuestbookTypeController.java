@@ -32,7 +32,7 @@ import com.turingoal.common.util.validator.ValidGroupAdd;
 import com.turingoal.common.util.validator.ValidGroupUpdate;
 
 /**
- * 留言类型Controller
+ * 留言板类型Controller
  */
 @Controller
 @RequestMapping("/m/ext/guestbookType")
@@ -46,7 +46,7 @@ public class GuestbookTypeController {
     private GuestbookTypeService guestbookTypeService;
 
     /**
-     * 返回留言类型信息查询界面
+     * 留言板类型信息查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
     public String listPage() throws BusinessException {
@@ -54,7 +54,7 @@ public class GuestbookTypeController {
     }
 
     /**
-     * 返回留言类型查询信息
+     * 留言板类型查询信息
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.POST)
     @ResponseBody
@@ -64,7 +64,7 @@ public class GuestbookTypeController {
     }
 
     /**
-     * 通过id得到一个 留言类型
+     * 通过id得到一个留言板类型
      */
     @RequestMapping(value = "/get.gsp")
     @ResponseBody
@@ -73,7 +73,7 @@ public class GuestbookTypeController {
     }
 
     /**
-     * 返回留言类型新增界面
+     * 新增界面
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.GET)
     public String addPage() {
@@ -81,7 +81,7 @@ public class GuestbookTypeController {
     }
 
     /**
-     * 新增留言类型
+     * 新增留言板类型
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
     @ResponseBody
@@ -97,7 +97,7 @@ public class GuestbookTypeController {
     }
 
     /**
-     * 返回留言类型修改界面
+     * 修改界面
      */
     @RequestMapping(value = "/edit_{id}.gsp", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable final String id) {
@@ -107,7 +107,7 @@ public class GuestbookTypeController {
     }
 
     /**
-     * 返回留言类型修改界面
+     * 修改留言板类型
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
     @ResponseBody
@@ -123,12 +123,32 @@ public class GuestbookTypeController {
     }
 
     /**
-     * 根据id删除 GuestbookType
+     * 根据id删除留言板类型
      */
     @RequestMapping(value = "/delete_{id}.gsp", method = RequestMethod.POST)
     @ResponseBody
     public final JsonResultBean delete(@PathVariable("id") final String id) throws BusinessException {
         guestbookTypeService.delete(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 根据id启用留言板类型
+     */
+    @RequestMapping(value = "/enable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean enable(@PathVariable("id") final String id) throws BusinessException {
+        guestbookTypeService.enable(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 根据id停用留言板类型
+     */
+    @RequestMapping(value = "/disable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean disable(@PathVariable("id") final String id) throws BusinessException {
+        guestbookTypeService.disable(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
 

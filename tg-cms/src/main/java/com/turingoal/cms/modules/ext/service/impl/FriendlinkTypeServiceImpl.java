@@ -8,10 +8,10 @@ import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.modules.ext.domain.FriendlinkType;
 import com.turingoal.cms.modules.ext.domain.form.FriendlinkTypeForm;
 import com.turingoal.cms.modules.ext.domain.query.FriendlinkTypeQuery;
-import com.turingoal.cms.modules.ext.repository.FriendlinkDao;
 import com.turingoal.cms.modules.ext.repository.FriendlinkTypeDao;
 import com.turingoal.cms.modules.ext.service.FriendlinkTypeService;
 import com.turingoal.common.annotation.MethodLog;
+import com.turingoal.common.constants.ConstantEnabledValue;
 
 /**
  * 友情链接类型Service
@@ -20,8 +20,6 @@ import com.turingoal.common.annotation.MethodLog;
 public class FriendlinkTypeServiceImpl implements FriendlinkTypeService {
     @Autowired
     private FriendlinkTypeDao friendlinkTypeDao;
-    @Autowired
-    private FriendlinkDao friendlinkDao;
 
     /**
      * 查询全部 友情链接类型
@@ -64,7 +62,22 @@ public class FriendlinkTypeServiceImpl implements FriendlinkTypeService {
      */
     @MethodLog(name = "删除友情链接类型", description = "根据id删除一个友情链接类型")
     public int delete(final String id) {
-        friendlinkDao.deleteByTypeId(id);
         return friendlinkTypeDao.delete(id);
+    }
+
+    /**
+     * 启用
+     */
+    @MethodLog(name = "启用友情链接类型", description = "根据id启用一个友情链接类型")
+    public void enable(final String id) {
+        friendlinkTypeDao.changeEnabled(id, ConstantEnabledValue.ENABLED_INT);
+    }
+
+    /**
+     * 停用
+     */
+    @MethodLog(name = "停用友情链接类型", description = "根据id停用一个友情链接类型")
+    public void disable(final String id) {
+        friendlinkTypeDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
     }
 }

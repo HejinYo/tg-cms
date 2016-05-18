@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * InfoAttrsQuery 
+ * InfoAttrsQuery
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class InfoAttrsQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private Integer id; // 文档与属性关联
     private String infoId; // 文档
     private Integer attributeId; // 属性

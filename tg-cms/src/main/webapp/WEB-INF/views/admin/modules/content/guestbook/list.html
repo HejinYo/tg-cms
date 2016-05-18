@@ -74,106 +74,96 @@
 <script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
 <!--/* 模板引擎生成数据 */-->
 <script th:inline="javascript">
-/*<![CDATA[*/
-//表格
-var myTable;
-//表格列定义
-var columnDefs = [ {
-    //第一列，用来显示序号
-    "searchable" : false,
-    "orderable" : false,
-    "targets" : 0
-} ];
-var columns = [ {
-    //第一列，用来显示序号
-    "data" : null
-},{
-    "data" : "state",
-    render : function(data, type, row, meta) {
-        if(data===1){
-            return '已审核';
-        }else if(data===2){
-            return '<span class="text-success">屏蔽</span>';
-        }else if(data===10){
-            return '<span class="text-danger">待审核</span>';
+    /*<![CDATA[*/
+    //表格
+    var myTable;
+    //表格列定义
+    var columnDefs = [ {
+        //第一列，用来显示序号
+        "searchable" : false,
+        "orderable" : false,
+        "targets" : 0
+    } ];
+    var columns = [ {
+        //第一列，用来显示序号
+        "data" : null
+    }, {
+        "data" : "state",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '已审核';
+            } else if (data === 2) {
+                return '<span class="text-success">屏蔽</span>';
+            } else if (data === 10) {
+                return '<span class="text-danger">待审核</span>';
+            }
         }
-    } 
-},{
-    "data" : "typeName",
-},{
-	"data" : "title"
-},{
-    "data" : "gbContent"
-},{
-    "data" : "gbDate"
-},{   
-    "data" : "replyed",
-    render : function(data, type, row, meta) {
-        if(data===1){
-            return '<span class="text-success">是</span>';
-        }else{
-            return '<span class="text-danger">否</span>';
+    }, {
+        "data" : "typeName",
+    }, {
+        "data" : "title"
+    }, {
+        "data" : "gbContent"
+    }, {
+        "data" : "gbDate"
+    }, {
+        "data" : "replyed",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<span class="text-success">是</span>';
+            } else {
+                return '<span class="text-danger">否</span>';
+            }
         }
-    } 
-},{
-    "data" : "recommend",
-    render : function(data, type, row, meta) {
-        if(data===1){
-            return '<span class="text-success">是</span>';
-        }else{
-            return '<span class="text-danger">否</span>';
+    }, {
+        "data" : "recommend",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<span class="text-success">是</span>';
+            } else {
+                return '<span class="text-danger">否</span>';
+            }
         }
-    } 
-},{
-    "data" : null, //最后一列，操作按钮
-    render : function(data, type, row, meta) {
-        var editCheck = /*[[${#checkAuth.checkAuth('guestbook_edit')}]]*/;
-        var delCheck = /*[[${#checkAuth.checkAuth('guestbook_delete')}]]*/;
-        var result = '';        
-        if(editCheck){
-          	//修改按钮
+    }, {
+        "data" : null, //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            var result = '';
+            //修改按钮
             result += '<a href="'+myTable.editUrl+row.id+'.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" data-toggle="modal"><i class="fa fa-edit"></i>&nbsp;回复</a>';
-        }else{
-            result += ' <a href="#" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-        }
-        if(delCheck){
             //删除按钮
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';    
-        }else{
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-        }  
-        return result;
-    } 
-} ];
-//ajax参数
-var ajaxDataParamFun = function(d) {
-    //d.simpleQueryParam = $('#simpleQueryParam').val(); //模糊查询
-    d.typeId = $('#typeId').val(); //模糊查询
-};
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
+            return result;
+        }
+    } ];
+    //ajax参数
+    var ajaxDataParamFun = function(d) {
+        //d.simpleQueryParam = $('#simpleQueryParam').val(); //模糊查询
+        d.typeId = $('#typeId').val(); //模糊查询
+    };
 
-//表格setting
-var setting = {
-    listUrl : /*[[@{/admin/m/ext/guestbook/list.gsp}]]*/'url',
-    editUrl : /*[[@{/admin/m/ext/guestbook/edit_}]]*/'url',
-    deleteUrl : /*[[@{/admin/m/ext/guestbook/delete_}]]*/'url',
-    columnDefs : columnDefs, //表格列定义
-    columns : columns, //表格列
-    dataTableDiv : 'dataTable', //表格
-    ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-    pageable : true, //是否分页
-    showIndexColumn : true, //是否显示第一列的索引列
-    enabledChange : true
-};
-//创建表格
-myTable = new TG_Tabel.createNew(setting);
-//加载完成后执行
-$(function() {
-    //表格初始化
-    myTable.init();
-});
-$("#typeId").change(function() {
-    myTable.refresh();
-});
-/*]]>*/
+    //表格setting
+    var setting = {
+        listUrl : /*[[@{/admin/m/ext/guestbook/list.gsp}]]*/'url',
+        editUrl : /*[[@{/admin/m/ext/guestbook/edit_}]]*/'url',
+        deleteUrl : /*[[@{/admin/m/ext/guestbook/delete_}]]*/'url',
+        columnDefs : columnDefs, //表格列定义
+        columns : columns, //表格列
+        dataTableDiv : 'dataTable', //表格
+        ajaxDataParamFun : ajaxDataParamFun, //ajax参数
+        pageable : true, //是否分页
+        showIndexColumn : true, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    myTable = new TG_Tabel.createNew(setting);
+    //加载完成后执行
+    $(function() {
+        //表格初始化
+        myTable.init();
+    });
+    $("#typeId").change(function() {
+        myTable.refresh();
+    });
+    /*]]>*/
 </script>
 </html>

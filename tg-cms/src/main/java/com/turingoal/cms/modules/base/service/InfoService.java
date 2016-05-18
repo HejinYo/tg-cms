@@ -5,7 +5,6 @@ import java.util.Map;
 import com.github.pagehelper.Page;
 import com.turingoal.cms.modules.base.domain.Info;
 import com.turingoal.cms.modules.base.domain.form.InfoForm;
-import com.turingoal.cms.modules.base.domain.form.InfoSpecialForm;
 import com.turingoal.cms.modules.base.domain.query.InfoQuery;
 
 /**
@@ -82,11 +81,6 @@ public interface InfoService {
      * 删除 文章、专题关系
      */
     int deleteRelation(final String id);
-
-    /**
-     * 修改 文章、专题排序
-     */
-    int updateOrder(final InfoSpecialForm form);
 
     /**
      * 更新浏览次数

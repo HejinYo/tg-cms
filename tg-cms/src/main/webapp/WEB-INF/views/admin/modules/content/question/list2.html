@@ -21,7 +21,7 @@
 								<div class="row m-b-sm m-t-sm">
 									<form th:action="@{/admin/m/ext/question/list.gsp}" id="dataTableFilterForm" role="form" action="#" method="post">
 										<input type="hidden" name="nodeId" /> <input type="hidden" name="infoModelId" />
-										<div th:if="${#checkAuth.checkAuth('question_add')}" class="col-md-2">
+										<div class="col-md-2">
 											<a th:href="@{/admin/m/ext/question/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
 										</div>
 										<div class="col-md-10">
@@ -53,7 +53,7 @@
 						<div class="ibox float-e-margins" id="infos">
 							<div class="ibox-title">
 								<h5>选项管理</h5>
-								<div th:if="${#checkAuth.checkAuth('questionItem_add')}" class="ibox-tools">
+								<div class="ibox-tools">
 									<a th:href="@{/admin/m/ext/question/addItem.gsp}" data-target="#commonItemWin" class="btn btn-primary btn-sm" disabled='disabled' id="addItem" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
 								</div>
 							</div>
@@ -86,11 +86,6 @@
 <br />
 {{# 
 if(d.length > 0){
-var addCheck = /*[[${#checkAuth.checkAuth('questionOption_add')}]]*/;
-var editCheck = /*[[${#checkAuth.checkAuth('questionItem_edit')}]]*/;
-var delCheck = /*[[${#checkAuth.checkAuth('questionItem_delete')}]]*/;
-var editOptionCheck = /*[[${#checkAuth.checkAuth('questionOption_edit')}]]*/;
-var delOptionCheck = /*[[${#checkAuth.checkAuth('questionOption_delete')}]]*/;
 
 var editUrlPre= /*[[@{/admin/m/ext/question/editOption_}]]*/'url'; 
 var ItemEditUrlPre= /*[[@{/admin/m/ext/question/editItem_}]]*/'url'; 
@@ -110,15 +105,9 @@ for(var i = 0; i < d.length; i++){ var record=d[i];var num=i+1; }}
 						<span class="text-danger">单选</span>
 		  	 		{{# } }}]
         	<div class="ibox-tools">
-				{{# if(addCheck){ }}
-					<a href="{{addOptionPre+record.id}}.gsp" data-target="#commonOptionWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i></a>
-				{{# } }}
-				{{# if(editCheck){ }}
-					<a href="{{ItemEditUrlPre+record.id}}.gsp" data-target="#commonItemWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>
-				{{# } }}
-				{{# if(delCheck){ }}
-					<button class="btn btn-warning btn-xs" type="button" onclick="deleteItem('{{record.id}}')"><i class="fa fa-trash-o"></i></button>
-           		{{# } }}
+				<a href="{{addOptionPre+record.id}}.gsp" data-target="#commonOptionWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i></a>
+				<a href="{{ItemEditUrlPre+record.id}}.gsp" data-target="#commonItemWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>
+				<button class="btn btn-warning btn-xs" type="button" onclick="deleteItem('{{record.id}}')"><i class="fa fa-trash-o"></i></button>
 			</div>
 		</div>
 		<div class="ibox-content">
@@ -133,12 +122,8 @@ for(var i = 0; i < d.length; i++){ var record=d[i];var num=i+1; }}
         <td>{{optionRecord.titleinputField||''}}</td>
         <td>{{optionRecord.selectCount}}</td>
 		<td>
-			{{# if(editOptionCheck){ }}
-				<a href="{{editUrlPre+optionRecord.id}}.gsp" data-target="#commonOptionWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>
-			{{# } }}
-			{{# if(delOptionCheck){ }}
-				<button class="btn btn-warning btn-xs" type="button" onclick="deleteOption('{{optionRecord.id}}')"><i class="fa fa-trash-o"></i></button>
-			{{# } }}
+			<a href="{{editUrlPre+optionRecord.id}}.gsp" data-target="#commonOptionWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>
+			<button class="btn btn-warning btn-xs" type="button" onclick="deleteOption('{{optionRecord.id}}')"><i class="fa fa-trash-o"></i></button>
 		</td>
     </tr>
 	{{# } }}
@@ -199,10 +184,6 @@ for(var i = 0; i < d.length; i++){ var record=d[i];var num=i+1; }}
 <script th:inline="javascript" id="dataTableTpl" type="text/html">
 <![CDATA[*/
 {{# 
-var enabledChange = /*[[${#checkAuth.checkAuth('question_enabled')}]]*/;
-var editCheck = /*[[${#checkAuth.checkAuth('question_edit')}]]*/;
-var delCheck = /*[[${#checkAuth.checkAuth('question_delete')}]]*/;
-
 var editUrlPre= /*[[@{/admin/m/ext/question/edit_}]]*/'url'; 
 var len = d.records.length;
 if(len>0){
@@ -213,31 +194,18 @@ if(len>0){
 <tr class="gradeX">
 	<td>{{num}}</td>
 	<td>
-		{{# if(enabledChange){ }}
-			{{# if(record.enabled===1){ }}
-				<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this, '{{record.id}}')" /> 
-   	 		{{# }else{ }}
-				<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, '{{record.id}}')" />
-			{{# } }}
-		{{# } else { }}
-			{{# if(record.enabled===1){ }}
-				<span class="text-success">启用</span>
-   	 		{{# }else{ }}
-				<span class="text-danger">停用</span>
-			{{# } }}
+		{{# if(record.enabled===1){ }}
+			<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this, '{{record.id}}')" /> 
+   	 	{{# }else{ }}
+			<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, '{{record.id}}')" />
 		{{# } }}
 	</td>
 	<td><a onclick="renderItem('{{record.id}}')">{{record.title}}</a></td>
 	<td>
-		{{# if(editCheck){ }}
-			<a href="{{editUrlPre+record.id}}.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>
-		{{# } }}
-		{{# if(delCheck){ }}
-			<button class="btn btn-warning btn-xs" type="button" onclick="myTable.deleteItem('{{record.id}}')"><i class="fa fa-trash-o"></i></button>
-		{{# } }}
+		<a href="{{editUrlPre+record.id}}.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>
+		<button class="btn btn-warning btn-xs" type="button" onclick="myTable.deleteItem('{{record.id}}')"><i class="fa fa-trash-o"></i></button>
 	</td>
 </tr>
-
 	{{# } }}
 {{# }else{ }}
     <tr><td colspan="9"><br/><div class="alert alert-danger alert-dismissable">对不起，暂时没有数据可以显示，请更换查询条件重新再试！ <div></td></tr>
@@ -281,9 +249,9 @@ if(len>0){
     /*]]>*/
 </script>
 <script th:inline="javascript">
-	/*<![CDATA[*/
+    /*<![CDATA[*/
     function renderItem(id) {
-	    $('#addItem').attr('disabled',false); 
+        $('#addItem').attr('disabled', false);
         $('#dataQuestionTableFilterForm').find('input[name="id"]').val(id);
         myQuestionTable.refresh();
         $('#dataItemTableFilterForm').find('input[name="questionId"]').val(id);

@@ -7,10 +7,10 @@ import com.turingoal.cms.modules.base.domain.form.NodeGroupForm;
 import com.turingoal.cms.modules.base.domain.query.NodeGroupQuery;
 
 /**
- * NodeGroupDao 
+ * NodeGroupDao
  */
 public interface NodeGroupDao {
-    
+
     /**
      * 查询 NodeGroup
      */
@@ -20,7 +20,7 @@ public interface NodeGroupDao {
      * 通过id得到一个 NodeGroup
      */
     NodeGroup get(final String id);
-    
+
     /**
      * 新增 NodeGroup
      */
@@ -30,12 +30,12 @@ public interface NodeGroupDao {
      * 修改 NodeGroup
      */
     int update(final NodeGroupForm form);
-    
+
     /**
      * 根据id删除一个 NodeGroup
      */
     int delete(final String id);
-    
+
     /**
      * 修改状态
      */

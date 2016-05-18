@@ -16,11 +16,10 @@ import com.turingoal.cms.core.service.ResourceService;
 import com.turingoal.common.annotation.MethodLog;
 import com.turingoal.common.bean.BaseTreeNodeBean;
 import com.turingoal.common.bean.TreeBean;
-import com.turingoal.common.constants.ConstantEnabledValue;
 import com.turingoal.common.constants.ConstantEditableValue;
+import com.turingoal.common.constants.ConstantEnabledValue;
 import com.turingoal.common.constants.ConstantSystemValues;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.exception.ExceptionCode;
 
 /**
  * ResourceService
@@ -172,9 +171,9 @@ public class ResourceServiceImpl implements ResourceService {
      * 查询角色资源树
      */
     @MethodLog(name = "查询角色资源树", description = "查询角色资源树，不分页")
-    public BaseTreeNodeBean getResourceTree(final String id) {
+    public BaseTreeNodeBean getResourceTreeByRole(final String roleId) {
         List<Resource> allResources;
-        allResources = resourceDao.getResourceTree(id);
+        allResources = resourceDao.findByRole(roleId);
         List<? extends BaseTreeNodeBean> nodeList = allResources;
         BaseTreeNodeBean root = new Resource();
         root.setId("0");
@@ -205,7 +204,7 @@ public class ResourceServiceImpl implements ResourceService {
     public void add(final ResourceForm form) {
         form.setCreateDataUsername(SystemHelper.getCurrentUsername());
         resourceDao.add(form);
-        //刷新spring security缓存中的Attributes
+        // 刷新spring security缓存中的Attributes
         securityMetadataSource.freshAllConfigAttributes();
     }
 
@@ -216,11 +215,11 @@ public class ResourceServiceImpl implements ResourceService {
     @MethodLog(name = "修改Resource", description = "修改Resource")
     public void update(final ResourceForm form) throws BusinessException {
         if (resourceDao.checkEditable(form.getId()) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             form.setUpdateDataUsername(SystemHelper.getCurrentUsername());
             resourceDao.update(form);
-            //刷新spring security缓存中的Attributes
+            // 刷新spring security缓存中的Attributes
             securityMetadataSource.freshAllConfigAttributes();
         }
     }
@@ -232,10 +231,10 @@ public class ResourceServiceImpl implements ResourceService {
     @MethodLog(name = "删除Resource", description = "根据id删除一个 Resource")
     public void delete(final String id) throws BusinessException {
         if (resourceDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             resourceDao.delete(id);
-            //刷新spring security缓存中的Attributes
+            // 刷新spring security缓存中的Attributes
             securityMetadataSource.freshAllConfigAttributes();
         }
     }
@@ -247,10 +246,10 @@ public class ResourceServiceImpl implements ResourceService {
     @MethodLog(name = "启用Resource", description = " 根据id启用一个Resource")
     public void enable(final String id) throws BusinessException {
         if (resourceDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             resourceDao.changeEnabled(id, ConstantEnabledValue.ENABLED_INT);
-            //刷新spring security缓存中的Attributes
+            // 刷新spring security缓存中的Attributes
             securityMetadataSource.freshAllConfigAttributes();
         }
     }
@@ -262,10 +261,10 @@ public class ResourceServiceImpl implements ResourceService {
     @MethodLog(name = "停用Resource", description = "根据id停用一个Resource")
     public void disable(final String id) throws BusinessException {
         if (resourceDao.checkEditable(id) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException(ExceptionCode.CODE_1000);
+            throw new BusinessException("GE1000");
         } else {
             resourceDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
-            //刷新spring security缓存中的Attributes
+            // 刷新spring security缓存中的Attributes
             securityMetadataSource.freshAllConfigAttributes();
         }
     }

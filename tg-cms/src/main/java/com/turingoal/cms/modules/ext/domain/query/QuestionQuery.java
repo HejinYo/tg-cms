@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * 调查问卷Query 
+ * 调查问卷Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class QuestionQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String id; // 调查问卷
     private String title; // 标题
     private String codeNum; // 问卷编码

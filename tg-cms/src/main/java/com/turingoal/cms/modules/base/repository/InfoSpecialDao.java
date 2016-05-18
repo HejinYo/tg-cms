@@ -45,34 +45,4 @@ public interface InfoSpecialDao {
      * 根据文章id、专题id删除一个关系
      */
     int deleteRelation(final InfoSpecialForm form);
-
-    /**
-     * 根据专题id获取最大序号
-     */
-    Integer getMaxOrder(final String specialId);
-
-    /**
-     * 修改序号（加1）
-     */
-    int updateOrderAdd(final InfoSpecialForm form);
-
-    /**
-     * 修改序号（减1）
-     */
-    int updateOrderSubtract(final InfoSpecialForm form);
-
-    /**
-     * 修改文章、专题关系排序（递减）
-     */
-    int subtractOrder(final InfoSpecialForm form);
-
-    /**
-     * 修改文章、专题关系排序（递增）
-     */
-    void addOrder(final InfoSpecialForm form);
-
-    /**
-     * 修改文章、专题关系排序
-     */
-    int updateOrder(final InfoSpecialForm form);
 }

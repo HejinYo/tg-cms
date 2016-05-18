@@ -7,10 +7,10 @@ import com.turingoal.cms.modules.ext.domain.form.VoteForm;
 import com.turingoal.cms.modules.ext.domain.query.VoteQuery;
 
 /**
- * 投票Dao 
+ * 投票Dao
  */
 public interface VoteDao {
-    
+
     /**
      * 查询 投票
      */
@@ -20,7 +20,7 @@ public interface VoteDao {
      * 通过id得到一个 投票
      */
     Vote get(final String id);
-    
+
     /**
      * 新增 投票
      */
@@ -30,12 +30,12 @@ public interface VoteDao {
      * 修改 投票
      */
     int update(final VoteForm form);
-    
+
     /**
      * 根据id删除一个 投票
      */
     int delete(final String id);
-    
+
     /**
      * 修改投票状态
      */

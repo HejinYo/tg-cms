@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.InitBinder;
  */
 @Controller
 public class ForeLoginController {
-   
 
     /**
      * 将form表单里面的字符串去掉空白

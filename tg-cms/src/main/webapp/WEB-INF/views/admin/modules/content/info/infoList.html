@@ -1,7 +1,7 @@
 <header class="main-box-header clearfix">
 	<div class="row m-b-sm m-t-sm">
 		<div class="col-md-8">
-			<button id="infoAddBtn" th:if="${#checkAuth.checkAuth('info_add')}" th:href="@{/admin/m/base/info/add_{nodeId}.gsp(nodeId=${nodeId})}" th:disabled="${nodeId=='0'}" class="btn btn-primary btn-sm" type="button">
+			<button id="infoAddBtn" th:href="@{/admin/m/base/info/add_{nodeId}.gsp(nodeId=${nodeId})}" th:disabled="${nodeId=='0'}" class="btn btn-primary btn-sm" type="button">
 				<i class="fa fa-plus"></i>&nbsp;新增
 			</button>
 		</div>

@@ -32,9 +32,9 @@ public interface ResourceService {
     BaseTreeNodeBean getResourceTreeGird();
 
     /**
-     * 查询全部 Resource的树
+     * 查询角色资源树
      */
-    BaseTreeNodeBean getResourceTree(final String id);
+    BaseTreeNodeBean getResourceTreeByRole(final String id);
 
     /**
      * 查询全部 启用的Resource名称树

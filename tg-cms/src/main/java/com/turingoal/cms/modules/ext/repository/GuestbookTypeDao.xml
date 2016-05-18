@@ -5,8 +5,7 @@
     
     <!-- 查询 所有留言板类型 -->
     <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.GuestbookTypeQuery" resultType="com.turingoal.cms.modules.ext.domain.GuestbookType">
-        SELECT * FROM tg_cms_m_ext_guestbook_type
-        ORDER BY sort_order ASC
+        SELECT * FROM tg_cms_m_ext_guestbook_type ORDER BY sort_order ASC
     </select>
     
     <!-- 通过id得到一个 留言板类型-->
@@ -48,4 +47,9 @@
     <delete id="delete" parameterType="string">
         DELETE FROM tg_cms_m_ext_guestbook_type WHERE id = #{id}
     </delete>
+    
+    <!-- 修改是否可用-->
+    <update id="changeEnabled">
+        UPDATE tg_cms_m_ext_guestbook_type SET enabled = #{enabled} WHERE id = #{id}
+    </update>
 </mapper>

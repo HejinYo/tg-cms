@@ -24,7 +24,7 @@
 				<div class="main-box clearfix">
 					<header class="main-box-header clearfix">
 						<div class="row m-b-sm m-t-sm">
-							<div th:if="${#checkAuth.checkAuth('node_add')}" class="col-md-2">
+							<div class="col-md-2">
 								<a th:href="@{/admin/m/base/node/add_0.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
 							</div>
 						</div>
@@ -90,20 +90,11 @@
     }, {
         "data" : "enabled",
         render : function(data,type,row,meta){
-            var enabledChange = /*[[${#checkAuth.checkAuth('node_enabled')}]]*/;
-			if(enabledChange==1){
-			    if(data==1){
-			        return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
-			    }else{
-                    return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
-			    }
-			}else{
-			    if(data==1){
-			        return '<span class="text-success">启用</span>';
-			    }else {
-			        return '<span class="text-danger">停用</span>';
-			    }
-			}
+		    if(data==1){
+		        return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+		    }else{
+                   return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+		    }
         }
     }, {
         "data" : "codeNum"
@@ -137,24 +128,14 @@
         "data" : null,
         "class" : "text-center", //最后一列，操作按钮
         render : function(data, type, row, meta) {
-            var editCheck = /*[[${#checkAuth.checkAuth('node_edit')}]]*/'';
-            var delCheck = /*[[${#checkAuth.checkAuth('node_delete')}]]*/'';
             var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
             var addUrl = /*[[@{/admin/m/base/node/add_{id}.gsp}]]*/'url';
             var result = '';
-            if (editCheck) {
-                //修改按钮
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-            } else {
-                result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-            }
-                result += ' <a href="' + addUrl.replace("{id}", row.id) + '" data-target="#commonWin" class="btn btn-info btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增子栏目</a>';
-            if (delCheck) {
-                //删除按钮
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
-            } else {
-                result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
-            }
+            //修改按钮
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            result += ' <a href="' + addUrl.replace("{id}", row.id) + '" data-target="#commonWin" class="btn btn-info btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增子栏目</a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
             return result;
         }
     } ];

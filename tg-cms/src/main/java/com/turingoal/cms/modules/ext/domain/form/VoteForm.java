@@ -6,13 +6,13 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * 投票 Form 
+ * 投票 Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class VoteForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private String title; // 标题
     private String codeNum; // 编码
     private java.util.Date startTime; // 开始日期

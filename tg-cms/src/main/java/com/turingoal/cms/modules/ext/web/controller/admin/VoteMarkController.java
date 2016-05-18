@@ -28,14 +28,14 @@ import com.turingoal.common.util.validator.ValidGroupAdd;
 import com.turingoal.common.util.validator.ValidGroupUpdate;
 
 /**
- * VoteMarkController 
+ * VoteMarkController
  */
 @RestController
 @RequestMapping("/m/ext/voteMark")
 public class VoteMarkController {
     @Autowired
     private VoteMarkService voteMarkService;
-    
+
     /**
      * 查询全部 VoteMark
      */
@@ -43,7 +43,7 @@ public class VoteMarkController {
     public Object findAll(final VoteMarkQuery query) throws BusinessException {
         return voteMarkService.findAll(query);
     }
-    
+
     /**
      * 分页查询 VoteMark
      */
@@ -60,7 +60,7 @@ public class VoteMarkController {
     public Object get(@RequestParam("id") final String id) throws BusinessException {
         return voteMarkService.get(id);
     }
-    
+
     /**
      * 新增 VoteMark
      */
@@ -90,7 +90,7 @@ public class VoteMarkController {
             return new JsonResultBean(JsonResultBean.SUCCESS);
         }
     }
-    
+
     /**
      * 根据id删除 VoteMark
      */
@@ -99,7 +99,7 @@ public class VoteMarkController {
         voteMarkService.delete(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
-    
+
     /**
      * 将form表单里面的String Date转换成Date型，字符串去掉空白
      */

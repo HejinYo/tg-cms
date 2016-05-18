@@ -36,7 +36,6 @@ import com.turingoal.common.util.validator.ValidGroupUpdate;
 @Controller
 @RequestMapping("/m/ext/friendlinkType")
 public class FriendlinkTypeController {
-
     private static final String LIST_PAGE = "modules/site/friendlinkType/list";
     private static final String ADD_PAGE = "modules/site/friendlinkType/add";
     private static final String EDIT_PAGE = "modules/site/friendlinkType/edit";
@@ -72,7 +71,7 @@ public class FriendlinkTypeController {
     }
 
     /**
-     * 返回友情链接类型新增界面
+     * 新增界面
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.GET)
     public String addPage() {
@@ -96,7 +95,7 @@ public class FriendlinkTypeController {
     }
 
     /**
-     * 返回友情链接类型修改界面
+     * 修改界面
      */
     @RequestMapping(value = "/edit_{id}.gsp", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable final String id) {
@@ -106,7 +105,7 @@ public class FriendlinkTypeController {
     }
 
     /**
-     * 返回友情链接类型修改界面
+     * 修改友情链接类型
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
     @ResponseBody
@@ -128,6 +127,26 @@ public class FriendlinkTypeController {
     @ResponseBody
     public final JsonResultBean delete(@PathVariable("id") final String id) throws BusinessException {
         friendlinkTypeService.delete(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 根据id启用友情链接类型
+     */
+    @RequestMapping(value = "/enable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean enable(@PathVariable("id") final String id) throws BusinessException {
+        friendlinkTypeService.enable(id);
+        return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 根据id停用友情链接类型
+     */
+    @RequestMapping(value = "/disable_{id}.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final JsonResultBean disable(@PathVariable("id") final String id) throws BusinessException {
+        friendlinkTypeService.disable(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
 
