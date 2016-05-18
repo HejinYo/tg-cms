@@ -81,6 +81,15 @@
 		<servlet-name>fore</servlet-name>
 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
+    <!-- license信息 -->
+    <servlet>
+        <servlet-name>LicenseInfoServlet</servlet-name>
+        <servlet-class>com.turingoal.common.license.LicenseInfoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LicenseInfoServlet</servlet-name>
+        <url-pattern>/licenseInfo</url-pattern>
+    </servlet-mapping>
 	<!-- session 超时配置 -->
 	<session-config>
 		<session-timeout>60</session-timeout>

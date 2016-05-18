@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90404
 File Encoding         : 65001
 
-Date: 2016-05-18 11:02:09
+Date: 2016-05-18 22:59:21
 */
 
 
@@ -1536,8 +1536,8 @@ COMMENT ON COLUMN "public"."tg_c_user"."enabled" IS '是否可用';
 -- ----------------------------
 -- Records of tg_c_user
 -- ----------------------------
-INSERT INTO "public"."tg_c_user" VALUES ('27f71240-dbff-4378-a5db-a526194c9917', 'jason', 'jason', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', null, null, null, null, null, null, null, null, null, '2015-11-06 16:33:02.103', '0:0:0:0:0:0:0:1', '2015-11-06 16:34:29.345', '0:0:0:0:0:0:0:1', null, null, null, '1', '1', null, null, null, null);
-INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', '2015-01-01 12:00:00', '', '', '', '', '', '', '', '', '2016-05-18 10:59:38.358', '0:0:0:0:0:0:0:1', '2016-05-18 11:01:57.885', '0:0:0:0:0:0:0:1', '2016-05-18 10:59:42.339', null, null, '1', '1', null, null, null, null);
+INSERT INTO "public"."tg_c_user" VALUES ('27f71240-dbff-4378-a5db-a526194c9917', 'jason', 'jason', '$2a$11$3XpZgmghdUZJv0hCgJiuruOsixjq1tTQWTUa1wsQnHkx3jIvPk3V2', '1', null, null, null, null, null, null, null, null, null, '2015-11-06 16:33:02.103', '0:0:0:0:0:0:0:1', '2015-11-06 16:34:29.345', '0:0:0:0:0:0:0:1', null, null, null, '1', '1', null, null, null, null);
+INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', '2015-01-01 12:00:00', '', '', '', '', '', '', '', '', '2016-05-18 11:01:57.885', '0:0:0:0:0:0:0:1', '2016-05-18 22:57:02.58', '0:0:0:0:0:0:0:1', '2016-05-18 10:59:42.339', null, null, '1', '1', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_c_user_role
