@@ -13,6 +13,7 @@
     <!-- 配置不过滤的资源（静态资源及登录相关）, 当指定一个http元素的security属性为none时，表示其对应pattern的filter链为空 -->
     <sec:http pattern="/files/**" security="none" />
     <sec:http pattern="/resources/**" security="none" />
+    <sec:http pattern="/licenseInfo" security="none" />
     <!-- 登录页面需要配置成可以直接访问的， 登录页面加*因为后面可能带参数 -->
     <sec:http pattern="${security.loginPageUrl}*" security="none" />
     <!-- 登录页面需要配置成可以直接访问的， 登录页面加*因为后面可能带参数 -->
