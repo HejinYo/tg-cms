@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.turingoal.cms.core.service.SysSensitiveWordService;
 import com.turingoal.cms.modules.base.domain.Info;
 import com.turingoal.cms.modules.base.domain.Node;
 import com.turingoal.cms.modules.base.service.CmsFileService;
@@ -30,8 +29,6 @@ public class ForeInfoController {
     private CmsFileService fileService;
     @Autowired
     private TemplateEngineHelper templateEngineHelper;
-    @Autowired
-    private SysSensitiveWordService sensitiveWordService;
 
     /**
      * 文章页
@@ -40,7 +37,7 @@ public class ForeInfoController {
     public void index(@PathVariable final String infoId, final HttpServletRequest request, final HttpServletResponse response) throws IOException {
         Info info = infoService.get(infoId);
         // 屏蔽关键字
-        info.setInfoText(sensitiveWordService.replace(info.getInfoText()));
+        // info.setInfoText(sensitiveWordService.replace(info.getInfoText()));
         Node node = nodeService.get(info.getNodeId());
         request.setAttribute("id", infoId);
         request.setAttribute("codeNum", node.getCodeNum());
