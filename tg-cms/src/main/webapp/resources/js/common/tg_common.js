@@ -297,7 +297,7 @@ function lockSucPrompt(logoutUrl, unlockUrl) {
         closeBtn : 0,
         btn : [ '解除锁定', '重新登录' ], // 可以无限个按钮
         title : "系统已锁定，请输入密码解锁！",
-        cancel : function() {
+        btn2 : function() {
             window.location.href = logoutUrl;
             return false;
         },
