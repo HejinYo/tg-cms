@@ -1,3 +1,20 @@
+//判断浏览器
+function getBrowserType() {
+    var OsObject = "";
+    if (navigator.userAgent.indexOf("MSIE") > 0) {
+        OsObject = "MSIE";
+    }
+    if (navigator.userAgent.indexOf("Firefox") > 0) {
+        OsObject = "Firefox";
+    }
+    if (userAgent.indexOf("Safari") > 0 && navigator.userAgent.indexOf("Chrome") < 0) {
+        OsObject = "Safari";
+    }
+    if (navigator.userAgent.indexOf("Chrome") > 0) {
+        OsObject = "Chrome";
+    }
+    return OsObject;
+}
 // 封装的一个JQuery小插件
 jQuery.fn.rowspan = function(colIdx) {
 	return this.each(function() {
