@@ -9,19 +9,19 @@ toastr.options = {
 // 操作成功
 function tg_alertSuccess(title, message) {
     toastr.success(!title ? '操作成功' : title, !message ? '恭喜您，操作成功！' : message);
-};
+}
 // 系统消息
 function tg_alertInfo(title, message) {
     toastr.info(!title ? '系统消息' : title, !message ? '系统消息!' : message);
-};
+}
 // 系统警告
 function tg_alertWarning(title, message) {
     toastr.warning(!title ? '系统警告' : title, !message ? '系统警告!' : message);
-};
+}
 // 系统错误
 function tg_alertError(title, message) {
     toastr.error(!title ? '系统错误' : title, !message ? '对不起，操作失败！' : message);
-};
+}
 // tg_confirmDialog
 function tg_confirmDialog(title, message, okCallbackFun, cancelCallbackFun) {
     layer.confirm(!message ? '您确定要执行该操作吗？！' : message, {
@@ -40,7 +40,7 @@ function tg_confirmDialog(title, message, okCallbackFun, cancelCallbackFun) {
             cancelCallbackFun();
         }
     });
-};
+}
 // 基本表单ajax 提交
 function tg_baseFormAjaxSubmit(formId, rules, messages, sucCallbackFun, failCallbackFun) {
     var sucCallback = function(responseText, statusText) {
@@ -51,30 +51,34 @@ function tg_baseFormAjaxSubmit(formId, rules, messages, sucCallbackFun, failCall
                 tg_alertSuccess();
             }
         } else {
+            form.attr("checkSubmitFlag", false);
             if (failCallbackFun) {
                 failCallbackFun(); // 回调函数
             } else {
                 tg_alertError('操作失败', responseText.msg);
             }
         }
-    }
+    };
     var options = {
         success : sucCallback, // 提交后的回调函数
         dataType : 'json', // 接受服务端返回的类型
         clearForm : true, // 成功提交后，清除所有表单元素的值
         resetForm : true, // 成功提交后，重置所有表单元素的值
         timeout : 5000
-    }
+    };
     var form = $("#" + formId);
     // 表单验证
     var validator = form.validate({
-        rules : rules == null ? {} : rules,
-        messages : messages == null ? {} : messages,
+        rules : rules === null ? {} : rules,
+        messages : messages === null ? {} : messages,
         // errorPlacement : function(error, element) {
         // error.insertBefore(element.parent());
         // },
         submitHandler : function(f) {
-            form.ajaxSubmit(options);
+            if (!form.attr("checkSubmitFlag")) {
+                form.attr("checkSubmitFlag", true);
+                form.ajaxSubmit(options);
+            }
         }
     });
     return false; // 阻止表单默认提交
@@ -91,7 +95,7 @@ function tg_formWinAjaxSubmit(formModalId, formId, rules, messages, sucCallbackF
         if (sucCallbackFun) {
             sucCallbackFun(); // 回调函数
         }
-    }
+    };
     tg_baseFormAjaxSubmit(formId, rules, messages, callbackFun, failCallbackFun);
 }
 // 简单Ajax Post操作数据
@@ -125,36 +129,35 @@ function tg_simpleAjaxPost(url, parms, sucCallbackFun, failCallbackFun) {
 function tg_dleteItem(url, sucCallbackFun, failCallbackFun) {
     var okCallbackFun = function() {
         tg_simpleAjaxPost(url, null, sucCallbackFun, failCallbackFun);
-    }
+    };
     tg_confirmDialog(null, "您确定要删除该条数据吗？", okCallbackFun);
 }
-
 // 修改是否可用
 function tg_changeEnabled(c, id, enableUrl, disableUrl, sucCallbackFun) {
     if (c.checked) {// 原来禁用 现在启用
         // 操作失败还原按钮状态
-        var failCallbackFun = function() {
+        var failCallbackFun1 = function() {
             // $(c).trigger("click");
             c.checked = false;
             $(c).bootstrapToggle('destroy');
             $(c).bootstrapToggle();
-        }
+        };
         // 确定操作
-        var okCallbackFun = function() {
-            tg_simpleAjaxPost(enableUrl, null, sucCallbackFun, failCallbackFun);
-        }
-        tg_confirmDialog(null, "您确定要启用该条数据吗？", okCallbackFun, failCallbackFun);
+        var okCallbackFun1 = function() {
+            tg_simpleAjaxPost(enableUrl, null, sucCallbackFun, failCallbackFun1);
+        };
+        tg_confirmDialog(null, "您确定要启用该条数据吗？", okCallbackFun1, failCallbackFun1);
     } else { // 原来启用 现在停用
         // 操作失败还原按钮状态
         var failCallbackFun = function() {
             c.checked = true;
             $(c).bootstrapToggle('destroy');
             $(c).bootstrapToggle();
-        }
+        };
         // 确定操作
         var okCallbackFun = function() {
             tg_simpleAjaxPost(disableUrl, null, sucCallbackFun, failCallbackFun);
-        }
+        };
         tg_confirmDialog(null, "您确定要停用该条数据吗？", okCallbackFun, failCallbackFun);
     }
 }
@@ -174,7 +177,6 @@ function tg_createTable(tg_table) {
             "processing" : "处理中...",
             "loadingRecords" : "加载中...",
             "lengthMenu" : "每页 _MENU_ 条记录",
-            "zeroRecords" : "对不起，没有找到相关记录",
             "info" : "第 _START_ 至 _END_ 条记录，共 _TOTAL_ 条",
             "infoEmpty" : "无记录",
             "infoFiltered" : "(共 _MAX_ 条)",
@@ -249,6 +251,7 @@ var TG_Tabel = {
         tg_table.showIndexColumn = option.showIndexColumn; // 是否显示第一列的索引列
         tg_table.pageable = option.pageable; // 是否分页
         tg_table.enabledChange = option.enabledChange; // 可用状态修改
+        tg_table.suffix = option.suffix === null ? '.gsp' : option.suffix; // 后缀，默认.gsp
         // 成功后回调
         var drawCallbackFun = function() {
             if (option.drawCallbackFun) {
@@ -274,24 +277,24 @@ var TG_Tabel = {
         };
         // 删除
         tg_table.deleteItem = function(id) {
-            var deleteUrlPath = tg_table.deleteUrl + id + '.gsp';
+            var deleteUrlPath = tg_table.deleteUrl + id + tg_table.suffix;
             var sucCallbackfun = function() {
                 tg_alertSuccess();
                 tg_table.refresh();
-            }
+            };
             tg_dleteItem(deleteUrlPath, sucCallbackfun);
         };
         // 修改是否可用
         tg_table.changeEnabled = function(c, id) {
-            var enableUrlPath = tg_table.enableUrl + id + '.gsp';
-            var disableUrlPath = tg_table.disableUrl + id + '.gsp';
+            var enableUrlPath = tg_table.enableUrl + id + tg_table.suffix;
+            var disableUrlPath = tg_table.disableUrl + id + tg_table.suffix;
             tg_changeEnabled(c, id, enableUrlPath, disableUrlPath);
         };
         return tg_table;
     }
 };
 // 锁定成功，弹出解锁对话框
-function lockSucPrompt(logoutUrl, unlockUrl) {
+var lockSucPrompt = function(logoutUrl, unlockUrl) {
     layer.prompt({
         formType : 1,
         closeBtn : 0,
@@ -310,7 +313,7 @@ function lockSucPrompt(logoutUrl, unlockUrl) {
             } else {
                 var parms = {
                     userPass : value
-                }
+                };
                 tg_simpleAjaxPost(unlockUrl, parms, function() {
                     tg_alertSuccess("解锁成功", "密码正确，解锁成功！");
                     layer.close(index);
@@ -321,23 +324,23 @@ function lockSucPrompt(logoutUrl, unlockUrl) {
             }
         }
     });
-}
+};
 // 锁定系统屏幕
 function tg_lock(lockUrl, logoutUrl, unlockUrl) {
     // 成功回调操作
     var sucCallbackFun = function() {
         lockSucPrompt(logoutUrl, unlockUrl);
-    }
+    };
     tg_simpleAjaxPost(lockUrl, null, sucCallbackFun, null);
 }
-// 检查锁定系统屏幕
+//检查锁定系统屏幕
 function tg_checkLock(checkLockUrl, logoutUrl, unlockUrl) {
     // 锁定回调操作
     var sucCallbackFun = function() {
         lockSucPrompt(logoutUrl, unlockUrl);
-    }
+    };
     // 未锁定回调操作
     var falseCallbackFun = function() {
-    }
+    };
     tg_simpleAjaxPost(checkLockUrl, null, sucCallbackFun, falseCallbackFun);
 }
