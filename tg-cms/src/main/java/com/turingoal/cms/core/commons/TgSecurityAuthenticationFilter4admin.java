@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
-import org.springframework.cache.ehcache.EhCacheCacheManager;
+import org.springframework.cache.CacheManager;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -25,7 +25,7 @@ public class TgSecurityAuthenticationFilter4admin extends UsernamePasswordAuthen
     private boolean errorsLock = true;  // 是否开启验证码功能
     private int maxRetryCount = 5; // 密码最大重试次数
     @Autowired
-    private EhCacheCacheManager springCacheManager;
+    private CacheManager springCacheManager;
 
     public void setCaptchaParameter(final String captchaParameterParm) {
         this.captchaParameter = captchaParameterParm;
