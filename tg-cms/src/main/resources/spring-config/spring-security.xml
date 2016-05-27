@@ -121,8 +121,6 @@
     </bean>
 
     <!-- 启用用户的缓存功能 -->
-    <bean id="ehcacheManagerFactory"
-        class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean" />
     <bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
         <property name="cacheName" value="secruity-cache" />
         <property name="cacheManager" ref="ehcacheManagerFactory" />

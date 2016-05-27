@@ -50,7 +50,7 @@
     <import resource="classpath:spring-config/spring-ds.xml" />
     <import resource="classpath:spring-config/spring-mybatis.xml" />
     <import resource="classpath:spring-config/spring-tx.xml" />
-    <import resource="classpath:spring-config/spring-ehcache.xml" />
+    <import resource="classpath:spring-config/spring-cache.xml" />
     <import resource="classpath:spring-config/spring-i18n.xml" />
     <import resource="classpath:spring-config/spring-json.xml" />
     <import resource="classpath:spring-config/spring-security.xml" />
