@@ -13,6 +13,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.turingoal.common.exception.CaptchaIncorrectException;
 import com.turingoal.common.exception.CaptchaRequiredException;
 import com.turingoal.common.util.math.CaptchaUtil;
+import jodd.util.StringUtil;
 
 /**
  * 登录
@@ -57,6 +58,9 @@ public class TgSecurityAuthenticationFilter4admin extends UsernamePasswordAuthen
             // 根据缓存名字获取Cache
             Cache passwordRetryCache = springCacheManager.getCache(SPRING_SECURITY_PASSWORD_RETRY_CACHE);
             String username = obtainUsername(request);
+            if (StringUtil.isNotBlank(username)) {
+                username = username.trim();
+            }
             // 缓存里的错误次数
             AtomicInteger retryCount = passwordRetryCache.get(username, AtomicInteger.class);
             if (retryCount == null) {
@@ -99,7 +103,7 @@ public class TgSecurityAuthenticationFilter4admin extends UsernamePasswordAuthen
         Object obj = request.getParameter(captchaParameter);
         String captchaCode = "";
         if (obj != null) {
-            captchaCode = obj.toString().trim();
+            captchaCode = obj.toString().trim().toLowerCase();
         }
         return captchaCode;
     }

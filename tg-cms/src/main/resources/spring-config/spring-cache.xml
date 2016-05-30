@@ -8,11 +8,10 @@
     http://www.springframework.org/schema/cache 
     http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-    <description>spring ehcache配置</description>
+    <description>spring cache配置</description>
 
     <!-- 启用缓存注解功能，这个是必须的，否则注解不会生效，该注解一定要声明在spring主配置文件中才会生效 -->
-    <cache:annotation-driven cache-manager="springCacheManager"
-        proxy-target-class="true" />
+    <cache:annotation-driven cache-manager="springCacheManager" proxy-target-class="true" />
 
     <bean id="ehcacheManagerFactory"
         class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -21,5 +20,14 @@
 
     <bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
         <property name="cacheManager" ref="ehcacheManagerFactory" />
+    </bean>
+    
+    <!-- Spring security启用用户的缓存功能  ehcache实现-->
+    <bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+        <property name="cacheName" value="secruity-cache" />
+        <property name="cacheManager" ref="ehcacheManagerFactory" />
+    </bean>
+    <bean id="userCache" class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
+        <property name="cache" ref="userEhCache" />
     </bean>
 </beans>

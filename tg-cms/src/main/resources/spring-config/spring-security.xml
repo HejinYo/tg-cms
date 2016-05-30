@@ -120,16 +120,6 @@
         </property>
     </bean>
 
-    <!-- 启用用户的缓存功能 -->
-    <bean id="userEhCache" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
-        <property name="cacheName" value="secruity-cache" />
-        <property name="cacheManager" ref="ehcacheManagerFactory" />
-    </bean>
-    <bean id="userCache"
-        class="org.springframework.security.core.userdetails.cache.EhCacheBasedUserCache">
-        <property name="cache" ref="userEhCache" />
-    </bean>
-
     <!-- 用于认证的AuthenticationManager -->
     <sec:authentication-manager alias="authenticationManager">
         <sec:authentication-provider ref="authenticationProvider" />
@@ -141,7 +131,7 @@
         <!-- 用户名不存在抛出UserNotFoundException -->
         <property name="hideUserNotFoundExceptions" value="false" />
         <property name="userDetailsService" ref="userDetailsService" />
-        <!--<property name="userCache" ref="userCache" /> -->
+        <property name="userCache" ref="userCache" />
         <property name="messageSource" ref="messageSource" />
         <property name="passwordEncoder" ref="passwordEncoder" />
     </bean>
