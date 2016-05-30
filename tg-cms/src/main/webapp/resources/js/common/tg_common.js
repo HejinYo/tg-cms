@@ -69,8 +69,8 @@ function tg_baseFormAjaxSubmit(formId, rules, messages, sucCallbackFun, failCall
     var form = $("#" + formId);
     // 表单验证
     var validator = form.validate({
-        rules : rules === null ? {} : rules,
-        messages : messages === null ? {} : messages,
+        rules : !rules ? {} : rules,
+        messages : !messages ? {} : messages,
         // errorPlacement : function(error, element) {
         // error.insertBefore(element.parent());
         // },
@@ -251,7 +251,7 @@ var TG_Tabel = {
         tg_table.showIndexColumn = option.showIndexColumn; // 是否显示第一列的索引列
         tg_table.pageable = option.pageable; // 是否分页
         tg_table.enabledChange = option.enabledChange; // 可用状态修改
-        tg_table.suffix = option.suffix === null ? '.gsp' : option.suffix; // 后缀，默认.gsp
+        tg_table.suffix = !option.suffix ? '.gsp' : option.suffix; // 后缀，默认.gsp
         // 成功后回调
         var drawCallbackFun = function() {
             if (option.drawCallbackFun) {
@@ -333,7 +333,7 @@ function tg_lock(lockUrl, logoutUrl, unlockUrl) {
     };
     tg_simpleAjaxPost(lockUrl, null, sucCallbackFun, null);
 }
-//检查锁定系统屏幕
+// 检查锁定系统屏幕
 function tg_checkLock(checkLockUrl, logoutUrl, unlockUrl) {
     // 锁定回调操作
     var sucCallbackFun = function() {
