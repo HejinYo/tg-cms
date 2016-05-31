@@ -23,6 +23,7 @@ public class TgThymeleafCoreProcessorDialect extends AbstractProcessorDialect {
     public Set<IProcessor> getProcessors(final String dialectPrefix) {
         final Set<IProcessor> processors = new HashSet<IProcessor>();
         processors.add(new PremissionProcessor()); // 授权premissionProcessor
+        processors.add(new SensitiveWordProcessor()); // 敏感词premissionProcessor
         processors.add(new PrettytimeProcessor()); // 日期美化 Processor
         return processors;
     }
