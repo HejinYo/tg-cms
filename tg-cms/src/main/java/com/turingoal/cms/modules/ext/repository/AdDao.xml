@@ -16,7 +16,7 @@
     </select>
 
     <!-- 查询 广告管理信息 -->
-    <select id="findAll" parameterType="com.turingoal.cms.modules.ext.domain.query.AdQuery" resultType="com.turingoal.cms.modules.ext.domain.Ad">
+    <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.AdQuery" resultType="com.turingoal.cms.modules.ext.domain.Ad">
         SELECT ad.*,slot.slot_name as slotName FROM tg_cms_m_ext_ad ad
         LEFT JOIN tg_cms_m_ext_ad_slot slot ON ad.ad_slot_id = slot.id where 1=1
         <if test="adSlotId != null and adSlotId != '' ">

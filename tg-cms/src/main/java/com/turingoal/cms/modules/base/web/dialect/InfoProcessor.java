@@ -35,7 +35,7 @@ public class InfoProcessor extends AbstractAttributeTagProcessor {
         if (StringUtils.isEmptyOrWhitespace(iterVarName)) {
             throw new TemplateProcessingException("参数不能为空！");
         }
-        Object iteratedValue = friendlinkService.findEnabled(null); // 数据集
+        Object iteratedValue = friendlinkService.findByType(null); // 数据集
         structureHandler.iterateElement(iterVarName, STATUS_VAR_NAME, iteratedValue);
     }
 }

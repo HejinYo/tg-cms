@@ -35,7 +35,7 @@ public class AdServiceImpl implements AdService {
     @MethodLog(name = "查询全部 广告管理信息", description = "查询全部 广告管理信息,不分页")
     public Page<Ad> findAll(final AdQuery query) {
         PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
-        Page<Ad> result = (Page<Ad>) adDao.findAll(query);
+        Page<Ad> result = (Page<Ad>) adDao.find(query);
         return result;
     }
 

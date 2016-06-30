@@ -31,18 +31,6 @@
         ORDER BY sort_order ASC
     </select>
     
-     <!-- 查询所有友情链接信息 -->
-    <select id="findEnabled" parameterType="com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">
-        SELECT link_type.type_name as type_name,image.img_path as img_path, link.* FROM tg_cms_m_ext_friendlink link
-            LEFT JOIN tg_cms_m_ext_friendlink_type link_type ON link.type_id = link_type.id
-            LEFT JOIN tg_cms_m_base_image image ON link.fl_logo = image.id
-        WHERE link.enabled = 1 
-        <if test="typeId!=null and typeId!=0">
-            AND link.type_id=#{typeId}
-        </if>
-        ORDER BY sort_order ASC
-    </select>
-    
     <!-- 通过id得到一个友情链接信息-->
     <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">
         SELECT linktype.type_name as type_name,link.* FROM tg_cms_m_ext_friendlink link

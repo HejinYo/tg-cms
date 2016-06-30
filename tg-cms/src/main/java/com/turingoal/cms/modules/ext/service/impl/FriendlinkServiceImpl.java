@@ -32,14 +32,6 @@ public class FriendlinkServiceImpl implements FriendlinkService {
     }
 
     /**
-     * 查询启用的友情链接
-     */
-    @MethodLog(name = "查询启用的友情链接", description = "根据条件查询启用的友情链接，不分页")
-    public List<Friendlink> findEnabled(final FriendlinkQuery query) {
-        return friendlinkDao.findEnabled(query);
-    }
-
-    /**
      * 查询全部 友情链接
      */
     @MethodLog(name = "查询全部友情链接", description = "根据条件查询全部的友情链接，分页")

@@ -18,7 +18,7 @@ public interface AdDao {
     /**
      * 查询 所有广告管理信息
      */
-    List<Ad> findAll(final AdQuery query);
+    List<Ad> find(final AdQuery query);
 
     /**
      * 通过id得到一条广告管理信息
