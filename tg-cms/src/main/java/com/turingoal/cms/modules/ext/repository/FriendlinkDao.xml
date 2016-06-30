@@ -8,7 +8,9 @@
             LEFT JOIN tg_cms_m_ext_friendlink_type link_type ON link.type_id = link_type.id
             LEFT JOIN tg_cms_m_base_image image ON link.fl_logo = image.id
         <where>
+            <if test="typeCodeNum!=null and typeCodeNum!=''">
                 link_type.code_num = #{typeCodeNum} 
+            </if>
         </where>
         ORDER BY sort_order ASC 
         <if test="limit!=null and limit!=0">

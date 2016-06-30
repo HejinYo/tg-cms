@@ -7,7 +7,7 @@
         SELECT ext_ad.* FROM tg_cms_m_ext_ad ext_ad
         LEFT JOIN tg_cms_m_ext_ad_slot ext_ad_slot ON ext_ad.ad_slot_id
         WHERE NOW() BETWEEN ext_ad.begin_time AND ext_ad.end_time
-        <if test="codeNum!=null and codeNum!=''">
+        <if test="adSlotcodeNum!=null and adSlotcodeNum!=''">
             AND ext_ad_slot.code_num = #{adSlotcodeNum}
         </if>
         <if test="limit!=null and limit!=0">
