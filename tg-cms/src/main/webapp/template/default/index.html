@@ -7,53 +7,9 @@
 <body>
 	<div class="wrapper">
 		<div th:replace="default/fragments/nav">head</div>
-		<div class="container banner">
-			<div class="row">
-				<div class='col-md-4 banner_left'>
-					<span></span>
-				</div>
-				<div class='col-md-6 banner_right'>
-					<h1>图灵谷</h1>
-					<br />
-					<h2>领先技术，创造卓越！</h2>
-					<p>&nbsp;&nbsp;图灵谷致力于领先技术研究，科技创新，为客户提供优质的行业咨询和解决方案、先进的系统架构和高品质的系统定制化开发及优质的运维服务。</p>
-				</div>
-			</div>
-		</div>
-		<div class="main">
-			<div class="container content_bottom">
-				<div class="row">
-					<div class='col-md-6 comment_top'>
-						<div class="project_grid">
-							<h3>公司动态</h3>
-							<ul class="project_box" th:each="dtnews:${#INFO.topByNode('news',NULL,NULL,3)}">
-								<li class="mini-post-meta"><time datetime="">
-										<span class="day" th:text="${#dates.day(dtnews.publishTime==null?#dates.createNow():dtnews.publishTime)}">25</span><span class="month" th:text="${#dates.monthName(dtnews.publishTime==null?#dates.createNow():dtnews.publishTime)}">7月</span>
-									</time></li>
-								<li class="desc"><h5>
-									</h5> <span class="comment" th:text="${dtnews.title}">title</span>
-									<p th:text="${dtnews.metaDescription}">description</p></li>
-								<div class="clearfix"></div>
-							</ul>
-						</div>
-					</div>
-					<div class='col-md-6'>
-						<ul class="comment_section top_grid">
-							<li class="comment_desc"><p>"用做产品的态度做项目，用做服务的态度做产品！"</p> <br /> <span class="m_2">- <a href="#">公司宣言</a></span></li>
-							<li><i class="comment"></i></li>
-							<div class="clearfix"></div>
-						</ul>
-						<ul class="comment_section">
-							<li class="comment_desc"><p>"领先技术，创造卓越！"</p> <br /> <span class="m_2">- <a href="#">公司理念</a></span></li>
-							<li><i class="comment"></i></li>
-							<div class="clearfix"></div>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div th:replace="default/fragments/footer">footer</div>
 	</div>
+	<div th:replace="default/fragments/friendlink">friendlink</div>
 </body>
 <div th:replace="default/fragments/import_js">import_js</div>
 </html>

@@ -22,6 +22,14 @@ public class AdServiceImpl implements AdService {
     private AdDao adDao;
 
     /**
+     * 根据广告位编码获取广告
+     */
+    @Override
+    public List<Ad> findBySlot(final AdQuery query) {
+        return adDao.findBySlot(query);
+    }
+
+    /**
      * 查询全部 广告管理信息
      */
     @MethodLog(name = "查询全部 广告管理信息", description = "查询全部 广告管理信息,不分页")
@@ -63,10 +71,5 @@ public class AdServiceImpl implements AdService {
     @MethodLog(name = "根据id删除一条广告管理信息", description = "根据id删除一条广告管理信息")
     public int delete(final String id) {
         return adDao.delete(id);
-    }
-
-    @Override
-    public List<Ad> findByCodeNum(final AdQuery query) {
-        return adDao.findByCodeNum(query);
     }
 }

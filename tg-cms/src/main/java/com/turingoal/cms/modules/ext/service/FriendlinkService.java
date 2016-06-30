@@ -10,6 +10,10 @@ import com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery;
  * 友情链接Service
  */
 public interface FriendlinkService {
+    /**
+     * 根据类型查询友情链接
+     */
+    List<Friendlink> findByTypeId(FriendlinkQuery query);
 
     /**
      * 查询全部 友情链接
@@ -55,9 +59,4 @@ public interface FriendlinkService {
      * 推荐
      */
     int changeRecommend(final FriendlinkForm form);
-
-    /**
-     * 根据类型查询友情链接
-     */
-    List<Friendlink> findByTypeId(FriendlinkQuery query);
 }

@@ -2,7 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.turingoal.cms.modules.ext.repository.AdDao">
-    
+    <!-- 根据广告位编码获取广告 -->
+    <select id="findBySlot" parameterType="com.turingoal.cms.modules.ext.domain.query.AdQuery" resultType="com.turingoal.cms.modules.ext.domain.Ad">
+        SELECT ext_ad.* FROM tg_cms_m_ext_ad ext_ad
+        LEFT JOIN tg_cms_m_ext_ad_slot ext_ad_slot ON ext_ad.ad_slot_id
+        WHERE 1=1  AND NOW() BETWEEN ext_ad.begin_time AND ext_ad.end_time
+        <if test="codeNum!=null and codeNum!=''">
+            AND ext_ad_slot.code_num = #{adSlotcodeNum}
+        </if>
+        <if test="limit!=null and limit!=0">
+            LIMIT 0,#{limit}
+        </if>
+    </select>
+
     <!-- 查询 广告管理信息 -->
     <select id="findAll" parameterType="com.turingoal.cms.modules.ext.domain.query.AdQuery" resultType="com.turingoal.cms.modules.ext.domain.Ad">
         SELECT ad.*,slot.slot_name as slotName FROM tg_cms_m_ext_ad ad
@@ -61,17 +73,4 @@
     <delete id="deleteByTypeId" parameterType="string">
         DELETE FROM tg_cms_m_ext_ad WHERE ad_slot_id = #{adSlotId}
     </delete>
-    
-    <!-- 根据广告位编码获取广告 -->
-    <select id="findByCodeNum" parameterType="com.turingoal.cms.modules.ext.domain.query.AdQuery" resultType="com.turingoal.cms.modules.ext.domain.Ad">
-        SELECT ext_ad.* FROM tg_cms_m_ext_ad ext_ad
-        LEFT JOIN tg_cms_m_ext_ad_slot ext_ad_slot ON ext_ad.ad_slot_id
-        WHERE 1=1  AND NOW() BETWEEN ext_ad.begin_time AND ext_ad.end_time
-        <if test="codeNum!=null and codeNum!=''">
-            AND ext_ad_slot.code_num = #{codeNum}
-        </if>
-        <if test="limit!=null and limit!=0">
-            LIMIT 0,#{limit}
-        </if>
-    </select>
 </mapper>

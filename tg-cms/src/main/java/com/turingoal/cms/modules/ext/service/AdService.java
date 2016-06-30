@@ -10,6 +10,10 @@ import com.turingoal.cms.modules.ext.domain.query.AdQuery;
  * 广告管理Service
  */
 public interface AdService {
+    /**
+     * 根据广告位编码获取广告
+     */
+    List<Ad> findBySlot(final AdQuery query);
 
     /**
      * 查询全部广告管理信息
@@ -35,9 +39,4 @@ public interface AdService {
      * 根据id删除一条广告管理信息
      */
     int delete(final String id);
-
-    /**
-     * 根据广告位编码获取广告
-     */
-    List<Ad> findByCodeNum(AdQuery query);
 }

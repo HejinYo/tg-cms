@@ -24,5 +24,5 @@ public class AdQuery extends BaseQueryBean implements Serializable {
     private String adIimage; // 图片
     private String adFlash; // flash
     private Integer sortOrder; // 排序
-    private String codeNum; // 广告位编码
+    private String adSlotCodeNum; // 广告位编码
 }

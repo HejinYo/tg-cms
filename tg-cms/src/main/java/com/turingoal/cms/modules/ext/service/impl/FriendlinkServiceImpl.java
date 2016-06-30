@@ -24,21 +24,21 @@ public class FriendlinkServiceImpl implements FriendlinkService {
     private FriendlinkDao friendlinkDao;
 
     /**
-     * 查询全部 友情链接
+     * 查询启用的友情链接
      */
-    @MethodLog(name = "查询全部友情链接", description = "根据条件查询全部的友情链接，不分页")
-    public Page<Friendlink> find(final FriendlinkQuery query) {
-        PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
-        Page<Friendlink> result = (Page<Friendlink>) friendlinkDao.find(query);
-        return result;
+    @MethodLog(name = "查询启用的友情链接", description = "根据条件查询启用的友情链接，不分页")
+    public List<Friendlink> findEnabled(final FriendlinkQuery query) {
+        return friendlinkDao.findEnabled(query);
     }
 
     /**
      * 查询全部 友情链接
      */
-    @MethodLog(name = "查询全部友情链接", description = "根据条件查询全部的友情链接，不分页")
-    public List<Friendlink> findEnabled(final FriendlinkQuery query) {
-        return friendlinkDao.findEnabled(query);
+    @MethodLog(name = "查询全部友情链接", description = "根据条件查询全部的友情链接，分页")
+    public Page<Friendlink> find(final FriendlinkQuery query) {
+        PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
+        Page<Friendlink> result = (Page<Friendlink>) friendlinkDao.find(query);
+        return result;
     }
 
     /**

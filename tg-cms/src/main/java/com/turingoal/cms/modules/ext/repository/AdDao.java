@@ -9,6 +9,12 @@ import com.turingoal.cms.modules.ext.domain.query.AdQuery;
  * 广告管理Dao
  */
 public interface AdDao {
+
+    /**
+     * 根据广告位编码获取广告
+     */
+    List<Ad> findBySlot(AdQuery query);
+
     /**
      * 查询 所有广告管理信息
      */
@@ -38,9 +44,4 @@ public interface AdDao {
      * 根据typeId删除广告管理信息
      */
     int deleteByTypeId(final String typeId);
-
-    /**
-     * 根据广告位编码获取广告
-     */
-    List<Ad> findByCodeNum(AdQuery query);
 }
