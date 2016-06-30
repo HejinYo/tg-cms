@@ -8,12 +8,12 @@
             LEFT JOIN tg_cms_m_ext_friendlink_type link_type ON link.type_id = link_type.id
             LEFT JOIN tg_cms_m_base_image image ON link.fl_logo = image.id
         <where>
-                link_type.code_num=#{typeCodeNum}
+                link_type.code_num = #{typeCodeNum} 
         </where>
+        ORDER BY sort_order ASC 
         <if test="limit!=null and limit!=0">
-            LIMIT 0,#{limit}
+            LIMIT #{limit} 
         </if>
-        ORDER BY sort_order ASC
     </select>
     
     <!-- 查询所有友情链接信息 -->

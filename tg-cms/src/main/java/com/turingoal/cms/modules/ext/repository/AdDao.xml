@@ -11,7 +11,7 @@
             AND ext_ad_slot.code_num = #{adSlotcodeNum}
         </if>
         <if test="limit!=null and limit!=0">
-            LIMIT 0,#{limit}
+            LIMIT #{limit} 
         </if>
     </select>
 
