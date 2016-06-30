@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.turingoal.cms.modules.ext.repository.FriendlinkDao">
+    <!-- 根据友情链接类型查询所有友情链接信息 -->
+    <select id="findByType" parameterType="com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">
+        SELECT link_type.type_name as type_name,image.img_path as img_path, link.* FROM tg_cms_m_ext_friendlink link
+            LEFT JOIN tg_cms_m_ext_friendlink_type link_type ON link.type_id = link_type.id
+            LEFT JOIN tg_cms_m_base_image image ON link.fl_logo = image.id
+        <where>
+                link_type.code_num=#{typeCodeNum}
+        </where>
+        <if test="limit!=null and limit!=0">
+            LIMIT 0,#{limit}
+        </if>
+        ORDER BY sort_order ASC
+    </select>
     
     <!-- 查询所有友情链接信息 -->
     <select id="find" parameterType="com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">

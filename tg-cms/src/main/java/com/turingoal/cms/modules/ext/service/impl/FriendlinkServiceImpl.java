@@ -24,6 +24,14 @@ public class FriendlinkServiceImpl implements FriendlinkService {
     private FriendlinkDao friendlinkDao;
 
     /**
+     * 根据类型获取友情链接
+     */
+    @MethodLog(name = "根据类型获取友情链接", description = "根据类型获取友情链接")
+    public List<Friendlink> findByType(final FriendlinkQuery query) {
+        return friendlinkDao.findByType(query);
+    }
+
+    /**
      * 查询启用的友情链接
      */
     @MethodLog(name = "查询启用的友情链接", description = "根据条件查询启用的友情链接，不分页")
@@ -96,14 +104,6 @@ public class FriendlinkServiceImpl implements FriendlinkService {
         params.put("id", id);
         params.put("enabled", 2);
         return friendlinkDao.changeState(params);
-    }
-
-    /**
-     * 根据类型获取友情链接
-     */
-    @MethodLog(name = "根据类型获取友情链接", description = "根据类型获取友情链接")
-    public List<Friendlink> findByTypeId(final FriendlinkQuery query) {
-        return friendlinkDao.find(query);
     }
 
     /**

@@ -13,7 +13,7 @@ public interface FriendlinkService {
     /**
      * 根据类型查询友情链接
      */
-    List<Friendlink> findByTypeId(FriendlinkQuery query);
+    List<Friendlink> findByType(FriendlinkQuery query);
 
     /**
      * 查询全部 友情链接

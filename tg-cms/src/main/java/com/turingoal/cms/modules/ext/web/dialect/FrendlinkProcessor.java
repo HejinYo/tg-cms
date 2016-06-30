@@ -9,7 +9,9 @@ import org.thymeleaf.processor.element.AbstractAttributeTagProcessor;
 import org.thymeleaf.processor.element.IElementTagStructureHandler;
 import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.util.StringUtils;
+import com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery;
 import com.turingoal.cms.modules.ext.service.FriendlinkService;
+import jodd.util.StringUtil;
 
 /**
  * 友情链接Processor
@@ -31,11 +33,20 @@ public class FrendlinkProcessor extends AbstractAttributeTagProcessor {
      */
     @Override
     protected void doProcess(final ITemplateContext context, final IProcessableElementTag tag, final AttributeName attributeName, final String attributeValue, final IElementTagStructureHandler structureHandler) {
-        String iterVarName = attributeValue.trim(); // 获取参数
-        if (StringUtils.isEmptyOrWhitespace(iterVarName)) {
+        String varStr = attributeValue.trim(); // 获取参数
+        if (StringUtils.isEmptyOrWhitespace(varStr)) {
             throw new TemplateProcessingException("参数不能为空！");
         }
-        Object iteratedValue = friendlinkService.findEnabled(null); // 数据集
+        FriendlinkQuery query = new FriendlinkQuery();
+        String[] vars = StringUtil.split(attributeValue, ",");
+        String iterVarName = vars[0]; // 迭代变量
+        if (vars.length > 1) {
+            query.setTypeCodeNum(vars[1]); // 友情链接类型
+        }
+        if (vars.length > 2) {
+            query.setLimit(Long.valueOf(vars[2])); // 最大数量
+        }
+        Object iteratedValue = friendlinkService.findByType(query); // 数据集
         structureHandler.iterateElement(iterVarName, STATUS_VAR_NAME, iteratedValue);
     }
 }

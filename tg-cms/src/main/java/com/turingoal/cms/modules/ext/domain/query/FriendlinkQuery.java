@@ -23,4 +23,5 @@ public class FriendlinkQuery extends BaseQueryBean implements Serializable {
     private Integer sortOrder; // 排序
     private String description; // 网站描述
     private Integer enabled; // 状态 1启用 2停用
+    private String typeCodeNum; // 类型编码
 }

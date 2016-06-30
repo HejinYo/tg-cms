@@ -11,6 +11,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.util.StringUtils;
 import com.turingoal.cms.modules.ext.domain.query.AdQuery;
 import com.turingoal.cms.modules.ext.service.AdService;
+import jodd.util.StringUtil;
 
 /**
  * 广告Processor
@@ -32,12 +33,19 @@ public class AdProcessor extends AbstractAttributeTagProcessor {
      */
     @Override
     protected void doProcess(final ITemplateContext context, final IProcessableElementTag tag, final AttributeName attributeName, final String attributeValue, final IElementTagStructureHandler structureHandler) {
-        String iterVarName = attributeValue.trim(); // 获取参数
-        if (StringUtils.isEmptyOrWhitespace(iterVarName)) {
+        String varStr = attributeValue.trim(); // 获取参数
+        if (StringUtils.isEmptyOrWhitespace(varStr)) {
             throw new TemplateProcessingException("参数不能为空！");
         }
         AdQuery query = new AdQuery();
-        query.setAdSlotCodeNum(attributeValue);
+        String[] vars = StringUtil.split(attributeValue, ",");
+        String iterVarName = vars[0]; // 迭代变量
+        if (vars.length > 1) {
+            query.setAdSlotCodeNum(vars[1]); // 广告位
+        }
+        if (vars.length > 2) {
+            query.setLimit(Long.valueOf(vars[2])); // 最大数量
+        }
         Object iteratedValue = adService.findBySlot(query); // 数据集
         structureHandler.iterateElement(iterVarName, STATUS_VAR_NAME, iteratedValue);
     }

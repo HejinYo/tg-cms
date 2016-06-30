@@ -10,6 +10,10 @@ import com.turingoal.cms.modules.ext.domain.query.FriendlinkQuery;
  * 友情链接Dao
  */
 public interface FriendlinkDao {
+    /**
+     * 根据友情链接类型查询 友情链接
+     */
+    List<Friendlink> findByType(final FriendlinkQuery query);
 
     /**
      * 查询 友情链接
