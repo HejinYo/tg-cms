@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseTreeNodeBean;
 
 /**
- * Node
+ * 栏目
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,7 +24,7 @@ public class Node extends BaseTreeNodeBean implements Serializable {
     private String nodeTemplateName;
     private String infoTemplateName;
     private String codeNum; // 代码
-    private String noddName; // 名称
+    private String nodeName; // 名称
     private Date createDataTime; // 创建时间
     private Integer refersCount; // 文档数量
     private Integer viewsCount; // 浏览总数

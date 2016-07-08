@@ -2,26 +2,24 @@ package com.turingoal.cms.modules.base.service;
 
 import java.util.List;
 import java.util.Map;
-import com.github.pagehelper.Page;
 import com.turingoal.cms.modules.base.domain.Node;
 import com.turingoal.cms.modules.base.domain.form.NodeForm;
 import com.turingoal.cms.modules.base.domain.query.NodeQuery;
 import com.turingoal.common.bean.BaseTreeNodeBean;
 
 /**
- * NodeService
+ * 栏目Service
  */
 public interface NodeService {
+    /**
+     * 根据父栏目编码查询栏目
+     */
+    List<Node> findByParentCodeNum(final String parentCodeNum, final Long limit);
 
     /**
      * 查询全部 Node
      */
     List<Node> findAll(final NodeQuery query);
-
-    /**
-     * 分页查询 Node
-     */
-    Page<Node> findByPage(final NodeQuery query);
 
     /**
      * 通过id得到一个 Node

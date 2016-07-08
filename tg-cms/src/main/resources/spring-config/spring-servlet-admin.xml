@@ -66,8 +66,10 @@
     </bean>
     
     <!--****** thymeleaf 自定义Processor ****** -->
-    <!-- 友情链接 frendlinkProcessor -->
-    <bean id="frendlinkProcessor" class="com.turingoal.cms.modules.ext.web.dialect.FrendlinkProcessor"/>
+    <!-- 栏目 NodeListProcessor -->
+    <bean id="nodeListProcessor" class="com.turingoal.cms.modules.base.web.dialect.NodeListProcessor"/>
+    <!-- 友情链接 FrendlinkListProcessor -->
+    <bean id="frendlinkListProcessor" class="com.turingoal.cms.modules.ext.web.dialect.FrendlinkListProcessor"/>
     <!--****** thymeleaf 自定义ExpressionObjectFactory ****** -->
     
     <!-- thymeleaf templateEngine-->

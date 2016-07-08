@@ -6,8 +6,6 @@ import java.util.Map;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.google.common.primitives.Doubles;
 import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.core.commons.SystemLogHelper;
@@ -15,7 +13,6 @@ import com.turingoal.cms.core.domain.CustomFieldValue;
 import com.turingoal.cms.core.domain.form.CustomFieldValueForm;
 import com.turingoal.cms.core.domain.query.CustomFieldValueQuery;
 import com.turingoal.cms.core.repository.CustomFieldValueDao;
-import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.modules.base.domain.Info;
 import com.turingoal.cms.modules.base.domain.Node;
 import com.turingoal.cms.modules.base.domain.form.NodeForm;
@@ -41,8 +38,15 @@ public class NodeServiceImpl implements NodeService {
     private InfoDao infoDao;
     @Autowired
     private CustomFieldValueDao customFieldValueDao;
-    @Autowired
-    private LogInfoDao loginfoDao;
+
+    /**
+     * 根据父栏目编码查询栏目
+     */
+    @MethodLog(name = "根据父栏目编码查询栏目", description = "根据父栏目编码查询栏目")
+    public List<Node> findByParentCodeNum(final String parentCodeNum, final Long limit) {
+        List<Node> result = nodeDao.findByParentCodeNum(parentCodeNum, limit);
+        return result;
+    }
 
     /**
      * 查询全部栏目
@@ -51,15 +55,6 @@ public class NodeServiceImpl implements NodeService {
     public List<Node> findAll(final NodeQuery query) {
         List<Node> result = nodeDao.find(query);
         return result;
-    }
-
-    /**
-     * 分页查询 栏目
-     */
-    @MethodLog(name = "分页查询栏目", description = "根据条件分页查询栏目")
-    public Page<Node> findByPage(final NodeQuery query) {
-        PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
-        return (Page<Node>) nodeDao.find(query);
     }
 
     /**
@@ -173,7 +168,7 @@ public class NodeServiceImpl implements NodeService {
         nodeDao.add(form);
         updateCusFieldValue(form, cusMap);
         // 记录操作日志
-        SystemLogHelper.log("新增栏目,id={},noddName={}", form.getId(), form.getNoddName());
+        SystemLogHelper.log("新增栏目,id={},nodeName={}", form.getId(), form.getNodeName());
     }
 
     /**
@@ -185,7 +180,7 @@ public class NodeServiceImpl implements NodeService {
         int result = nodeDao.update(form);
         updateCusFieldValue(form, cusMap);
         // 记录操作日志
-        SystemLogHelper.log("修改栏目,id={},noddName={}", form.getId(), form.getNoddName());
+        SystemLogHelper.log("修改栏目,id={},nodeName={}", form.getId(), form.getNodeName());
         return result;
     }
 
@@ -243,7 +238,7 @@ public class NodeServiceImpl implements NodeService {
         Node root = new Node();
         root.setId("0");
         root.setLeaf(false);
-        root.setNoddName("根栏目");
+        root.setNodeName("根栏目");
         return TreeBean.createTree(root, nodeList, "nodes");
     }
 }

@@ -45,7 +45,7 @@ public class Info implements Serializable {
     private String infoText; // 正文
     private Integer allowComment; // 是否允许评论
     private Integer state; // 10待审核，1审核通过（已审核），2不通过（退回）
-    private String noddName; // 所属栏目名称
+    private String nodeName; // 所属栏目名称
     private String infoModelId; // 文档模型id
     private String attrImage; // 属性图片
     private String image; // 图片
