@@ -8,9 +8,13 @@ import com.turingoal.cms.modules.base.domain.form.InfoForm;
 import com.turingoal.cms.modules.base.domain.query.InfoQuery;
 
 /**
- * InfoService
+ * 文章Service
  */
 public interface InfoService {
+    /**
+     * 根据栏目编码查询文章
+     */
+    List<Info> findByNodeCodeNum(final String nodeCodeNum, final Long limit);
 
     /**
      * 分页查询 Info

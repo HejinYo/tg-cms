@@ -66,11 +66,17 @@
     </bean>
     
     <!--****** thymeleaf 自定义Processor ****** -->
-    <!-- 栏目 NodeListProcessor -->
+    <!-- 栏目 Processor -->
     <bean id="nodeProcessor" class="com.turingoal.cms.modules.base.web.dialect.NodeProcessor"/>
-    <!-- 栏目列表 NodeListProcessor -->
+    <!-- 栏目列表 Processor -->
     <bean id="nodeListProcessor" class="com.turingoal.cms.modules.base.web.dialect.NodeListProcessor"/>
-    <!-- 友情链接 FrendlinkListProcessor -->
+    <!-- 文章 Processor -->
+    <bean id="infoProcessor" class="com.turingoal.cms.modules.base.web.dialect.InfoProcessor"/>
+    <!-- 文章列表 Processor -->
+    <bean id="infoListProcessor" class="com.turingoal.cms.modules.base.web.dialect.InfoListProcessor"/>
+    <!-- 文章分页 Processor -->
+    <bean id="infoPageProcessor" class="com.turingoal.cms.modules.base.web.dialect.InfoPageProcessor"/>
+    <!-- 友情链接Processor -->
     <bean id="frendlinkListProcessor" class="com.turingoal.cms.modules.ext.web.dialect.FrendlinkListProcessor"/>
     <!--****** thymeleaf 自定义ExpressionObjectFactory ****** -->
     

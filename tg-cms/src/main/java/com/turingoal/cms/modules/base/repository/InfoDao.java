@@ -2,14 +2,19 @@ package com.turingoal.cms.modules.base.repository;
 
 import java.util.List;
 import java.util.Map;
+import org.apache.ibatis.annotations.Param;
 import com.turingoal.cms.modules.base.domain.Info;
 import com.turingoal.cms.modules.base.domain.form.InfoForm;
 import com.turingoal.cms.modules.base.domain.query.InfoQuery;
 
 /**
- * InfoDao
+ * 文章Dao
  */
 public interface InfoDao {
+    /**
+     * 根据栏目编码查询文章
+     */
+    List<Info> findByNodeCodeNum(@Param("nodeCodeNum") final String nodeCodeNum, @Param("limit") final Long limit);
 
     /**
      * 查询 Info

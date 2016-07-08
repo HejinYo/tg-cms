@@ -21,7 +21,6 @@ import com.turingoal.cms.core.domain.CustomFieldValue;
 import com.turingoal.cms.core.domain.form.CustomFieldValueForm;
 import com.turingoal.cms.core.domain.query.CustomFieldValueQuery;
 import com.turingoal.cms.core.repository.CustomFieldValueDao;
-import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.modules.base.domain.Info;
 import com.turingoal.cms.modules.base.domain.Node;
 import com.turingoal.cms.modules.base.domain.form.InfoAttrsForm;
@@ -57,8 +56,15 @@ public class InfoServiceImpl implements InfoService {
     private InfoAttrsDao infoAttrsDao;
     @Autowired
     private InfoSpecialDao infoSpecialDao;
-    @Autowired
-    private LogInfoDao loginfoDao;
+
+    /**
+     * 根据栏目编码查询文章
+     */
+    @MethodLog(name = "根据栏目编码分页查询文章", description = "根据栏目编码分页查询文章")
+    public List<Info> findByNodeCodeNum(final String parentCodeNum, final Long limit) {
+        List<Info> result = infoDao.findByNodeCodeNum(parentCodeNum, limit);
+        return result;
+    }
 
     /**
      * 分页查询 文章

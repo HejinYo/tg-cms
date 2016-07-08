@@ -19,6 +19,12 @@ public class TgThymeleafCmsProcessorDialect extends AbstractProcessorDialect {
     @Autowired
     private NodeListProcessor nodeListProcessor; // 栏目列表
     @Autowired
+    private InfoProcessor infoProcessor; // 文章
+    @Autowired
+    private InfoListProcessor infoListProcessor; // 文章列表
+    @Autowired
+    private InfoPageProcessor infoPageProcessor; // 文章分页
+    @Autowired
     private FrendlinkListProcessor frendlinkListProcessor; // 友情链接
 
     public TgThymeleafCmsProcessorDialect() {
@@ -30,9 +36,12 @@ public class TgThymeleafCmsProcessorDialect extends AbstractProcessorDialect {
      */
     public Set<IProcessor> getProcessors(final String dialectPrefix) {
         final Set<IProcessor> processors = new HashSet<IProcessor>();
-        processors.add(nodeProcessor);
-        processors.add(nodeListProcessor);
-        processors.add(frendlinkListProcessor);
+        processors.add(nodeProcessor); // 栏目
+        processors.add(nodeListProcessor); // 栏目列表
+        processors.add(infoProcessor); // 文章
+        processors.add(infoListProcessor); // 文章列表
+        processors.add(infoPageProcessor); // 文章列表
+        processors.add(frendlinkListProcessor); // 友情链接
         return processors;
     }
 }
