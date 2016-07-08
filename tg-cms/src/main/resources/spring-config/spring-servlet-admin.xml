@@ -67,6 +67,8 @@
     
     <!--****** thymeleaf 自定义Processor ****** -->
     <!-- 栏目 NodeListProcessor -->
+    <bean id="nodeProcessor" class="com.turingoal.cms.modules.base.web.dialect.NodeProcessor"/>
+    <!-- 栏目列表 NodeListProcessor -->
     <bean id="nodeListProcessor" class="com.turingoal.cms.modules.base.web.dialect.NodeListProcessor"/>
     <!-- 友情链接 FrendlinkListProcessor -->
     <bean id="frendlinkListProcessor" class="com.turingoal.cms.modules.ext.web.dialect.FrendlinkListProcessor"/>

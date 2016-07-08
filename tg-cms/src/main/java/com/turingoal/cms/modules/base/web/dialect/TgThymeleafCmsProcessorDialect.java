@@ -15,7 +15,9 @@ public class TgThymeleafCmsProcessorDialect extends AbstractProcessorDialect {
     private static final String DIALECT_NAME = "Turingoal Dialect CMS"; // 方言名称需要唯一。自定义方言名称Turingoal Dialect CMS
     public static final String DIALECT_PREFIX = "tg_cms"; // 前缀
     @Autowired
-    private NodeListProcessor nodeListProcessor; // 栏目
+    private NodeProcessor nodeProcessor; // 栏目
+    @Autowired
+    private NodeListProcessor nodeListProcessor; // 栏目列表
     @Autowired
     private FrendlinkListProcessor frendlinkListProcessor; // 友情链接
 
@@ -28,6 +30,7 @@ public class TgThymeleafCmsProcessorDialect extends AbstractProcessorDialect {
      */
     public Set<IProcessor> getProcessors(final String dialectPrefix) {
         final Set<IProcessor> processors = new HashSet<IProcessor>();
+        processors.add(nodeProcessor);
         processors.add(nodeListProcessor);
         processors.add(frendlinkListProcessor);
         return processors;
