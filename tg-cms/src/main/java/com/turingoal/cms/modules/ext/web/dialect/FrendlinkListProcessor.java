@@ -17,7 +17,7 @@ import jodd.util.StringUtil;
  * 友情链接列表Processor
  */
 public class FrendlinkListProcessor extends AbstractAttributeTagProcessor {
-    public static final int PRECEDENCE = 10000; // 优先级
+    public static final int PRECEDENCE = 199; // 优先级 Thymeleaf标准each优先级是200
     public static final String DEFAULT_DIALECT_PREFIX = "tg_cms"; // 默认前缀
     public static final String ATTR_NAME = "frendlink_list"; // 属性名称
     public static final String STATUS_VAR_NAME = "itemStat";

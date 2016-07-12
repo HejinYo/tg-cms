@@ -7,6 +7,7 @@ import java.util.Map;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseTreeNodeBean;
+import jodd.util.StringUtil;
 
 /**
  * 栏目
@@ -52,4 +53,14 @@ public class Node extends BaseTreeNodeBean implements Serializable {
      */
 
     private boolean expanded = true; // 是否展开
+
+    /**
+     * 栏目链接
+     */
+    public String getNodeLink() {
+        if (StringUtil.isBlank(nodeLink)) {
+            return codeNum + "_index.htm";
+        }
+        return nodeLink;
+    }
 }

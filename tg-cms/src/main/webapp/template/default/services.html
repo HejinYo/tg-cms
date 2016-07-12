@@ -19,8 +19,15 @@
 			<div class='container content_middle'>
 				<div class="row">
 					<div class="col-md-8 middle_left">
-						<ul class="test_box middle_grid" th:each="dtservice:${#INFO.topByNode('services',NULL,NULL,NULL)}">
-							<li class="test_img"><img th:src="${#INFO.getImgById(dtservice.image)}" class="img-responsive" alt="" /></li>
+					    <li tg_cms:node_list="node">
+					    
+					        <a href="" th:text="${node.nodeName}">首页</a>
+					    </li>
+					
+					
+					
+						<ul class="test_box middle_grid" tg_cms:node_list="dtservice,services">
+							<li class="test_img">   </li>
 							<li class="test_desc">
 								<h4>
 									<a href="#" th:text="${dtservice.title}">全媒体内容管理发布平台</a>

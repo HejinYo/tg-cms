@@ -15,7 +15,7 @@ import com.turingoal.cms.modules.base.service.NodeService;
 import com.turingoal.common.util.lang.StringUtil;
 
 /**
- * Controller-栏目
+ * 栏目Controller
  */
 @Controller
 public class ForeNodeController {
@@ -23,24 +23,36 @@ public class ForeNodeController {
     private NodeService nodeService;
     @Autowired
     private TemplateEngineHelper templateEngineHelper;
+    private static String templateName = "default/models/list";
 
     /**
-     * 栏目
+     * 栏目首页
+     */
+    @RequestMapping("/{codeNum}_index.htm")
+    public void nodeIndex(@PathVariable final String codeNum, final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        Integer pageNum = 1;
+        listByPage(codeNum, pageNum, request, response);
+    }
+
+    /**
+     * 栏目文章列表页
      */
     @RequestMapping("/{codeNum}_{page:[0-9]*}.htm")
-    public void nodePageByPage(@PathVariable final String codeNum, @PathVariable final Integer page, final HttpServletRequest request, final HttpServletResponse response) throws IOException {
-        int pageNum = (page != null && page > 0) ? page : 1;
-        Node node = nodeService.getByCode(codeNum);
-        request.setAttribute("curr", node);
-        request.setAttribute("codeNum", codeNum);
-        request.setAttribute("page", pageNum);
-
-        String temolateName = "default/models/list";
-        if (node != null) {
-            temolateName = StringUtil.isNullOrEmpty(node.getNodeTemplate()) ? "default/models/list" : node.getNodeTemplate();
+    public void listByPage(@PathVariable final String codeNum, @PathVariable final Integer page, final HttpServletRequest request, final HttpServletResponse response) throws IOException {
+        Integer pageNum = page;
+        if (pageNum == null || pageNum < 1) {
+            pageNum = 1;
         }
-        templateEngineHelper.process(temolateName, request, response);
-        return;
+        Node node = nodeService.getByCode(codeNum);
+        request.setAttribute("currentNode", node); // 当前栏目信息放入模板变量中
+        request.setAttribute("codeNum", codeNum); // 当前栏目编码
+        request.setAttribute("page", pageNum); // 当前栏目页数
+        if (node != null) {
+            if (!StringUtil.isNullOrEmpty(node.getNodeTemplate())) {
+                templateName = node.getNodeTemplate(); // 栏目模板
+            }
+        }
+        templateEngineHelper.process(templateName, request, response);
     }
 
     /**
