@@ -1,6 +1,7 @@
 package com.turingoal.cms.modules.ext.web.dialect;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -14,6 +15,7 @@ import com.turingoal.cms.modules.ext.service.FriendlinkService;
 /**
  * 友情链接Processor
  */
+@Component
 public class GuestbookProcessor extends AbstractAttributeTagProcessor {
     public static final int PRECEDENCE = 199; // 优先级 Thymeleaf标准each优先级是200
     public static final String DEFAULT_DIALECT_PREFIX = "tg_cms"; // 默认前缀

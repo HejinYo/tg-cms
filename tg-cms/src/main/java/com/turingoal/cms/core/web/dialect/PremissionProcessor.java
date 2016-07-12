@@ -1,5 +1,6 @@
 package com.turingoal.cms.core.web.dialect;
 
+import org.springframework.stereotype.Component;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -12,6 +13,7 @@ import com.turingoal.cms.core.commons.SystemHelper;
 /**
  * 权限permission Processor
  */
+@Component
 public class PremissionProcessor extends AbstractStandardConditionalVisibilityTagProcessor {
 
     public static final int PRECEDENCE = 10000; // 优先级

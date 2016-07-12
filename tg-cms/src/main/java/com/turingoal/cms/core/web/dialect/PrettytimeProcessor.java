@@ -2,6 +2,7 @@ package com.turingoal.cms.core.web.dialect;
 
 import java.util.Date;
 import org.ocpsoft.prettytime.PrettyTime;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.model.IProcessableElementTag;
@@ -12,6 +13,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 /**
  * 日期美化 prettytimeProcessor
  */
+@Component
 public class PrettytimeProcessor extends AbstractStandardExpressionAttributeTagProcessor {
 
     public static final int PRECEDENCE = 10000; // 优先级

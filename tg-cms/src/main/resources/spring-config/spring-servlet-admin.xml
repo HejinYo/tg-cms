@@ -18,7 +18,7 @@
 
     <!-- 只搜索@Controller和@ControllerAdvice标注的类 不搜索其他标注的类 -->
     <context:component-scan
-        base-package="com.turingoal.cms.core.web.controller.admin,com.turingoal.cms.core.web.controller.admin.advice,com.turingoal.cms.modules.**.web.controller.admin"
+        base-package="com.turingoal.cms.core.web.controller.admin,com.turingoal.cms.core.web.controller.admin.advice,com.turingoal.cms.core.web.dialect,com.turingoal.cms.modules.**.web.controller.admin,com.turingoal.cms.modules.**.web.dialect"
         use-default-filters="false">
         <context:include-filter type="annotation"
             expression="org.springframework.stereotype.Controller" />
@@ -64,21 +64,6 @@
         <property name="cacheable" value="${thymeleaf.cacheableAdmin}" />
         <property name="cacheablePatterns" value="/*"></property>
     </bean>
-    
-    <!--****** thymeleaf 自定义Processor ****** -->
-    <!-- 栏目 Processor -->
-    <bean id="nodeProcessor" class="com.turingoal.cms.modules.base.web.dialect.NodeProcessor"/>
-    <!-- 栏目列表 Processor -->
-    <bean id="nodeListProcessor" class="com.turingoal.cms.modules.base.web.dialect.NodeListProcessor"/>
-    <!-- 文章 Processor -->
-    <bean id="infoProcessor" class="com.turingoal.cms.modules.base.web.dialect.InfoProcessor"/>
-    <!-- 文章列表 Processor -->
-    <bean id="infoListProcessor" class="com.turingoal.cms.modules.base.web.dialect.InfoListProcessor"/>
-    <!-- 文章分页 Processor -->
-    <bean id="infoPageProcessor" class="com.turingoal.cms.modules.base.web.dialect.InfoPageProcessor"/>
-    <!-- 友情链接Processor -->
-    <bean id="frendlinkListProcessor" class="com.turingoal.cms.modules.ext.web.dialect.FrendlinkListProcessor"/>
-    <!--****** thymeleaf 自定义ExpressionObjectFactory ****** -->
     
     <!-- thymeleaf templateEngine-->
     <bean id="templateEngine" class="org.thymeleaf.spring4.SpringTemplateEngine">

@@ -1,5 +1,6 @@
 package com.turingoal.cms.core.web.dialect;
 
+import org.springframework.stereotype.Component;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.model.IProcessableElementTag;
@@ -11,6 +12,7 @@ import com.turingoal.common.util.lang.SensitiveWordUtil;
 /**
  * 敏感词替换 SensitiveWordProcessor
  */
+@Component
 public class SensitiveWordProcessor extends AbstractStandardExpressionAttributeTagProcessor {
 
     public static final int PRECEDENCE = 10000; // 优先级

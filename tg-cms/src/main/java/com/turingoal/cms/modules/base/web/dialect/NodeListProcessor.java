@@ -1,6 +1,7 @@
 package com.turingoal.cms.modules.base.web.dialect;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.engine.AttributeName;
 import org.thymeleaf.exceptions.TemplateProcessingException;
@@ -15,6 +16,7 @@ import jodd.util.StringUtil;
 /**
  * 栏目列表Processor
  */
+@Component
 public class NodeListProcessor extends AbstractAttributeTagProcessor {
     public static final int PRECEDENCE = 199; // 优先级
     public static final String DEFAULT_DIALECT_PREFIX = "tg_cms"; // 默认前缀
