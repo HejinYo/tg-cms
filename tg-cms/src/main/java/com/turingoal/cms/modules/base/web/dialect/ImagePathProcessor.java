@@ -19,7 +19,7 @@ import com.turingoal.common.util.lang.StringUtil;
 public class ImagePathProcessor extends AbstractStandardExpressionAttributeTagProcessor {
 
     public static final int PRECEDENCE = 10000; // 优先级
-    public static final String DEFAULT_DIALECT_PREFIX = "tg_core"; // 默认前缀
+    public static final String DEFAULT_DIALECT_PREFIX = "tg_cms"; // 默认前缀
     public static final String ATTR_NAME = "img_path"; // 属性名称
     @Autowired
     private CmsImageService imageService;

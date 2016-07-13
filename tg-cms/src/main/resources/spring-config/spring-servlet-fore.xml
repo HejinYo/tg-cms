@@ -16,18 +16,18 @@
     <!-- 属性和配置文件读入 ,多个用逗号隔开 数据库参数和系统参数 -->
     <context:property-placeholder location="classpath:application.properties" />
 
-    <!-- 只搜索@Controller和@ControllerAdvice标注的类 不搜索其他标注的类 -->
+    <!-- 只搜索@Controller和@ControllerAdvice @Component标注的类 不搜索其他标注的类 -->
     <context:component-scan
         base-package="com.turingoal.cms.core.web.controller.fore,com.turingoal.cms.core.web.controller.fore.advice,com.turingoal.cms.core.web.dialect,com.turingoal.cms.modules.**.web.controller.fore,com.turingoal.cms.modules.**.web.dialect"
         use-default-filters="false">
+        <context:include-filter type="annotation"
+            expression="org.springframework.stereotype.Component" />
         <context:include-filter type="annotation"
             expression="org.springframework.stereotype.Controller" />
         <context:include-filter type="annotation"
             expression="org.springframework.web.bind.annotation.RestController" />
         <context:include-filter type="annotation"
             expression="org.springframework.web.bind.annotation.ControllerAdvice" />
-        <context:include-filter  type="annotation"
-            expression="org.springframework.stereotype.Component"/>
         <context:exclude-filter type="annotation"
             expression="org.springframework.stereotype.Service" />
     </context:component-scan>
