@@ -6,12 +6,12 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div th:replace="default/fragments/nav::nav(nodeCodeNum=services)">head</div>
+		<div th:replace="default/fragments/nav::nav(nodeCodeNum=news)">head</div>
 		<div class="container banner">
 			<section class="title-section">
 				<ul class="breadcrumb breadcrumb__t">
 					<li><a th:href="@{/index.htm}">图灵谷科技</a></li>
-					<li class="active">产品服务</li>
+					<li class="active">公司动态</li>
 				</ul>
 			</section>
 		</div>
@@ -19,13 +19,13 @@
 			<div class='container content_middle'>
 				<div class="row">
 					<div class="col-md-8 middle_left">
-						<ul tg_cms:info_list="service_info,services" class="test_box middle_grid">
+						<ul tg_cms:info_list="news_info,news" class="test_box middle_grid">
 							<li class="test_img"><img class="img-responsive" alt="" /></li>
 							<li class="test_desc">
 								<h4>
-									<a href="#" th:text="${service_info.title}">全媒体内容管理发布平台</a>
+									<a href="#" th:text="${news_info.title}">公司动态</a>
 								</h4>
-								<p th:text="${service_info.metaDescription}">图灵谷全媒体内容管理发布平台整合了图、文、音视频等媒体资源，实现了全媒体的内容管理与发布的统一平台。</p>
+								<p th:text="${news_info.metaDescription}">公司动态。</p>
 							</li>
 							<div class="clearfix"></div>
 						</ul>
