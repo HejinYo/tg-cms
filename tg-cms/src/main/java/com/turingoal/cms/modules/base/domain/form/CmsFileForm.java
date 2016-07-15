@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * FileForm
+ * 文件Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CmsFileForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String format; // 格式
     private String fileName; // 文件名称
     private Long fileLength; // 文件长度

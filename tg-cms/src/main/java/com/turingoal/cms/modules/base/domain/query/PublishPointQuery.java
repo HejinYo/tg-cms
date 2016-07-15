@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * PublishPointQuery
+ * 发布点Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class PublishPointQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 发布点
     private String pName; // 名称
     private String description; // 描述

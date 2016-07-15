@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * PublishPointForm
+ * 发布点Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class PublishPointForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String pName; // 名称
     private String description; // 描述
     private String storePath; // 保存路径

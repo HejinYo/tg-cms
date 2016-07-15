@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * GlobalQuery
+ * 全局配置Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class GlobalQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 全局
     private String sysProtocol; // 协议
     private Integer sysPort; // 服务端口号

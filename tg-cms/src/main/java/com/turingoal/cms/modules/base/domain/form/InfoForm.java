@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * InfoForm
+ * 文章Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class InfoForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String nodeId; // 栏目
     private java.util.Date publishTime = new Date(); // 发布日期
     private java.util.Date offTime; // 关闭日期

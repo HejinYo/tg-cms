@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * InfoQuery
+ * 文章Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class InfoQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String id; // 文档
     private String nodeId; // 栏目
     private java.util.Date publishTime; // 发布日期

@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * TemplateQuery
+ * 模板Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class TemplateQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 模板
     private String templateName; // 模板名称
     private String codeNum; // 模板代码

@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * NodeGroupForm
+ * 栏目Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class NodeGroupForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer nodeId; // 栏目
     private Integer groupId; // 用户组
     private Integer viewPerm; // 是否有浏览权限

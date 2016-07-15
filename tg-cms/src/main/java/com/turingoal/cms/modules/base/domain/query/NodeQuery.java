@@ -13,7 +13,6 @@ import com.turingoal.common.bean.BaseQueryBean;
 @EqualsAndHashCode(callSuper = false)
 public class NodeQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String parentId; // 父级栏目
     private String nodeModelId; // 栏目模型
     private String infoModelId; // 文档模型

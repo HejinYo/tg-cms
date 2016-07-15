@@ -7,13 +7,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * ImageForm
+ * 图片Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CmsImageForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String format; // 格式
     private String imgName; // 图片名称
     private Long imgLength; // 文件长度

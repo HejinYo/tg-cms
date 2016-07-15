@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * DocForm
+ * 文档Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CmsDocForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String format; // 格式
     private String docName; // 文件名称
     private Long docLength; // 文件长度

@@ -12,7 +12,6 @@ import com.turingoal.common.bean.BaseFormBean;
 @EqualsAndHashCode(callSuper = false)
 public class TagForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String tagName; // 名称
     private Integer refers; // 文档数量
     private String infoId;

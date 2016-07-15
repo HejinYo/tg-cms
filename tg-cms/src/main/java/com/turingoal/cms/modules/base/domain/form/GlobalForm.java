@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * GlobalForm
+ * 全局配置Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

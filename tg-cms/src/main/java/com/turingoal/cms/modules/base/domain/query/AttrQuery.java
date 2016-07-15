@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * AttrQuery
+ * 属性Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class AttrQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 属性
     private String codeNum; // 代码
     private String attName; // 名称

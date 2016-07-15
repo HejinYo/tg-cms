@@ -13,7 +13,6 @@ import com.turingoal.common.bean.BaseQueryBean;
 @EqualsAndHashCode(callSuper = false)
 public class TagQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String id; // TAG
     private String tagName; // 名称
     private Date createDataTime; // 创建日期

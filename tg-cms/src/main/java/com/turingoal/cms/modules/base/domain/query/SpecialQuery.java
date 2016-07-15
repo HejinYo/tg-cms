@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * SpecialQuery
+ * 专题Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SpecialQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String id; // 专题
     private String modelId; // 模型
     private String typeId; // 专题类别

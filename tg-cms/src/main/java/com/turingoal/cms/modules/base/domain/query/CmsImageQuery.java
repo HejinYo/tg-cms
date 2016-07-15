@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * ImageQuery
+ * 图片Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CmsImageQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // id
     private String format; // 格式
     private String imgName; // 图片名称
@@ -25,7 +24,6 @@ public class CmsImageQuery extends BaseQueryBean implements Serializable {
     private java.util.Date publishTime; // publishTime
     private java.util.Date createDataTime; // 创建时间
     private String description; // 描述
-
     private Date startDate;
     private Date endDate;
     private Integer maxLength;

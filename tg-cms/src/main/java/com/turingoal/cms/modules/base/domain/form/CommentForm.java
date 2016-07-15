@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * CommentForm
+ * 评论Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CommentForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String auditorId; // 审核人
     private String ownerType; // 外表标识
     private Integer ownerId; // 外表ID

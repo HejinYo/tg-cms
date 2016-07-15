@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * NodeRoleQuery
+ * 栏目角色Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class NodeRoleQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 文档角色关联
     private Integer roleId; // roleId
     private String nodeId; // nodeId

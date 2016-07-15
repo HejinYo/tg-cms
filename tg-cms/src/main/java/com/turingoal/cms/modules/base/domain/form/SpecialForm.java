@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * SpecialForm
+ * 专题Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class SpecialForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String modelId; // 模型
     private String typeId; // 专题类别
     private String title; // 标题
@@ -24,7 +23,6 @@ public class SpecialForm extends BaseFormBean implements Serializable {
     private Integer withImage; // 是否有图片
     private Integer recommend; // 是否推荐
     private String typeName; // 专题类型
-
     private String image;
     private String video;
 }

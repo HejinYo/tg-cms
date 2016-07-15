@@ -7,13 +7,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * AttrForm
+ * 属性Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class AttrForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String codeNum; // 代码
     private String attName; // 名称
     private Integer withImage; // 是否包含图片

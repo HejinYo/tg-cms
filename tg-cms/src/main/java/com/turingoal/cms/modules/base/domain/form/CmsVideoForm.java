@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
 
 /**
- * VideoForm
+ * 视频Form
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CmsVideoForm extends BaseFormBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String format; // 格式
     private String videoName; // 视频名称
     private String videoPath; // 视频地址

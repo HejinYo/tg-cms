@@ -7,13 +7,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * FileQuery
+ * 文件Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class CmsFileQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 文件
     private String format; // 格式
     private String fileName; // 文件名称
@@ -23,7 +22,6 @@ public class CmsFileQuery extends BaseQueryBean implements Serializable {
     private java.util.Date createDataTime; // 创建时间
     private String description; // 描述
     private String md5; // md5值
-
     private Date startDate;
     private Date endDate;
     private Integer maxLength;

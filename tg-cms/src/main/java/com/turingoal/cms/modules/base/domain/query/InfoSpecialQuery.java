@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * InfoSpecialQuery
+ * 文章专题Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class InfoSpecialQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 文档专题关联
     private String infoId; // 文档
     private Integer specialId; // 专题

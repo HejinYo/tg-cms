@@ -6,13 +6,12 @@ import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseQueryBean;
 
 /**
- * NodeGroupQuery
+ * 栏目群组Query
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class NodeGroupQuery extends BaseQueryBean implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private Integer id; // 栏目与用户组权限
     private String nodeId; // 栏目
     private Integer groupId; // 用户组
