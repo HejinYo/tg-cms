@@ -7,7 +7,7 @@ import java.util.Map;
 import lombok.Data;
 
 /**
- * Info
+ * 文章
  */
 @Data
 public class Info implements Serializable {

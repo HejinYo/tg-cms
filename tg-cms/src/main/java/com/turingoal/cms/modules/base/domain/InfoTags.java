@@ -4,7 +4,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * InfoTags
+ * 文章Tags
  */
 @Data
 public class InfoTags implements Serializable {
