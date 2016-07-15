@@ -38,8 +38,8 @@ cms那么多，为什么我们还要重复发明一个轮子？
 图灵谷（北京）科技有限公司官网  www.turingoal.com  
 
 ### 演示地址  
-前台：http://******/tg-cms  
-后台：http://******/tg-cms/admin  
+前台：http://****** /tg-cms  
+后台：http://****** /tg-cms/admin  
 用户名：admin  
 密码：000000  
 显示服务器到期了，自己搭建吧  
