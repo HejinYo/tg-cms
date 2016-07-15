@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * Template
+ * 模板
  */
 @Data
 public class Template implements Serializable {

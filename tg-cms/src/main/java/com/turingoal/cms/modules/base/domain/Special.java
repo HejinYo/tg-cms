@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 /**
- * Special
+ * 专题
  */
 @Data
 public class Special implements Serializable {

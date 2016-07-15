@@ -4,7 +4,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * PublishPoint
+ * 发布点
  */
 @Data
 public class PublishPoint implements Serializable {

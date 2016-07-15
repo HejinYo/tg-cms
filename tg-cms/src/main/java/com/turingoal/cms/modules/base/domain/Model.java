@@ -4,7 +4,7 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * Model
+ * 模型
  */
 @Data
 public class Model implements Serializable {
