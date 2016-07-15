@@ -7,37 +7,37 @@ import com.turingoal.cms.modules.base.domain.form.CommentForm;
 import com.turingoal.cms.modules.base.domain.query.CommentQuery;
 
 /**
- * CommentService
+ * 评论Service
  */
 public interface CommentService {
 
     /**
-     * 查询全部 Comment
+     * 查询全部 评论
      */
     List<Comment> findAll(final CommentQuery query);
 
     /**
-     * 分页查询 Comment
+     * 分页查询 评论
      */
     Page<Comment> findByPage(final CommentQuery query);
 
     /**
-     * 通过id得到一个 Comment
+     * 通过id得到一个 评论
      */
     Comment get(final String id);
 
     /**
-     * 新增 Comment
+     * 新增 评论
      */
     void add(final CommentForm form);
 
     /**
-     * 修改 Comment
+     * 修改 评论
      */
     int update(final CommentForm form);
 
     /**
-     * 根据id删除一个 Comment
+     * 根据id删除一个 评论
      */
     int delete(final String id);
 

@@ -9,32 +9,32 @@ import com.turingoal.cms.modules.base.domain.query.CmsDocQuery;
 import com.turingoal.common.bean.FileUploadBean;
 
 /**
- * CmsDocService
+ * 文档Service
  */
 public interface CmsDocService {
 
     /**
-     * 分页查询 CmsDoc
+     * 分页查询 文档
      */
     Page<CmsDoc> findByPage(final CmsDocQuery query);
 
     /**
-     * 通过id得到一个 CmsDoc
+     * 通过id得到一个 文档
      */
     CmsDoc get(final String id);
 
     /**
-     * 新增 CmsDoc
+     * 新增 文档
      */
     void add(final CmsDocForm form);
 
     /**
-     * 修改 CmsDoc
+     * 修改 文档
      */
     int update(final CmsDocForm form);
 
     /**
-     * 根据id删除一个 CmsDoc
+     * 根据id删除一个 文档
      */
     int delete(final String id);
 

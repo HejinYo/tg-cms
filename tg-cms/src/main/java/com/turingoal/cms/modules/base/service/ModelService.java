@@ -6,37 +6,37 @@ import com.turingoal.cms.modules.base.domain.form.ModelForm;
 import com.turingoal.cms.modules.base.domain.query.ModelQuery;
 
 /**
- * ModelService
+ * 模型Service
  */
 public interface ModelService {
 
     /**
-     * 查询全部 Model
+     * 查询全部 模型
      */
     List<Model> findAll(final ModelQuery query);
 
     /**
-     * 通过id得到一个 Model
+     * 通过id得到一个 模型
      */
     Model get(final String id);
 
     /**
-     * 新增 Model
+     * 新增 模型
      */
     void add(final ModelForm form);
 
     /**
-     * 修改 Model
+     * 修改 模型
      */
     int update(final ModelForm form);
 
     /**
-     * 复制 Model
+     * 复制 模型
      */
     void addAndCopy(final ModelForm form);
 
     /**
-     * 根据id删除一个 Model
+     * 根据id删除一个 模型
      */
     int delete(final String id);
 

@@ -17,37 +17,37 @@ public interface InfoService {
     List<Info> findByNodeCodeNum(final String nodeCodeNum, final Long limit);
 
     /**
-     * 分页查询 Info
+     * 分页查询 文章
      */
     Page<Info> findByPage(final InfoQuery query);
 
     /**
-     * 分页查询未选择 Info
+     * 分页查询未选择 文章
      */
     Page<Info> findUnInfo(final InfoQuery query);
 
     /**
-     * 分页查询已选择 Info
+     * 分页查询已选择文章
      */
     Page<Info> findInfo(final InfoQuery query);
 
     /**
-     * 通过id得到一个 Info
+     * 通过id得到一个 文章
      */
     Info get(final String id);
 
     /**
-     * 新增 Info
+     * 新增 文章
      */
     void add(final InfoForm form, final Map<String, String> cusMap);
 
     /**
-     * 修改 Info
+     * 修改 文章
      */
     int update(final InfoForm form, final Map<String, String> cusMap);
 
     /**
-     * 根据id删除一个 Info
+     * 根据id删除一个 文章
      */
     int delete(final String id);
 

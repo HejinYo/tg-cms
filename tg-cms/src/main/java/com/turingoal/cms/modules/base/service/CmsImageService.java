@@ -9,37 +9,37 @@ import com.turingoal.cms.modules.base.domain.form.CmsImageForm;
 import com.turingoal.cms.modules.base.domain.query.CmsImageQuery;
 
 /**
- * ImageService
+ * 图片Service
  */
 public interface CmsImageService {
 
     /**
-     * 分页查询 Image
+     * 分页查询 图片
      */
     Page<CmsImage> findByPage(final CmsImageQuery query);
 
     /**
-     * 通过id得到一个 Image
+     * 通过id得到一个 图片
      */
     CmsImage get(final String id);
 
     /**
-     * 通过ids得到 Image
+     * 通过ids得到 图片
      */
     List<CmsImage> findByIds(final String ids);
 
     /**
-     * 新增 Image
+     * 新增 图片
      */
     void add(final CmsImageForm form);
 
     /**
-     * 修改 Image
+     * 修改 图片
      */
     int update(final CmsImageForm form);
 
     /**
-     * 根据id删除一个 Image
+     * 根据id删除一个 图片
      */
     int delete(final String id);
 

@@ -17,32 +17,32 @@ public interface NodeService {
     List<Node> findByParentCodeNum(final String parentCodeNum, final Long limit);
 
     /**
-     * 查询全部 Node
+     * 查询全部 栏目
      */
     List<Node> findAll(final NodeQuery query);
 
     /**
-     * 通过id得到一个 Node
+     * 通过id得到一个 栏目
      */
     Node get(final String id);
 
     /**
-     * 通过codeNum得到一个 Node
+     * 通过codeNum得到一个 栏目
      */
     Node getByCode(final String codeNum);
 
     /**
-     * 新增 Node
+     * 新增 栏目
      */
     void add(final NodeForm form, final Map<String, String> cusMap);
 
     /**
-     * 修改 Node
+     * 修改 栏目
      */
     int update(final NodeForm form, final Map<String, String> cusMap);
 
     /**
-     * 根据id删除一个 Node
+     * 根据id删除一个 栏目
      */
     String delete(final String id);
 
@@ -58,9 +58,7 @@ public interface NodeService {
     int disable(final String id);
 
     /**
-     * 查询全部 Node栏目树
+     * 查询全部 栏目栏目树
      */
-
     BaseTreeNodeBean getNodeTreeGird(final NodeQuery query);
-
 }

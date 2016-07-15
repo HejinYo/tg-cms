@@ -9,32 +9,32 @@ import com.turingoal.cms.modules.base.domain.query.CmsVideoQuery;
 import com.turingoal.common.bean.FileUploadBean;
 
 /**
- * CmsVideoService
+ * 视频Service
  */
 public interface CmsVideoService {
 
     /**
-     * 分页查询 CmsVideo
+     * 分页查询 视频
      */
     Page<CmsVideo> findByPage(final CmsVideoQuery query);
 
     /**
-     * 通过id得到一个 CmsVideo
+     * 通过id得到一个 视频
      */
     CmsVideo get(final String id);
 
     /**
-     * 新增 CmsVideo
+     * 新增 视频
      */
     void add(final CmsVideoForm form);
 
     /**
-     * 修改 CmsVideo
+     * 修改 视频
      */
     int update(final CmsVideoForm form);
 
     /**
-     * 根据id删除一个 CmsVideo
+     * 根据id删除一个 视频
      */
     int delete(final String id);
 

@@ -11,37 +11,37 @@ import com.turingoal.cms.modules.base.domain.query.CmsFileQuery;
 import com.turingoal.common.bean.FileUploadBean;
 
 /**
- * FileService
+ * 文件Service
  */
 public interface CmsFileService {
 
     /**
-     * 查询全部 File
+     * 查询全部 文件
      */
     List<CmsFile> findAll(final CmsFileQuery query);
 
     /**
-     * 分页查询 File
+     * 分页查询 文件
      */
     Page<CmsFile> findByPage(final CmsFileQuery query);
 
     /**
-     * 通过id得到一个 File
+     * 通过id得到一个 文件
      */
     CmsFile get(final String id);
 
     /**
-     * 新增 File
+     * 新增 文件
      */
     void add(final CmsFileForm form);
 
     /**
-     * 修改 File
+     * 修改 文件
      */
     int update(final CmsFileForm form);
 
     /**
-     * 根据id删除一个 File
+     * 根据id删除一个 文件
      */
     int delete(final String id);
 
@@ -57,8 +57,6 @@ public interface CmsFileService {
 
     /**
      * 单文件上传
-     * 
-     * @throws Exception
      */
     CmsFileForm add(FileUploadBean uploadItem, final CmsFileForm form, HttpServletRequest request) throws Exception;
 
