@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90404
 File Encoding         : 65001
 
-Date: 2016-05-18 22:59:21
+Date: 2016-07-15 13:31:10
 */
 
 
@@ -196,11 +196,6 @@ INSERT INTO "public"."tg_c_custom_field" VALUES ('8923bbd3-06ef-44e9-9f3d-51c5f0
 INSERT INTO "public"."tg_c_custom_field" VALUES ('9fd77808-8c73-4ba3-8cc2-f0bbe1fa1798', '1', null, '1', 'ee', 'cus_str_ee', null, '1', '1', '2', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-09-04 02:19:23.293', null, null, null);
 INSERT INTO "public"."tg_c_custom_field" VALUES ('b0f0436f-ea27-457a-bbd3-c3e9d8bd2fa3', '7', null, '2', '图片上传', 'image', null, '2', '1', '4', '1', 'infoModel', '25fb6951-0819-423e-88b8-b9f1c8b59406', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-10-20 18:38:08.63', null, null, null);
 INSERT INTO "public"."tg_c_custom_field" VALUES ('cec94905-8247-4fb8-9baf-3dbb22aad2b2', '3', '2', '2', '是否允许评论', 'allowComment', null, '1', '1', '9', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null);
-INSERT INTO "public"."tg_c_custom_field" VALUES ('eacdb0e0-e11e-4b75-8f50-3d93fd31f3c0', '7', null, '2', '小图', 'image', null, '2', '1', '2', '1', 'nodeModel', '0b1459e3-66a2-42d5-8a19-f5e2d8e606a2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-11-03 14:54:54.412', null, null, null);
-INSERT INTO "public"."tg_c_custom_field" VALUES ('eacdb0e0-e11e-4b75-8f50-3d93fd31f3c0', '7', null, '2', '小图', 'image', null, '2', '1', '2', '1', 'nodeModel', '5bbd4645-d434-45ae-ab05-18161964aa5c', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-11-03 14:54:54.412', null, null, null);
-INSERT INTO "public"."tg_c_custom_field" VALUES ('eacdb0e0-e11e-4b75-8f50-3d93fd31f3c0', '7', null, '2', '小图', 'image', null, '2', '1', '2', '1', 'nodeModel', 'a1dda5ec-98a9-47a3-a255-2705168d1ada', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-11-03 14:54:54.412', null, null, null);
-INSERT INTO "public"."tg_c_custom_field" VALUES ('eacdb0e0-e11e-4b75-8f50-3d93fd31f3c0', '7', null, '2', '小图', 'image', null, '2', '1', '2', '1', 'nodeModel', 'd6580d68-bec3-45de-bc65-b62555d5f804', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-11-03 14:54:54.412', null, null, null);
-INSERT INTO "public"."tg_c_custom_field" VALUES ('eacdb0e0-e11e-4b75-8f50-3d93fd31f3c0', '7', null, '2', '小图', 'image', null, '2', '1', '4', '1', 'nodeModel', '57056b0d-cbeb-407c-94bd-0ead61811f13', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-11-03 14:54:54.412', null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_c_custom_field_value
@@ -640,35 +635,35 @@ INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '系统异常：org.post
   位置：200', '', '2015-09-04 10:24:44.923', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '系统异常：org.postgresql.util.PSQLException: ERROR: syntax error at or near ")"
   位置：211', '', '2015-09-04 10:36:29.486', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-09-06 16:25:06.641', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=0bae1118-477c-4f98-9ea5-989c7adc066c,nodeName=首页', '', '2015-11-03 14:59:20.645', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=0bb35bd9-6440-459d-99ef-d2fbce215d44,nodeName=qq', '', '2015-10-21 09:53:18.618', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,nodeName=产品服务', '', '2015-09-06 16:08:57.246', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 09:53:18.244', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=14406fd6-8513-4d84-a606-5e3137e6a58a,nodeName=aa', '', '2015-10-21 11:04:32.149', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=3095c724-75a9-4d57-b915-d02614441aeb,nodeName=aa', '', '2015-11-03 09:53:23.021', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=367c507e-bdff-4f10-b9f1-5302be7642a0,nodeName=解决方案子栏目', '', '2015-10-21 15:58:56.334', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=37198106-b573-48de-82d1-92456254ba7c,nodeName=2', '', '2015-09-03 00:02:26.024', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=3fa396fc-d5ea-49ec-9592-68e7c9c54bb6,nodeName=qq', '', '2015-11-03 10:55:13.113', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=4ef84122-5605-45af-bfea-a3c2e315b898,nodeName=解决方案', '', '2015-11-03 15:03:12.835', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=5387a736-0405-44a8-9983-22ba52b55b4d,nodeName=qq', '', '2015-11-03 10:54:40.265', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=54300408-c77f-4bf1-8237-7fe7c8addc54,nodeName=测试', '', '2015-09-12 18:58:31.212', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=6680d3b4-e2d4-4dba-b02e-8eddeec39522,nodeName=3', '', '2015-09-04 11:53:06.924', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=6a1a9195-9363-488a-af33-b8848bdfd93d,nodeName=222', '', '2015-09-03 00:15:13.359', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,nodeName=联系我们', '', '2015-09-06 16:10:07.959', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,nodeName=关于我们', '', '2015-09-06 16:08:29.109', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=7d69359f-d925-49f6-a32a-b454e3ecd87d,nodeName=232233', '', '2015-09-03 00:18:27.611', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=7fcc4981-33b3-4f16-9ba0-cc2ecdbd2e1f,nodeName=22', '', '2015-09-03 02:15:52.421', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=8f59a63d-62da-455e-b907-a5c1aca9c9bb,nodeName=产品服务', '', '2015-11-03 15:02:36.305', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=9a3b2d12-d7b0-4b59-a8f7-5a39c2acb801,nodeName=联系我们子栏目', '', '2015-10-21 15:59:38.147', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,nodeName=解决方案', '', '2015-09-06 16:09:30.953', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=b0dd043d-8692-4f87-8c8b-c38d07820414,nodeName=联系我们子栏目', '', '2015-10-21 15:58:19.328', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=c08697fb-4655-41fd-8cbb-567ed31d92f1,nodeName=联系我们', '', '2015-11-03 15:07:00.634', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,nodeName=首页', '', '2015-09-06 16:07:58.515', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=e5c0a198-c8ac-4a69-8b3c-a13479f64191,nodeName=公司动态', '', '2015-11-03 15:01:50.306', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=ec218830-65c1-4f3a-ab7b-034aea15ec9c,nodeName=aa', '', '2015-11-03 09:37:46.517', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=f1b54eff-f129-4eba-be08-0e2be9586d28,nodeName=关于我们', '', '2015-11-03 15:04:28.687', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=ffdb9149-8566-4531-9c3e-58ec107a9a48,nodeName=产品服务子栏目', '', '2015-10-21 16:00:35.088', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-09-06 16:25:06.641', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=0bae1118-477c-4f98-9ea5-989c7adc066c,noddName=首页', '', '2015-11-03 14:59:20.645', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=0bb35bd9-6440-459d-99ef-d2fbce215d44,noddName=qq', '', '2015-10-21 09:53:18.618', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,noddName=产品服务', '', '2015-09-06 16:08:57.246', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 09:53:18.244', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=14406fd6-8513-4d84-a606-5e3137e6a58a,noddName=aa', '', '2015-10-21 11:04:32.149', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=3095c724-75a9-4d57-b915-d02614441aeb,noddName=aa', '', '2015-11-03 09:53:23.021', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=367c507e-bdff-4f10-b9f1-5302be7642a0,noddName=解决方案子栏目', '', '2015-10-21 15:58:56.334', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=37198106-b573-48de-82d1-92456254ba7c,noddName=2', '', '2015-09-03 00:02:26.024', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=3fa396fc-d5ea-49ec-9592-68e7c9c54bb6,noddName=qq', '', '2015-11-03 10:55:13.113', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=4ef84122-5605-45af-bfea-a3c2e315b898,noddName=解决方案', '', '2015-11-03 15:03:12.835', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=5387a736-0405-44a8-9983-22ba52b55b4d,noddName=qq', '', '2015-11-03 10:54:40.265', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=54300408-c77f-4bf1-8237-7fe7c8addc54,noddName=测试', '', '2015-09-12 18:58:31.212', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=6680d3b4-e2d4-4dba-b02e-8eddeec39522,noddName=3', '', '2015-09-04 11:53:06.924', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=6a1a9195-9363-488a-af33-b8848bdfd93d,noddName=222', '', '2015-09-03 00:15:13.359', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,noddName=联系我们', '', '2015-09-06 16:10:07.959', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,noddName=关于我们', '', '2015-09-06 16:08:29.109', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=7d69359f-d925-49f6-a32a-b454e3ecd87d,noddName=232233', '', '2015-09-03 00:18:27.611', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=7fcc4981-33b3-4f16-9ba0-cc2ecdbd2e1f,noddName=22', '', '2015-09-03 02:15:52.421', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=8f59a63d-62da-455e-b907-a5c1aca9c9bb,noddName=产品服务', '', '2015-11-03 15:02:36.305', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=9a3b2d12-d7b0-4b59-a8f7-5a39c2acb801,noddName=联系我们子栏目', '', '2015-10-21 15:59:38.147', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,noddName=解决方案', '', '2015-09-06 16:09:30.953', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=b0dd043d-8692-4f87-8c8b-c38d07820414,noddName=联系我们子栏目', '', '2015-10-21 15:58:19.328', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=c08697fb-4655-41fd-8cbb-567ed31d92f1,noddName=联系我们', '', '2015-11-03 15:07:00.634', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,noddName=首页', '', '2015-09-06 16:07:58.515', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=e5c0a198-c8ac-4a69-8b3c-a13479f64191,noddName=公司动态', '', '2015-11-03 15:01:50.306', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=ec218830-65c1-4f3a-ab7b-034aea15ec9c,noddName=aa', '', '2015-11-03 09:37:46.517', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=f1b54eff-f129-4eba-be08-0e2be9586d28,noddName=关于我们', '', '2015-11-03 15:04:28.687', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增栏目,id=ffdb9149-8566-4531-9c3e-58ec107a9a48,noddName=产品服务子栏目', '', '2015-10-21 16:00:35.088', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增文章,id=0615bc0b-5e26-460e-8442-171504a4fa8d,title=在线教育平台', '', '2015-11-03 16:03:46.284', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增文章,id=1214bc8e-241b-4c15-ab88-4ad6eb1a313f,title=今天天气', '', '2015-11-04 15:39:20.917', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增文章,id=17bfd550-4d80-404c-b75f-144510f06d3e,title=互联网直播点播平台', '', '2015-10-22 10:44:29.966', '0:0:0:0:0:0:0:1', 'admin');
@@ -704,71 +699,71 @@ INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增文章,id=d98e113
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增文章,id=dda07e4c-e6af-4360-963f-385634c998b9,title=fff', '', '2015-09-04 14:30:43.487', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增文章,id=f0579b8d-80f0-4dff-aac9-8ff9c5a9b713,title=与北京中平科学技术院签署项目协议', '', '2015-09-06 16:37:28.685', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '新增文章,id=f6a5c8bd-927e-42f7-bbf5-cb8bc9aad75c,title=12', '', '2015-06-23 09:13:13', '125.121.32.117', 'admin1');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-09-06 16:28:25.661', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-09-06 16:35:59.152', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-09-06 18:39:10.929', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-08 15:17:06.717', '219.142.247.206', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 09:57:29.985', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 09:58:10.873', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 09:58:39.348', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 09:59:18.948', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 09:59:50.816', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 10:59:09.348', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 11:00:09.638', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 11:00:43.21', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 11:01:15.638', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 11:01:31.187', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 11:03:05.203', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 11:06:13.147', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 17:08:20.015', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,nodeName=公司动态', '', '2015-10-21 17:08:34.351', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,nodeName=产品服务', '', '2015-09-06 18:39:18.519', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,nodeName=产品服务', '', '2015-10-08 15:17:13.361', '219.142.247.206', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,nodeName=产品服务', '', '2015-10-21 10:00:40.886', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,nodeName=产品服务', '', '2015-10-21 10:01:04.776', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,nodeName=产品服务', '', '2015-10-21 10:03:13.643', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,nodeName=产品服务', '', '2015-10-21 10:03:51.65', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:40:53.261', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:44:18.765', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:44:46.192', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:48:28.267', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:49:02.193', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:50:51.249', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:51:03.757', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 10:51:21.874', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 11:13:42.985', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,nodeName=aa', '', '2015-11-03 11:45:37.515', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=3095c724-75a9-4d57-b915-d02614441aeb,nodeName=aa', '', '2015-11-03 10:41:10.641', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=37198106-b573-48de-82d1-92456254ba7c,nodeName=22', '', '2015-09-03 00:13:08.321', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=37198106-b573-48de-82d1-92456254ba7c,nodeName=223', '', '2015-09-03 00:15:01.747', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=4ef84122-5605-45af-bfea-a3c2e315b898,nodeName=解决方案', '', '2015-11-03 15:03:21.988', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=4ef84122-5605-45af-bfea-a3c2e315b898,nodeName=解决方案', '', '2015-11-03 15:03:41.603', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,nodeName=联系我们', '', '2015-09-06 18:39:37.214', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,nodeName=联系我们', '', '2015-10-08 15:17:32.569', '219.142.247.206', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,nodeName=联系我们', '', '2015-10-21 15:56:38.908', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,nodeName=联系我们', '', '2015-10-21 15:56:55.256', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,nodeName=关于我们', '', '2015-09-06 18:38:27.563', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,nodeName=关于我们', '', '2015-09-06 18:38:31.056', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,nodeName=关于我们', '', '2015-09-06 18:39:31.918', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,nodeName=关于我们', '', '2015-10-08 15:17:24.847', '219.142.247.206', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=8f59a63d-62da-455e-b907-a5c1aca9c9bb,nodeName=产品服务', '', '2015-11-03 15:03:25.594', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=8f59a63d-62da-455e-b907-a5c1aca9c9bb,nodeName=产品服务', '', '2015-11-03 15:03:37.556', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=9a3b2d12-d7b0-4b59-a8f7-5a39c2acb801,nodeName=联系我们子栏目', '', '2015-10-21 17:08:47.397', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=9a3b2d12-d7b0-4b59-a8f7-5a39c2acb801,nodeName=联系我们子栏目', '', '2015-10-21 17:11:16.377', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,nodeName=解决方案', '', '2015-09-06 18:39:24.91', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,nodeName=解决方案', '', '2015-10-08 15:17:19.229', '219.142.247.206', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,nodeName=解决方案', '', '2015-10-21 11:03:22.102', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,nodeName=解决方案', '', '2015-10-21 11:03:51.148', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c08697fb-4655-41fd-8cbb-567ed31d92f1,nodeName=联系我们', '', '2015-11-04 16:35:46.721', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c08697fb-4655-41fd-8cbb-567ed31d92f1,nodeName=联系我们', '', '2015-11-04 16:35:59.381', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,nodeName=首页', '', '2015-09-06 18:39:01.525', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,nodeName=首页', '', '2015-10-08 15:16:59.543', '219.142.247.206', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,nodeName=首页', '', '2015-10-21 15:50:44.994', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,nodeName=首页', '', '2015-10-21 15:51:11.843', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,nodeName=首页', '', '2015-10-21 15:51:29.705', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=e5c0a198-c8ac-4a69-8b3c-a13479f64191,nodeName=公司动态', '', '2015-11-03 15:04:39.041', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=ffdb9149-8566-4531-9c3e-58ec107a9a48,nodeName=产品服务子栏目', '', '2015-10-21 17:08:56.971', '0:0:0:0:0:0:0:1', 'admin');
-INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=ffdb9149-8566-4531-9c3e-58ec107a9a48,nodeName=产品服务子栏目', '', '2015-10-21 17:11:24.207', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-09-06 16:28:25.661', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-09-06 16:35:59.152', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-09-06 18:39:10.929', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-08 15:17:06.717', '219.142.247.206', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 09:57:29.985', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 09:58:10.873', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 09:58:39.348', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 09:59:18.948', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 09:59:50.816', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 10:59:09.348', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 11:00:09.638', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 11:00:43.21', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 11:01:15.638', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 11:01:31.187', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 11:03:05.203', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 11:06:13.147', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 17:08:20.015', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=083c4941-97ae-48d7-9a28-d5debfc9296a,noddName=公司动态', '', '2015-10-21 17:08:34.351', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,noddName=产品服务', '', '2015-09-06 18:39:18.519', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,noddName=产品服务', '', '2015-10-08 15:17:13.361', '219.142.247.206', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,noddName=产品服务', '', '2015-10-21 10:00:40.886', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,noddName=产品服务', '', '2015-10-21 10:01:04.776', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,noddName=产品服务', '', '2015-10-21 10:03:13.643', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=0deb3c1f-dc40-48d3-aced-bc9a5786e227,noddName=产品服务', '', '2015-10-21 10:03:51.65', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:40:53.261', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:44:18.765', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:44:46.192', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:48:28.267', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:49:02.193', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:50:51.249', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:51:03.757', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 10:51:21.874', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 11:13:42.985', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=1180afd7-7dc6-4eb3-9632-c0e24d0ee482,noddName=aa', '', '2015-11-03 11:45:37.515', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=3095c724-75a9-4d57-b915-d02614441aeb,noddName=aa', '', '2015-11-03 10:41:10.641', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=37198106-b573-48de-82d1-92456254ba7c,noddName=22', '', '2015-09-03 00:13:08.321', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=37198106-b573-48de-82d1-92456254ba7c,noddName=223', '', '2015-09-03 00:15:01.747', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=4ef84122-5605-45af-bfea-a3c2e315b898,noddName=解决方案', '', '2015-11-03 15:03:21.988', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=4ef84122-5605-45af-bfea-a3c2e315b898,noddName=解决方案', '', '2015-11-03 15:03:41.603', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,noddName=联系我们', '', '2015-09-06 18:39:37.214', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,noddName=联系我们', '', '2015-10-08 15:17:32.569', '219.142.247.206', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,noddName=联系我们', '', '2015-10-21 15:56:38.908', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=6f87eaee-1ee9-4316-9caa-1a99380d6785,noddName=联系我们', '', '2015-10-21 15:56:55.256', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,noddName=关于我们', '', '2015-09-06 18:38:27.563', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,noddName=关于我们', '', '2015-09-06 18:38:31.056', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,noddName=关于我们', '', '2015-09-06 18:39:31.918', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=7ab82cec-c82b-4e6b-89cb-722c266dce7d,noddName=关于我们', '', '2015-10-08 15:17:24.847', '219.142.247.206', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=8f59a63d-62da-455e-b907-a5c1aca9c9bb,noddName=产品服务', '', '2015-11-03 15:03:25.594', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=8f59a63d-62da-455e-b907-a5c1aca9c9bb,noddName=产品服务', '', '2015-11-03 15:03:37.556', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=9a3b2d12-d7b0-4b59-a8f7-5a39c2acb801,noddName=联系我们子栏目', '', '2015-10-21 17:08:47.397', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=9a3b2d12-d7b0-4b59-a8f7-5a39c2acb801,noddName=联系我们子栏目', '', '2015-10-21 17:11:16.377', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,noddName=解决方案', '', '2015-09-06 18:39:24.91', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,noddName=解决方案', '', '2015-10-08 15:17:19.229', '219.142.247.206', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,noddName=解决方案', '', '2015-10-21 11:03:22.102', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=a83caaf9-6066-499d-8105-f0ed04cba4d7,noddName=解决方案', '', '2015-10-21 11:03:51.148', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c08697fb-4655-41fd-8cbb-567ed31d92f1,noddName=联系我们', '', '2015-11-04 16:35:46.721', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c08697fb-4655-41fd-8cbb-567ed31d92f1,noddName=联系我们', '', '2015-11-04 16:35:59.381', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,noddName=首页', '', '2015-09-06 18:39:01.525', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,noddName=首页', '', '2015-10-08 15:16:59.543', '219.142.247.206', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,noddName=首页', '', '2015-10-21 15:50:44.994', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,noddName=首页', '', '2015-10-21 15:51:11.843', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=c0ab0dc7-4ec8-41d8-b242-5880222571bd,noddName=首页', '', '2015-10-21 15:51:29.705', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=e5c0a198-c8ac-4a69-8b3c-a13479f64191,noddName=公司动态', '', '2015-11-03 15:04:39.041', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=ffdb9149-8566-4531-9c3e-58ec107a9a48,noddName=产品服务子栏目', '', '2015-10-21 17:08:56.971', '0:0:0:0:0:0:0:1', 'admin');
+INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改栏目,id=ffdb9149-8566-4531-9c3e-58ec107a9a48,noddName=产品服务子栏目', '', '2015-10-21 17:11:24.207', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改文章,id=0615bc0b-5e26-460e-8442-171504a4fa8d,title=在线教育平台', '', '2015-11-03 17:25:49.334', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改文章,id=39de3cfa-1355-4feb-9dd4-4bb2bdfe92fc,title=在线教育平台', '', '2015-10-22 10:46:05.178', '0:0:0:0:0:0:0:1', 'admin');
 INSERT INTO "public"."tg_c_log" VALUES ('操作日志', '修改文章,id=48b6d899-f4b7-4b59-b597-42dfa9fcbf7c,title=图灵谷统一业务服务平台', '', '2015-11-03 17:25:58.651', '0:0:0:0:0:0:0:1', 'admin');
@@ -1455,32 +1450,6 @@ COMMENT ON COLUMN "public"."tg_c_role_resource"."id" IS '角色资源中间表';
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for tg_c_sensitive_word
--- ----------------------------
-DROP TABLE IF EXISTS "public"."tg_c_sensitive_word";
-CREATE TABLE "public"."tg_c_sensitive_word" (
-"id" varchar(45) COLLATE "default" NOT NULL,
-"word" varchar(100) COLLATE "default" NOT NULL,
-"replacement" varchar(100) COLLATE "default",
-"editable" int2 DEFAULT 1 NOT NULL,
-"enabled" int2 DEFAULT 1 NOT NULL,
-"create_data_time" timestamp(6),
-"create_data_username" varchar(45) COLLATE "default",
-"update_data_time" timestamp(6),
-"update_data_username" varchar(45) COLLATE "default"
-)
-WITH (OIDS=FALSE)
-
-;
-COMMENT ON COLUMN "public"."tg_c_sensitive_word"."id" IS '敏感词';
-COMMENT ON COLUMN "public"."tg_c_sensitive_word"."editable" IS '是否可编辑  1可编辑 2不可编辑';
-COMMENT ON COLUMN "public"."tg_c_sensitive_word"."enabled" IS '是否可用';
-
--- ----------------------------
--- Records of tg_c_sensitive_word
--- ----------------------------
-
--- ----------------------------
 -- Table structure for tg_c_user
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."tg_c_user";
@@ -1537,7 +1506,7 @@ COMMENT ON COLUMN "public"."tg_c_user"."enabled" IS '是否可用';
 -- Records of tg_c_user
 -- ----------------------------
 INSERT INTO "public"."tg_c_user" VALUES ('27f71240-dbff-4378-a5db-a526194c9917', 'jason', 'jason', '$2a$11$3XpZgmghdUZJv0hCgJiuruOsixjq1tTQWTUa1wsQnHkx3jIvPk3V2', '1', null, null, null, null, null, null, null, null, null, '2015-11-06 16:33:02.103', '0:0:0:0:0:0:0:1', '2015-11-06 16:34:29.345', '0:0:0:0:0:0:0:1', null, null, null, '1', '1', null, null, null, null);
-INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', '2015-01-01 12:00:00', '', '', '', '', '', '', '', '', '2016-05-18 11:01:57.885', '0:0:0:0:0:0:0:1', '2016-05-18 22:57:02.58', '0:0:0:0:0:0:0:1', '2016-05-18 10:59:42.339', null, null, '1', '1', null, null, null, null);
+INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', '2015-01-01 12:00:00', '', '', '', '', '', '', '', '', '2016-07-05 14:48:03.288', '0:0:0:0:0:0:0:1', '2016-07-15 13:03:30.274', '0:0:0:0:0:0:0:1', '2016-06-18 13:33:34.792', null, null, '1', '1', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_c_user_role
@@ -1841,7 +1810,7 @@ COMMENT ON COLUMN "public"."tg_cms_m_base_global"."sys_version" IS '版本号';
 -- ----------------------------
 -- Records of tg_cms_m_base_global
 -- ----------------------------
-INSERT INTO "public"."tg_cms_m_base_global" VALUES ('1', 'http', '80', '/tg-cms', '1', '1', '1.1', null, null, null, null);
+INSERT INTO "public"."tg_cms_m_base_global" VALUES ('1', 'http', '8080', '/tg-cms', '1', '1', '1.1', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_image
@@ -1968,23 +1937,17 @@ COMMENT ON COLUMN "public"."tg_cms_m_base_info"."allow_comment" IS '是否允许
 -- ----------------------------
 -- Records of tg_cms_m_base_info
 -- ----------------------------
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('0615bc0b-5e26-460e-8442-171504a4fa8d', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:49.136', null, '3', '2', '0', '0', '0', '0', '0', null, null, '在线教育平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷在线教育平台为客户提供了一个简单易用的在线教育服务平台，客户可以基于图灵谷在线教育平台为用户提供各行业的在线教育服务。', null, null, null, null, '0ac7c7cd-c3b7-4a49-ab0a-3071369fb2b5', null, null, null, '1', '2015-11-03 16:03:44.803', 'admin', '2015-11-03 17:25:49.133', 'admin');
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('310d5a92-eb3d-467a-ae97-3da8b3a04697', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2016-02-04 00:00:00', '2016-02-04 09:20:13.736', null, '1', '2', '0', '0', '0', '0', '0', null, null, '基于微信公众号的webapp产品时间沙漏正式上线', null, null, null, null, null, '2', '2', null, null, null, '基于微信公众号的webapp产品时间沙漏正式上线，敬请关注微信公众号： 时间沙漏   turingoal-time', null, null, null, null, null, null, null, null, '1', '2016-02-03 04:13:45.385', 'admin', '2016-02-04 09:20:13.733', 'admin');
+INSERT INTO "public"."tg_cms_m_base_info" VALUES ('      ', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:49.136', null, '3', '2', '0', '0', '0', '0', '0', null, null, '在线教育平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷在线教育平台为客户提供了一个简单易用的在线教育服务平台，客户可以基于图灵谷在线教育平台为用户提供各行业的在线教育服务。', null, null, null, null, '0ac7c7cd-c3b7-4a49-ab0a-3071369fb2b5', null, null, null, '1', '2015-11-03 16:03:44.803', 'admin', '2015-11-03 17:25:49.133', 'admin');
+INSERT INTO "public"."tg_cms_m_base_info" VALUES ('310d5a92-eb3d-467a-ae97-3da8b3a04697', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2016-02-04 00:00:00', '2016-06-18 21:20:25.258', null, '1', '2', '0', '0', '0', '0', '0', null, null, '基于微信公众号的webapp产品时间沙漏正式上线', null, null, null, null, null, '2', '2', null, null, null, '基于微信公众号的webapp产品时间沙漏正式上线，敬请关注微信公众号： 时间沙漏   turingoal-time', null, null, null, null, null, null, null, null, '1', '2016-02-03 04:13:45.385', 'admin', '2016-06-18 21:20:25.256', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('48b6d899-f4b7-4b59-b597-42dfa9fcbf7c', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:58.501', null, '4', '2', '0', '0', '0', '0', '0', null, null, '图灵谷统一业务服务平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷统一业务服务平台，代号“奠基”，是图灵谷的基础平台，实现了系统的统一用户认证，统一权限管理，统一任务调度，统一系统监控等常见系统服务。', null, null, null, null, '4aaaf450-92e7-44e8-9fe1-988706fd8f62', null, null, null, '1', '2015-11-03 16:09:00.405', 'admin', '2015-11-03 17:25:58.5', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('5f9810aa-e3e3-4520-a315-57ebb4062284', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:24.414', null, '1', '2', '0', '0', '0', '0', '0', null, null, '全媒体内容管理发布平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷全媒体内容管理发布平台整合了图、文、音视频等媒体资源，实现了全媒体的内容管理与发布的统一平台。', null, null, null, null, '2a575829-f41d-4b89-8f68-5d057487315f', null, null, null, '1', '2015-11-03 16:01:43.081', 'admin', '2015-11-03 17:25:24.411', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('6ce5e5d9-62e5-47bc-9c84-4a12d671c80c', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2015-07-25 00:00:00', '2016-01-31 20:37:27.307', null, '1', '2', '0', '0', '0', '0', '0', null, null, '与北京中平科学技术院签署项目协议', null, null, null, null, null, '2', '2', null, null, null, '图灵谷与北京中平科学技术院正式签署项目开发协议。该项目对图灵谷未来的发展方向有着重要意义', null, null, null, null, null, null, null, null, '1', '2016-01-31 20:36:51.404', 'admin', '2016-01-31 20:37:27.301', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('6d40826d-e2d7-4841-8ccb-89e20bdec54d', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:37.021', null, '2', '2', '0', '0', '0', '0', '0', null, null, '互联网直播点播平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷互联网直播点播平台通过流媒体技术实现了PC、手机等多终端音视频的直播点播功能。', null, null, null, null, '873994bd-d3a7-4d52-a8c8-6426100a8b01', null, null, null, '1', '2015-11-03 16:02:27.151', 'admin', '2015-11-03 17:25:37.02', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('6f40bed6-705d-4f8c-96d6-8afce9a8f2d9', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2015-10-27 00:00:00', '2016-01-31 20:38:14.067', null, '1', '2', '0', '0', '0', '0', '0', null, null, '图灵谷发布开源项目 — 糖果cms', null, null, null, null, null, '2', '2', null, null, null, '图灵谷在目前中国最大的开源技术社区oschina上发布开源项目糖果cms，这是一个java开发的cms，一个免费开源的cms，一个简单易用的cms。相信在广大技术爱好者的共同努力下她会一步步成长起来', null, null, null, null, null, null, null, null, '1', '2016-01-31 20:38:14.067', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('711ace7c-9cc0-44c0-b435-6b275a18ff3e', '4ef84122-5605-45af-bfea-a3c2e315b898', '2015-11-04 00:00:00', '2015-11-04 17:37:10.153', null, '2', '2', '0', '0', '0', '0', '0', null, null, '交通行业', null, null, null, null, null, '2', '2', null, null, null, null, null, null, null, null, 'b3d0c9fd-a994-4342-893b-75a2ccb73db9', null, null, null, '1', '2015-11-03 21:33:48.382', 'admin', '2015-11-04 17:37:10.152', 'admin');
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('8a1c54ec-63ad-4d94-9543-581442caa63b', '4ef84122-5605-45af-bfea-a3c2e315b898', '2015-11-04 00:00:00', '2015-11-04 17:36:58.633', null, '1', '2', '0', '0', '0', '0', '0', null, null, '广电行业', null, null, null, null, null, '2', '2', null, null, null, null, null, null, null, null, '730774fd-5a6c-447c-87ed-a97a57ff222b', null, null, null, '1', '2015-11-03 21:32:44.965', 'admin', '2015-11-04 17:36:58.49', 'admin');
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('98054b10-4b0e-4ccd-a411-0033e5fb3822', '4ef84122-5605-45af-bfea-a3c2e315b898', '2015-11-04 00:00:00', '2015-11-04 17:38:01.635', null, '6', '2', '0', '0', '0', '0', '0', null, null, '法务系统', null, null, null, null, null, '2', '2', null, null, null, null, null, null, null, null, 'bd365916-11c2-4246-a903-3c2c91b2e08b', null, null, null, '1', '2015-11-03 21:36:37.678', 'admin', '2015-11-04 17:38:01.634', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('9eb31849-e3a7-4a80-bd7b-86339546b1be', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2015-11-10 00:00:00', '2016-01-31 20:38:59.561', null, '1', '2', '0', '0', '0', '0', '0', null, null, '公司组织员工前往香山观赏红叶', null, null, null, null, null, '2', '2', null, null, null, '公司组织员工前往香山观赏红叶
 为了丰富企业员工的业余文化生活，激发员工的工作热情和动力，增强公司各部门之间的团队意识、互助意识，增强企业的凝聚力，充分展示企业精神面貌和企业形象，十一月九日，公司组织前往北
 
 京香山观看漫山红叶。此次活动增强了整个团队的凝聚力、荣誉感和归属感，体现了公司以人为本的理念。', null, null, null, null, null, null, null, null, '1', '2016-01-31 20:38:59.561', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('a01bf9b7-622d-4c38-b08a-b7618f485673', '4ef84122-5605-45af-bfea-a3c2e315b898', '2015-11-04 00:00:00', '2015-11-04 17:37:22.059', null, '3', '2', '0', '0', '0', '0', '0', null, null, '教育行业', null, null, null, null, null, '2', '2', null, null, null, null, null, null, null, null, '3d11d74e-3d72-4e1f-ac80-abd97d1a37cd', null, null, null, '1', '2015-11-03 21:34:16.347', 'admin', '2015-11-04 17:37:22.058', 'admin');
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('a55cece8-5e7e-4384-99c7-c69295a7e6c3', '4ef84122-5605-45af-bfea-a3c2e315b898', '2015-11-04 00:00:00', '2015-11-04 17:37:34.015', null, '4', '2', '0', '0', '0', '0', '0', null, null, '移动互联', null, null, null, null, null, '2', '2', null, null, null, null, null, null, null, null, '8a21acc4-34e7-48ba-9095-5175a8facf59', null, null, null, '1', '2015-11-03 21:35:16.811', 'admin', '2015-11-04 17:37:34.014', 'admin');
-INSERT INTO "public"."tg_cms_m_base_info" VALUES ('a6c35b39-7df5-427f-86b5-3681e1a3cf26', '4ef84122-5605-45af-bfea-a3c2e315b898', '2015-11-04 00:00:00', '2015-11-04 17:37:48.76', null, '5', '2', '0', '0', '0', '0', '0', null, null, '政务系统', null, null, null, null, null, '2', '2', null, null, null, null, null, null, null, null, '94932566-27e4-47d9-b481-c0bf3ce78525', null, null, null, '1', '2015-11-03 21:36:12.83', 'admin', '2015-11-04 17:37:48.76', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('b97fac12-aadc-4f51-8fff-3cde5a98c358', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2015-07-20 00:00:00', '2015-11-03 15:46:01.972', null, '2', '2', '0', '0', '0', '0', '0', null, null, '与北京天地极峰达成合作意向', null, null, null, null, null, '2', '2', null, null, null, '图灵谷与北京天地极峰达成长期战略合作意向。长期稳定合作，共同谋求发展。', null, null, null, null, null, null, null, null, '1', '2015-11-03 15:44:31.404', 'admin', '2015-11-03 15:46:01.971', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('d98e113d-b092-4440-bb0f-f77d86d51388', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2015-07-17 00:00:00', '2015-11-03 15:45:30.39', null, '3', '2', '0', '0', '0', '0', '0', null, null, '与北京星橙科技公司和深圳生活智造公司达成长期战略合作意向', null, null, null, null, null, '2', '2', null, null, null, '图灵谷与北京星橙科技公司和深圳生活智造公司达成长期战略合作意向。团结协力共铸辉煌，展望未来蓝图宏伟！', null, null, null, null, null, null, null, null, '1', '2015-11-03 15:45:30.39', 'admin', null, null);
 
@@ -2072,7 +2035,8 @@ COMMENT ON COLUMN "public"."tg_cms_m_base_info_tags"."priority" IS 'tag序号';
 -- Records of tg_cms_m_base_info_tags
 -- ----------------------------
 INSERT INTO "public"."tg_cms_m_base_info_tags" VALUES ('338ad5fd-7368-489d-8cf9-f934698bcfd7', '1ac3bcab-e82b-4788-8608-e4a31358c6d2', '338ad5fd-7368-489d-8cf9-f934698bcfd7', '1', null, null, null, null);
-INSERT INTO "public"."tg_cms_m_base_info_tags" VALUES ('338ad5fd-7368-489d-8cf9-f934698bcfd7', '89161d2a-9251-46b6-af18-3c032ebc57b2', '338ad5fd-7368-489d-8cf9-f934698bcfd7', '1', null, null, null, null);
+INSERT INTO "public"."tg_cms_m_base_info_tags" VALUES ('341378c692df46739000dbef5452933a', '4c122ab55cd544c4bbf87d9625050bf4', '341378c692df46739000dbef5452933a', '1', null, null, null, null);
+INSERT INTO "public"."tg_cms_m_base_info_tags" VALUES ('bacb1abed0544c2cb51be23ac104bacf', '91e64ec2116b40b381d6bb6286498007', 'bacb1abed0544c2cb51be23ac104bacf', '1', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_model
@@ -2184,12 +2148,12 @@ COMMENT ON COLUMN "public"."tg_cms_m_base_node"."sort_order" IS '排序';
 -- ----------------------------
 -- Records of tg_cms_m_base_node
 -- ----------------------------
-INSERT INTO "public"."tg_cms_m_base_node" VALUES ('0bae1118-477c-4f98-9ea5-989c7adc066c', '0', '57056b0d-cbeb-407c-94bd-0ead61811f13', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'default/index', 'default/index', 'index', '首页', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '1', '1', '2015-11-03 14:59:20.517', null, null, null);
-INSERT INTO "public"."tg_cms_m_base_node" VALUES ('4ef84122-5605-45af-bfea-a3c2e315b898', '0', '0b1459e3-66a2-42d5-8a19-f5e2d8e606a2', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'default/solutions', 'default/solutions', 'solutions', '解决方案', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '1', '4', '2015-11-03 15:03:41.581', null, null, null);
-INSERT INTO "public"."tg_cms_m_base_node" VALUES ('8f59a63d-62da-455e-b907-a5c1aca9c9bb', '0', '5bbd4645-d434-45ae-ab05-18161964aa5c', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'default/services', 'default/services', 'services', '产品服务', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '1', '3', '2015-11-03 15:03:37.534', null, null, null);
-INSERT INTO "public"."tg_cms_m_base_node" VALUES ('c08697fb-4655-41fd-8cbb-567ed31d92f1', '0', 'd6580d68-bec3-45de-bc65-b62555d5f804', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'default/contact', 'default/contact', 'contact', '联系我们', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '1', '6', '2015-11-04 16:35:59.236', null, null, null);
-INSERT INTO "public"."tg_cms_m_base_node" VALUES ('e5c0a198-c8ac-4a69-8b3c-a13479f64191', '0', '57056b0d-cbeb-407c-94bd-0ead61811f13', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'default/index', 'default/index', 'news', '公司动态', '0', '0', '1', '1', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '1', '2', '2015-11-03 15:04:39.004', null, null, null);
-INSERT INTO "public"."tg_cms_m_base_node" VALUES ('f1b54eff-f129-4eba-be08-0e2be9586d28', '0', 'a1dda5ec-98a9-47a3-a255-2705168d1ada', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'default/about', 'default/about', 'about', '关于我们', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '1', '5', '2015-11-03 15:04:28.663', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_node" VALUES ('0bae1118-477c-4f98-9ea5-989c7adc066c', '0', '57056b0d-cbeb-407c-94bd-0ead61811f13', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'index', 'index', 'index', '首页', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '2', '1', '2015-11-03 14:59:20.517', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_node" VALUES ('4ef84122-5605-45af-bfea-a3c2e315b898', '0', '0b1459e3-66a2-42d5-8a19-f5e2d8e606a2', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'solutions', 'solutions', 'solutions', '解决方案', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '2', '4', '2015-11-03 15:03:41.581', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_node" VALUES ('8f59a63d-62da-455e-b907-a5c1aca9c9bb', '0', '5bbd4645-d434-45ae-ab05-18161964aa5c', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'services', 'services', 'services', '产品服务', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '2', '3', '2015-11-03 15:03:37.534', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_node" VALUES ('c08697fb-4655-41fd-8cbb-567ed31d92f1', '0', 'd6580d68-bec3-45de-bc65-b62555d5f804', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'contact', 'contact', 'contact', '联系我们', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '2', '6', '2015-11-04 16:35:59.236', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_node" VALUES ('e5c0a198-c8ac-4a69-8b3c-a13479f64191', '0', '57056b0d-cbeb-407c-94bd-0ead61811f13', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'news', 'news', 'news', '公司动态', '0', '0', '1', '1', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '2', '2', '2015-11-03 15:04:39.004', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_node" VALUES ('f1b54eff-f129-4eba-be08-0e2be9586d28', '0', 'a1dda5ec-98a9-47a3-a255-2705168d1ada', '25fb6951-0819-423e-88b8-b9f1c8b59406', 'about', 'about', 'about', '关于我们', '0', '0', '1', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, '2', '5', '2015-11-03 15:04:28.663', null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_node_group
@@ -2414,6 +2378,7 @@ INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('23', 'en公司简介', '1', nu
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('24', '2013年中国', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('338ad5fd-7368-489d-8cf9-f934698bcfd7', '2', '1', '2015-09-02 22:42:13.966', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('338ca3be-f0e2-43ac-a235-b75df8cbece1', '123456', '0', '2015-09-04 11:57:45.385', 'admin', null, null);
+INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('341378c692df46739000dbef5452933a', 'rew', '0', '2016-06-20 11:19:55.932', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('35ae36f3-d3b6-4f97-a6bb-519c55003208', '奋进', '-1', '2015-09-04 14:50:20.9', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('369c8d09-67bf-4529-bc81-0790f86ab74e', '22', '-1', '2015-09-04 13:57:54.826', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('3939d76f-3d1f-4c80-be70-ea3036b16604', '天气', '-1', '2015-11-04 15:39:20.863', 'admin', null, null);
@@ -2425,6 +2390,8 @@ INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('7', '中国', '1', null, null,
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('8', '中国2010', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('9', '中国2011', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('9df6196f-06d4-42bd-9397-ac5e8e147344', '111', '0', '2015-09-04 11:36:16.788', 'admin', null, null);
+INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('bacb1abed0544c2cb51be23ac104bacf', 'eqweq', '0', '2016-06-18 10:50:43.688', 'admin', null, null);
+INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('bad1f956a51044d4a08e423e7807b72d', 'd', '-1', '2016-06-18 21:20:45.048', 'admin', null, null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_template
@@ -2630,11 +2597,10 @@ INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('10', '5', '项目合作2
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('20dcf9dc-b925-451b-8ed8-fed3b347b26b', '5', '百度', 'http://www.baidu.com', '3db98de0-0133-4f59-9e57-32a0c3ec428d', 'baidu@qq.com', '1', '27', null, '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('3a9b0ef1-4cdd-44cb-a5cc-ae2e65c13bf8', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '333', 'http://www.b', null, '123@qq.com', '2', '30', '333333', '2', null, null, '2015-09-04 11:01:35.767', 'admin');
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('54f25fb0-27a7-499b-8ec7-c6fdf3e16368', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '撒旦发射的', 'www.baidu.com', null, 'asdfsf@qq.cm', '1', '2', 'sfsafsdfsffsfsdfsdf', '1', '2015-08-12 09:18:42.302', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('5bd8725f-ab68-46f9-96ca-ad6ec7dfc424', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', 'sd', null, '72af963d-8202-4741-86c7-da6e765b1110', null, '1', '1', null, '1', '2015-09-06 18:49:24.27', 'admin', '2015-09-06 18:49:57.759', 'admin');
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('660b9dc1-ff2b-4e13-bec0-ee399825ea2e', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '优衣库', 'http://www.baidu.com', null, '4565@qq.com', '1', '5', 'ad抒发抒发抒发刮大风', '1', '2015-08-12 09:33:06.696', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('6b84f3ca-181f-4321-af69-1710bb3efe7a', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '33', 'http://qq.com', null, null, '1', '2', null, '1', null, null, null, null);
+INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('6b84f3ca-181f-4321-af69-1710bb3efe7a', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '33', 'http://qq.com', null, null, '2', '2', null, '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('8c3a86fe-7ed6-41e5-a1a5-94e6be896d6f', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '优衣库111', 'www.baidu.com', null, '4565@qq.com', '1', '5', '地方萨嘎短发发生', '1', '2015-08-12 09:29:34.04', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('a241b02c-9a53-4042-a589-b33366ab314c', '6', '天堂鸟', 'www.baidu.com', null, '4646@ss.com', '1', '2', '卡死地方咯额的方法', '1', '2015-08-12 09:17:15.623', 'admin', null, null);
+INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('a241b02c-9a53-4042-a589-b33366ab314c', '6', '天堂鸟', 'www.baidu.com', null, '4646@ss.com', '2', '2', '卡死地方咯额的方法', '1', '2015-08-12 09:17:15.623', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('a85e7cc0-74bc-491a-b967-36ae18655fcd', '5', 'aaaaaa', 'http://www.baidu.com', null, '111@qq.com', '2', '29', '123123', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('cdffbe83-3883-4aff-a6d8-7ed8fe3b139c', '5', '123', '123', null, '123', '1', '28', '123', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('ff0f0bc5-6ee1-4bd2-8e2b-b01211539b73', '5', '312', '3213', '123', '123', '2', '26', '123', '2', null, null, null, null);
@@ -2807,6 +2773,7 @@ COMMENT ON COLUMN "public"."tg_cms_m_ext_question"."enabled" IS '状态';
 -- ----------------------------
 INSERT INTO "public"."tg_cms_m_ext_question" VALUES ('07d62e57-0df4-44e4-8327-4b10f8d42652', '123', '啊实打实', null, '2015-06-02 00:00:00', null, '1', '12', '1', null, null, '2015-09-04 16:28:03.459', 'admin');
 INSERT INTO "public"."tg_cms_m_ext_question" VALUES ('8a0832b5-f36b-4609-afc1-6966dc560a0e', '3', '3', null, '2015-09-16 00:00:00', '2015-09-02 00:00:00', '1', '0', '1', '2015-09-04 16:04:35.764', 'admin', '2015-09-04 16:04:54.058', 'admin');
+INSERT INTO "public"."tg_cms_m_ext_question" VALUES ('c49a1437db2c421b8608da863f343abf', 'rewrw', 'fw', '3213', '2016-05-30 00:00:00', '2016-07-07 00:00:00', '1', '12', '1', '2016-06-20 11:19:03.173', 'admin', null, null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_ext_question_item
@@ -3165,6 +3132,16 @@ COMMENT ON COLUMN "public"."tg_cms_m_plug_resume"."state" IS '1通过，2不通�
 ALTER TABLE "public"."tg_c_attachment" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Primary Key structure for table tg_c_custom_field
+-- ----------------------------
+ALTER TABLE "public"."tg_c_custom_field" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_c_custom_field_value
+-- ----------------------------
+ALTER TABLE "public"."tg_c_custom_field_value" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
 -- Indexes structure for table tg_c_dict
 -- ----------------------------
 CREATE UNIQUE INDEX "id_UNIQUE" ON "public"."tg_c_dict" USING btree ("id");
@@ -3173,6 +3150,16 @@ CREATE UNIQUE INDEX "id_UNIQUE" ON "public"."tg_c_dict" USING btree ("id");
 -- Primary Key structure for table tg_c_dict
 -- ----------------------------
 ALTER TABLE "public"."tg_c_dict" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_c_group
+-- ----------------------------
+ALTER TABLE "public"."tg_c_group" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_c_message
+-- ----------------------------
+ALTER TABLE "public"."tg_c_message" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table tg_c_resource
@@ -3190,11 +3177,196 @@ ALTER TABLE "public"."tg_c_role" ADD PRIMARY KEY ("id");
 ALTER TABLE "public"."tg_c_role_resource" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Primary Key structure for table tg_c_user
+-- ----------------------------
+ALTER TABLE "public"."tg_c_user" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_c_user_role
+-- ----------------------------
+ALTER TABLE "public"."tg_c_user_role" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_attr
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_attr" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_comment
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_comment" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_doc
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_doc" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_file
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_file" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_global
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_global" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_image
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_image" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_info
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_info" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_info_attrs
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_info_attrs" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_info_special
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_info_special" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_info_tags
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_info_tags" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_model
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_model" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_node
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_node" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_node_group
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_node_group" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_node_role
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_node_role" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_publish_point
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_publish_point" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_special
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_special" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_special_type
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_special_type" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_tag
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_tag" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_template
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_template" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_base_video
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_base_video" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_ad
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_ad" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_ad_slot
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_ad_slot" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_friendlink
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_friendlink" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
 -- Primary Key structure for table tg_cms_m_ext_friendlink_type
 -- ----------------------------
 ALTER TABLE "public"."tg_cms_m_ext_friendlink_type" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_guestbook
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_guestbook" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
 -- Primary Key structure for table tg_cms_m_ext_guestbook_type
 -- ----------------------------
 ALTER TABLE "public"."tg_cms_m_ext_guestbook_type" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_question
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_question" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_question_item
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_question_item" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_question_option
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_question_option" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_question_record
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_question_record" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_score_group
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_score_group" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_score_item
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_score_item" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_score_record
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_score_record" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_vote
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_vote" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_vote_mark
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_vote_mark" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_ext_vote_option
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_ext_vote_option" ADD PRIMARY KEY ("id");
+
+-- ----------------------------
+-- Primary Key structure for table tg_cms_m_plug_resume
+-- ----------------------------
+ALTER TABLE "public"."tg_cms_m_plug_resume" ADD PRIMARY KEY ("id");
