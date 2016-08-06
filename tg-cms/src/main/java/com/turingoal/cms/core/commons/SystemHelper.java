@@ -15,6 +15,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.common.constants.ConstantSystemValues;
+import com.turingoal.common.util.spring.SpringSecurityPasswordHelper;
 
 /**
  * 系统帮助工具类
@@ -291,7 +292,7 @@ public final class SystemHelper {
      */
     public static boolean unlockScreen(final String userPass) {
         boolean flag = false;
-        flag = TgSecurityPasswordHelper.isPasswordValid(getCurrentUser().getPassword(), userPass);
+        flag = SpringSecurityPasswordHelper.isPasswordValid(getCurrentUser().getPassword(), userPass);
         if (flag) {
             setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, false);
         }

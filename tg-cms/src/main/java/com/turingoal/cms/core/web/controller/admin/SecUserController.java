@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.Page;
 import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.core.commons.TgSecurityPasswordHelper;
 import com.turingoal.cms.core.domain.Role;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
@@ -32,6 +31,7 @@ import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantDateFormatTypes;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.spring.SpringBindingResultWrapper;
+import com.turingoal.common.util.spring.SpringSecurityPasswordHelper;
 import com.turingoal.common.util.validator.ValidGroupAdd;
 import com.turingoal.common.util.validator.ValidGroupUpdate;
 
@@ -63,7 +63,7 @@ public class SecUserController {
     @RequestMapping(value = "/changePassword.gsp")
     @ResponseBody
     public final JsonResultBean changePassword(@RequestParam("oldUserPass") final String oldUserPass, @RequestParam("userPass") final String userPass) throws BusinessException {
-        if (TgSecurityPasswordHelper.isPasswordValid(SystemHelper.getCurrentUserId(), userPass)) {
+        if (SpringSecurityPasswordHelper.isPasswordValid(SystemHelper.getCurrentUserId(), userPass)) {
             return new JsonResultBean(false, "原密码不正确，请重新输入！");
         } else {
             userService.updateCurrentUserPass(userPass);
