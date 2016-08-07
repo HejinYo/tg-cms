@@ -92,10 +92,13 @@ public class TgSecurityURLFilterInvocationSecurityMetadataSource implements Filt
 					if (map.containsKey(authUrl)) {
 						atts = map.get(authUrl);
 						atts.add(new SecurityConfig(roleCode));
+
 					} else {
-						atts = SecurityConfig.createListFromCommaDelimitedString(roleCode);
+						atts = new HashSet<ConfigAttribute>(SecurityConfig.createListFromCommaDelimitedString(roleCode));
 						map.put(authUrl, atts);
 					}
+					// 所有权限集合
+					allAttributes.add(new SecurityConfig(roleCode));
 				}
 			}
 		}
@@ -104,18 +107,16 @@ public class TgSecurityURLFilterInvocationSecurityMetadataSource implements Filt
 			Collection<ConfigAttribute> atts1 = null;
 			for (Map.Entry<String, String> entry : interceptUrlsMap.entrySet()) {
 				String authUrl = entry.getKey();
-				List<ConfigAttribute> attList = SecurityConfig.createListFromCommaDelimitedString(entry.getValue());
+				Collection<ConfigAttribute> attSet = new HashSet<ConfigAttribute>(SecurityConfig.createListFromCommaDelimitedString(entry.getValue()));
 				if (map.containsKey(authUrl)) {
 					atts1 = map.get(authUrl);
-					atts1.addAll(attList);
+					atts1.addAll(attSet);
 				} else {
-					map.put(authUrl, attList);
+					map.put(authUrl, attSet);
 				}
+				// 所有权限集合
+				allAttributes.addAll(attSet);
 			}
-		}
-		// 获取所有权限集合
-		for (Map.Entry<String, Collection<ConfigAttribute>> entry : map.entrySet()) {
-			allAttributes.addAll(entry.getValue());
 		}
 		return map;
 	}
