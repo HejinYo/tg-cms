@@ -66,7 +66,7 @@
 
     <!-- 入口EntryPoint -->
     <bean id="authenticationEntryPoint"
-        class="com.turingoal.cms.core.commons.TgSecurityLoginAuthenticationEntryPoint">
+        class="com.turingoal.cms.core.commons.TgSecurityAuthenticationEntryPoint">
         <!-- spring security4 采用以下方式 -->
         <constructor-arg value="${security.loginPageUrl}" />
         <!-- 前台登录路径 -->
@@ -149,7 +149,7 @@
 
     <!-- 防止跨站提交攻击, 但是rest服务会失效，需要自定义一个Matcher -->
     <bean id="csrfSecurityRequestMatcher"
-        class="com.turingoal.cms.core.commons.TgSecurityCsrfRequestMatcher">
+        class="com.turingoal.common.util.spring.SpringSecurityCsrfRequestMatcher">
         <property name="execludeUrls">
             <list>
                 <value>/rest/</value>

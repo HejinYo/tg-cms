@@ -13,9 +13,9 @@ import com.turingoal.common.util.net.WebUtils;
 /**
  * 登录入口。 默认的不支持java，需要自定义
  */
-public class TgSecurityLoginAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
+public class TgSecurityAuthenticationEntryPoint extends LoginUrlAuthenticationEntryPoint {
 
-    public TgSecurityLoginAuthenticationEntryPoint(final String loginFormUrl) {
+    public TgSecurityAuthenticationEntryPoint(final String loginFormUrl) {
         super(loginFormUrl);
     }
 
