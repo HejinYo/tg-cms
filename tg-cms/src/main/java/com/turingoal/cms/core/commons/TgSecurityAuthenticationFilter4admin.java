@@ -70,7 +70,7 @@ public class TgSecurityAuthenticationFilter4admin extends UsernamePasswordAuthen
 			int count = retryCount.incrementAndGet();
 			if (count > maxRetryCount) { // 是否超过最大次数
 				SystemLogHelper.loginLog(username, "用户登录失败超过最大次数，账户锁定！");
-				throw new LockedException("用户已锁定！");
+				throw new LockedException("用户登录失败超过最大次数，用户已锁定！");
 			}
 			authentication = super.attemptAuthentication(request, response);
 			// 认证失败会在上面跳出不会执行下面的语句， 认证成功清除缓存的错误次数
