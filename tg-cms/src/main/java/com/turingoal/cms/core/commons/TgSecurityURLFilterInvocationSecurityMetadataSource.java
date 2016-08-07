@@ -92,7 +92,6 @@ public class TgSecurityURLFilterInvocationSecurityMetadataSource implements Filt
 					if (map.containsKey(authUrl)) {
 						atts = map.get(authUrl);
 						atts.add(new SecurityConfig(roleCode));
-
 					} else {
 						atts = new HashSet<ConfigAttribute>(SecurityConfig.createListFromCommaDelimitedString(roleCode));
 						map.put(authUrl, atts);
@@ -105,9 +104,10 @@ public class TgSecurityURLFilterInvocationSecurityMetadataSource implements Filt
 		// 封装从xml获得的interceptUrls，顺序很重要，spring security按顺序获得第一个匹配的url，通过放行不继续匹配，不通过结束
 		if (interceptUrlsMap != null && interceptUrlsMap.size() > 0) {
 			Collection<ConfigAttribute> atts1 = null;
+			Collection<ConfigAttribute> attSet = null;
 			for (Map.Entry<String, String> entry : interceptUrlsMap.entrySet()) {
 				String authUrl = entry.getKey();
-				Collection<ConfigAttribute> attSet = new HashSet<ConfigAttribute>(SecurityConfig.createListFromCommaDelimitedString(entry.getValue()));
+				attSet = new HashSet<ConfigAttribute>(SecurityConfig.createListFromCommaDelimitedString(entry.getValue()));
 				if (map.containsKey(authUrl)) {
 					atts1 = map.get(authUrl);
 					atts1.addAll(attSet);
