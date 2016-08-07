@@ -99,10 +99,10 @@ public class TgSecurityAuthenticationFilter4admin extends UsernamePasswordAuthen
 	 * 获取request里的验证码
 	 */
 	protected String obtainCaptcha(final HttpServletRequest request) {
-		Object obj = request.getParameter(captchaParameter);
+		String capStr = request.getParameter(captchaParameter);
 		String captchaCode = "";
-		if (obj != null) {
-			captchaCode = obj.toString().trim().toLowerCase();
+		if (capStr != null) {
+			captchaCode = capStr.trim().toLowerCase();
 		}
 		return captchaCode;
 	}
