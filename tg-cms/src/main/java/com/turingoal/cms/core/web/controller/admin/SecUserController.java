@@ -63,7 +63,7 @@ public class SecUserController {
     @RequestMapping(value = "/changePassword.gsp")
     @ResponseBody
     public final JsonResultBean changePassword(@RequestParam("oldUserPass") final String oldUserPass, @RequestParam("userPass") final String userPass) throws BusinessException {
-        if (SpringSecurityPasswordHelper.isPasswordValid(SystemHelper.getCurrentUserId(), userPass)) {
+        if (!SpringSecurityPasswordHelper.isPasswordValid(SystemHelper.getCurrentUserId(), userPass)) {
             return new JsonResultBean(false, "原密码不正确，请重新输入！");
         } else {
             userService.updateCurrentUserPass(userPass);
