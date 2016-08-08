@@ -35,20 +35,24 @@
         <property name="maxActive" value="200" />
         <!-- 配置获取连接等待超时的时间，配置了maxWait之后，缺省启用公平锁，并发效率会有所下降，如果需要可以通过配置useUnfairLock属性为true使用非公平锁。-->
         <!-- <property name="maxWait" value="60000" /> -->
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="3600000" />
+        <property name="validationQuery" value="SELECT 'x'" />
+        <!-- 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。 -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。 -->
+        <property name="testOnBorrow" value="false" />
+        <!-- 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能 -->
+        <property name="testOnReturn" value="false" />
         <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
         <property name="timeBetweenEvictionRunsMillis" value="60000" />
-        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000" />
-        <property name="validationQuery" value="SELECT 'x'" />
-        <property name="testWhileIdle" value="true" />
-        <property name="testOnBorrow" value="false" />
-        <property name="testOnReturn" value="false" />
-        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 如果用Oracle，则把poolPreparedStatements配置为true，mysql可以配置为false。 -->
-        <property name="poolPreparedStatements" value="false" />
-        <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小，对支持游标的数据库性能提升巨大， 如果用Oracle，则把poolPreparedStatements配置为true，mysql下建议关闭。-->
+        <property name="poolPreparedStatements" value="true" />
+        <!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100-->
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="100" />
         <!-- 配置removeAbandoned对性能会有一些影响，建议怀疑存在泄漏之后再打开。当程序存在缺陷时，申请的连接忘记关闭，这时候，就存在连接泄漏了。Druid提供了RemoveAbandanded相关配置，用来关闭长时间不使用的连接。--> 
         <!-- <property name="removeAbandoned" value="true" /> -->
-        <!-- <property name="removeAbandonedTimeout" value="1800" /> -->
+        <!-- <property name="removeAbandonedTimeout" value="300" /> -->
         <!-- <property name="logAbandoned" value="true" /> -->
         <!-- 配置监控统计拦截的filters -->
         <!-- <property name="filters" value="wall,stat" /> -->
