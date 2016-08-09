@@ -98,7 +98,7 @@ public class User implements UserDetails, Serializable {
      * 用来解决单一账户登录问题
      */
     @Override
-    public boolean equals(Object rhs) {
+    public boolean equals(final Object rhs) {
         if (rhs instanceof User) {
             return username.equals(((User) rhs).username);
         }
