@@ -93,4 +93,23 @@ public class User implements UserDetails, Serializable {
     public boolean isEnabled() {
         return userEnabled == ConstantEnabledValue.ENABLED_INT;
     }
+
+    /**
+     * 用来解决单一账户登录问题
+     */
+    @Override
+    public boolean equals(Object rhs) {
+        if (rhs instanceof User) {
+            return username.equals(((User) rhs).username);
+        }
+        return false;
+    }
+
+    /**
+     * 用来解决单一账户登录问题
+     */
+    @Override
+    public int hashCode() {
+        return username.hashCode();
+    }
 }
