@@ -19,7 +19,7 @@
         <property name="usernameParameter" value="tg_username" />
         <property name="passwordParameter" value="tg_password" />
         <property name="captchaParameter" value="tg_captchaCode" />
-        <property name="openValidateCaptchaCode" value="${security.openValidateCaptchaCode}" />
+        <property name="openValidateCaptchaCode" value="${security.openValidateCaptchaCode4admin}" />
         <property name="errorsLock" value="${security.errorsLock}" />
         <property name="maxRetryCount" value="${security.maxRetryCount}" />
     </bean>

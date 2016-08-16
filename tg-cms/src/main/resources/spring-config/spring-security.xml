@@ -20,7 +20,7 @@
     <sec:http pattern="${security.loginPageUrl4admin}*" security="none" />
     <!-- 获取验证码的路径 -->
     <sec:http pattern="${security.getCaptchaUrl}" security="none" />
-    <sec:http pattern="${security.adminGetCaptchaUrl}" security="none" />
+    <sec:http pattern="${security.getCaptchaUrl4admin}" security="none" />
     <!-- 拒绝访问页面路径 -->
     <sec:http pattern="${security.deniedPageUrl}" security="none" />
 
