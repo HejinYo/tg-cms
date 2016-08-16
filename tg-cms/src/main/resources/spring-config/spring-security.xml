@@ -17,7 +17,7 @@
     <!-- 登录页面需要配置成可以直接访问的， 登录页面加*因为后面可能带参数 -->
     <sec:http pattern="${security.loginPageUrl}*" security="none" />
     <!-- 登录页面需要配置成可以直接访问的， 登录页面加*因为后面可能带参数 -->
-    <sec:http pattern="${security.adminLoginPageUrl}*" security="none" />
+    <sec:http pattern="${security.loginPageUrl4admin}*" security="none" />
     <!-- 获取验证码的路径 -->
     <sec:http pattern="${security.getCaptchaUrl}" security="none" />
     <sec:http pattern="${security.adminGetCaptchaUrl}" security="none" />
@@ -72,7 +72,7 @@
         <!-- 前台登录路径 -->
         <property name="foreLoginPageUrl" value="${security.loginPageUrl}" />
         <!-- 后台登录路径 -->
-        <property name="adminLoginPageUrl" value="${security.adminLoginPageUrl}" />
+        <property name="adminLoginPageUrl" value="${security.loginPageUrl4admin}" />
     </bean>
 
     <!-- 权限不足handler4fore -->

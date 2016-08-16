@@ -38,7 +38,7 @@
     <bean id="authenticationFailureHandler4admin"
         class="com.turingoal.cms.core.commons.TgSecurityLoginFailureHandler4admin">
         <!-- 登录失败跳转页面 -->
-        <property name="failureUrl" value="${security.adminLoginPageUrl}?type=error" />
+        <property name="failureUrl" value="${security.loginPageUrl4admin}?type=error" />
         <!-- 用来在日志中保存用户登录信息 -->
         <property name="usernameParameter" value="tg_username" />
     </bean>
@@ -59,6 +59,6 @@
     <!-- 后台退出成功handler -->
     <bean id="logoutSuccessHandler4admin"
         class="com.turingoal.cms.core.commons.TgSecurityLogoutSuccessHandler4admin">
-        <property name="defaultTargetUrl" value="${security.adminLoginPageUrl}?type=logout" />
+        <property name="defaultTargetUrl" value="${security.loginPageUrl4admin}?type=logout" />
     </bean>
 </beans>
