@@ -11,7 +11,7 @@
     <!-- 后台登录filter -->
     <bean id="authenticaionFilter4admin"
         class="com.turingoal.cms.core.commons.TgSecurityAuthenticationFilter4admin">
-        <property name="filterProcessesUrl" value="${security.adminLoginUrl}" />
+        <property name="filterProcessesUrl" value="${security.loginUrl4admin}" />
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="authenticationFailureHandler" ref="authenticationFailureHandler4admin" />
         <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler4admin" />
