@@ -53,7 +53,7 @@
                     class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
             </list>
         </constructor-arg>
-        <property name="filterProcessesUrl" value="${security.adminLogoutUrl}" />
+        <property name="filterProcessesUrl" value="${security.logoutUrl4admin}" />
     </bean>
 
     <!-- 后台退出成功handler -->
