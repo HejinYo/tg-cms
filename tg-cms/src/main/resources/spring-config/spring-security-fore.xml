@@ -18,6 +18,12 @@
         <!-- 用户名和密码 -->
         <property name="usernameParameter" value="tg_username" />
         <property name="passwordParameter" value="tg_password" />
+        <property name="captchaParameter" value="tg_captchaCode" />
+        <property name="openValidateCaptchaCode" value="${security.openValidateCaptchaCode}" />
+        <property name="errorsLock" value="${security.errorsLock}" />
+        <property name="maxRetryCount" value="${security.maxRetryCount}" />
+        <!-- session控制 如多人登录 -->
+        <property name="sessionAuthenticationStrategy" ref="springSecuritySessionAuthenticationStrategy" />  
     </bean>
 
     <!-- 前台自定义登录成功handler -->

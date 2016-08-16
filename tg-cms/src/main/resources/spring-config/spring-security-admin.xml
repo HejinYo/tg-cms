@@ -20,8 +20,8 @@
         <property name="passwordParameter" value="tg_password" />
         <property name="captchaParameter" value="tg_captchaCode" />
         <property name="openValidateCaptchaCode" value="${security.openValidateCaptchaCode4admin}" />
-        <property name="errorsLock" value="${security.errorsLock}" />
-        <property name="maxRetryCount" value="${security.maxRetryCount}" />
+        <property name="errorsLock" value="${security.errorsLock4admin}" />
+        <property name="maxRetryCount" value="${security.maxRetryCount4admin}" />
     </bean>
 
     <!-- 后台自定义登录成功handler -->
