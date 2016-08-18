@@ -1,7 +1,9 @@
 package com.turingoal.cms.core.commons;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,26 +18,52 @@ import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.repository.UserDao;
 import com.turingoal.common.util.net.IPUtil;
+import com.turingoal.common.util.spring.SpringSecurityDirectUrlResolver;
 import jodd.util.StringUtil;
 
 /**
  * 这个类主要处理登录后的处理，在登录成功后修改用户登录信息
  */
-public class TgSecurityLoginSuccessHandler4fore extends SimpleUrlAuthenticationSuccessHandler implements InitializingBean {
-    private final Logger log = LogManager.getLogger(TgSecurityLoginSuccessHandler4fore.class);
+public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler implements InitializingBean {
+    private final Logger log = LogManager.getLogger(TgSecurityLoginSuccessHandler.class);
+    private String successUrl = "/"; // 登录成功url
     private boolean forwardToDestination = false; // forward方式跳转
 
     public void setForwardToDestination(final boolean forwardToDestinationParm) {
         this.forwardToDestination = forwardToDestinationParm;
     }
 
+    private List<SpringSecurityDirectUrlResolver> directUrlResolvers = new ArrayList<SpringSecurityDirectUrlResolver>(); // 多登录页面处理
+
+    public void setDirectUrlResolvers(final List<SpringSecurityDirectUrlResolver> directUrlResolversParm) {
+        this.directUrlResolvers = directUrlResolversParm;
+    }
+
     @Autowired
     private UserDao userDao;
+
+    public TgSecurityLoginSuccessHandler() {
+
+    }
+
+    public TgSecurityLoginSuccessHandler(final String defaultTargetUrl) {
+        successUrl = defaultTargetUrl;
+        setDefaultTargetUrl(defaultTargetUrl);
+    }
 
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse, final Authentication authentication) throws IOException, ServletException {
         SystemLogHelper.loginLog(authentication.getName(), "用户[登录]系统【成功】！"); // 登录成功日志
-        String targetUrl = determineTargetUrl(httpServletRequest, httpServletResponse);
+        // 多登录页面处理
+        String targetUrl = successUrl;
+        setDefaultTargetUrl(targetUrl);
+        for (SpringSecurityDirectUrlResolver resolver : directUrlResolvers) {
+            if (resolver.support(httpServletRequest)) {
+                targetUrl = resolver.directUrl();
+                setDefaultTargetUrl(targetUrl);
+            }
+        }
+        targetUrl = determineTargetUrl(httpServletRequest, httpServletResponse);
         // 保存用户登录信息
         saveLoginInfo(httpServletRequest, authentication);
         if (this.forwardToDestination) {
@@ -53,7 +81,6 @@ public class TgSecurityLoginSuccessHandler4fore extends SimpleUrlAuthenticationS
      */
     private void saveLoginInfo(final HttpServletRequest httpServletRequest, final Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        SystemHelper.setCurrentUser(user); // 保存当前用户信息到session
         // 修改用户登录信息
         try {
             UserForm userForm = new UserForm();

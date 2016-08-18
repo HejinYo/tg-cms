@@ -38,6 +38,7 @@ public class User implements UserDetails, Serializable {
     private Integer locked = ConstantLockedValue.UNLOCKED_INT; // 是否锁定
     private Integer userEnabled = ConstantEnabledValue.ENABLED_INT; // 是否启用
     private List<String> userPermissions; // 用户拥有的Permission
+    private String domain; // 用户所属域， 前台、后台
 
     /**
      * 解决和spring security的isEnabled的冲突

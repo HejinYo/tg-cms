@@ -1,32 +1,41 @@
 package com.turingoal.cms.core.commons;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.UrlUtils;
+
+import com.turingoal.common.util.spring.SpringSecurityDirectUrlResolver;
+
 import jodd.util.StringUtil;
 
 /**
  * 这个类主要处理登录失败后的处理，在登录失败后记录日志
  */
-public class TgSecurityLoginFailureHandler4fore extends SimpleUrlAuthenticationFailureHandler implements InitializingBean {
-    private final Logger log = LogManager.getLogger(TgSecurityLoginFailureHandler4fore.class);
+public class TgSecurityLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler implements InitializingBean {
+    private final Logger log = LogManager.getLogger(TgSecurityLoginFailureHandler.class);
     public static final Integer AUTHENTICATION_FAILURE_CODE = 401;
-    private String failureUrl; // 登录失败url
+    private String failureUrl; // 登录失败默认url
     private String usernameParameter = "username"; // 用户名参数
+    private List<SpringSecurityDirectUrlResolver> directUrlResolvers = new ArrayList<SpringSecurityDirectUrlResolver>(); // 多登录页面处理
 
-    public TgSecurityLoginFailureHandler4fore() {
-
+    public TgSecurityLoginFailureHandler() {
+        super();
     }
 
-    public TgSecurityLoginFailureHandler4fore(final String defaultFailureUrlParm) {
-        setDefaultFailureUrl(defaultFailureUrlParm);
+    public TgSecurityLoginFailureHandler(final String defaultFailureUrl) {
+        failureUrl = defaultFailureUrl;
+        setDefaultFailureUrl(defaultFailureUrl);
     }
 
     /**
@@ -34,17 +43,26 @@ public class TgSecurityLoginFailureHandler4fore extends SimpleUrlAuthenticationF
      */
     public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException exception) throws IOException, ServletException {
         SystemLogHelper.loginLog(request.getParameter(usernameParameter), "用户[登录]系统【失败】：" + exception.getLocalizedMessage()); // 登录失败日志
-        if (this.failureUrl == null) {
+        // 多登录页面处理
+        String targetUrl = failureUrl; // 每次恢复成默认的
+        setDefaultFailureUrl(targetUrl);
+        for (SpringSecurityDirectUrlResolver resolver : directUrlResolvers) {
+            if (resolver.support(request)) {
+                targetUrl = resolver.directUrl();
+                setDefaultFailureUrl(targetUrl);
+            }
+        }
+        if (targetUrl == null) {
             log.debug("没有配置defaultFailureUrl, sending 401 Unauthorized error");
             response.sendError(AUTHENTICATION_FAILURE_CODE, "认证失败: " + exception.getMessage());
         } else {
             saveException(request, exception);
             if (isUseForward()) {
-                log.debug("登录失败，Forwarding 到页面 " + this.failureUrl);
-                request.getRequestDispatcher(this.failureUrl).forward(request, response);
+                log.debug("登录失败，Forwarding 到页面 " + targetUrl);
+                request.getRequestDispatcher(targetUrl).forward(request, response);
             } else {
-                log.debug("登录失败，Redirecting 到页面 " + this.failureUrl);
-                getRedirectStrategy().sendRedirect(request, response, this.failureUrl);
+                log.debug("登录失败，Redirecting 到页面 " + targetUrl);
+                getRedirectStrategy().sendRedirect(request, response, targetUrl);
             }
         }
     }
@@ -68,6 +86,10 @@ public class TgSecurityLoginFailureHandler4fore extends SimpleUrlAuthenticationF
             log.error(failureUrlParm + "' 不是有效的 redirect URL");
         }
         this.failureUrl = failureUrlParm;
+    }
+
+    public void setDirectUrlResolvers(final List<SpringSecurityDirectUrlResolver> directUrlResolversParm) {
+        this.directUrlResolvers = directUrlResolversParm;
     }
 
     @Override

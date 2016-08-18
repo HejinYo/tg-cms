@@ -33,4 +33,5 @@ public class UserQuery extends BaseQueryBean implements Serializable {
     private Date lastLoginTime; // 最后登录时间
     private String lastLoginIp; // 最后登录ip
     private Date lastLogoutTime; // 最后登出时间
+    private String domain; // 用户所属域， 前台、后台
 }
