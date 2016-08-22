@@ -10,14 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import com.turingoal.cms.core.repository.RoleResourceDao;
-import jodd.util.StringUtil;
 
 /**
  * 通过数据库管理url
@@ -32,9 +29,6 @@ public class TgSecurityURLFilterInvocationSecurityMetadataSource implements Filt
     public void setInterceptUrlsMap(final Map<String, String> interceptUrlsMapParm) {
         this.interceptUrlsMap = interceptUrlsMapParm;
     }
-
-    @Autowired
-    private RoleResourceDao roleResourceDao;
 
     /**
      * 获取所有权限集合
@@ -81,26 +75,7 @@ public class TgSecurityURLFilterInvocationSecurityMetadataSource implements Filt
     protected Map<String, Collection<ConfigAttribute>> bindRequestMap() {
         Map<String, Collection<ConfigAttribute>> map = new LinkedHashMap<String, Collection<ConfigAttribute>>();
         // 封装从数据库获取的 url和对应的role
-        List<Map<String, String>> allUrlsWithRoles = roleResourceDao.findResourcesWithRole();
-        if (allUrlsWithRoles != null && allUrlsWithRoles.size() > 0) {
-            Collection<ConfigAttribute> atts = null;
-            for (Map<String, String> urlWithRole : allUrlsWithRoles) {
-                String authUrl = urlWithRole.get("auth_url");
-                String roleCode = urlWithRole.get("role_code");
-                // url 不能为空
-                if (StringUtil.isNotBlank(authUrl)) {
-                    if (map.containsKey(authUrl)) {
-                        atts = map.get(authUrl);
-                        atts.add(new SecurityConfig(roleCode));
-                    } else {
-                        atts = new HashSet<ConfigAttribute>(SecurityConfig.createListFromCommaDelimitedString(roleCode));
-                        map.put(authUrl, atts);
-                    }
-                    // 所有权限集合
-                    allAttributes.add(new SecurityConfig(roleCode));
-                }
-            }
-        }
+
         // 封装从xml获得的interceptUrls，顺序很重要，spring security按顺序获得第一个匹配的url，通过放行不继续匹配，不通过结束
         if (interceptUrlsMap != null && interceptUrlsMap.size() > 0) {
             Collection<ConfigAttribute> atts1 = null;

@@ -33,13 +33,10 @@
         <sec:anonymous enabled="false" username="游客" />
         <!-- 自定义权限不足处理handler -->
         <sec:access-denied-handler ref="accessDeniedHandler" />
-        <!-- 表达式 说明 hasRole([role]) 返回 true 如果当前主体拥有特定角色。 hasAnyRole([role1,role2]) 
-            返回 true 如果当前主体拥有任何一个提供的角色 （使用逗号分隔的字符串队列） principal 允许直接访问主体对象，表示当前用户 authentication 
-            允许直接访问当前 Authentication对象 从SecurityContext中获得 permitAll 一直返回true denyAll 
-            一直返回false isAnonymous() 如果用户是一个匿名登录的用户 就会返回 true isRememberMe() 如果用户是通过remember-me 
-            登录的用户 就会返回 true isAuthenticated() 如果用户不是匿名用户就会返回true isFullyAuthenticated() 
-            如果用户不是通过匿名也不是通过remember-me登录的用户时， 就会返回true。 -->
-        <sec:intercept-url pattern="/admin/**" access="IS_AUTHENTICATED_FULLY" />
+        <!-- session管理 invalid-session-url:session超时跳转页面,自定义的话就不需要配了。没有使用自定义的entry-point和custom-filter可以简单配置，这里需要自定义 session-authentication-strategy-ref-->
+        <sec:session-management session-authentication-strategy-ref="springSecuritySessionAuthenticationStrategy" />
+        <!-- session管理filter  -->
+        <sec:custom-filter position="CONCURRENT_SESSION_FILTER" ref="springSecurityConcurrencyFilter"/>  
         <!-- session管理 invalid-session-url:session超时跳转页面 -->
         <sec:session-management invalid-session-url="${security.indexUrl}?type=timeout">
             <!-- 同一个用户最大session数，后来的踢掉前面的 -->
@@ -47,16 +44,11 @@
                 error-if-maximum-exceeded="false" expired-url="${security.indexUrl}?type=expired" />
         </sec:session-management>
         <!-- 通过数据库管理url 要在默认的FILTER_SECURITY_INTERCEPTOR之前。3.0以后不能取代默认的filter -->
-        <sec:custom-filter ref="filterSecurityInterceptor"
-            before="FILTER_SECURITY_INTERCEPTOR" />
-        <!-- 前台filter 在FORM_LOGIN_FILTER 之前 -->
-        <sec:custom-filter before="FORM_LOGIN_FILTER" ref="authenticaionFilter4fore" />
-        <!-- 后台filter 替换掉FORM_LOGIN_FILTER -->
-        <sec:custom-filter position="FORM_LOGIN_FILTER"
-            ref="authenticaionFilter4admin" />
+        <sec:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="filterSecurityInterceptor"/>
+        <!-- 登录filter 替换掉FORM_LOGIN_FILTER -->
+        <sec:custom-filter position="FORM_LOGIN_FILTER" ref="authenticaionFilter" />
         <!-- 退出过滤器 -->
-        <sec:custom-filter before="LOGOUT_FILTER" ref="logoutFilter4fore" />
-        <sec:custom-filter position="LOGOUT_FILTER" ref="logoutFilter4admin" />
+        <sec:custom-filter position="LOGOUT_FILTER" ref="logoutFilter" />
         <!-- 防止跨站提交攻击, 需要禁用，不然springmvc的rest的post方法都不好用了 -->
         <sec:csrf disabled="true" />
         <!-- 防止跨站提交攻击, 但是rest服务会失效，需要自定义一个Matcher <sec:csrf disabled="true" request-matcher-ref="csrfSecurityRequestMatcher" 
@@ -64,26 +56,128 @@
     </sec:http>
 
     <!-- 入口EntryPoint -->
-    <bean id="authenticationEntryPoint"
-        class="com.turingoal.cms.core.commons.TgSecurityAuthenticationEntryPoint">
-        <!-- spring security4 采用以下方式 -->
+    <bean id="authenticationEntryPoint" class="com.turingoal.cms.core.commons.TgSecurityAuthenticationEntryPoint">
+        <!-- spring security4 采用以下方式。默认登录路径 -->
         <constructor-arg value="${security.loginPageUrl}" />
-        <!-- 前台登录路径 -->
-        <property name="foreLoginPageUrl" value="${security.loginPageUrl}" />
-        <!-- 后台登录路径 -->
-        <property name="adminLoginPageUrl" value="${security.loginPageUrl4admin}" />
+        <!-- 其它登录路径 -->
+        <property name="directUrlResolvers">  
+            <list>  
+                <!-- 后台登录路径 -->
+                <ref bean="loginDirectUrlResolver4admin"/>  
+            </list>  
+        </property>  
+    </bean>
+    <!-- 后台入口 -->
+    <bean id="loginDirectUrlResolver4admin" class="com.turingoal.common.util.spring.SpringSecurityRequestUriDirectUrlResolver">  
+        <property name="pattern" value="${security.urlResolverPattern4admin}"/>   
+        <property name="directUrl" value="${security.loginPageUrl4admin}"/>  
+    </bean>
+    
+    <!-- 登录filter -->
+    <bean id="authenticaionFilter" class="com.turingoal.cms.core.commons.TgSecurityAuthenticationFilter">
+        <constructor-arg name="defaultFilterProcessesUrl" value="${security.loginUrl}"/>    
+        <!-- 默认登录 -->
+        <constructor-arg name="defaultAuthenticationTokenResolver" ref="authenticationTokenResolver4fore"/>    
+        <property name="authenticationManager" ref="authenticationManager" />
+        <property name="authenticationFailureHandler" ref="authenticationFailureHandler" />
+        <property name="authenticationSuccessHandler" ref="authenticationSuccessHandler" />
+        <!-- session控制 如多人登录 -->
+        <property name="sessionAuthenticationStrategy" ref="springSecuritySessionAuthenticationStrategy" />   
+        <!-- 其它登录 -->
+        <property name="tokenResolvers">  
+            <list>  
+                <ref bean="authenticationTokenResolver4admin"/>  
+            </list>  
+        </property>  
+    </bean>
+    <!-- 前台登录 -->
+    <bean id="authenticationTokenResolver4fore" class="com.turingoal.cms.core.commons.TgSecurityAuthenticationTokenResolver4fore">  
+        <property name="parameterName" value="tg_domain"/>  
+        <property name="parameterValue" value=""/>  
+    </bean>  
+    <!-- 后台登录 -->
+    <bean id="authenticationTokenResolver4admin" class="com.turingoal.cms.core.commons.TgSecurityAuthenticationTokenResolver4admin">  
+        <property name="parameterName" value="tg_domain"/>  
+        <property name="parameterValue" value="admin"/>  
+    </bean>  
+    
+    <!-- 自定义登录成功handler -->
+    <bean id="authenticationSuccessHandler" class="com.turingoal.cms.core.commons.TgSecurityLoginSuccessHandler">
+        <!-- 默认登录成功跳转页面 -->
+        <constructor-arg name="defaultTargetUrl" value="${security.defaultUrl}"/>    
+        <!-- 可以配置相应的跳转方式。属性forwardToDestination为true采用forward false为sendRedirect -->
+        <property name="forwardToDestination" value="false"></property>
+        <!-- 是否总是跳转到默认页面 -->
+        <property name="alwaysUseDefaultTargetUrl" value="true" />
+        <!-- 其它登录 -->
+        <property name="directUrlResolvers">
+            <list>  
+                <!-- 后台登录成功 -->
+                <ref bean="authenticationSuccessUrlResolver4admin"/>  
+            </list>  
+        </property>  
+    </bean>
+    <!-- 后台登录成功-->
+    <bean id="authenticationSuccessUrlResolver4admin" class="com.turingoal.common.util.spring.SpringSecurityRequestParameterDirectUrlResolver">  
+        <property name="parameterName" value="tg_domain"/>  
+        <property name="pattern" value="admin"/>  
+        <property name="directUrl" value="${security.defaultUrl4admin}"/>  
+    </bean>    
+    
+    <!-- 自定义登录失败handler -->
+    <bean id="authenticationFailureHandler" class="com.turingoal.cms.core.commons.TgSecurityLoginFailureHandler">
+        <!-- 默认登录失败跳转页面 -->
+        <constructor-arg name="defaultFailureUrl" value="${security.loginPageUrl}?type=error"/>    
+        <!-- 用来在日志中保存用户登录信息 -->
+        <property name="usernameParameter" value="tg_username" />
+        <!-- 其它登录 -->
+        <property name="directUrlResolvers">
+            <list>  
+                <!-- 后台登录失败 -->
+                <ref bean="authenticationFailureUrlResolver4admin"/>  
+            </list>  
+        </property>  
+    </bean>
+    <!-- 后台登录失败 -->
+    <bean id="authenticationFailureUrlResolver4admin" class="com.turingoal.common.util.spring.SpringSecurityRequestParameterDirectUrlResolver">  
+        <property name="parameterName" value="tg_domain"/>  
+        <property name="pattern" value="admin"/>  
+        <property name="directUrl" value="${security.loginPageUrl4admin}?type=error"/>  
+    </bean>  
+    
+    <!-- 退出过滤器，完成前台用户注销时的定向功能 -->
+    <bean id="logoutFilter" class="org.springframework.security.web.authentication.logout.LogoutFilter">
+        <constructor-arg ref="logoutSuccessHandler" />
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+            </list>
+        </constructor-arg>
+        <property name="filterProcessesUrl" value="${security.logoutUrl}" />
+    </bean>
+    
+    <!-- 退出成功handler -->
+    <bean id="logoutSuccessHandler" class="com.turingoal.cms.core.commons.TgSecurityLogoutSuccessHandler">
+        <!-- 默认登录失败跳转页面 -->
+        <constructor-arg name="defaultTargetUrl" value="${security.loginPageUrl}?type=logout"/>    
+        <property name="resolvers">
+            <list>
+                <ref bean="logoutSuccessUrlResolver4admin"/>
+            </list>
+        </property>
+    </bean>
+    <!-- 后台退出成功 -->
+    <bean id="logoutSuccessUrlResolver4admin" class="com.turingoal.cms.core.commons.TgSecurityLogoutSuccessUrlResolver4admin">
+        <property name="url" value="${security.loginPageUrl4admin}?type=logout"/>
     </bean>
 
     <!-- 权限不足handler4fore -->
-    <bean id="accessDeniedHandler"
-        class="com.turingoal.cms.core.commons.TgSecurityAccessDeniedHandler">
+    <bean id="accessDeniedHandler" class="com.turingoal.cms.core.commons.TgSecurityAccessDeniedHandler">
         <property name="accessDeniedUrl" value="${security.deniedPageUrl}"></property>
     </bean>
 
-    <!-- 决策管理器,为Web或方法的安全提供访问决策：AffirmativeBased 一票通过，只要有一个投票器通过就允许访问 ConsensusBased 
-        有一半以上投票器通过才允许访问资源 UnanimousBased 所有投票器都通过才允许访问 -->
-    <bean id="accessDecisionManager"
-        class="org.springframework.security.access.vote.AffirmativeBased">
+    <!-- 决策管理器,为Web或方法的安全提供访问决策：AffirmativeBased 一票通过，只要有一个投票器通过就允许访问 ConsensusBased.有一半以上投票器通过才允许访问资源 UnanimousBased 所有投票器都通过才允许访问 -->
+    <bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
         <constructor-arg name="decisionVoters">
             <list>
                 <ref bean="roleVoter" />
@@ -92,13 +186,10 @@
         </constructor-arg>
         <property name="messageSource" ref="messageSource"></property>
     </bean>
-
     <bean id="roleVoter" class="org.springframework.security.access.vote.RoleVoter">
         <property name="rolePrefix" value=""></property>
     </bean>
-
-    <bean id="authenticatedVoter"
-        class="org.springframework.security.access.vote.AuthenticatedVoter" />
+    <bean id="authenticatedVoter" class="org.springframework.security.access.vote.AuthenticatedVoter" />
 
     <!-- 通过数据库管理url -->
     <bean id="filterSecurityInterceptor"
@@ -121,30 +212,37 @@
 
     <!-- 用于认证的AuthenticationManager -->
     <sec:authentication-manager alias="authenticationManager">
-        <sec:authentication-provider ref="authenticationProvider" />
+        <sec:authentication-provider ref="authenticationProvider4fore" />
+        <sec:authentication-provider ref="authenticationProvider4admin" />
     </sec:authentication-manager>
-
-    <!-- authenticationProvider, AuthenticationManager是通过它来认证用户的 -->
-    <bean id="authenticationProvider"
-        class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+    
+    <!-- 前台用户认证 -->
+    <bean id="authenticationProvider4fore" class="com.turingoal.cms.core.commons.TgSecurityAuthenticationProvider4fore">  
         <!-- 用户名不存在抛出UserNotFoundException -->
         <property name="hideUserNotFoundExceptions" value="false" />
         <property name="userDetailsService" ref="userDetailsService" />
         <property name="userCache" ref="userCache" />
         <property name="messageSource" ref="messageSource" />
-        <property name="passwordEncoder" ref="passwordEncoder" />
+        <!-- 用户名和密码 -->
+        <property name="openValidateCaptchaCode" value="${security.openValidateCaptchaCode}" />
+        <property name="errorsLock" value="${security.errorsLock}" />
+        <property name="maxRetryCount" value="${security.maxRetryCount}" />
+    </bean>
+    <!-- 后台用户认证 -->
+    <bean id="authenticationProvider4admin" class="com.turingoal.cms.core.commons.TgSecurityAuthenticationProvider4admin">  
+        <!-- 用户名不存在抛出UserNotFoundException -->
+        <property name="hideUserNotFoundExceptions" value="false" />
+        <property name="userDetailsService" ref="userDetailsService" />
+        <property name="userCache" ref="userCache" />
+        <property name="messageSource" ref="messageSource" />
+        <!-- 用户名和密码 -->
+        <property name="openValidateCaptchaCode" value="${security.openValidateCaptchaCode4admin}" />
+        <property name="errorsLock" value="${security.errorsLock4admin}" />
+        <property name="maxRetryCount" value="${security.maxRetryCount4admin}" />
     </bean>
 
     <!-- 用来获取用户信息 -->
-    <bean id="userDetailsService"
-        class="com.turingoal.cms.core.commons.TgSecurityUserDetailsService" />
-
-    <!-- 密码生成器。 bcrypt算法与md5/sha算法有一个很大的区别，每次生成的hash值都是不同的，这样暴力猜解起来或许要更困难一些 -->
-    <bean id="passwordEncoder"
-        class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <constructor-arg name="strength"
-            value="${security.passwordEncoderStrength}" />
-    </bean>
+    <bean id="userDetailsService" class="com.turingoal.cms.core.commons.TgSecurityUserDetailsService" />
 
     <!-- 防止跨站提交攻击, 但是rest服务会失效，需要自定义一个Matcher -->
     <bean id="csrfSecurityRequestMatcher"
@@ -155,12 +253,40 @@
             </list>
         </property>
     </bean>
+    
+    <!-- sessionManagementFilter 用来控制session，如限制多人登录-->  
+    <bean id="springSecurityConcurrencyFilter" class="org.springframework.security.web.session.ConcurrentSessionFilter">
+        <constructor-arg name="sessionRegistry" ref="springSecuritySessionRegistry" />    
+        <constructor-arg name="expiredUrl" value="${security.loginPageUrl}?type=expired"/>    
+    </bean>  
+    <bean id="springSecuritySessionAuthenticationStrategy" class="org.springframework.security.web.authentication.session.CompositeSessionAuthenticationStrategy">  
+        <constructor-arg>
+            <list>
+                <bean class="org.springframework.security.web.authentication.session.ConcurrentSessionControlAuthenticationStrategy">
+                    <constructor-arg ref="springSecuritySessionRegistry"/>
+                     <!-- 同一个用户最大session数，后来的踢掉前面的 -->
+                    <property name="maximumSessions" value="1" />
+                    <property name="exceptionIfMaximumExceeded" value="false" />
+                </bean>
+                <bean class="org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy"></bean>
+                <bean class="org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy">
+                    <constructor-arg ref="springSecuritySessionRegistry"/>
+                </bean>
+            </list>
+        </constructor-arg>
+    </bean>  
+    <bean id="springSecuritySessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl" /> 
+    
+    <!-- 切换其他人身份 -->
+    <bean id="springSecurityswitchUserFilter" class="org.springframework.security.web.authentication.switchuser.SwitchUserFilter">
+        <property name="userDetailsService" ref="userDetailsService"/>
+        <property name="usernameParameter" value="username"/>
+        <property name="targetUrl" value="/switch/success"/>
+        <property name="switchUserUrl" value="/switch"/>
+        <property name="exitUserUrl" value="/exit"/>
+    </bean>
 
     <!--日志 loggerListener -->
     <bean id="loggerListener"
         class="org.springframework.security.authentication.event.LoggerListener" />
-
-    <!-- 导入其它spring security 配置文件 -->
-    <import resource="classpath:spring-config/spring-security-fore.xml" />
-    <import resource="classpath:spring-config/spring-security-admin.xml" />
 </beans>

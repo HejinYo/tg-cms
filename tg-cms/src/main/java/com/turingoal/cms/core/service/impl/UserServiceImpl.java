@@ -1,20 +1,16 @@
 package com.turingoal.cms.core.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.core.domain.Role;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
-import com.turingoal.cms.core.domain.form.UserRoleForm;
 import com.turingoal.cms.core.domain.query.UserQuery;
 import com.turingoal.cms.core.repository.UserDao;
-import com.turingoal.cms.core.repository.UserRoleDao;
 import com.turingoal.cms.core.service.UserService;
 import com.turingoal.common.annotation.MethodLog;
 import com.turingoal.common.constants.ConstantEditableValue;
@@ -31,8 +27,6 @@ import com.turingoal.common.util.spring.SpringSecurityPasswordHelper;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
-    @Autowired
-    private UserRoleDao userRoleDao;
 
     /**
      * 检查用户密码
@@ -79,42 +73,6 @@ public class UserServiceImpl implements UserService {
     public Page<User> findByPage(final UserQuery query) {
         PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
         return (Page<User>) userDao.find(query);
-    }
-
-    /**
-     * 查询某个用户下的角色id
-     */
-    @MethodLog(name = "查询某个用户下的角色id", description = "查询某个用户下的角色id")
-    public List<String> findRoleIdsByUser(final String userId) {
-        return userRoleDao.getRoleIdsByUser(userId);
-    }
-
-    /**
-     * 查询某个用户下的所有角色信息
-     */
-    @MethodLog(name = "查询某个用户下的所有角色信息", description = "查询某个用户下的所有角色信息")
-    public List<Role> findRolesByUser(final String userId) {
-        return userRoleDao.findByUser(userId);
-    }
-
-    /**
-     * 更新某个用户下的角色
-     */
-    public boolean updateRolesByUser(final String userId, final String roleIds) throws BusinessException {
-        if (userDao.checkEditable(userId) != ConstantEditableValue.EDITABLE_INT) {
-            throw new BusinessException("GE1000");
-        } else {
-            userRoleDao.deleteByUserId(userId);
-            String[] roleIdArray = roleIds.split(",");
-            for (String roleId : roleIdArray) {
-                UserRoleForm urForm = new UserRoleForm();
-                urForm.setUserId(userId);
-                urForm.setRoleId(roleId);
-                urForm.setCreateDataUsername(SystemHelper.getCurrentUsername());
-                userRoleDao.addUserRole(urForm);
-            }
-            return true;
-        }
     }
 
     /**

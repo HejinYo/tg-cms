@@ -2,7 +2,6 @@ package com.turingoal.cms.core.web.controller.admin;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.Page;
 import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.core.domain.Role;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.domain.query.UserQuery;
@@ -44,7 +42,6 @@ public class SecUserController {
     private static final String LIST_PAGE = "core/uum/user/list";
     private static final String ADD_PAGE = "core/uum/user/add";
     private static final String EDIT_PAGE = "core/uum/user/edit";
-    private static final String USER_ROLE_PAGE = "core/uum/user/userRoles";
     private static final String EDIT_PASS = "core/uum/user/editPass";
     @Autowired
     private UserService userService;
@@ -200,29 +197,6 @@ public class SecUserController {
     @ResponseBody
     public final JsonResultBean disable(@PathVariable("id") final String id) throws BusinessException {
         userService.disable(id);
-        return new JsonResultBean(JsonResultBean.SUCCESS);
-    }
-
-    /**
-     * 分配角色列表页面
-     */
-    @RequestMapping(value = "/roleList_{userId}.gsp", method = RequestMethod.GET)
-    public ModelAndView roleList(@PathVariable final String userId) throws BusinessException {
-        ModelAndView mav = new ModelAndView(USER_ROLE_PAGE);
-        User user = userService.get(userId);
-        List<Role> roles = userService.findRolesByUser(userId);
-        mav.addObject("result", user);
-        mav.addObject("roles", roles);
-        return mav;
-    }
-
-    /**
-     * 更新某个用户下的角色
-     */
-    @RequestMapping(value = "/updateRolesByUser.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean updateResourcesByRole(@RequestParam("userId") final String userId, @RequestParam("roleIds") final String roleIds) throws BusinessException {
-        userService.updateRolesByUser(userId, roleIds);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
 

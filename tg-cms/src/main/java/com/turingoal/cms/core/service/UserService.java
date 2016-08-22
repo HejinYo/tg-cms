@@ -1,8 +1,6 @@
 package com.turingoal.cms.core.service;
 
-import java.util.List;
 import com.github.pagehelper.Page;
-import com.turingoal.cms.core.domain.Role;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.domain.query.UserQuery;
@@ -37,20 +35,6 @@ public interface UserService {
      */
     Page<User> findByPage(final UserQuery query);
 
-    /**
-     * 查询某个用户下的角色id
-     */
-    List<String> findRoleIdsByUser(final String userId);
-
-    /**
-     * 查询某个用户下的角色信息
-     */
-    List<Role> findRolesByUser(final String userId);
-
-    /**
-     * 更新某个用户下的角色
-     */
-    boolean updateRolesByUser(final String userId, final String roleIds) throws BusinessException;
 
     /**
      * 通过id得到一个 User

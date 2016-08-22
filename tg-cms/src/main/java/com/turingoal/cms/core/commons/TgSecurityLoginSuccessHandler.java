@@ -28,22 +28,12 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
     private final Logger log = LogManager.getLogger(TgSecurityLoginSuccessHandler.class);
     private String successUrl = "/"; // 登录成功url
     private boolean forwardToDestination = false; // forward方式跳转
-
-    public void setForwardToDestination(final boolean forwardToDestinationParm) {
-        this.forwardToDestination = forwardToDestinationParm;
-    }
-
     private List<SpringSecurityDirectUrlResolver> directUrlResolvers = new ArrayList<SpringSecurityDirectUrlResolver>(); // 多登录页面处理
-
-    public void setDirectUrlResolvers(final List<SpringSecurityDirectUrlResolver> directUrlResolversParm) {
-        this.directUrlResolvers = directUrlResolversParm;
-    }
-
     @Autowired
     private UserDao userDao;
 
     public TgSecurityLoginSuccessHandler() {
-
+        super();
     }
 
     public TgSecurityLoginSuccessHandler(final String defaultTargetUrl) {
@@ -55,7 +45,7 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
     public void onAuthenticationSuccess(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse, final Authentication authentication) throws IOException, ServletException {
         SystemLogHelper.loginLog(authentication.getName(), "用户[登录]系统【成功】！"); // 登录成功日志
         // 多登录页面处理
-        String targetUrl = successUrl;
+        String targetUrl = successUrl; // 每次恢复为默认的
         setDefaultTargetUrl(targetUrl);
         for (SpringSecurityDirectUrlResolver resolver : directUrlResolvers) {
             if (resolver.support(httpServletRequest)) {
@@ -93,6 +83,14 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
                 log.info("无法更新用户登录信息至数据库");
             }
         }
+    }
+
+    public void setForwardToDestination(final boolean forwardToDestinationParm) {
+        this.forwardToDestination = forwardToDestinationParm;
+    }
+
+    public void setDirectUrlResolvers(final List<SpringSecurityDirectUrlResolver> directUrlResolversParm) {
+        this.directUrlResolvers = directUrlResolversParm;
     }
 
     @Override

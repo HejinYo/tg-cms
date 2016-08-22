@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.core.service.ResourceService;
 import com.turingoal.cms.modules.base.service.GlobalService;
 import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.constants.ConstantDateFormatTypes;
-import com.turingoal.common.exception.BusinessException;
 import jodd.util.StringUtil;
 
 /**
@@ -26,8 +24,6 @@ import jodd.util.StringUtil;
 @Controller
 @RequestMapping("/c/index")
 public class SysIndexController {
-    @Autowired
-    private ResourceService resourceService;
     @Autowired
     private GlobalService globalService;
 
@@ -61,33 +57,6 @@ public class SysIndexController {
     @RequestMapping(value = "/about.gsp")
     public String about() {
         return "about";
-    }
-
-    /**
-     * 查询用户菜单树
-     */
-    @RequestMapping(value = "/menuTree.gsp")
-    @ResponseBody
-    public Object menuTree() throws BusinessException {
-        return resourceService.findMenusEnabledTreeByUserId(SystemHelper.getCurrentUserId());
-    }
-
-    /**
-     * 查询用户一级菜单
-     */
-    @RequestMapping(value = "/getFirstLevelMenus.gsp")
-    @ResponseBody
-    public Object getFirstLevelMenusByUser() throws BusinessException {
-        return resourceService.findFirstLevelMenusEnabledByUserId(SystemHelper.getCurrentUserId());
-    }
-
-    /**
-     * 查询用户子菜单
-     */
-    @RequestMapping(value = "/getChildrenMenus.gsp")
-    @ResponseBody
-    public Object findChildrenMenusByUser(final String parentId) throws BusinessException {
-        return resourceService.findChildrenMenusEnabledTreeByUserId(SystemHelper.getCurrentUserId(), parentId);
     }
 
     /**

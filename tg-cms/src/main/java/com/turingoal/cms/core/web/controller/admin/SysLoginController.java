@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.baidu.ueditor.ActionEnter;
 import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.core.service.MonitorSysinfoService;
-import com.turingoal.cms.core.service.ResourceService;
 import com.turingoal.common.util.math.CaptchaUtil;
 
 /**
@@ -27,8 +26,6 @@ import com.turingoal.common.util.math.CaptchaUtil;
  */
 @Controller
 public class SysLoginController {
-    @Autowired
-    private ResourceService resourceService;
     @Autowired
     private MonitorSysinfoService sysinfoService;
 
@@ -74,7 +71,6 @@ public class SysLoginController {
         ModelAndView mav;
         if (SystemHelper.isAuthenticated()) {
             mav = new ModelAndView("index");
-            SystemHelper.setSessionAttibute("auths", resourceService.findPermissionsEnabledByUser(SystemHelper.getCurrentUsername()));
             mav.addObject("resultList", sysinfoService.getInfo(request));
             return mav;
         } else {
