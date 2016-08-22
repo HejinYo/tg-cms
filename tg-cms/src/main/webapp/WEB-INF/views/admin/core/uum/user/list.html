@@ -138,15 +138,11 @@
             if (row.editable === 1) {
                 //修改按钮
                 result += '<a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-                //分配角色
-                result += ' <a href="' + roleUrlPre.replace("{id}", row.id) + '" data-target="#commonSmWin" class="btn btn-info btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i> 分配角色</a>'
                 //删除按钮
                 result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
             } else {
                 //修改按钮
                 result += '<a class="btn btn-primary btn-xs disabled"><i class="fa fa-pencil"></i></a>';
-                //分配角色
-                result += ' <a href="#"  class="btn btn-info btn-xs disabled" type="button"><i class="fa fa-edit"></i> 分配角色</a>'
                 //删除按钮
                 result += ' <a class="btn btn-danger btn-xs disabled"><i class="fa fa-trash-o"></i></a>';
             }
