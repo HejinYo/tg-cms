@@ -33,7 +33,9 @@
 			</div>
 			<!--/*******表单*******/-->
 			<div class="login_form">
-				<form th:action="@{/admin/login}" id="loginForm" method="post">
+				<form th:action="@{/login}" id="loginForm" method="post">
+				    <!--/* 标记为后台 */-->
+                    <input name="tg_domain" type="text" hidden="true" value="admin"/>
 					<div class="form-group">
 						<label for="tg_username" class="t">用户名：</label> <input autofocus="autofocus" id="tg_username" value="" name="tg_username" placeholder="用户名" type="text" class="form-control x319 in" autocomplete="off" maxlength="25" />
 					</div>
