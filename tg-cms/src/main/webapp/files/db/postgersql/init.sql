@@ -1,7 +1,7 @@
 /*
 Navicat PGSQL Data Transfer
 
-Source Server         : 图灵谷-开发服务器
+Source Server         : 182.92.129.128
 Source Server Version : 90404
 Source Host           : 182.92.129.128:5432
 Source Database       : tg_cms
@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90404
 File Encoding         : 65001
 
-Date: 2016-07-15 13:31:10
+Date: 2016-08-22 14:46:07
 */
 
 
@@ -190,11 +190,11 @@ COMMENT ON COLUMN "public"."tg_c_custom_field"."audio_codec" IS '音频编码';
 -- ----------------------------
 -- Records of tg_c_custom_field
 -- ----------------------------
+INSERT INTO "public"."tg_c_custom_field" VALUES ('0d26906b94b4465ab04894b1948862b2', '6', null, '2', '正文', 'infoText', null, '2', '1', '1', '1', 'infoModel', '25fb6951-0819-423e-88b8-b9f1c8b59406', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2016-08-02 00:42:07.448', null, null, null);
 INSERT INTO "public"."tg_c_custom_field" VALUES ('0e7e01ad-0f1c-41bf-be11-b7dd8a5aa658', '1', null, '1', '22', 'cus_str_222', '22', '1', '1', '2', '1', null, null, null, '2', null, null, null, '22', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-09-04 02:19:05.17', null, null, null);
 INSERT INTO "public"."tg_c_custom_field" VALUES ('572f2869-04ab-438e-841e-721cf0fd8d2a', '1', '2', '2', '完整标题', 'fullTitle', null, '1', '1', '13', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null);
 INSERT INTO "public"."tg_c_custom_field" VALUES ('8923bbd3-06ef-44e9-9f3d-51c5f004a543', '6', '2', '1', '正文', 'infoText', null, '1', '1', '10', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null);
 INSERT INTO "public"."tg_c_custom_field" VALUES ('9fd77808-8c73-4ba3-8cc2-f0bbe1fa1798', '1', null, '1', 'ee', 'cus_str_ee', null, '1', '1', '2', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-09-04 02:19:23.293', null, null, null);
-INSERT INTO "public"."tg_c_custom_field" VALUES ('b0f0436f-ea27-457a-bbd3-c3e9d8bd2fa3', '7', null, '2', '图片上传', 'image', null, '2', '1', '4', '1', 'infoModel', '25fb6951-0819-423e-88b8-b9f1c8b59406', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2015-10-20 18:38:08.63', null, null, null);
 INSERT INTO "public"."tg_c_custom_field" VALUES ('cec94905-8247-4fb8-9baf-3dbb22aad2b2', '3', '2', '2', '是否允许评论', 'allowComment', null, '1', '1', '9', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2', null, null, null, null, null, null);
 
 -- ----------------------------
@@ -314,35 +314,6 @@ INSERT INTO "public"."tg_c_dict" VALUES ('e852f16f-7e66-49c1-9115-729b68db85b1',
 INSERT INTO "public"."tg_c_dict" VALUES ('e88b10ad-9697-4d9f-b195-b532dc77e654', 'busType', '水路危险货物运输', '100002002', null, '1', '1', '1', '2015-07-17 15:31:54.803', 'admin', '2015-07-21 19:18:27.864', 'admin');
 INSERT INTO "public"."tg_c_dict" VALUES ('ed4a87bf-8286-4fb8-bbcc-a238952d5ea4', 'busType', '道路运输', '100001', null, '1', '1', '1', '2015-07-17 15:27:02.797', 'admin', null, null);
 INSERT INTO "public"."tg_c_dict" VALUES ('f5f1999a-6719-4e2b-b37b-3b83777a6d5d', 'areaType', '东城', '100001001', null, '1', '1', '1', '2015-07-22 09:32:29.821', 'admin', null, null);
-
--- ----------------------------
--- Table structure for tg_c_group
--- ----------------------------
-DROP TABLE IF EXISTS "public"."tg_c_group";
-CREATE TABLE "public"."tg_c_group" (
-"id" varchar(45) COLLATE "default" NOT NULL,
-"group_name" varchar(45) COLLATE "default",
-"sort_order" int2,
-"description" varchar(255) COLLATE "default",
-"editable" int2,
-"enabled" int2,
-"create_data_time" timestamp(6),
-"create_data_username" varchar(45) COLLATE "default",
-"update_data_time" timestamp(6),
-"update_data_username" varchar(45) COLLATE "default"
-)
-WITH (OIDS=FALSE)
-
-;
-COMMENT ON COLUMN "public"."tg_c_group"."id" IS '用户组';
-COMMENT ON COLUMN "public"."tg_c_group"."group_name" IS '用户组名称';
-COMMENT ON COLUMN "public"."tg_c_group"."sort_order" IS '排序';
-COMMENT ON COLUMN "public"."tg_c_group"."description" IS '描述';
-COMMENT ON COLUMN "public"."tg_c_group"."editable" IS '是否可编辑';
-
--- ----------------------------
--- Records of tg_c_group
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for tg_c_log
@@ -1315,141 +1286,6 @@ COMMENT ON COLUMN "public"."tg_c_message"."enabled" IS '状态 2未读 1 已读'
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for tg_c_resource
--- ----------------------------
-DROP TABLE IF EXISTS "public"."tg_c_resource";
-CREATE TABLE "public"."tg_c_resource" (
-"id" varchar(45) COLLATE "default" NOT NULL,
-"icon_cls" varchar(45) COLLATE "default",
-"resource_name" varchar(45) COLLATE "default" NOT NULL,
-"type" int2 NOT NULL,
-"code" varchar(100) COLLATE "default",
-"permission" varchar(45) COLLATE "default" NOT NULL,
-"perm_value" varchar(100) COLLATE "default",
-"description" varchar(200) COLLATE "default",
-"parent_id" varchar(45) COLLATE "default",
-"sort_order" int2 NOT NULL,
-"editable" int2 DEFAULT 1 NOT NULL,
-"enabled" int2 DEFAULT 1 NOT NULL,
-"create_data_time" timestamp(6),
-"create_data_username" varchar(45) COLLATE "default",
-"update_data_time" timestamp(6),
-"update_data_username" varchar(45) COLLATE "default",
-"domain" int2,
-"code_num" varchar(45) COLLATE "default"
-)
-WITH (OIDS=FALSE)
-
-;
-COMMENT ON COLUMN "public"."tg_c_resource"."id" IS '资源表';
-COMMENT ON COLUMN "public"."tg_c_resource"."resource_name" IS '名称';
-COMMENT ON COLUMN "public"."tg_c_resource"."type" IS '资源类型 1菜单 2按钮 3方法';
-COMMENT ON COLUMN "public"."tg_c_resource"."code" IS '权限代码';
-COMMENT ON COLUMN "public"."tg_c_resource"."permission" IS '权限标识';
-COMMENT ON COLUMN "public"."tg_c_resource"."description" IS '描述';
-COMMENT ON COLUMN "public"."tg_c_resource"."sort_order" IS '优先级';
-COMMENT ON COLUMN "public"."tg_c_resource"."editable" IS '是否可编辑  1可编辑 2不可编辑';
-COMMENT ON COLUMN "public"."tg_c_resource"."enabled" IS '是否可用';
-COMMENT ON COLUMN "public"."tg_c_resource"."domain" IS '1 后台 2前台';
-
--- ----------------------------
--- Records of tg_c_resource
--- ----------------------------
-INSERT INTO "public"."tg_c_resource" VALUES ('0529d9a4-effa-4b3c-9816-12babc3b1beb', null, '操作日志', '1', null, 'logOperateList', null, null, '84113afa-df07-4247-8666-f164a7acbefa', '33', '1', '1', '2015-11-06 16:15:33.774', 'admin', '2015-11-06 16:23:52.868', 'admin', null, '700001');
-INSERT INTO "public"."tg_c_resource" VALUES ('0ad63955-9c6f-4541-a239-e276e302f723', null, 'TAG管理', '1', null, 'tag', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '11', '1', '1', '2015-11-06 15:18:06.936', 'admin', null, null, null, '100004');
-INSERT INTO "public"."tg_c_resource" VALUES ('186a9eac-855c-4c52-995c-8af38bd2453b', null, '用户管理', '1', null, 'user', null, null, '41e189b1-f4b7-4669-a4ae-2786aff6c65c', '30', '1', '1', '2015-11-06 16:22:19.989', 'admin', null, null, null, '600001');
-INSERT INTO "public"."tg_c_resource" VALUES ('19f4363b-f82c-4385-8503-be8b0284a8ea', null, '模型配置', '1', null, 'model', null, null, 'e42baff4-dee1-4dad-b57a-ded0a137d2b7', '27', '1', '1', '2015-11-06 16:13:04.806', 'admin', null, null, null, '500004');
-INSERT INTO "public"."tg_c_resource" VALUES ('2426b670-1238-49a3-ac51-0d844e64b063', null, '招聘管理', '1', null, 'resume', null, null, '6a04b2df-1923-4b29-8f0b-f0d748fdf52a', '23', '1', '1', '2015-11-06 15:46:44.475', 'admin', null, null, null, '400001');
-INSERT INTO "public"."tg_c_resource" VALUES ('2b989ea2-a0c1-4af2-a514-54f294c4c34f', null, '友情链接类型', '1', null, 'friendlinkType', null, null, '870e7f29-22ed-450d-a591-0673765808fe', '21', '1', '1', '2015-11-06 15:28:36.324', 'admin', null, null, null, '300004');
-INSERT INTO "public"."tg_c_resource" VALUES ('2d906c65-a953-440b-9fab-87f6f9ec1739', null, '广告管理', '1', null, 'ad', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '14', '1', '1', '2015-11-06 15:21:20.626', 'admin', null, null, null, '100007');
-INSERT INTO "public"."tg_c_resource" VALUES ('37b27cd8-1abd-4074-a2ac-e35b8434d194', null, '内容管理', '1', null, 'content', null, null, '0', '1', '1', '1', '2015-11-06 15:10:15.619', 'admin', '2015-11-06 15:11:30.061', 'admin', null, '100');
-INSERT INTO "public"."tg_c_resource" VALUES ('3a2510e7-3304-4e5d-85ef-e08c732ba443', null, '发布点配置', '1', null, 'publishPoint', null, null, 'e42baff4-dee1-4dad-b57a-ded0a137d2b7', '24', '1', '1', '2015-11-06 16:01:12.786', 'admin', null, null, null, '500001');
-INSERT INTO "public"."tg_c_resource" VALUES ('41e189b1-f4b7-4669-a4ae-2786aff6c65c', null, '用户权限', '1', null, 'auth', null, null, '0', '6', '1', '1', '2015-11-06 15:13:16.798', 'admin', null, null, null, '600');
-INSERT INTO "public"."tg_c_resource" VALUES ('4a250108-18d9-4bc3-971b-a3a737f9f5fb', null, '缓存监控', '1', null, 'cache', null, null, '84113afa-df07-4247-8666-f164a7acbefa', '37', '1', '1', '2015-11-06 16:18:04.858', 'admin', '2015-11-06 16:24:21.694', 'admin', null, '700005');
-INSERT INTO "public"."tg_c_resource" VALUES ('4b3d50fc-f507-493e-9eb6-9670173f53cf', null, '图片管理', '1', null, 'image', null, null, 'fd31bbdf-39f4-4f7c-b6e5-1096b8d474ee', '16', '1', '1', '2015-11-06 15:24:46.606', 'admin', null, null, null, '200001');
-INSERT INTO "public"."tg_c_resource" VALUES ('4d497c5e-9d7a-4003-9f77-e4cd31b66ffb', null, '视频管理', '1', null, 'video', null, null, 'fd31bbdf-39f4-4f7c-b6e5-1096b8d474ee', '17', '1', '1', '2015-11-06 15:25:23.771', 'admin', null, null, null, '200002');
-INSERT INTO "public"."tg_c_resource" VALUES ('543e5fb8-443a-4744-ad33-1f2af5b0c166', null, '评分组配置', '1', null, 'scoreGroup', null, null, 'e42baff4-dee1-4dad-b57a-ded0a137d2b7', '29', '1', '1', '2015-11-06 16:14:39.329', 'admin', null, null, null, '500006');
-INSERT INTO "public"."tg_c_resource" VALUES ('69f54916-8243-4562-a29a-037cf3500628', null, '文章属性', '1', null, 'attr', null, null, 'e42baff4-dee1-4dad-b57a-ded0a137d2b7', '28', '1', '1', '2015-11-06 16:13:40.499', 'admin', null, null, null, '500005');
-INSERT INTO "public"."tg_c_resource" VALUES ('6a04b2df-1923-4b29-8f0b-f0d748fdf52a', null, '插件管理', '1', null, 'plug', null, null, '0', '4', '1', '1', '2015-11-06 15:12:25.277', 'admin', null, null, null, '400');
-INSERT INTO "public"."tg_c_resource" VALUES ('74395a8b-adaf-40b5-a469-f7ef7fdfb930', null, '全局参数', '1', null, 'global', null, null, 'e42baff4-dee1-4dad-b57a-ded0a137d2b7', '25', '1', '1', '2015-11-06 16:02:14.584', 'admin', null, null, null, '500002');
-INSERT INTO "public"."tg_c_resource" VALUES ('751a3e3e-b18b-434e-9b83-9066247ed561', null, '模板配置', '1', null, 'template', null, null, 'e42baff4-dee1-4dad-b57a-ded0a137d2b7', '26', '1', '1', '2015-11-06 16:02:50.67', 'admin', '2015-11-06 16:11:08.374', 'admin', null, '500003');
-INSERT INTO "public"."tg_c_resource" VALUES ('7d948f43-39dd-4796-a2fe-8dc39f7a28f1', null, '广告位管理', '1', null, 'adSlot', null, null, '870e7f29-22ed-450d-a591-0673765808fe', '22', '1', '1', '2015-11-06 15:45:18.484', 'admin', null, null, null, '300005');
-INSERT INTO "public"."tg_c_resource" VALUES ('81dc1502-c2a9-4d73-a36e-3db725d4713e', null, '问卷管理', '1', null, 'question', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '15', '1', '1', '2015-11-06 15:23:03.062', 'admin', null, null, null, '100008');
-INSERT INTO "public"."tg_c_resource" VALUES ('84113afa-df07-4247-8666-f164a7acbefa', null, '系统监控', '1', null, 'monitor', null, null, '0', '7', '1', '1', '2015-11-06 15:13:52.681', 'admin', null, null, null, '700');
-INSERT INTO "public"."tg_c_resource" VALUES ('870e7f29-22ed-450d-a591-0673765808fe', null, '站点管理', '1', null, 'siteManager', null, null, '0', '3', '1', '1', '2015-11-06 15:12:01.167', 'admin', null, null, null, '300');
-INSERT INTO "public"."tg_c_resource" VALUES ('880168fb-5f91-4059-b1cd-56357ca26e2d', null, '文章管理', '1', null, 'info', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '8', '1', '1', '2015-11-06 15:15:08.739', 'admin', '2015-11-07 17:43:57.401', 'admin', null, '100001');
-INSERT INTO "public"."tg_c_resource" VALUES ('904ff7c5-f708-4701-944c-6f69512cd1b6', null, '登录日志', '1', null, 'logLoginList', null, null, '84113afa-df07-4247-8666-f164a7acbefa', '34', '1', '1', '2015-11-06 16:16:13.566', 'admin', '2015-11-06 16:23:59.933', 'admin', null, '700002');
-INSERT INTO "public"."tg_c_resource" VALUES ('a44a01b2-d4dc-47d2-b53a-a941cae91934', null, '投票管理', '1', null, 'vote', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '13', '1', '1', '2015-11-06 15:19:13.633', 'admin', null, null, null, '100006');
-INSERT INTO "public"."tg_c_resource" VALUES ('a9f91a9a-f29a-4380-8751-16e1af38c31f', null, '角色管理', '1', null, 'role', null, null, '41e189b1-f4b7-4669-a4ae-2786aff6c65c', '31', '1', '1', '2015-11-06 16:22:56.479', 'admin', null, null, null, '600002');
-INSERT INTO "public"."tg_c_resource" VALUES ('af69c3e3-037c-4e5e-ba23-ba04bc06ab2f', null, '资源管理', '1', null, 'resource', null, null, '41e189b1-f4b7-4669-a4ae-2786aff6c65c', '32', '1', '1', '2015-11-06 16:23:41.606', 'admin', null, null, null, '600003');
-INSERT INTO "public"."tg_c_resource" VALUES ('be274da5-f052-4029-a8f8-341d8cc7e91d', null, '留言管理', '1', null, 'guestbook', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '10', '1', '1', '2015-11-06 15:17:25.057', 'admin', null, null, null, '100003');
-INSERT INTO "public"."tg_c_resource" VALUES ('cee96dd6-05cc-43c8-9e8e-a19ff804c23c', null, '系统信息', '1', null, 'sysinfo', null, null, '84113afa-df07-4247-8666-f164a7acbefa', '35', '1', '1', '2015-11-06 16:16:56.307', 'admin', '2015-11-06 16:24:06.868', 'admin', null, '700003');
-INSERT INTO "public"."tg_c_resource" VALUES ('defe1d58-f8a3-466a-8113-25bfacfc6be9', null, '留言板类型', '1', null, 'guestbookType', null, null, '870e7f29-22ed-450d-a591-0673765808fe', '20', '1', '1', '2015-11-06 15:28:01.731', 'admin', null, null, null, '300003');
-INSERT INTO "public"."tg_c_resource" VALUES ('e42baff4-dee1-4dad-b57a-ded0a137d2b7', null, '全局配置', '1', null, 'gconfig', null, null, '0', '5', '1', '1', '2015-11-06 15:12:50.443', 'admin', null, null, null, '500');
-INSERT INTO "public"."tg_c_resource" VALUES ('e61c33c4-ec6a-450d-9c40-b595b8219d27', null, '专题分类', '1', null, 'specialType', null, null, '870e7f29-22ed-450d-a591-0673765808fe', '19', '1', '1', '2015-11-06 15:27:11.616', 'admin', null, null, null, '300002');
-INSERT INTO "public"."tg_c_resource" VALUES ('e8d23fb4-64a9-49c5-9ed6-4836d7c2f6cd', null, '线程监控', '1', null, 'thread', null, null, '84113afa-df07-4247-8666-f164a7acbefa', '36', '1', '1', '2015-11-06 16:17:32.021', 'admin', '2015-11-06 16:24:14.787', 'admin', null, '700004');
-INSERT INTO "public"."tg_c_resource" VALUES ('ed74c875-dd7d-4b55-bec1-12e00d1577c7', null, '栏目管理', '1', null, 'node', null, null, '870e7f29-22ed-450d-a591-0673765808fe', '18', '1', '1', '2015-11-06 15:26:25.642', 'admin', null, null, null, '300001');
-INSERT INTO "public"."tg_c_resource" VALUES ('fa455f84-9dd1-4095-80fc-44924248a47e', null, '友情链接', '1', null, 'friendlink', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '12', '1', '1', '2015-11-06 15:18:37.314', 'admin', null, null, null, '100005');
-INSERT INTO "public"."tg_c_resource" VALUES ('fd31bbdf-39f4-4f7c-b6e5-1096b8d474ee', null, '素材管理', '1', null, 'material', null, null, '0', '2', '1', '1', '2015-11-06 15:11:25.504', 'admin', null, null, null, '200');
-INSERT INTO "public"."tg_c_resource" VALUES ('ff767d2f-4834-426a-88da-c1962855a1db', null, '专题管理', '1', null, 'special', null, null, '37b27cd8-1abd-4074-a2ac-e35b8434d194', '9', '1', '1', '2015-11-06 15:16:42.011', 'admin', null, null, null, '100002');
-
--- ----------------------------
--- Table structure for tg_c_role
--- ----------------------------
-DROP TABLE IF EXISTS "public"."tg_c_role";
-CREATE TABLE "public"."tg_c_role" (
-"id" varchar(45) COLLATE "default" NOT NULL,
-"code_num" varchar(45) COLLATE "default" NOT NULL,
-"role_name" varchar(45) COLLATE "default" NOT NULL,
-"description" varchar(200) COLLATE "default",
-"sort_order" int2 DEFAULT 1 NOT NULL,
-"editable" int2 DEFAULT 1 NOT NULL,
-"enabled" int2 DEFAULT 1 NOT NULL,
-"create_data_time" timestamp(6),
-"create_data_username" varchar(45) COLLATE "default",
-"update_data_time" timestamp(6),
-"update_data_username" varchar(45) COLLATE "default"
-)
-WITH (OIDS=FALSE)
-
-;
-COMMENT ON COLUMN "public"."tg_c_role"."id" IS '角色表';
-COMMENT ON COLUMN "public"."tg_c_role"."code_num" IS '编码';
-COMMENT ON COLUMN "public"."tg_c_role"."role_name" IS '角色名称';
-COMMENT ON COLUMN "public"."tg_c_role"."description" IS '描述';
-COMMENT ON COLUMN "public"."tg_c_role"."sort_order" IS '排序';
-COMMENT ON COLUMN "public"."tg_c_role"."editable" IS '是否可编辑  1可编辑 2不可编辑';
-COMMENT ON COLUMN "public"."tg_c_role"."enabled" IS '是否可用';
-
--- ----------------------------
--- Records of tg_c_role
--- ----------------------------
-INSERT INTO "public"."tg_c_role" VALUES ('6d9d23f7-c2c2-43c2-8176-b4ef8470dcf2', 'test', 'test', 'test', '1', '1', '1', '2016-01-22 09:52:14.833', 'admin', null, null);
-INSERT INTO "public"."tg_c_role" VALUES ('a2189154-603c-44b1-be03-ca0f3d715cbc', 'test', 'test', 'test', '1', '1', '1', '2016-01-22 10:08:26.167', 'admin', null, null);
-
--- ----------------------------
--- Table structure for tg_c_role_resource
--- ----------------------------
-DROP TABLE IF EXISTS "public"."tg_c_role_resource";
-CREATE TABLE "public"."tg_c_role_resource" (
-"id" varchar(45) COLLATE "default" NOT NULL,
-"resource_id" varchar(45) COLLATE "default" NOT NULL,
-"role_id" varchar(45) COLLATE "default" NOT NULL,
-"create_data_time" timestamp(6),
-"create_data_username" varchar(45) COLLATE "default",
-"update_data_time" timestamp(6),
-"update_data_username" varchar(45) COLLATE "default"
-)
-WITH (OIDS=FALSE)
-
-;
-COMMENT ON COLUMN "public"."tg_c_role_resource"."id" IS '角色资源中间表';
-
--- ----------------------------
--- Records of tg_c_role_resource
--- ----------------------------
-
--- ----------------------------
 -- Table structure for tg_c_user
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."tg_c_user";
@@ -1480,7 +1316,8 @@ CREATE TABLE "public"."tg_c_user" (
 "create_data_time" timestamp(6),
 "create_data_username" varchar(45) COLLATE "default",
 "update_data_time" timestamp(6),
-"update_data_username" varchar(45) COLLATE "default"
+"update_data_username" varchar(45) COLLATE "default",
+"domain" varchar(45) COLLATE "default"
 )
 WITH (OIDS=FALSE)
 
@@ -1505,30 +1342,8 @@ COMMENT ON COLUMN "public"."tg_c_user"."enabled" IS '是否可用';
 -- ----------------------------
 -- Records of tg_c_user
 -- ----------------------------
-INSERT INTO "public"."tg_c_user" VALUES ('27f71240-dbff-4378-a5db-a526194c9917', 'jason', 'jason', '$2a$11$3XpZgmghdUZJv0hCgJiuruOsixjq1tTQWTUa1wsQnHkx3jIvPk3V2', '1', null, null, null, null, null, null, null, null, null, '2015-11-06 16:33:02.103', '0:0:0:0:0:0:0:1', '2015-11-06 16:34:29.345', '0:0:0:0:0:0:0:1', null, null, null, '1', '1', null, null, null, null);
-INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', '2015-01-01 12:00:00', '', '', '', '', '', '', '', '', '2016-07-05 14:48:03.288', '0:0:0:0:0:0:0:1', '2016-07-15 13:03:30.274', '0:0:0:0:0:0:0:1', '2016-06-18 13:33:34.792', null, null, '1', '1', null, null, null, null);
-
--- ----------------------------
--- Table structure for tg_c_user_role
--- ----------------------------
-DROP TABLE IF EXISTS "public"."tg_c_user_role";
-CREATE TABLE "public"."tg_c_user_role" (
-"id" varchar(45) COLLATE "default" NOT NULL,
-"user_id" varchar(45) COLLATE "default" NOT NULL,
-"role_id" varchar(45) COLLATE "default" NOT NULL,
-"create_data_time" timestamp(6),
-"create_data_username" varchar(45) COLLATE "default",
-"update_data_time" timestamp(6),
-"update_data_username" varchar(45) COLLATE "default"
-)
-WITH (OIDS=FALSE)
-
-;
-COMMENT ON COLUMN "public"."tg_c_user_role"."id" IS '用户角色表';
-
--- ----------------------------
--- Records of tg_c_user_role
--- ----------------------------
+INSERT INTO "public"."tg_c_user" VALUES ('27f71240-dbff-4378-a5db-a526194c9917', 'jason', 'jason', '$2a$11$3XpZgmghdUZJv0hCgJiuruOsixjq1tTQWTUa1wsQnHkx3jIvPk3V2', '1', null, null, null, null, null, null, null, null, null, '2015-11-06 16:33:02.103', '0:0:0:0:0:0:0:1', '2015-11-06 16:34:29.345', '0:0:0:0:0:0:0:1', null, null, null, '1', '1', null, null, null, null, 'default');
+INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', '2015-01-01 12:00:00', '', '', '', '', '', '', '', '', '2016-08-22 12:19:39.913', '0:0:0:0:0:0:0:1', '2016-08-22 12:22:16.042', '0:0:0:0:0:0:0:1', '2016-08-10 15:42:03.753', null, null, '1', '1', null, null, null, null, 'admin');
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_attr
@@ -1847,12 +1662,15 @@ COMMENT ON COLUMN "public"."tg_cms_m_base_image"."description" IS '描述';
 -- ----------------------------
 -- Records of tg_cms_m_base_image
 -- ----------------------------
+INSERT INTO "public"."tg_cms_m_base_image" VALUES ('1ad39f2f870f4feeb3847fba368ac278', 'jpg', '开机页03.jpg', '292864', '/uploads/image/201608/20160810/1ad39f2f870f4feeb3847fba368ac278.jpg', '6677A32D581A8B79B295A9733CFA7A84', null, null, '2016-08-10 16:58:13.303', null, '2016-08-10 16:58:13.251', null, null, null);
 INSERT INTO "public"."tg_cms_m_base_image" VALUES ('3d11d74e-3d72-4e1f-ac80-abd97d1a37cd', 'jpg', 's3.jpg', '11868', '/uploads/image/201511/20151104/3d11d74e-3d72-4e1f-ac80-abd97d1a37cd.jpg', '40029B853ABF7C2E144F78A9BAF6BFB9', null, null, '2015-11-04 17:37:18.956', null, '2015-11-04 17:37:18.944', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_image" VALUES ('52368548ca6a4d6cab6c63bf8bcfc090', 'png', 'TimeScheduler.png', '11406', '/uploads/image/201607/20160716/52368548ca6a4d6cab6c63bf8bcfc090.png', 'BF9B0B0757EF907864590B1F5A5D7687', null, null, '2016-07-16 14:27:15.166', null, '2016-07-16 14:27:14.68', null, null, null);
 INSERT INTO "public"."tg_cms_m_base_image" VALUES ('730774fd-5a6c-447c-87ed-a97a57ff222b', 'jpg', 's1.jpg', '28708', '/uploads/image/201511/20151104/730774fd-5a6c-447c-87ed-a97a57ff222b.jpg', 'EE78FC14C8ED0B043B7D0BA4EA230712', null, null, '2015-11-04 17:35:25.465', null, '2015-11-04 17:35:25.306', null, null, null);
 INSERT INTO "public"."tg_cms_m_base_image" VALUES ('8a21acc4-34e7-48ba-9095-5175a8facf59', 'jpg', 's4.jpg', '25802', '/uploads/image/201511/20151104/8a21acc4-34e7-48ba-9095-5175a8facf59.jpg', '178C0EA2DB430ABE4779D614BAD2A9B', null, null, '2015-11-04 17:37:31.609', null, '2015-11-04 17:37:31.587', null, null, null);
 INSERT INTO "public"."tg_cms_m_base_image" VALUES ('94932566-27e4-47d9-b481-c0bf3ce78525', 'jpg', 's5.jpg', '17747', '/uploads/image/201511/20151104/94932566-27e4-47d9-b481-c0bf3ce78525.jpg', '35B99DC0029FFBDA4A97D161E2FDB7BF', null, null, '2015-11-04 17:37:45.814', null, '2015-11-04 17:37:45.795', null, null, null);
 INSERT INTO "public"."tg_cms_m_base_image" VALUES ('b3d0c9fd-a994-4342-893b-75a2ccb73db9', 'jpg', 's2.jpg', '16149', '/uploads/image/201511/20151104/b3d0c9fd-a994-4342-893b-75a2ccb73db9.jpg', '59715480A915F3A74C00CCEAB0F640BC', null, null, '2015-11-04 17:37:07.49', null, '2015-11-04 17:37:07.467', null, null, null);
 INSERT INTO "public"."tg_cms_m_base_image" VALUES ('bd365916-11c2-4246-a903-3c2c91b2e08b', 'jpg', 's6.jpg', '22250', '/uploads/image/201511/20151104/bd365916-11c2-4246-a903-3c2c91b2e08b.jpg', 'AC3F319A83B9794EA341401A87E1A5CF', null, null, '2015-11-04 17:37:58.717', null, '2015-11-04 17:37:58.7', null, null, null);
+INSERT INTO "public"."tg_cms_m_base_image" VALUES ('c933ef624ae044c7a4ab0e101c73b385', 'jpg', 'welcome_2.jpg', '242751', '/uploads/image/201608/20160810/c933ef624ae044c7a4ab0e101c73b385.jpg', 'E0F7817387BDA4D36C438D0F387440CF', null, null, '2016-08-10 16:57:49.148', null, '2016-08-10 16:57:49.028', null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_info
@@ -1941,6 +1759,7 @@ INSERT INTO "public"."tg_cms_m_base_info" VALUES ('      ', '8f59a63d-62da-455e-
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('310d5a92-eb3d-467a-ae97-3da8b3a04697', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2016-02-04 00:00:00', '2016-06-18 21:20:25.258', null, '1', '2', '0', '0', '0', '0', '0', null, null, '基于微信公众号的webapp产品时间沙漏正式上线', null, null, null, null, null, '2', '2', null, null, null, '基于微信公众号的webapp产品时间沙漏正式上线，敬请关注微信公众号： 时间沙漏   turingoal-time', null, null, null, null, null, null, null, null, '1', '2016-02-03 04:13:45.385', 'admin', '2016-06-18 21:20:25.256', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('48b6d899-f4b7-4b59-b597-42dfa9fcbf7c', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:58.501', null, '4', '2', '0', '0', '0', '0', '0', null, null, '图灵谷统一业务服务平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷统一业务服务平台，代号“奠基”，是图灵谷的基础平台，实现了系统的统一用户认证，统一权限管理，统一任务调度，统一系统监控等常见系统服务。', null, null, null, null, '4aaaf450-92e7-44e8-9fe1-988706fd8f62', null, null, null, '1', '2015-11-03 16:09:00.405', 'admin', '2015-11-03 17:25:58.5', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('5f9810aa-e3e3-4520-a315-57ebb4062284', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:24.414', null, '1', '2', '0', '0', '0', '0', '0', null, null, '全媒体内容管理发布平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷全媒体内容管理发布平台整合了图、文、音视频等媒体资源，实现了全媒体的内容管理与发布的统一平台。', null, null, null, null, '2a575829-f41d-4b89-8f68-5d057487315f', null, null, null, '1', '2015-11-03 16:01:43.081', 'admin', '2015-11-03 17:25:24.411', 'admin');
+INSERT INTO "public"."tg_cms_m_base_info" VALUES ('689ee8d4f2994a7eaae75456a745b041', 'f1b54eff-f129-4eba-be08-0e2be9586d28', '2016-08-10 00:00:00', '2016-08-10 16:52:15.581', '2016-08-12 00:00:00', '1', '2', '0', '0', '0', '0', '0', null, null, 'Launching', null, null, null, null, null, '2', '2', null, null, null, null, null, null, null, '<p>&gt;...&lt;</p>', null, null, null, null, '1', '2016-08-10 16:51:44.928', 'admin', '2016-08-10 16:52:15.58', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('6ce5e5d9-62e5-47bc-9c84-4a12d671c80c', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2015-07-25 00:00:00', '2016-01-31 20:37:27.307', null, '1', '2', '0', '0', '0', '0', '0', null, null, '与北京中平科学技术院签署项目协议', null, null, null, null, null, '2', '2', null, null, null, '图灵谷与北京中平科学技术院正式签署项目开发协议。该项目对图灵谷未来的发展方向有着重要意义', null, null, null, null, null, null, null, null, '1', '2016-01-31 20:36:51.404', 'admin', '2016-01-31 20:37:27.301', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('6d40826d-e2d7-4841-8ccb-89e20bdec54d', '8f59a63d-62da-455e-b907-a5c1aca9c9bb', '2015-11-01 00:00:00', '2015-11-03 17:25:37.021', null, '2', '2', '0', '0', '0', '0', '0', null, null, '互联网直播点播平台', null, null, null, null, null, '2', '2', null, null, null, '图灵谷互联网直播点播平台通过流媒体技术实现了PC、手机等多终端音视频的直播点播功能。', null, null, null, null, '873994bd-d3a7-4d52-a8c8-6426100a8b01', null, null, null, '1', '2015-11-03 16:02:27.151', 'admin', '2015-11-03 17:25:37.02', 'admin');
 INSERT INTO "public"."tg_cms_m_base_info" VALUES ('6f40bed6-705d-4f8c-96d6-8afce9a8f2d9', 'e5c0a198-c8ac-4a69-8b3c-a13479f64191', '2015-10-27 00:00:00', '2016-01-31 20:38:14.067', null, '1', '2', '0', '0', '0', '0', '0', null, null, '图灵谷发布开源项目 — 糖果cms', null, null, null, null, null, '2', '2', null, null, null, '图灵谷在目前中国最大的开源技术社区oschina上发布开源项目糖果cms，这是一个java开发的cms，一个免费开源的cms，一个简单易用的cms。相信在广大技术爱好者的共同努力下她会一步步成长起来', null, null, null, null, null, null, null, null, '1', '2016-01-31 20:38:14.067', 'admin', null, null);
@@ -2364,25 +2183,22 @@ COMMENT ON COLUMN "public"."tg_cms_m_base_tag"."refers" IS '文档数量';
 -- ----------------------------
 -- Records of tg_cms_m_base_tag
 -- ----------------------------
-INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('11', '今年夏天', '1', null, null, null, null);
-INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('14', '转型', '1', null, null, null, null);
+INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('11', '今年夏天到了', '1', null, null, '2016-08-08 11:46:56.101', 'admin');
+INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('14', '转型1', '1', null, null, '2016-08-08 13:32:35.652', 'admin');
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('15', '国平', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('16', '新闻 中国123123123', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('17', '美国生活', '1', null, null, null, null);
-INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('18', '美', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('19', '解放军', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('20', '灰机部队123123', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('21', '解放军 灰机', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('22', '公司简介111', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('23', 'en公司简介', '1', null, null, null, null);
-INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('24', '2013年中国', '1', null, null, null, null);
+INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('24', '2013年中国1', '1', null, null, '2016-08-08 11:46:43.105', 'admin');
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('338ad5fd-7368-489d-8cf9-f934698bcfd7', '2', '1', '2015-09-02 22:42:13.966', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('338ca3be-f0e2-43ac-a235-b75df8cbece1', '123456', '0', '2015-09-04 11:57:45.385', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('341378c692df46739000dbef5452933a', 'rew', '0', '2016-06-20 11:19:55.932', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('35ae36f3-d3b6-4f97-a6bb-519c55003208', '奋进', '-1', '2015-09-04 14:50:20.9', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('369c8d09-67bf-4529-bc81-0790f86ab74e', '22', '-1', '2015-09-04 13:57:54.826', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('3939d76f-3d1f-4c80-be70-ea3036b16604', '天气', '-1', '2015-11-04 15:39:20.863', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('4', 'A', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('4c0c5cb1-20fc-4a41-a94e-4fd5c46180bf', '张晓东、试试，调度', '-1', '2015-10-20 18:54:02.423', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('5', '董事长致辞', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_base_tag" VALUES ('5c9e8c94-2cdc-4611-a122-91f48b9b24fc', '12312', '0', null, null, null, null);
@@ -2421,6 +2237,7 @@ COMMENT ON COLUMN "public"."tg_cms_m_base_template"."sort_order" IS '排序';
 -- Records of tg_cms_m_base_template
 -- ----------------------------
 INSERT INTO "public"."tg_cms_m_base_template" VALUES ('8115b2dd-80c0-4f44-b43e-dc09bf5e2f88', 'default', 'default', null, null, '2015-11-03 17:20:10.875', 'admin', '2015-11-03 17:20:17.936', 'admin');
+INSERT INTO "public"."tg_cms_m_base_template" VALUES ('9cd32a00faad44eb8263eaa1cefd83ed', 'test', 'test', '试试看', null, '2016-07-20 17:20:59.854', 'admin', '2016-07-20 17:21:13.123', 'admin');
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_video
@@ -2506,7 +2323,6 @@ INSERT INTO "public"."tg_cms_m_ext_ad" VALUES ('66852d42-5feb-4e81-a138-b28032a7
 INSERT INTO "public"."tg_cms_m_ext_ad" VALUES ('7a93e460-0c75-45d6-bb02-5631e2e743a3', '3', '讨厌讨厌', '2015-09-03 00:00:00', '2015-09-11 00:00:00', 'http://www.baidu.com', 'as发生', 'asdfsa', null, null, '1', '2015-09-04 10:28:02.007', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_ext_ad" VALUES ('85853cfe-3901-4ddd-b4b1-0832cdd5b85e', '2', '王老吉', '2015-09-01 00:00:00', '2015-09-16 00:00:00', 'http://www.baidu.com', '还是原来的配方', 'asdfsdf', null, null, '1', '2015-09-04 10:07:18.554', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_ext_ad" VALUES ('9b310b4f-090e-42c3-b970-d34382723005', '3', '三个傻瓜', '2015-09-01 00:00:00', '2015-09-02 00:00:00', 'http://www.baidu.com', '豆腐干', 'dgdg', null, null, '1', '2015-09-04 10:29:36.243', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_ext_ad" VALUES ('a9b37446-6799-40dd-af11-60896a52885f', '2', '222', null, null, 'http://www.baidu.com', null, 'aas', 'd44cdce4-8352-4df1-ab90-91cbe9553dfd', 'b6033ad6-1977-42b4-aa96-47317402ea83', '1', '2015-09-06 18:58:25.931', 'admin', '2015-09-06 18:58:56.983', 'admin');
 INSERT INTO "public"."tg_cms_m_ext_ad" VALUES ('ead787ed-705b-4be2-a62c-d94aec833724', '3', '根深蒂固', '2015-09-30 00:00:00', '2015-10-09 00:00:00', 'http://www.baidu.com', '豆腐干', 'sdfgd', null, null, '1', '2015-09-04 10:30:25.321', 'admin', null, null);
 
 -- ----------------------------
@@ -2600,7 +2416,7 @@ INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('54f25fb0-27a7-499b-8ec7-
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('660b9dc1-ff2b-4e13-bec0-ee399825ea2e', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '优衣库', 'http://www.baidu.com', null, '4565@qq.com', '1', '5', 'ad抒发抒发抒发刮大风', '1', '2015-08-12 09:33:06.696', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('6b84f3ca-181f-4321-af69-1710bb3efe7a', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '33', 'http://qq.com', null, null, '2', '2', null, '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('8c3a86fe-7ed6-41e5-a1a5-94e6be896d6f', 'dac4f264-18e8-4fb3-9e1d-067fceebd4b0', '优衣库111', 'www.baidu.com', null, '4565@qq.com', '1', '5', '地方萨嘎短发发生', '1', '2015-08-12 09:29:34.04', 'admin', null, null);
-INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('a241b02c-9a53-4042-a589-b33366ab314c', '6', '天堂鸟', 'www.baidu.com', null, '4646@ss.com', '2', '2', '卡死地方咯额的方法', '1', '2015-08-12 09:17:15.623', 'admin', null, null);
+INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('a241b02c-9a53-4042-a589-b33366ab314c', '6', '天堂鸟', 'www.baidu.com', null, '4646@ss.com', '1', '2', '卡死地方咯额的方法', '1', '2015-08-12 09:17:15.623', 'admin', null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('a85e7cc0-74bc-491a-b967-36ae18655fcd', '5', 'aaaaaa', 'http://www.baidu.com', null, '111@qq.com', '2', '29', '123123', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('cdffbe83-3883-4aff-a6d8-7ed8fe3b139c', '5', '123', '123', null, '123', '1', '28', '123', '1', null, null, null, null);
 INSERT INTO "public"."tg_cms_m_ext_friendlink" VALUES ('ff0f0bc5-6ee1-4bd2-8e2b-b01211539b73', '5', '312', '3213', '123', '123', '2', '26', '123', '2', null, null, null, null);
@@ -2804,8 +2620,8 @@ COMMENT ON COLUMN "public"."tg_cms_m_ext_question_item"."sort_order" IS '排序'
 -- ----------------------------
 -- Records of tg_cms_m_ext_question_item
 -- ----------------------------
-INSERT INTO "public"."tg_cms_m_ext_question_item" VALUES ('3cb17271-fb6c-4e48-a05e-705111495b41', '07d62e57-0df4-44e4-8327-4b10f8d42652', '1', '1', '0', '1', '2015-09-06 09:51:47.007', null, null, null);
-INSERT INTO "public"."tg_cms_m_ext_question_item" VALUES ('570b1241-08ca-4f11-9536-668ca3dc59a0', '07d62e57-0df4-44e4-8327-4b10f8d42652', '2', '1', '0', '1', '2015-09-06 09:55:49.43', null, null, null);
+INSERT INTO "public"."tg_cms_m_ext_question_item" VALUES ('3cb17271-fb6c-4e48-a05e-705111495b41', '07d62e57-0df4-44e4-8327-4b10f8d42652', 'SubTitle1', '1', '0', '1', '2015-09-06 09:51:47.007', null, '2016-08-10 16:53:45.22', null);
+INSERT INTO "public"."tg_cms_m_ext_question_item" VALUES ('570b1241-08ca-4f11-9536-668ca3dc59a0', '07d62e57-0df4-44e4-8327-4b10f8d42652', 'SubTitle2', '1', '0', '1', '2015-09-06 09:55:49.43', null, '2016-08-10 16:53:34.574', null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_ext_question_option
@@ -2836,7 +2652,9 @@ COMMENT ON COLUMN "public"."tg_cms_m_ext_question_option"."sort_order" IS '排�
 -- ----------------------------
 -- Records of tg_cms_m_ext_question_option
 -- ----------------------------
-INSERT INTO "public"."tg_cms_m_ext_question_option" VALUES ('547f3869-5ff3-4f05-8d28-6c362243c0f8', '3cb17271-fb6c-4e48-a05e-705111495b41', '1', '1', '0', '1', '2015-09-06 10:50:42.509', null, null, null);
+INSERT INTO "public"."tg_cms_m_ext_question_option" VALUES ('03d16f8e10b44b9295940c0af5ff4508', '570b1241-08ca-4f11-9536-668ca3dc59a0', 'Title1', '1', '0', '1', '2016-08-10 16:54:01.134', null, null, null);
+INSERT INTO "public"."tg_cms_m_ext_question_option" VALUES ('547f3869-5ff3-4f05-8d28-6c362243c0f8', '3cb17271-fb6c-4e48-a05e-705111495b41', 'Title1', '1', '0', '1', '2015-09-06 10:50:42.509', null, '2016-08-10 16:53:20.542', null);
+INSERT INTO "public"."tg_cms_m_ext_question_option" VALUES ('e257360fd16e45e1939bc0cad997f2c1', '570b1241-08ca-4f11-9536-668ca3dc59a0', 'Title2', '1', '0', '1', '2016-08-10 16:54:08.091', null, null, null);
 
 -- ----------------------------
 -- Table structure for tg_cms_m_ext_question_record
@@ -3152,39 +2970,14 @@ CREATE UNIQUE INDEX "id_UNIQUE" ON "public"."tg_c_dict" USING btree ("id");
 ALTER TABLE "public"."tg_c_dict" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table tg_c_group
--- ----------------------------
-ALTER TABLE "public"."tg_c_group" ADD PRIMARY KEY ("id");
-
--- ----------------------------
 -- Primary Key structure for table tg_c_message
 -- ----------------------------
 ALTER TABLE "public"."tg_c_message" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
--- Primary Key structure for table tg_c_resource
--- ----------------------------
-ALTER TABLE "public"."tg_c_resource" ADD PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table tg_c_role
--- ----------------------------
-ALTER TABLE "public"."tg_c_role" ADD PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table tg_c_role_resource
--- ----------------------------
-ALTER TABLE "public"."tg_c_role_resource" ADD PRIMARY KEY ("id");
-
--- ----------------------------
 -- Primary Key structure for table tg_c_user
 -- ----------------------------
 ALTER TABLE "public"."tg_c_user" ADD PRIMARY KEY ("id");
-
--- ----------------------------
--- Primary Key structure for table tg_c_user_role
--- ----------------------------
-ALTER TABLE "public"."tg_c_user_role" ADD PRIMARY KEY ("id");
 
 -- ----------------------------
 -- Primary Key structure for table tg_cms_m_base_attr
