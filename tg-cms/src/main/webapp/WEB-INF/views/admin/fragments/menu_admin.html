@@ -62,8 +62,6 @@
 					<li th:class="${root == 'uum'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-user"></i> <span> 用户权限</span> <i class="fa fa-angle-right drop-icon"></i></a>
 						<ul class="submenu">
 							<li th:class="${current == 'user'}? 'active'"><a th:href="@{/admin/c/user/list.gsp}"> 用户管理</a></li>
-							<li th:class="${current == 'role'}? 'active'"><a th:href="@{/admin/c/role/list.gsp}"> 角色管理</a></li>
-							<li th:class="${current == 'resource'}? 'active'"><a th:href="@{/admin/c/resource/list.gsp}"> 资源管理</a></li>
 						</ul></li>
 					<li th:class="${root == 'monitor'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-binoculars"></i> <span> 系统监控</span> <i class="fa fa-angle-right drop-icon"></i></a>
 						<ul class="submenu">
