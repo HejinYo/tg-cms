@@ -19,15 +19,15 @@
 			</div>
 			<div class="nav-no-collapse pull-right" id="header-nav">
 				<ul class="nav navbar-nav pull-right">
-					<li class="dropdown profile-dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <!-- <img src="" alt="" />  --> <span class="hidden-xs" th:text="${session.currentUser.realname}">name</span> <b class="caret"></b>
+					<li class="dropdown profile-dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <!-- <img src="" alt="" />  --> <span class="hidden-xs" th:text="|当前用户：${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}|">name</span> <b class="caret"></b>
 					</a>
 						<ul class="dropdown-menu dropdown-menu-right">
 							<li><a th:href="@{/admin/c/user/updateCurrentUser.gsp}" data-target="#commonSmWin" data-toggle="modal"><i class="fa fa-user"></i>个人信息</a></li>
 							<li><a th:href="@{/admin/c/user/editPass.gsp}" data-target="#commonSmWin" data-toggle="modal"><i class="fa fa-key"></i>修改密码</a></li>
 							<li><a type="button" onclick="tg_lockScreen()" title="锁定系统"><i class="fa fa-lock"></i>锁定系统 </a></li>
-							<li><a th:href="@{/admin/logout}" title="退出系统"><i class="fa fa-power-off"></i>退出系统 </a></li>
+							<li><a th:href="@{/logout}" title="退出系统"><i class="fa fa-power-off"></i>退出系统 </a></li>
 						</ul></li>
-					<li class="hidden-xxs"><a th:href="@{/admin/logout}" class="btn"> <i class="fa fa-power-off"></i>
+					<li class="hidden-xxs"><a th:href="@{/logout}" class="btn"> <i class="fa fa-power-off"></i>
 					</a></li>
 				</ul>
 			</div>
