@@ -89,12 +89,12 @@
         "data" : "nodeName"
     }, {
         "data" : "enabled",
-        render : function(data,type,row,meta){
-		    if(data==1){
-		        return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
-		    }else{
-                   return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
-		    }
+        render : function(data, type, row, meta) {
+            if (data == 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+            } else {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+            }
         }
     }, {
         "data" : "codeNum"
@@ -106,21 +106,21 @@
         "data" : "hidden",
         "class" : "text-center", //最后一列，操作按钮
         render : function(data, type, row, meta) {
-			if(data===1){
-			    return '<span class="text-success">是</span>';
-			}else{
-			    return '<span class="text-danger">否</span>';
-			}
+            if (data === 1) {
+                return '<span class="text-success">是</span>';
+            } else {
+                return '<span class="text-danger">否</span>';
+            }
         }
     }, {
         "data" : "realNode",
         "class" : "text-center", //最后一列，操作按钮
         render : function(data, type, row, meta) {
-			if(data===1){
-			    return '<span class="text-success">是</span>';
-			}else{
-			    return '<span class="text-danger">否</span>';
-			}
+            if (data === 1) {
+                return '<span class="text-success">是</span>';
+            } else {
+                return '<span class="text-danger">否</span>';
+            }
         }
     }, {
         "data" : "sortOrder"
@@ -154,7 +154,7 @@
         columns : columns, //表格列
         dataTableDiv : 'dataTable', //表格
         ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-        pageable : true, //是否分页
+        pageable : false, //是否分页
         showIndexColumn : true, //是否显示第一列的索引列
         enabledChange : true
     };
