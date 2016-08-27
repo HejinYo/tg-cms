@@ -305,10 +305,10 @@ public final class SystemHelper {
     /**
      * 校验验证码
      */
-    public static void checkValidateCode(final String captcha) {
+    public static void checkValidateCode(final String captchaStr) {
         String captchaCode = "";
-        if (captcha != null) {
-            captchaCode = captcha.trim().toLowerCase();
+        if (captchaStr != null) {
+            captchaCode = captchaStr.trim().toLowerCase();
         }
         if (captchaCode == null) {
             throw new CaptchaRequiredException("请填写验证码！");

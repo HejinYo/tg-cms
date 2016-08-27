@@ -32,7 +32,7 @@ public class TgSecurityAuthenticationTokenResolver4admin extends SpringSecurityA
             captcha = captcha.trim();
         }
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        authorities.add(new SimpleGrantedAuthority("DOMAIN_ADMIN"));
         TgSecurityAuthenticationToken4admin token = new TgSecurityAuthenticationToken4admin(username, password, authorities, captcha);
         return token;
     }

@@ -1,7 +1,6 @@
 package com.turingoal.cms.core.domain;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
@@ -38,6 +37,7 @@ public class User implements UserDetails, Serializable {
     private Integer locked = ConstantLockedValue.UNLOCKED_INT; // 是否锁定
     private Integer userEnabled = ConstantEnabledValue.ENABLED_INT; // 是否启用
     private List<String> userPermissions; // 用户拥有的Permission
+    private List<? extends GrantedAuthority> authorities;
     private String domain; // 用户所属域， 前台、后台
 
     /**
@@ -47,8 +47,6 @@ public class User implements UserDetails, Serializable {
     private void setEnabled(final Integer enabled) {
         userEnabled = enabled;
     }
-
-    private Collection<? extends GrantedAuthority> authorities;
 
     @Override
     public String getPassword() {

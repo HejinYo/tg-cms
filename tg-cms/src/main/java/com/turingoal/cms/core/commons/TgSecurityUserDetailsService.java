@@ -1,7 +1,6 @@
 package com.turingoal.cms.core.commons;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +22,7 @@ public class TgSecurityUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        Collection<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
         User user = userDao.getByUsername(username.trim());
         if (user == null) {
             log.info("用户不存在");
@@ -38,7 +37,7 @@ public class TgSecurityUserDetailsService implements UserDetailsService {
     /**
      * 根据用户名获取到用户的角色并封装成GrantedAuthority集合
      */
-    public Collection<GrantedAuthority> loadUserAuthorities(final String userId) {
+    public List<GrantedAuthority> loadUserAuthorities(final String userId) {
         List<GrantedAuthority> auths = new ArrayList<GrantedAuthority>();
         return auths;
     }

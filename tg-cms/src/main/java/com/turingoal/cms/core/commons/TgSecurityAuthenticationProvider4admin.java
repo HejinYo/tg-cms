@@ -1,5 +1,6 @@
 package com.turingoal.cms.core.commons;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -148,12 +149,15 @@ public class TgSecurityAuthenticationProvider4admin extends SpringSecurityAbstra
     /**
      * 创建登录成功的Authentication,必须使用对应的类型
      */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     protected TgSecurityAuthenticationToken4admin createSuccessAuthentication(final Authentication authentication, final UserDetails user) {
         Object principalToReturn = user;
         // 是否只保存用户名
         if (isForcePrincipalAsString()) {
             principalToReturn = user.getUsername();
         }
+        List c = (List) user.getAuthorities(); // 添加默认的角色
+        c.addAll(authentication.getAuthorities());
         TgSecurityAuthenticationToken4admin result = new TgSecurityAuthenticationToken4admin(principalToReturn, authentication.getCredentials(), user.getAuthorities());
         result.setDetails(authentication.getDetails());
         return result;
