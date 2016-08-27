@@ -11,7 +11,7 @@ Target Server Type    : PGSQL
 Target Server Version : 90404
 File Encoding         : 65001
 
-Date: 2016-08-22 14:46:07
+Date: 2016-08-27 16:55:31
 */
 
 
@@ -1294,16 +1294,6 @@ CREATE TABLE "public"."tg_c_user" (
 "username" varchar(45) COLLATE "default" NOT NULL,
 "realname" varchar(45) COLLATE "default",
 "user_pass" varchar(100) COLLATE "default",
-"gender" int2,
-"birthday" timestamp(6),
-"id_card_num" varchar(45) COLLATE "default",
-"cellphone_number" varchar(45) COLLATE "default",
-"telephone_number" varchar(45) COLLATE "default",
-"email" varchar(45) COLLATE "default",
-"nationality" varchar(45) COLLATE "default",
-"diploma" varchar(45) COLLATE "default",
-"qq" varchar(45) COLLATE "default",
-"wechat" varchar(45) COLLATE "default",
 "pre_login_time" timestamp(6),
 "pre_login_ip" varchar(45) COLLATE "default",
 "last_login_time" timestamp(6),
@@ -1325,10 +1315,6 @@ WITH (OIDS=FALSE)
 COMMENT ON COLUMN "public"."tg_c_user"."id" IS '用户表';
 COMMENT ON COLUMN "public"."tg_c_user"."username" IS '用户名';
 COMMENT ON COLUMN "public"."tg_c_user"."realname" IS '真实姓名';
-COMMENT ON COLUMN "public"."tg_c_user"."nationality" IS '民族';
-COMMENT ON COLUMN "public"."tg_c_user"."diploma" IS '最高学历';
-COMMENT ON COLUMN "public"."tg_c_user"."qq" IS 'qq号';
-COMMENT ON COLUMN "public"."tg_c_user"."wechat" IS '微信号';
 COMMENT ON COLUMN "public"."tg_c_user"."pre_login_time" IS '上次登录时间';
 COMMENT ON COLUMN "public"."tg_c_user"."pre_login_ip" IS '上次登录ip';
 COMMENT ON COLUMN "public"."tg_c_user"."last_login_time" IS '最后登录时间';
@@ -1342,8 +1328,8 @@ COMMENT ON COLUMN "public"."tg_c_user"."enabled" IS '是否可用';
 -- ----------------------------
 -- Records of tg_c_user
 -- ----------------------------
-INSERT INTO "public"."tg_c_user" VALUES ('27f71240-dbff-4378-a5db-a526194c9917', 'jason', 'jason', '$2a$11$3XpZgmghdUZJv0hCgJiuruOsixjq1tTQWTUa1wsQnHkx3jIvPk3V2', '1', null, null, null, null, null, null, null, null, null, '2015-11-06 16:33:02.103', '0:0:0:0:0:0:0:1', '2015-11-06 16:34:29.345', '0:0:0:0:0:0:0:1', null, null, null, '1', '1', null, null, null, null, 'default');
-INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '1', '2015-01-01 12:00:00', '', '', '', '', '', '', '', '', '2016-08-22 12:19:39.913', '0:0:0:0:0:0:0:1', '2016-08-22 12:22:16.042', '0:0:0:0:0:0:0:1', '2016-08-10 15:42:03.753', null, null, '1', '1', null, null, null, null, 'admin');
+INSERT INTO "public"."tg_c_user" VALUES ('27f71240-dbff-4378-a5db-a526194c9917', 'jason', 'jason', '$2a$11$3XpZgmghdUZJv0hCgJiuruOsixjq1tTQWTUa1wsQnHkx3jIvPk3V2', '2015-11-06 16:33:02.103', '0:0:0:0:0:0:0:1', '2015-11-06 16:34:29.345', '0:0:0:0:0:0:0:1', null, null, null, '1', '1', null, null, null, null, 'default');
+INSERT INTO "public"."tg_c_user" VALUES ('a1498eba-536b-4c20-a612-286319468318', 'admin', 'admin', '$2a$11$zyvrkb4U5/.OWFEDtJgMlOGRmCy7UrI.zFOezjxRZ1o1qJdRA6MR6', '2016-08-27 16:39:31.199', '0:0:0:0:0:0:0:1', '2016-08-27 16:49:51.365', '0:0:0:0:0:0:0:1', '2016-08-10 15:42:03.753', null, null, '1', '1', null, null, null, null, 'admin');
 
 -- ----------------------------
 -- Table structure for tg_cms_m_base_attr
