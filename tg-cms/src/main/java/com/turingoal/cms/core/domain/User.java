@@ -20,12 +20,6 @@ public class User implements UserDetails, Serializable {
     private String username; // 用户名
     private String realname; // 真实姓名
     private String userPass; // 密码
-    private String idCardNum; // 身份证号
-    private Integer gender; // 性别
-    private Date birthday; // 出生日期
-    private String cellphoneNumber; // 手机号
-    private String telephoneNumber; // 电话号码
-    private String email; // 邮箱
     private Date preLoginTime; // 上次登录时间
     private String preLoginIp; // 上次登录ip
     private Date lastLoginTime; // 最后登录时间

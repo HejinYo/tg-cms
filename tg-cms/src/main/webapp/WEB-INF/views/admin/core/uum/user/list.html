@@ -40,8 +40,6 @@
 									<th class="text-center">状态</th>
 									<th>用户名</th>
 									<th>真实姓名</th>
-									<th class="text-center">性别</th>
-									<th class="text-center">手机</th>
 									<th class="text-center">最后登录时间</th>
 									<th class="text-center">最后登录IP</th>
 									<th class="text-center">可否编辑</th>
@@ -99,19 +97,6 @@
         "data" : "username"
     }, {
         "data" : "realname"
-    }, {
-        "data" : "gender",
-        "class" : "text-center",
-        render : function(data, type, row, meta) {
-            if (data === 1) {
-                return '<i class="fa fa-male text-success">';
-            } else if (data !== 1) {
-                return '<i class="fa fa-female text-danger"></i>';
-            }
-        }
-    }, {
-        "data" : "cellphoneNumber",
-        "class" : "text-center"
     }, {
         "data" : "lastLoginTime",
         "class" : "text-center"

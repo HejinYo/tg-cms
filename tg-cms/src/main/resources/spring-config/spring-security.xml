@@ -205,7 +205,7 @@
         <!-- intercept-url。顺序很重要，spring security按顺序获得第一个匹配的url，通过放行不继续匹配，不通过结束 -->
         <property name="interceptUrlsMap">
             <map>
-                <entry key="/admin/**" value="IS_AUTHENTICATED_FULLY" />
+                <entry key="/admin/**" value="DOMAIN_ADMIN" />
             </map>
         </property>
     </bean>

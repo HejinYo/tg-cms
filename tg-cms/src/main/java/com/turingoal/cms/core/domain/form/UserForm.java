@@ -3,7 +3,6 @@ package com.turingoal.cms.core.domain.form;
 import java.io.Serializable;
 import java.util.Date;
 import javax.validation.constraints.Size;
-import org.apache.bval.constraints.Email;
 import org.apache.bval.constraints.NotEmpty;
 import com.turingoal.common.bean.BaseFormBean;
 import com.turingoal.common.util.validator.ValidGroupAdd;
@@ -25,13 +24,6 @@ public class UserForm extends BaseFormBean implements Serializable {
     @Size(min = 1, max = 20, message = "【 真实姓名】最少1个字符，最大20个字符！", groups = { ValidGroupAdd.class, ValidGroupUpdate.class })
     private String realname; // 真实姓名
     private String userPass; // 密码
-    private String idCardNum; // 身份证号
-    private Integer gender; // 性别
-    private Date birthday; // 出生日期
-    private String cellphoneNumber; // 手机号
-    private String telephoneNumber; // 电话号码
-    @Email(message = "【邮箱】格式不正确！")
-    private String email; // 邮箱
     private Date accountExpireTime; // 账户过期时间
     private Date credentialsExpireTime; // 凭证过期时间
     private Date preLoginTime; // 上次登录时间

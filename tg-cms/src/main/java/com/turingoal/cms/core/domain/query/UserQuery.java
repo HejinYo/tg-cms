@@ -17,12 +17,6 @@ public class UserQuery extends BaseQueryBean implements Serializable {
     private String username; // 用户名
     private String realname; // 真实姓名
     private String userPass; // 密码
-    private String idCardNum; // 身份证号
-    private Integer gender; // 性别
-    private Date birthday; // 出生日期
-    private String cellphoneNumber; // 手机号
-    private String telephoneNumber; // 电话号码
-    private String email; // 邮箱
     private Date accountExpireTime; // 账户过期时间
     private Date credentialsExpireTime; // 凭证过期时间
     private Integer locked; // 是否锁定

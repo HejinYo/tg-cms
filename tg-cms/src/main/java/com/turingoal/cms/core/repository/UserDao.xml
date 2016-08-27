@@ -31,8 +31,6 @@
         <if test="simpleQueryParam != null and simpleQueryParam!=''">  
             WHERE username LIKE CONCAT('%',#{simpleQueryParam},'%')
             OR realname LIKE CONCAT('%',#{simpleQueryParam},'%')
-            OR telephone_number LIKE CONCAT('%',#{simpleQueryParam},'%')
-            OR email LIKE CONCAT('%',#{simpleQueryParam},'%')
         </if>  
          ORDER BY enabled ASC, username ASC
     </select>
@@ -45,13 +43,11 @@
     <!-- 新增 User -->
     <insert id="add" parameterType="com.turingoal.cms.core.domain.form.UserForm">
         INSERT INTO tg_c_user (
-            id, username, realname, user_pass, gender, birthday, 
-            id_card_num, cellphone_number, telephone_number, email,
+            id, username, realname, user_pass,
             create_data_time, create_data_username
         )
         VALUES(
-            #{id}, #{username}, #{realname}, #{userPass}, #{gender}, #{birthday}, 
-            #{idCardNum}, #{cellphoneNumber}, #{telephoneNumber}, #{email},
+            #{id}, #{username}, #{realname}, #{userPass}, 
             #{createDataTime}, #{createDataUsername}
         )
     </insert>
@@ -59,8 +55,7 @@
     <!-- 修改 User -->
     <update id="update" parameterType="com.turingoal.cms.core.domain.form.UserForm">
         UPDATE tg_c_user SET
-            realname = #{realname}, gender = #{gender}, birthday = #{birthday}, 
-            id_card_num = #{idCardNum}, cellphone_number = #{cellphoneNumber}, telephone_number = #{telephoneNumber}, email = #{email},
+            realname = #{realname}, 
             update_data_time = #{updateDataTime},
             update_data_username = #{updateDataUsername}
         WHERE id = #{id} AND editable = 1
@@ -69,8 +64,7 @@
     <!-- 修改当前 User -->
     <update id="updateCurrentUser" parameterType="com.turingoal.cms.core.domain.form.UserForm">
         UPDATE tg_c_user SET
-            gender = #{gender}, birthday = #{birthday}, 
-            cellphone_number = #{cellphoneNumber}, telephone_number = #{telephoneNumber}, email = #{email},
+            realname = #{realname}, 
             update_data_time = #{updateDataTime},
             update_data_username = #{updateDataUsername}
         WHERE id = #{id}
