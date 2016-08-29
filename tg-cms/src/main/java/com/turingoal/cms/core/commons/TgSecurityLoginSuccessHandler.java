@@ -17,7 +17,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.repository.UserDao;
-import com.turingoal.common.util.net.IPUtil;
 import com.turingoal.common.util.spring.SpringSecurityDirectUrlResolver;
 import jodd.util.StringUtil;
 
@@ -75,8 +74,12 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
         try {
             UserForm userForm = new UserForm();
             userForm.setId(user.getId());
-            userForm.setLastLoginTime(new Date()); // 修改时间
-            userForm.setLastLoginIp(IPUtil.getIpAddr(httpServletRequest));
+            userForm.setLastLoginTime(new Date()); // 最后登录时间
+            String ip = SystemHelper.getCurrentUserIp();
+            userForm.setLastLoginIp(ip); // 最后登录ip
+            userForm.setLastLoginLoc(SystemHelper.getCurrentUserRegion(ip)); // 最后登录地点
+            userForm.setLastLoginClientType("Web"); // 最后登录客户端类型
+            userForm.setLastLoginClientDesc(httpServletRequest.getHeader("User-Agent")); // 最后登录客户端详情
             userDao.updateUserLoginInfo(userForm);
         } catch (DataAccessException e) {
             if (log.isWarnEnabled()) {

@@ -18,6 +18,7 @@ import com.turingoal.common.constants.ConstantSystemValues;
 import com.turingoal.common.exception.CaptchaIncorrectException;
 import com.turingoal.common.exception.CaptchaRequiredException;
 import com.turingoal.common.util.math.CaptchaUtil;
+import com.turingoal.common.util.net.IPUtil;
 import com.turingoal.common.util.spring.SpringSecurityPasswordHelper;
 
 /**
@@ -217,12 +218,19 @@ public final class SystemHelper {
      * 得到当前用户IP
      */
     public static String getCurrentUserIp() {
-        String currentUserIp = "";
+        String currentUserIp = "未知IP";
         HttpServletRequest request = getRequest();
         if (request != null) {
-            currentUserIp = request.getRemoteAddr();
+            currentUserIp = IPUtil.getIpAddr(request);
         }
         return currentUserIp;
+    }
+
+    /**
+     * 得到当前用户IP对应的地址
+     */
+    public static String getCurrentUserRegion(final String ip) {
+        return IPUtil.getIpRegion(ip);
     }
 
     /**

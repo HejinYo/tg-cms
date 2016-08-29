@@ -22,9 +22,16 @@ public class User implements UserDetails, Serializable {
     private String userPass; // 密码
     private Date preLoginTime; // 上次登录时间
     private String preLoginIp; // 上次登录ip
+    private String preLoginLoc; // 上次登录地址
+    private String preLoginClientType; // 上次登录客户端类型
+    private String preLoginClientDesc; // 上次登录客户端详细
     private Date lastLoginTime; // 最后登录时间
     private String lastLoginIp; // 最后登录ip
+    private String lastLoginLoc; // 最后登录地址
+    private String lastLoginClientType; // 最后登录客户端类型
+    private String lastLoginClientDesc; // 最后登录客户端详细
     private Date lastLogoutTime; // 最后登出时间
+    private Integer loginCount; // 登录次数
     private Date accountExpireTime; // 账户过期时间
     private Date credentialsExpireTime; // 凭证过期时间
     private Integer editable = ConstantEditableValue.EDITABLE_INT; // 是否可编辑
