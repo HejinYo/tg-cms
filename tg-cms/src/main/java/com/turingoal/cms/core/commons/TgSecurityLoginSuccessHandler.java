@@ -78,7 +78,7 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
             String ip = SystemHelper.getCurrentUserIp();
             userForm.setLastLoginIp(ip); // 最后登录ip
             userForm.setLastLoginLoc(SystemHelper.getCurrentUserRegion(ip)); // 最后登录地点
-            userForm.setLastLoginClientType("Web"); // 最后登录客户端类型
+            userForm.setLastLoginClientType("web"); // 最后登录客户端类型
             userForm.setLastLoginClientDesc(httpServletRequest.getHeader("User-Agent")); // 最后登录客户端详情
             userDao.updateUserLoginInfo(userForm);
         } catch (DataAccessException e) {

@@ -73,8 +73,11 @@
     <!-- 修改 User登录信息 -->
     <update id="updateUserLoginInfo" parameterType="com.turingoal.cms.core.domain.form.UserForm">
         UPDATE tg_c_user SET
-            pre_login_time =last_login_time, pre_login_ip = last_login_ip,
-            last_login_time = #{lastLoginTime}, last_login_ip = #{lastLoginIp}
+            pre_login_time = last_login_time, pre_login_ip = last_login_ip, pre_login_loc = last_login_loc, 
+            pre_login_client_type = last_login_client_type, pre_login_client_desc = last_login_client_desc, 
+            last_login_time = #{lastLoginTime}, last_login_ip = #{lastLoginIp}, last_login_loc = #{lastLoginLoc}, 
+            last_login_client_type = #{lastLoginClientType}, last_login_client_desc = #{lastLoginClientDesc}, 
+            login_count = login_count + 1 
         WHERE id = #{id}
     </update>
     
