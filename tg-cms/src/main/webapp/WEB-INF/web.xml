@@ -23,6 +23,15 @@
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+    <!--对 cookie进行处理，加强安全性-->
+    <filter>
+        <filter-name>cookieFilter</filter-name>
+        <filter-class>com.turingoal.cms.core.filter.TgCookieFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>cookieFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 	<!-- spring 配置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
