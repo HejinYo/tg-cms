@@ -27,7 +27,7 @@ public class SystemInitListener implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(final ContextRefreshedEvent event) {
         // 在web 项目中（spring mvc），系统会存在两个容器，一个是root application context ,另一个就是我们自己的 context（作为root application context的子容器）。 这种情况下，就会造成onApplicationEvent方法被执行两次。为了避免上面提到的问题，我们可以只在root application context初始化完成后调用逻辑代码，其他的容器的初始化完成，则不做任何处理
         if (event.getApplicationContext().getParent() == null) {
-            log.info("系统启动");
+            log.info("************系统[{}]启动完成!************", application.getServletContextName());
             // 校验license
             TgLicenseChcker.checkInit(application, SystemInitListener.class);
             // 是否开启验证码
