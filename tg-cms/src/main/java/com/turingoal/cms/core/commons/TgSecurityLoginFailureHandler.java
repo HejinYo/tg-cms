@@ -2,21 +2,24 @@ package com.turingoal.cms.core.commons;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.UrlUtils;
-
+import com.turingoal.cms.core.domain.form.LogInfoForm;
+import com.turingoal.cms.core.domain.form.UserForm;
+import com.turingoal.cms.core.repository.LogInfoDao;
+import com.turingoal.common.constants.ConstantLogInfoTypes;
 import com.turingoal.common.support.spring.SpringSecurityDirectUrlResolver;
-
 import jodd.util.StringUtil;
 
 /**
@@ -28,6 +31,8 @@ public class TgSecurityLoginFailureHandler extends SimpleUrlAuthenticationFailur
     private String failureUrl; // 登录失败默认url
     private String usernameParameter = "username"; // 用户名参数
     private List<SpringSecurityDirectUrlResolver> directUrlResolvers = new ArrayList<SpringSecurityDirectUrlResolver>(); // 多登录页面处理
+    @Autowired
+    private LogInfoDao logInfoDao;
 
     public TgSecurityLoginFailureHandler() {
         super();
@@ -42,7 +47,7 @@ public class TgSecurityLoginFailureHandler extends SimpleUrlAuthenticationFailur
      * 认证失败
      */
     public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException exception) throws IOException, ServletException {
-        SystemLogHelper.loginLog(request.getParameter(usernameParameter), "用户[登录]系统【失败】：" + exception.getLocalizedMessage()); // 登录失败日志
+        String username = request.getParameter(usernameParameter); // 用户名
         // 多登录页面处理
         String targetUrl = failureUrl; // 每次恢复成默认的
         setDefaultFailureUrl(targetUrl);
@@ -52,6 +57,8 @@ public class TgSecurityLoginFailureHandler extends SimpleUrlAuthenticationFailur
                 setDefaultFailureUrl(targetUrl);
             }
         }
+        // 保存用户登录信息
+        saveLoginInfo(request, username, exception);
         if (targetUrl == null) {
             log.debug("没有配置defaultFailureUrl, sending 401 Unauthorized error");
             response.sendError(AUTHENTICATION_FAILURE_CODE, "认证失败: " + exception.getMessage());
@@ -63,6 +70,35 @@ public class TgSecurityLoginFailureHandler extends SimpleUrlAuthenticationFailur
             } else {
                 log.debug("登录失败，Redirecting 到页面 " + targetUrl);
                 getRedirectStrategy().sendRedirect(request, response, targetUrl);
+            }
+        }
+    }
+
+    /**
+     * 保存用户登录信息
+     */
+    private void saveLoginInfo(final HttpServletRequest httpServletRequest, final String username, final AuthenticationException exception) {
+        // 修改用户登录信息
+        try {
+            UserForm userForm = new UserForm();
+            userForm.setId(null);
+            userForm.setUsername(username);
+            userForm.setLastLoginTime(new Date()); // 最后登录时间
+            String ip = SystemHelper.getCurrentUserIp();
+            userForm.setLastLoginIp(ip); // 最后登录ip
+            userForm.setLastLoginLoc(SystemHelper.getCurrentUserRegion(ip)); // 最后登录地点
+            userForm.setLastLoginClientType("web"); // 最后登录客户端类型
+            userForm.setLastLoginClientDesc(httpServletRequest.getHeader("User-Agent")); // 最后登录客户端详情
+            // 保存登录日志信息
+            LogInfoForm loginForm = new LogInfoForm(userForm);
+            loginForm.setLogType(ConstantLogInfoTypes.LOGIN_LOG);
+            loginForm.setException(exception.getMessage());
+            loginForm.setMessage("用户" + username + "[登录]系统【失败】！");
+            loginForm.setSuccess(2);
+            logInfoDao.add(loginForm);
+        } catch (DataAccessException e) {
+            if (log.isWarnEnabled()) {
+                log.info("无法更新用户登录信息至数据库");
             }
         }
     }

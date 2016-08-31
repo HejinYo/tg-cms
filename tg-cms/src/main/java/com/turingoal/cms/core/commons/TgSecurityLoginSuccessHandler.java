@@ -19,6 +19,7 @@ import com.turingoal.cms.core.domain.form.LogInfoForm;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.core.repository.UserDao;
+import com.turingoal.common.constants.ConstantLogInfoTypes;
 import com.turingoal.common.support.spring.SpringSecurityDirectUrlResolver;
 import jodd.util.StringUtil;
 
@@ -46,7 +47,6 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
 
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest httpServletRequest, final HttpServletResponse httpServletResponse, final Authentication authentication) throws IOException, ServletException {
-        SystemLogHelper.loginLog(authentication.getName(), "用户[登录]系统【成功】！"); // 登录成功日志
         // 多登录页面处理
         String targetUrl = successUrl; // 每次恢复为默认的
         setDefaultTargetUrl(targetUrl);
@@ -88,6 +88,7 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
             userDao.updateUserLoginInfo(userForm);
             // 保存登录日志信息
             LogInfoForm loginForm = new LogInfoForm(userForm);
+            loginForm.setLogType(ConstantLogInfoTypes.LOGIN_LOG);
             loginForm.setMessage("用户" + user.getUsername() + "[登录]系统【成功】！");
             loginForm.setSuccess(1);
             logInfoDao.add(loginForm);

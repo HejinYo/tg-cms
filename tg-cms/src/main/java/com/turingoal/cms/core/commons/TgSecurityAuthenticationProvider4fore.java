@@ -56,7 +56,6 @@ public class TgSecurityAuthenticationProvider4fore extends SpringSecurityAbstrac
             }
             int count = retryCount.incrementAndGet();
             if (count > maxRetryCount) { // 是否超过最大次数
-                SystemLogHelper.loginLog(username, "用户登录失败超过最大次数，账户锁定！");
                 throw new LockedException("用户登录失败超过最大次数，用户已锁定！");
             }
             auth = authenticateUser(authentication);

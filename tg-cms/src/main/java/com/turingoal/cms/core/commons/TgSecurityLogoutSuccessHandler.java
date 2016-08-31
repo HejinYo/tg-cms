@@ -16,8 +16,11 @@ import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import com.turingoal.cms.core.domain.User;
+import com.turingoal.cms.core.domain.form.LogInfoForm;
 import com.turingoal.cms.core.domain.form.UserForm;
+import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.core.repository.UserDao;
+import com.turingoal.common.constants.ConstantLogInfoTypes;
 import com.turingoal.common.support.spring.SpringSecurityLogoutSuccessUrlResolver;
 
 /**
@@ -31,6 +34,8 @@ public class TgSecurityLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandle
     private UserCache userCache;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private LogInfoDao logInfoDao;
 
     public TgSecurityLogoutSuccessHandler() {
         super();
@@ -51,7 +56,6 @@ public class TgSecurityLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandle
                 setDefaultTargetUrl(targetUrl);
             }
         }
-        SystemLogHelper.loginLog(authentication.getName(), "用户[退出]系统【成功】！"); // 退出成功日志
         // 保持用户退出信息
         saveLogoutInfo(request, authentication);
         // 清除缓存
@@ -70,6 +74,19 @@ public class TgSecurityLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandle
             userForm.setId(user.getId());
             userForm.setLastLogoutTime(new Date());
             userDao.updateUserLogoutInfo(userForm);
+         // 保存退出日志信息
+            userForm.setUsername(user.getUsername());
+            userForm.setLastLoginTime(new Date()); // 最后登录时间
+            String ip = SystemHelper.getCurrentUserIp();
+            userForm.setLastLoginIp(ip); // 最后登录ip
+            userForm.setLastLoginLoc(SystemHelper.getCurrentUserRegion(ip)); // 最后登录地点
+            userForm.setLastLoginClientType("web"); // 最后登录客户端类型
+            userForm.setLastLoginClientDesc(httpServletRequest.getHeader("User-Agent")); // 最后登录客户端详情
+            LogInfoForm loginForm = new LogInfoForm(userForm);
+            loginForm.setLogType(ConstantLogInfoTypes.LOGOUT_LOG);
+            loginForm.setMessage("用户" + user.getUsername() + "[退出]系统【成功】！");
+            loginForm.setSuccess(1);
+            logInfoDao.add(loginForm);
         } catch (DataAccessException e) {
             if (log.isWarnEnabled()) {
                 log.info("无法更新用户登录信息至数据库");

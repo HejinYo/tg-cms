@@ -16,13 +16,6 @@ public final class SystemLogHelper {
     }
 
     /**
-     * 登录日志
-     */
-    public static void loginLog(final String username, final String message) {
-        logToDb(ConstantLogInfoTypes.LOGIN_LOG, username, message);
-    }
-
-    /**
      * 操作日志
      */
     public static void log(final String message, final Object... objects) {
@@ -34,7 +27,7 @@ public final class SystemLogHelper {
      */
     private static void logToDb(final String logType, final String username, final String message, final Object... objects) {
         ThreadContext.put("logType", logType);
-        ThreadContext.put("ipAddress", SystemHelper.getCurrentUserIp());
+        // ThreadContext.put("ipAddress", SystemHelper.getCurrentUserIp());
         ThreadContext.put("username", username);
         log.info(message, objects);
         ThreadContext.clearAll();
