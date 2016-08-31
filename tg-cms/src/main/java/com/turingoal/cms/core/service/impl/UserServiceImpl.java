@@ -18,7 +18,7 @@ import com.turingoal.common.constants.ConstantEnabledValue;
 import com.turingoal.common.constants.ConstantSystemValues;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.lang.StringUtil;
-import com.turingoal.common.util.spring.SpringSecurityPasswordHelper;
+import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
 
 /**
  * 用户Service
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
      */
     @MethodLog(name = "检查用户密码", description = "检查用户密码")
     public boolean checkUserPass(final String id, final String userPass) {
-        return SpringSecurityPasswordHelper.isPasswordValid(userDao.get(id).getUserPass(), userPass);
+        return SpringSecurityPasswordUtil.isPasswordValid(userDao.get(id).getUserPass(), userPass);
     }
 
     /**
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     public int updateCurrentUserPass(final String userPass) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", SystemHelper.getCurrentUserId());
-        params.put("userPass", SpringSecurityPasswordHelper.encodePassword(userPass)); // 密码加密
+        params.put("userPass", SpringSecurityPasswordUtil.encodePassword(userPass)); // 密码加密
         return userDao.updateUserPass(params);
     }
 
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     public int resetUserPass(final String id) {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("id", id);
-        params.put("userPass", SpringSecurityPasswordHelper.encodePassword(ConstantSystemValues.INIT_PASS)); // 密码加密
+        params.put("userPass", SpringSecurityPasswordUtil.encodePassword(ConstantSystemValues.INIT_PASS)); // 密码加密
         return userDao.updateUserPass(params);
     }
 
@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
         if (StringUtil.isNullOrBlank(userPass)) {
             userPass = ConstantSystemValues.INIT_PASS; // 系统默认密码
         }
-        form.setUserPass(SpringSecurityPasswordHelper.encodePassword(userPass)); // 密码加密
+        form.setUserPass(SpringSecurityPasswordUtil.encodePassword(userPass)); // 密码加密
         userDao.add(form);
     }
 

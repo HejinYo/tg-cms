@@ -16,8 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.turingoal.cms.core.domain.User;
-import com.turingoal.common.util.spring.SpringSecurityAbstractUserDetailsAuthenticationProvider;
-import com.turingoal.common.util.spring.SpringSecurityPasswordHelper;
+import com.turingoal.common.support.spring.SpringSecurityAbstractUserDetailsAuthenticationProvider;
+import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
 import jodd.util.StringUtil;
 
 /**
@@ -142,7 +142,7 @@ public class TgSecurityAuthenticationProvider4fore extends SpringSecurityAbstrac
             throw new BadCredentialsException(getMessagesSource().getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "认证失败！"));
         }
         String presentedPassword = authentication.getCredentials().toString();
-        boolean isPasswordValid = SpringSecurityPasswordHelper.isPasswordValid(user.getPassword(), presentedPassword);
+        boolean isPasswordValid = SpringSecurityPasswordUtil.isPasswordValid(user.getPassword(), presentedPassword);
         if (!isPasswordValid) {
             throw new BadCredentialsException(getMessagesSource().getMessage("AbstractUserDetailsAuthenticationProvider.badCredentials", "认证失败！"));
         }

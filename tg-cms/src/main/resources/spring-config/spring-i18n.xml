@@ -7,7 +7,7 @@
 
     <!-- json中文乱码问题 -->
     <bean
-        class="com.turingoal.common.util.spring.SpringUTF8StringBeanPostProcessor"></bean>
+        class="com.turingoal.common.support.spring.SpringUTF8StringBeanPostProcessor"></bean>
 
     <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
     <bean id="messageSource"

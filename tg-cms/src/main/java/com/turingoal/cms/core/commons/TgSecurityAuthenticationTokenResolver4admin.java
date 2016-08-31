@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import com.turingoal.common.util.spring.SpringSecurityAbstractAuthenticationTokenResolver;
+import com.turingoal.common.support.spring.SpringSecurityAbstractAuthenticationTokenResolver;
 
 /**
  * 后台AuthenticationTokenResolver

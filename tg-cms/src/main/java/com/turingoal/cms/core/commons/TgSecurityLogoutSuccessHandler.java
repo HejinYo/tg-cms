@@ -18,7 +18,7 @@ import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuc
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.repository.UserDao;
-import com.turingoal.common.util.spring.SpringSecurityLogoutSuccessUrlResolver;
+import com.turingoal.common.support.spring.SpringSecurityLogoutSuccessUrlResolver;
 
 /**
  * 退出成功处理

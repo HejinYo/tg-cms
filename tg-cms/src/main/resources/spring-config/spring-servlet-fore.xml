@@ -117,12 +117,12 @@
         <mvc:interceptor>
             <mvc:mapping path="/**/*.htm" />
             <mvc:exclude-mapping path="${system.maintenancePage}"/> 
-            <bean class="com.turingoal.common.util.spring.SpringMaintenanceInterceptor"></bean>
+            <bean class="com.turingoal.common.support.spring.SpringMaintenanceInterceptor"></bean>
         </mvc:interceptor>
         <!-- 配置Token拦截器，防止用户重复提交数据 -->
         <mvc:interceptor>
             <mvc:mapping path="/**/*.htm"/>
-            <bean class="com.turingoal.common.util.spring.SpringAvoidRepeatSubmitInterceptor"/>
+            <bean class="com.turingoal.common.support.spring.SpringAvoidRepeatSubmitInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>

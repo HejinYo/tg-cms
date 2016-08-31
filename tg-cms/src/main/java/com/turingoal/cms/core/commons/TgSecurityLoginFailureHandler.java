@@ -15,7 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.UrlUtils;
 
-import com.turingoal.common.util.spring.SpringSecurityDirectUrlResolver;
+import com.turingoal.common.support.spring.SpringSecurityDirectUrlResolver;
 
 import jodd.util.StringUtil;
 

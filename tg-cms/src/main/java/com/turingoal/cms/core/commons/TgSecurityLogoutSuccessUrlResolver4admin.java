@@ -2,7 +2,7 @@ package com.turingoal.cms.core.commons;
 
 import org.springframework.security.core.Authentication;
 
-import com.turingoal.common.util.spring.SpringSecurityAbstractLogoutSuccessUrlResolver;
+import com.turingoal.common.support.spring.SpringSecurityAbstractLogoutSuccessUrlResolver;
 
 /**
  * 后台退出成功

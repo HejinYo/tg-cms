@@ -17,7 +17,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.repository.UserDao;
-import com.turingoal.common.util.spring.SpringSecurityDirectUrlResolver;
+import com.turingoal.common.support.spring.SpringSecurityDirectUrlResolver;
 import jodd.util.StringUtil;
 
 /**

@@ -11,7 +11,7 @@ import org.springframework.security.web.authentication.LoginUrlAuthenticationEnt
 import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.util.net.RequestUtil;
 import com.turingoal.common.util.net.WebUtils;
-import com.turingoal.common.util.spring.SpringSecurityDirectUrlResolver;
+import com.turingoal.common.support.spring.SpringSecurityDirectUrlResolver;
 
 /**
  * 登录入口。 默认的不支持javascript，需要自定义

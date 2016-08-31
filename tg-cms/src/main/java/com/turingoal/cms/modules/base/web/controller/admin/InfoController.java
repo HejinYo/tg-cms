@@ -30,7 +30,7 @@ import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantDateFormatTypes;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.net.RequestUtil;
-import com.turingoal.common.util.spring.SpringBindingResultWrapper;
+import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.util.validator.ValidGroupAdd;
 import com.turingoal.common.util.validator.ValidGroupUpdate;
 

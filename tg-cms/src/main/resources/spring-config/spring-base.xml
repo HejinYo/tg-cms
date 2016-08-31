@@ -40,7 +40,7 @@
     <!-- <context:annotation-config /> -->
 
     <!-- 以静态变量保存Spring ApplicationContext, 可在任何代码任何地方任何时候中取出ApplicaitonContext. -->
-    <bean class="com.turingoal.common.util.spring.SpringContextHolder"></bean>
+    <bean class="com.turingoal.common.support.spring.SpringContextHolder"></bean>
     
     <!-- 当Spring容器启动完成后执行下面的这个Bean -->
     <bean class="com.turingoal.cms.core.filter.SystemInitListener"/>

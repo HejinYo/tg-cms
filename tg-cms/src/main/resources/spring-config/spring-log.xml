@@ -8,7 +8,7 @@
 
     <description>spring 基于AOP的日志处理</description>
 
-    <bean id="logHelper" class="com.turingoal.common.util.spring.SpringAopLogHelper"></bean>
+    <bean id="logHelper" class="com.turingoal.common.support.spring.SpringAopLogHelper"></bean>
     <!-- (execution(public com.turingoal.cms.core.service.*.*(..))) or (execution(public 
         com.turingoal.cms.modules.communal.service.*.*(..))) -->
     <aop:config expose-proxy="true" proxy-target-class="true">

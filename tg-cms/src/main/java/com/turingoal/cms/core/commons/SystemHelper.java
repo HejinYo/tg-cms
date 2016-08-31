@@ -19,7 +19,7 @@ import com.turingoal.common.exception.CaptchaIncorrectException;
 import com.turingoal.common.exception.CaptchaRequiredException;
 import com.turingoal.common.util.math.CaptchaUtil;
 import com.turingoal.common.util.net.IPUtil;
-import com.turingoal.common.util.spring.SpringSecurityPasswordHelper;
+import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
 
 /**
  * 系统帮助工具类
@@ -303,7 +303,7 @@ public final class SystemHelper {
      */
     public static boolean unlockScreen(final String userPass) {
         boolean flag = false;
-        flag = SpringSecurityPasswordHelper.isPasswordValid(getCurrentUser().getPassword(), userPass);
+        flag = SpringSecurityPasswordUtil.isPasswordValid(getCurrentUser().getPassword(), userPass);
         if (flag) {
             setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, false);
         }

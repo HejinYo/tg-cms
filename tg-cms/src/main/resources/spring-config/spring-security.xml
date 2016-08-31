@@ -68,7 +68,7 @@
         </property>  
     </bean>
     <!-- 后台入口 -->
-    <bean id="loginDirectUrlResolver4admin" class="com.turingoal.common.util.spring.SpringSecurityRequestUriDirectUrlResolver">  
+    <bean id="loginDirectUrlResolver4admin" class="com.turingoal.common.support.spring.SpringSecurityRequestUriDirectUrlResolver">  
         <property name="pattern" value="${security.urlResolverPattern4admin}"/>   
         <property name="directUrl" value="${security.loginPageUrl4admin}"/>  
     </bean>
@@ -118,7 +118,7 @@
         </property>  
     </bean>
     <!-- 后台登录成功-->
-    <bean id="authenticationSuccessUrlResolver4admin" class="com.turingoal.common.util.spring.SpringSecurityRequestParameterDirectUrlResolver">  
+    <bean id="authenticationSuccessUrlResolver4admin" class="com.turingoal.common.support.spring.SpringSecurityRequestParameterDirectUrlResolver">  
         <property name="parameterName" value="tg_domain"/>  
         <property name="pattern" value="admin"/>  
         <property name="directUrl" value="${security.defaultUrl4admin}"/>  
@@ -139,7 +139,7 @@
         </property>  
     </bean>
     <!-- 后台登录失败 -->
-    <bean id="authenticationFailureUrlResolver4admin" class="com.turingoal.common.util.spring.SpringSecurityRequestParameterDirectUrlResolver">  
+    <bean id="authenticationFailureUrlResolver4admin" class="com.turingoal.common.support.spring.SpringSecurityRequestParameterDirectUrlResolver">  
         <property name="parameterName" value="tg_domain"/>  
         <property name="pattern" value="admin"/>  
         <property name="directUrl" value="${security.loginPageUrl4admin}?type=error"/>  
@@ -246,7 +246,7 @@
 
     <!-- 防止跨站提交攻击, 但是rest服务会失效，需要自定义一个Matcher -->
     <bean id="csrfSecurityRequestMatcher"
-        class="com.turingoal.common.util.spring.SpringSecurityCsrfRequestMatcher">
+        class="com.turingoal.common.support.spring.SpringSecurityCsrfRequestMatcher">
         <property name="execludeUrls">
             <list>
                 <value>/rest/</value>

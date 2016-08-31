@@ -9,7 +9,7 @@
     <!-- 基于注解的定制的WebBindingInitializer，方法级别的处理器映射 要把 mvc:annotation-driven 放在后面 -->
 
     <!--fastJson -->
-    <bean id="jsonConverter" class="com.turingoal.common.util.spring.SpringMessageConverterFastJson">
+    <bean id="jsonConverter" class="com.turingoal.common.support.spring.SpringMessageConverterFastJson">
         <property name="supportedMediaTypes">
             <list>
                 <value>text/plain;charset=utf-8</value>
