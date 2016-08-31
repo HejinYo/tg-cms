@@ -34,7 +34,7 @@ import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantDateFormatTypes;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.support.spring.SpringBindingResultWrapper;
-import com.turingoal.common.util.validator.ValidGroupUpdate;
+import com.turingoal.common.support.validator.ValidGroupUpdate;
 
 /**
  * ImageController

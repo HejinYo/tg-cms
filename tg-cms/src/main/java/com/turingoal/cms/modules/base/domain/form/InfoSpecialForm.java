@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import com.turingoal.common.bean.BaseFormBean;
-import com.turingoal.common.util.validator.ValidGroupUpdate;
+import com.turingoal.common.support.validator.ValidGroupUpdate;
 
 /**
  * 文章专题Form

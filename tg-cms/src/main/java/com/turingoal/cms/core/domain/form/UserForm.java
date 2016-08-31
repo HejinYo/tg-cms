@@ -5,8 +5,8 @@ import java.util.Date;
 import javax.validation.constraints.Size;
 import org.apache.bval.constraints.NotEmpty;
 import com.turingoal.common.bean.BaseFormBean;
-import com.turingoal.common.util.validator.ValidGroupAdd;
-import com.turingoal.common.util.validator.ValidGroupUpdate;
+import com.turingoal.common.support.validator.ValidGroupAdd;
+import com.turingoal.common.support.validator.ValidGroupUpdate;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

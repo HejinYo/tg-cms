@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import com.turingoal.common.util.net.XSSRequestWrapper;
+import com.turingoal.common.support.net.XSSRequestWrapper;
 
 /**
  * XSS（跨站脚本攻击）Filter，预防XSS攻击

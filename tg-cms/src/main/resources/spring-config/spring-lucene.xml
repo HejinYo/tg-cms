@@ -43,7 +43,7 @@
     </bean>
     
     <!--luceneHelper-->
-    <bean id="luceneHelper" class="com.turingoal.common.util.lucene.LuceneHelper">
+    <bean id="luceneHelper" class="com.turingoal.common.support.lucene.LuceneHelper">
         <constructor-arg ref="luceneDrectory" />
         <constructor-arg ref="indexWriter" />
         <constructor-arg ref="luceneAnalyzer" />
