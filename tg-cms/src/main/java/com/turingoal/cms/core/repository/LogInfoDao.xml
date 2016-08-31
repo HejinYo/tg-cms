@@ -17,6 +17,20 @@
         ORDER BY event_date DESC
     </select>
     
+    <!-- 新增日志 -->
+    <insert id="add" parameterType="com.turingoal.cms.core.domain.form.LogInfoForm">
+        INSERT INTO tg_c_log (
+            log_type, exception, event_date, message, 
+            username, user_id, ip_address, ip_loc, 
+            client_type, client_desc, success 
+        )
+        VALUES(
+            #{logType}, #{exception}, #{eventDate}, #{message},
+            #{username}, #{userId}, #{ipAddress}, #{ipLoc}, 
+            #{clientType}, #{clientDesc}, #{success}
+        )
+    </insert>
+    
     <!-- 根据时间定时删除系统日志 -->
     <delete id="deleteByDate">
         DELETE FROM tg_c_log  WHERE event_date &lt; now()-interval '1 Months' <!-- now()-interval '1 Months'  当前时间减去1个月 -->

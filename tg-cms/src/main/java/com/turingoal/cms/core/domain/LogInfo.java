@@ -17,4 +17,9 @@ public class LogInfo implements Serializable {
     private String ipAddress; // IP
     private Date eventDate; // 时间
     private String username; // 用户名
+    private String userId; // 用户id
+    private String ipLoc; // 登录地址
+    private String clientType; // 登录客户端类型
+    private String clientDesc; // 登录客户端详细
+    private Integer success; // 结果
 }

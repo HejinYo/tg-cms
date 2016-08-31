@@ -15,7 +15,9 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import com.turingoal.cms.core.domain.User;
+import com.turingoal.cms.core.domain.form.LogInfoForm;
 import com.turingoal.cms.core.domain.form.UserForm;
+import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.core.repository.UserDao;
 import com.turingoal.common.support.spring.SpringSecurityDirectUrlResolver;
 import jodd.util.StringUtil;
@@ -30,6 +32,8 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
     private List<SpringSecurityDirectUrlResolver> directUrlResolvers = new ArrayList<SpringSecurityDirectUrlResolver>(); // 多登录页面处理
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private LogInfoDao logInfoDao;
 
     public TgSecurityLoginSuccessHandler() {
         super();
@@ -74,6 +78,7 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
         try {
             UserForm userForm = new UserForm();
             userForm.setId(user.getId());
+            userForm.setUsername(user.getUsername());
             userForm.setLastLoginTime(new Date()); // 最后登录时间
             String ip = SystemHelper.getCurrentUserIp();
             userForm.setLastLoginIp(ip); // 最后登录ip
@@ -81,6 +86,11 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
             userForm.setLastLoginClientType("web"); // 最后登录客户端类型
             userForm.setLastLoginClientDesc(httpServletRequest.getHeader("User-Agent")); // 最后登录客户端详情
             userDao.updateUserLoginInfo(userForm);
+            // 保存登录日志信息
+            LogInfoForm loginForm = new LogInfoForm(userForm);
+            loginForm.setMessage("用户" + user.getUsername() + "[登录]系统【成功】！");
+            loginForm.setSuccess(1);
+            logInfoDao.add(loginForm);
         } catch (DataAccessException e) {
             if (log.isWarnEnabled()) {
                 log.info("无法更新用户登录信息至数据库");
