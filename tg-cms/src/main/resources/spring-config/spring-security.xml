@@ -9,7 +9,7 @@
     <description>spring security权限控制</description>
 
     <!-- 开发环境 配置debug，会输出详细Security处理日志，正式环境建议去掉 -->
-    <!-- <sec:debug />--
+    <!-- <sec:debug />-->
     <!-- 配置不过滤的资源（静态资源及登录相关）, 当指定一个http元素的security属性为none时，表示其对应pattern的filter链为空 -->
     <sec:http pattern="/files/**" security="none" />
     <sec:http pattern="/resources/**" security="none" />

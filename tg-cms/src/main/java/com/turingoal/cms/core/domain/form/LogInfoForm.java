@@ -17,7 +17,7 @@ public class LogInfoForm extends BaseFormBean implements Serializable {
     private String message; // 消息
     private String exception; // 异常
     private String ipAddress; // IP
-    private Date eventDate; // 时间
+    private Date eventDate = new Date(); // 时间
     private String username; // 用户名
     private String userId; // 用户id
     private String ipLoc; // 登录地址
