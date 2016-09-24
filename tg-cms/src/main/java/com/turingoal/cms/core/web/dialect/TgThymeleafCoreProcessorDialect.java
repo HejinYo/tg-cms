@@ -5,6 +5,8 @@ import java.util.Set;
 import org.thymeleaf.dialect.AbstractProcessorDialect;
 import org.thymeleaf.processor.IProcessor;
 import org.thymeleaf.standard.StandardDialect;
+import com.turingoal.common.support.thymeleaf.PrettytimeProcessor;
+import com.turingoal.common.support.thymeleaf.SensitiveWordProcessor;
 
 /**
  * Turingoal core 自定义方言
