@@ -172,7 +172,7 @@
     </bean>
 
     <!-- 权限不足handler4fore -->
-    <bean id="accessDeniedHandler" class="com.turingoal.cms.core.commons.TgSecurityAccessDeniedHandler">
+    <bean id="accessDeniedHandler" class="com.turingoal.common.support.spring.security.TgSecurityAccessDeniedHandler">
         <property name="accessDeniedUrl" value="${security.deniedPageUrl}"></property>
     </bean>
 

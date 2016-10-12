@@ -1,6 +1,7 @@
 package com.turingoal.cms.core.commons;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -86,27 +87,27 @@ public final class SystemHelper {
     }
 
     /**
-     * 获取getCreationTime
+     * 获取session创建时间
      */
-    public static long getCreationTime() {
+    public static Date getSessionCreationTime() {
         Long resutlt = 0L;
         HttpSession session = getSession();
         if (session != null) {
             resutlt = session.getCreationTime();
         }
-        return resutlt;
+        return new Date(resutlt);
     }
 
     /**
-     * 获取getLastAccessedTime
+     * 获取session最后访问时间
      */
-    public static long getLastAccessedTime() {
+    public static Date getSessionLastAccessedTime() {
         Long resutlt = 0L;
         HttpSession session = getSession();
         if (session != null) {
             resutlt = session.getLastAccessedTime();
         }
-        return resutlt;
+        return new Date(resutlt);
     }
 
     /**
