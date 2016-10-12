@@ -13,7 +13,7 @@
         <Property name="LOG_PATTERN">[%p]-[%d{yyyy年-MM月-dd日 HH:mm:ss.SSS}]-[%t]-[%c]-{%m}%n</Property>
         <!--数据库参数-->
         <Property name="db.tableName">tg_c_log</Property>
-        <Property name="db.connectionFactoryClass">com.turingoal.cms.core.commons.TgSystemConnectionFactory</Property>
+        <Property name="db.connectionFactoryClass">com.turingoal.common.support.jdbc.TgSystemConnectionFactory</Property>
         <Property name="db.connectionFactoryMethod">getDatabaseConnection</Property>
         <!--邮件配置参数-->
         <Property name="mail.subject">错误日志</Property>
