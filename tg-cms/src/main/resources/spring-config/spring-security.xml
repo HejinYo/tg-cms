@@ -56,7 +56,7 @@
     </sec:http>
 
     <!-- 入口EntryPoint -->
-    <bean id="authenticationEntryPoint" class="com.turingoal.cms.core.commons.TgSecurityAuthenticationEntryPoint">
+    <bean id="authenticationEntryPoint" class="com.turingoal.common.support.spring.security.TgSecurityAuthenticationEntryPoint">
         <!-- spring security4 采用以下方式。默认登录路径 -->
         <constructor-arg value="${security.loginPageUrl}" />
         <!-- 其它登录路径 -->

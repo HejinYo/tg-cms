@@ -18,6 +18,7 @@ import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.common.constants.ConstantSystemValues;
 import com.turingoal.common.exception.CaptchaIncorrectException;
 import com.turingoal.common.exception.CaptchaRequiredException;
+import com.turingoal.common.support.spring.security.TgSecurityHelper;
 import com.turingoal.common.util.math.CaptchaUtil;
 import com.turingoal.common.util.net.IPUtil;
 import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
@@ -114,12 +115,7 @@ public final class SystemHelper {
      * 检查用户是已认证
      */
     public static boolean isAuthenticated() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-            return SecurityContextHolder.getContext().getAuthentication().isAuthenticated();
-        } else {
-            return false;
-        }
+        return TgSecurityHelper.isAuthenticated();
     }
 
     /**
