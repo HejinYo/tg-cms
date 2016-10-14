@@ -8,10 +8,9 @@
     <description>spring 异常处理</description>
 
     <!-- 自定义SimpleMappingExceptionResolver覆盖spring的SimpleMappingExceptionResolver -->
-    <bean id="springExceptionResolver" class="com.turingoal.cms.core.commons.TgSpringSimpleMappingExceptionHandler">
+    <bean id="springExceptionResolver" class="com.turingoal.common.support.spring.TgSpringSimpleMappingExceptionHandler">
         <property name="exceptionMappings">
             <props>
-                <prop key="com.turingoal.common.exception.SystemException">/resources/html/errors/error_500.html</prop>
                 <prop key="com.turingoal.common.exception.BusinessException">/resources/html/errors/error_exception.html</prop>
                 <prop key="java.io.IOException">/resources/html/errors/error_exception.html</prop>
                 <prop key="java.sql.SQLException">/resources/html/errors/error_exception.html</prop>
