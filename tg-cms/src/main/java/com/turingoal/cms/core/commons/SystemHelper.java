@@ -16,10 +16,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.common.constants.ConstantSystemValues;
-import com.turingoal.common.exception.CaptchaIncorrectException;
-import com.turingoal.common.exception.CaptchaRequiredException;
 import com.turingoal.common.support.spring.security.TgSecurityHelper;
-import com.turingoal.common.util.math.CaptchaUtil;
 import com.turingoal.common.util.net.IPUtil;
 import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
 
@@ -311,14 +308,6 @@ public final class SystemHelper {
      * 校验验证码
      */
     public static void checkValidateCode(final String captchaStr) {
-        String captchaCode = "";
-        if (captchaStr != null) {
-            captchaCode = captchaStr.trim().toLowerCase();
-        }
-        if (captchaCode == null) {
-            throw new CaptchaRequiredException("请填写验证码！");
-        } else if (!CaptchaUtil.checkCaptcha(getSession(), captchaCode)) {
-            throw new CaptchaIncorrectException("验证码不正确！");
-        }
+        TgSecurityHelper.checkValidateCode(captchaStr, getSession());
     }
 }
