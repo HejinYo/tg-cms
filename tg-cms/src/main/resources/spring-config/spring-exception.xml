@@ -7,21 +7,21 @@
 
     <description>spring 异常处理</description>
 
-    <!-- 自定义SimpleMappingExceptionResolver覆盖spring的SimpleMappingExceptionResolver -->
+    <!-- 自定义SimpleMappingExceptionResolver覆盖spring的SimpleMappingExceptionResolver。配置这个只能拦截Exception，404错误是拦截不了，要单独在web.xml配置，它比web.xml中配置错误页面强大的地方是可以把异常输出。 -->
     <bean id="springExceptionResolver" class="com.turingoal.common.support.spring.TgSpringSimpleMappingExceptionHandler">
         <property name="exceptionMappings">
             <props>
-                <prop key="com.turingoal.common.exception.BusinessException">/resources/html/errors/error_exception.html</prop>
-                <prop key="java.io.IOException">/resources/html/errors/error_exception.html</prop>
-                <prop key="java.sql.SQLException">/resources/html/errors/error_exception.html</prop>
-                <prop key="java.lang.Throwable">/resources/html/errors/error_exception.html</prop>
-                <prop key="java.lang.Exception">/resources/html/errors/error_exception.html</prop>
+                <prop key="com.turingoal.common.exception.BusinessException">common/error_exception</prop>
+                <prop key="java.io.IOException">common/error_exception</prop>
+                <prop key="java.sql.SQLException">common/error_exception</prop>
+                <prop key="java.lang.Throwable">common/error_exception</prop>
+                <prop key="java.lang.Exception">common/error_exception</prop>
             </props>
         </property>
         <!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
         <property name="warnLogCategory" value="WARN"></property>
         <!-- 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 -->
-        <property name="defaultErrorView" value="/resources/html/errors/error_exception.html"></property>
+        <property name="defaultErrorView" value="common/error_exception"></property>
         <!-- 默认HTTP状态码 -->
         <property name="defaultStatusCode" value="500"></property>
         <!-- 定义异常处理页面用来获取异常信息的变量名，如果不添加exceptionAttribute属性，则默认为exception -->  
