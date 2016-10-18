@@ -1,6 +1,5 @@
 package com.turingoal.cms.core.commons;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -9,16 +8,10 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.common.constants.ConstantSystemValues;
-import com.turingoal.common.support.spring.security.TgSecurityHelper;
-import com.turingoal.common.util.net.IPUtil;
-import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
+import com.turingoal.common.support.system.TgSystemHelper;
 
 /**
  * 系统帮助工具类
@@ -33,86 +26,133 @@ public final class SystemHelper {
      * 退出系统并清空session
      */
     public static void logout() {
-        HttpSession session = getSession();
-        if (session != null) {
-            session.invalidate();
-        }
+        TgSystemHelper.logout();
     }
 
     /**
      * 得到request
      */
     public static HttpServletRequest getRequest() {
-        HttpServletRequest request = null;
-        if (RequestContextHolder.getRequestAttributes() != null) {
-            request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        }
-        return request;
+        return TgSystemHelper.getRequest();
     }
 
     /**
      * 得到session
      */
     public static HttpSession getSession() {
-        HttpSession session = null;
-        HttpServletRequest request = getRequest();
-        if (request != null) {
-            session = request.getSession(true);
-        }
-        return session;
+        return TgSystemHelper.getSession();
     }
 
     /**
      * 保存信息到session
      */
     public static void setSessionAttibute(final String key, final Object value) {
-        HttpSession session = getSession();
-        if (session != null) {
-            session.setAttribute(key, value);
-        }
+        TgSystemHelper.setSessionAttibute(key, value);
     }
 
     /**
      * 从session获取属性
      */
     public static Object getSessionAttibute(final String key) {
-        Object resutlt = null;
-        HttpSession session = getSession();
-        if (session != null) {
-            resutlt = session.getAttribute(key);
-        }
-        return resutlt;
+        return TgSystemHelper.getSessionAttibute(key);
     }
 
     /**
      * 获取session创建时间
      */
     public static Date getSessionCreationTime() {
-        Long resutlt = 0L;
-        HttpSession session = getSession();
-        if (session != null) {
-            resutlt = session.getCreationTime();
-        }
-        return new Date(resutlt);
+        return TgSystemHelper.getSessionCreationTime();
     }
 
     /**
      * 获取session最后访问时间
      */
     public static Date getSessionLastAccessedTime() {
-        Long resutlt = 0L;
-        HttpSession session = getSession();
-        if (session != null) {
-            resutlt = session.getLastAccessedTime();
-        }
-        return new Date(resutlt);
+        return TgSystemHelper.getSessionLastAccessedTime();
     }
 
     /**
      * 检查用户是已认证
      */
     public static boolean isAuthenticated() {
-        return TgSecurityHelper.isAuthenticated();
+        return TgSystemHelper.isAuthenticated();
+    }
+
+    /**
+     * 获得认证信息
+     */
+    public static Authentication getAuthentication() {
+        return TgSystemHelper.getAuthentication();
+    }
+
+    /**
+     * 是否超级管理员
+     */
+    public static boolean isAdmin() {
+        return TgSystemHelper.isAdmin(getCurrentUsername());
+    }
+
+    /**
+     * 得到当前用户IP
+     */
+    public static String getCurrentUserIp() {
+        return TgSystemHelper.getCurrentUserIp();
+    }
+
+    /**
+     * 得到当前用户IP对应的地址
+     */
+    public static String getCurrentUserRegion(final String ip) {
+        return TgSystemHelper.getCurrentUserRegion(ip);
+    }
+
+    /**
+     * 得到当前SessionId
+     */
+    public static String getCurrentSessionId() {
+        return TgSystemHelper.getCurrentSessionId();
+    }
+
+    /**
+     * 得到当前获得当前用户所拥有的权限
+     */
+    public static List<GrantedAuthority> getCurrentUserAuthorities() {
+        return TgSystemHelper.getCurrentUserAuthorities();
+    }
+
+    /**
+     * 检查Permission
+     */
+    public static boolean checkPermission(final String permission) {
+        return TgSystemHelper.checkPermission(getCurrentUsername(), getCurrentUser().getUserPermissions(), permission);
+    }
+
+    /**
+     * 锁定系统屏幕
+     */
+    public static void lockScreen() {
+        TgSystemHelper.lockScreen();
+    }
+
+    /**
+     * 检查是否锁定系统
+     */
+    public static boolean checkLockScreen() {
+        return TgSystemHelper.checkLockScreen();
+    }
+
+    /**
+     * 解锁系统屏幕
+     */
+    public static boolean unlockScreen(final String userPass) {
+        return TgSystemHelper.unlockScreen(getCurrentUser().getPassword(), userPass);
+    }
+
+    /**
+     * 校验验证码
+     */
+    public static void checkValidateCode(final String captchaStr) {
+        TgSystemHelper.checkValidateCode(captchaStr);
     }
 
     /**
@@ -149,42 +189,6 @@ public final class SystemHelper {
     }
 
     /**
-     * 获得认证信息
-     */
-    public static Authentication getAuthentication() {
-        Authentication authentication = null;
-        SecurityContextImpl securityContextImpl = (SecurityContextImpl) getSessionAttibute("SPRING_SECURITY_CONTEXT");
-        if (securityContextImpl != null) {
-            authentication = securityContextImpl.getAuthentication();
-        }
-        return authentication;
-    }
-
-    /**
-     * 检查Permission
-     */
-    public static boolean checkPermission(final String permission) {
-        boolean result = false;
-        // 判断是否超级管理员
-        if (isAdmin()) {
-            result = true;
-        } else {
-            List<String> userPermissions = getCurrentUser().getUserPermissions();
-            if (userPermissions != null) {
-                result = userPermissions.contains(permission);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * 是否超级管理员
-     */
-    public static boolean isAdmin() {
-        return ConstantSystemValues.ADMIN_USER.equals(getCurrentUsername());
-    }
-
-    /**
      * 得到当前用户用户名
      */
     public static String getCurrentUsername() {
@@ -209,51 +213,6 @@ public final class SystemHelper {
     }
 
     /**
-     * 得到当前用户IP
-     */
-    public static String getCurrentUserIp() {
-        String currentUserIp = "未知IP";
-        HttpServletRequest request = getRequest();
-        if (request != null) {
-            currentUserIp = IPUtil.getIpAddr(request);
-        }
-        return currentUserIp;
-    }
-
-    /**
-     * 得到当前用户IP对应的地址
-     */
-    public static String getCurrentUserRegion(final String ip) {
-        return IPUtil.getIpRegion(ip);
-    }
-
-    /**
-     * 得到当前SessionId
-     */
-    public static String getCurrentSessionId() {
-        String currentSessionId = "";
-        Authentication authentication = getAuthentication();
-        if (authentication != null) {
-            WebAuthenticationDetails details = (WebAuthenticationDetails) authentication.getDetails();
-            currentSessionId = details.getSessionId();
-        }
-        return currentSessionId;
-    }
-
-    /**
-     * 得到当前获得当前用户所拥有的权限
-     */
-    @SuppressWarnings("unchecked")
-    public static List<GrantedAuthority> getCurrentUserAuthorities() {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        Authentication authentication = getAuthentication();
-        if (authentication != null) {
-            authorities = (List<GrantedAuthority>) authentication.getAuthorities();
-        }
-        return authorities;
-    }
-
-    /**
      * 设置全局配置
      */
     public static void setGlobal(final Global global) {
@@ -270,44 +229,5 @@ public final class SystemHelper {
             resutlt = (Global) session.getAttribute("global");
         }
         return resutlt;
-    }
-
-    /**
-     * 锁定系统屏幕
-     */
-    public static void lockScreen() {
-        setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, true);
-    }
-
-    /**
-     * 检查是否锁定系统
-     */
-    public static boolean checkLockScreen() {
-        boolean flag = false;
-        if (getSessionAttibute(ConstantSystemValues.LOGIN_LOCK) != null) {
-            if ((Boolean) getSessionAttibute(ConstantSystemValues.LOGIN_LOCK)) {
-                flag = true;
-            }
-        }
-        return flag;
-    }
-
-    /**
-     * 解锁系统屏幕
-     */
-    public static boolean unlockScreen(final String userPass) {
-        boolean flag = false;
-        flag = SpringSecurityPasswordUtil.isPasswordValid(getCurrentUser().getPassword(), userPass);
-        if (flag) {
-            setSessionAttibute(ConstantSystemValues.LOGIN_LOCK, false);
-        }
-        return flag;
-    }
-
-    /**
-     * 校验验证码
-     */
-    public static void checkValidateCode(final String captchaStr) {
-        TgSecurityHelper.checkValidateCode(captchaStr, getSession());
     }
 }
