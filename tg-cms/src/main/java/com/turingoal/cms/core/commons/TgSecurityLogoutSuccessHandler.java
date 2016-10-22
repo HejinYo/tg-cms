@@ -16,11 +16,11 @@ import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import com.turingoal.cms.core.domain.User;
-import com.turingoal.cms.core.domain.form.LogInfoForm;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.core.repository.UserDao;
 import com.turingoal.common.constants.ConstantLogInfoTypes;
+import com.turingoal.common.domain.form.LogInfoForm;
 import com.turingoal.common.support.spring.SpringSecurityLogoutSuccessUrlResolver;
 
 /**
@@ -74,7 +74,7 @@ public class TgSecurityLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandle
             userForm.setId(user.getId());
             userForm.setLastLogoutTime(new Date());
             userDao.updateUserLogoutInfo(userForm);
-         // 保存退出日志信息
+            // 保存退出日志信息
             userForm.setUsername(user.getUsername());
             userForm.setLastLoginTime(new Date()); // 最后登录时间
             String ip = SystemHelper.getCurrentUserIp();
@@ -82,7 +82,7 @@ public class TgSecurityLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandle
             userForm.setLastLoginLoc(SystemHelper.getCurrentUserRegion(ip)); // 最后登录地点
             userForm.setLastLoginClientType("web"); // 最后登录客户端类型
             userForm.setLastLoginClientDesc(httpServletRequest.getHeader("User-Agent")); // 最后登录客户端详情
-            LogInfoForm loginForm = new LogInfoForm(userForm);
+            LogInfoForm loginForm = new LogInfoForm(userForm.getId(), userForm.getUsername(), userForm.getLastLoginIp(), userForm.getLastLoginLoc(), userForm.getLastLoginClientType(), userForm.getLastLoginClientDesc());
             loginForm.setLogType(ConstantLogInfoTypes.LOGOUT_LOG);
             loginForm.setMessage("用户" + user.getUsername() + "[退出]系统【成功】！");
             loginForm.setSuccess(1);

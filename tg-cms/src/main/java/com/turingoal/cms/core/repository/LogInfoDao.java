@@ -1,9 +1,9 @@
 package com.turingoal.cms.core.repository;
 
 import java.util.List;
-import com.turingoal.cms.core.domain.LogInfo;
-import com.turingoal.cms.core.domain.form.LogInfoForm;
-import com.turingoal.cms.core.domain.query.LogInfoQuery;
+import com.turingoal.common.domain.LogInfo;
+import com.turingoal.common.domain.form.LogInfoForm;
+import com.turingoal.common.domain.query.LogInfoQuery;
 
 /**
  * 日志信息Dao

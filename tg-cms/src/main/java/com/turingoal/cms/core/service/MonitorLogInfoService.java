@@ -1,8 +1,8 @@
 package com.turingoal.cms.core.service;
 
 import com.github.pagehelper.Page;
-import com.turingoal.cms.core.domain.LogInfo;
-import com.turingoal.cms.core.domain.query.LogInfoQuery;
+import com.turingoal.common.domain.LogInfo;
+import com.turingoal.common.domain.query.LogInfoQuery;
 
 /**
  * 日志信息Service

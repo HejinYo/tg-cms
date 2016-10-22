@@ -15,7 +15,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import com.turingoal.cms.core.domain.User;
-import com.turingoal.cms.core.domain.form.LogInfoForm;
+import com.turingoal.common.domain.form.LogInfoForm;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.core.repository.UserDao;
@@ -87,7 +87,7 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
             userForm.setLastLoginClientDesc(httpServletRequest.getHeader("User-Agent")); // 最后登录客户端详情
             userDao.updateUserLoginInfo(userForm);
             // 保存登录日志信息
-            LogInfoForm loginForm = new LogInfoForm(userForm);
+            LogInfoForm loginForm = new LogInfoForm(userForm.getId(), userForm.getUsername(), userForm.getLastLoginIp(), userForm.getLastLoginLoc(), userForm.getLastLoginClientType(), userForm.getLastLoginClientDesc());
             loginForm.setLogType(ConstantLogInfoTypes.LOGIN_LOG);
             loginForm.setMessage("用户" + user.getUsername() + "[登录]系统【成功】！");
             loginForm.setSuccess(1);
