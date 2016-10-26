@@ -168,7 +168,7 @@ public class NodeServiceImpl implements NodeService {
         nodeDao.add(form);
         updateCusFieldValue(form, cusMap);
         // 记录操作日志
-        SystemLogHelper.log("新增栏目,id={},nodeName={}", form.getId(), form.getNodeName());
+        SystemLogHelper.log("新增栏目,id={},noddName={}", form.getId(), form.getNoddName());
     }
 
     /**
@@ -180,7 +180,7 @@ public class NodeServiceImpl implements NodeService {
         int result = nodeDao.update(form);
         updateCusFieldValue(form, cusMap);
         // 记录操作日志
-        SystemLogHelper.log("修改栏目,id={},nodeName={}", form.getId(), form.getNodeName());
+        SystemLogHelper.log("修改栏目,id={},noddName={}", form.getId(), form.getNoddName());
         return result;
     }
 
@@ -238,7 +238,7 @@ public class NodeServiceImpl implements NodeService {
         Node root = new Node();
         root.setId("0");
         root.setLeaf(false);
-        root.setNodeName("根栏目");
+        root.setNoddName("根栏目");
         return TreeBean.createTree(root, nodeList, "nodes");
     }
 }

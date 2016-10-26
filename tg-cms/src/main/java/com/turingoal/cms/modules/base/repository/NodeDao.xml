@@ -58,7 +58,7 @@
         )
         VALUES(
             #{id}, #{parentId}, #{nodeModelId}, #{infoModelId}, #{nodeTemplate}, 
-            #{infoTemplate}, #{codeNum}, #{nodeName}, #{createDataTime}, #{refersCount}, 
+            #{infoTemplate}, #{codeNum}, #{noddName}, #{createDataTime}, #{refersCount}, 
             #{viewsCount}, #{realNode}, #{hidden}, #{htmlState}, #{nodeLink}, 
             #{htmlLink}, #{metaKeywords}, #{metaDescription}, #{newWindow}, #{generateNode}, 
             #{generateInfo}, #{nodePath}, #{infoPath}, #{staticMethod}, 
@@ -71,7 +71,7 @@
         UPDATE tg_cms_m_base_node SET
             parent_id = #{parentId}, node_model_id = #{nodeModelId}, info_model_id = #{infoModelId}, 
             node_template = #{nodeTemplate}, info_template = #{infoTemplate}, code_num = #{codeNum}, 
-            node_name = #{nodeName}, create_data_time = #{createDataTime}, node_link = #{nodeLink}, 
+            node_name = #{noddName}, create_data_time = #{createDataTime}, node_link = #{nodeLink}, 
             html_link = #{htmlLink}, meta_keywords = #{metaKeywords}, meta_description = #{metaDescription}, 
             new_window = #{newWindow}, generate_node = #{generateNode}, generate_info = #{generateInfo}, 
             node_path = #{nodePath}, info_path = #{infoPath}, static_method = #{staticMethod}, 

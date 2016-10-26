@@ -7,7 +7,7 @@
 		<div class="menu">
 			<a class="toggleMenu" th:href="@{/index.htm}"><img th:src="@{/template/default/_resources/images/nav_icon.png}" alt="" /> </a>
 			<ul class="nav" id="nav">
-				<li tg_cms:node_list="node" th:classappend="${node.codeNum==nodeCodeNum} ? 'current'"><a th:href="@{/{nodeLink}(nodeLink=${node.nodeLink})}" th:text="${node.nodeName}">首页</a></li>
+				<li tg_cms:node_list="node" th:classappend="${node.codeNum==nodeCodeNum} ? 'current'"><a th:href="@{/{nodeLink}(nodeLink=${node.nodeLink})}" th:text="${node.noddName}">首页</a></li>
 			</ul>
 		</div>
 	</div>

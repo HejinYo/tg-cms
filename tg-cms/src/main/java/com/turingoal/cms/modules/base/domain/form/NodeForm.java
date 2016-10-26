@@ -18,7 +18,7 @@ public class NodeForm extends BaseFormBean implements Serializable {
     private String nodeTemplate; // 栏目模板
     private String infoTemplate; // 文档模板
     private String codeNum; // 代码
-    private String nodeName; // 名称
+    private String noddName; // 名称
     private Integer refersCount; // 文档数量
     private Integer viewsCount; // 浏览总数
     private Integer realNode = 1; // 是否真实栏目

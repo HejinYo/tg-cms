@@ -79,7 +79,7 @@
             for (var i = 0; i < records.length; i++) {
                 var record = records[i];
                 var $tr = $('<tr style="cursor: pointer;" onclick="loadInfoByNode(\'' + record.id + '\')"></tr>').attr("id", record.id).attr("pId", record.parentId);
-                $tr.append($('<td></td>').html('<a href="#">' + record.nodeName + '</a>'));
+                $tr.append($('<td></td>').html('<a href="#">' + record.noddName + '</a>'));
                 $("#nodeDataTable tbody").append($tr);
             }
 

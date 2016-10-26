@@ -19,7 +19,7 @@ public class NodeQuery extends BaseQueryBean implements Serializable {
     private String nodeTemplate; // 栏目模板
     private String infoTemplate; // 文档模板
     private String codeNum; // 代码
-    private String nodeName; // 名称
+    private String noddName; // 名称
     private Date createDataTime; // 创建时间
     private Integer refersCount; // 文档数量
     private Integer viewsCount; // 浏览总数
