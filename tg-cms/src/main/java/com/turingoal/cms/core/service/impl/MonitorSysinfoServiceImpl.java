@@ -9,8 +9,8 @@ import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
-import com.turingoal.cms.core.domain.MonitorSysinfo;
 import com.turingoal.cms.core.service.MonitorSysinfoService;
+import com.turingoal.common.domain.MonitorSysinfo;
 
 /**
  * 系统信息

@@ -3,7 +3,7 @@ package com.turingoal.cms.core.service;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import com.turingoal.cms.core.domain.MonitorSysinfo;
+import com.turingoal.common.domain.MonitorSysinfo;
 
 /**
  * 系统信息
