@@ -12,5 +12,4 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class UserForm extends BaseUserForm implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String domain = "default"; // 用户所属域， 前台、后台
 }
