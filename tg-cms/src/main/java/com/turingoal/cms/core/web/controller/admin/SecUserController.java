@@ -2,6 +2,7 @@ package com.turingoal.cms.core.web.controller.admin;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -18,20 +19,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.github.pagehelper.Page;
 import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.domain.query.UserQuery;
 import com.turingoal.cms.core.service.UserService;
 import com.turingoal.common.bean.JsonResultBean;
-import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantDateFormatTypes;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.support.spring.SpringBindingResultWrapper;
-import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
+import com.turingoal.common.util.spring.SpringSecurityPasswordUtil;
 
 /**
  * 用户 UserController
@@ -91,9 +90,8 @@ public class SecUserController {
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.POST)
     @ResponseBody
-    public PageGridBean list(final UserQuery query) throws BusinessException {
-        Page<User> result = userService.findByPage(query);
-        return new PageGridBean(query, result, true);
+    public List<User> list(final UserQuery query) throws BusinessException {
+        return userService.findAll();
     }
 
     /**

@@ -26,13 +26,8 @@
     </select>
     
     <!-- 查询 User -->
-    <select id="find" parameterType="com.turingoal.cms.core.domain.query.UserQuery" resultType="com.turingoal.cms.core.domain.User">
-        SELECT * FROM tg_c_user 
-        <if test="simpleQueryParam != null and simpleQueryParam!=''">  
-            WHERE username LIKE CONCAT('%',#{simpleQueryParam},'%')
-            OR realname LIKE CONCAT('%',#{simpleQueryParam},'%')
-        </if>  
-         ORDER BY enabled ASC, username ASC
+    <select id="find" resultType="com.turingoal.cms.core.domain.User">
+        SELECT * FROM tg_c_user ORDER BY enabled ASC, username ASC
     </select>
     
     <!-- 通过id得到一个 User-->

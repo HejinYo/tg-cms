@@ -5,7 +5,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
-import com.turingoal.cms.core.domain.query.UserQuery;
 
 /**
  * UserDao
@@ -35,7 +34,7 @@ public interface UserDao {
     /**
      * 查询 User
      */
-    List<User> find(final UserQuery query);
+    List<User> find();
 
     /**
      * 通过id得到一个 User

@@ -20,16 +20,7 @@
 				<div class="main-box clearfix">
 					<header class="main-box-header clearfix">
 						<div class="row m-b-sm m-t-sm">
-							<div class="col-md-9">
-								<a th:href="@{/admin/c/user/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
-							</div>
-							<div class="col-md-3">
-								<div class="input-group">
-									<input id="simpleQueryParam" name="simpleQueryParam" type="text" placeholder="请输入关键字搜索" class="form-control" /> <span class="input-group-btn">
-										<button onclick="myTable.filter()" type="button" class="btn btn-primary">搜索</button>
-									</span>
-								</div>
-							</div>
+							<a th:href="@{/admin/c/user/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
 						</div>
 					</header>
 					<div class="main-box-body clearfix">
@@ -68,17 +59,8 @@
     //表格
     var myTable;
     //表格列定义
-    var columnDefs = [ {
-        //第一列，用来显示序号
-        "searchable" : false,
-        "orderable" : false,
-        "targets" : 0
-    } ];
+    var columnDefs = [];
     var columns = [ {
-        //第一列，用来显示序号
-        "data" : null,
-        "class" : "text-center"
-    }, {
         "data" : "enabled",
         "class" : "text-center",
         render : function(data, type, row, meta) {
@@ -149,8 +131,8 @@
         columns : columns, //表格列
         dataTableDiv : 'dataTable', //表格
         ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-        pageable : true, //是否分页
-        showIndexColumn : true, //是否显示第一列的索引列
+        pageable : false, //是否分页
+        showIndexColumn : false, //是否显示第一列的索引列
         enabledChange : true
     };
     //创建表格

@@ -1,15 +1,13 @@
 package com.turingoal.cms.core.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.github.pagehelper.Page;
-import com.github.pagehelper.PageHelper;
 import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
-import com.turingoal.cms.core.domain.query.UserQuery;
 import com.turingoal.cms.core.repository.UserDao;
 import com.turingoal.cms.core.service.UserService;
 import com.turingoal.common.annotation.MethodLog;
@@ -67,12 +65,11 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 分页查询 User
+     * 查询 User
      */
-    @MethodLog(name = "分页查询 User", description = "分页查询 User")
-    public Page<User> findByPage(final UserQuery query) {
-        PageHelper.startPage(query.getPage().intValue(), query.getLimit().intValue());
-        return (Page<User>) userDao.find(query);
+    @MethodLog(name = "查询 User", description = "查询 User")
+    public List<User> findAll() {
+        return userDao.find();
     }
 
     /**

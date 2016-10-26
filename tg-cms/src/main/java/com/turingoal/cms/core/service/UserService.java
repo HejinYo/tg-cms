@@ -1,9 +1,8 @@
 package com.turingoal.cms.core.service;
 
-import com.github.pagehelper.Page;
+import java.util.List;
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.cms.core.domain.form.UserForm;
-import com.turingoal.cms.core.domain.query.UserQuery;
 import com.turingoal.common.exception.BusinessException;
 
 /**
@@ -33,8 +32,7 @@ public interface UserService {
     /**
      * 分页查询 User
      */
-    Page<User> findByPage(final UserQuery query);
-
+    List<User> findAll();
 
     /**
      * 通过id得到一个 User
