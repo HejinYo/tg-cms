@@ -25,6 +25,7 @@ import com.turingoal.cms.core.domain.form.UserForm;
 import com.turingoal.cms.core.domain.query.UserQuery;
 import com.turingoal.cms.core.service.UserService;
 import com.turingoal.common.bean.JsonResultBean;
+import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantDateFormatTypes;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.support.spring.SpringBindingResultWrapper;
@@ -86,12 +87,13 @@ public class SecUserController {
     }
 
     /**
-     * 分页查询用户
+     * 查询用户
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.POST)
     @ResponseBody
-    public List<User> list(final UserQuery query) throws BusinessException {
-        return userService.findAll();
+    public PageGridBean list(final UserQuery query) throws BusinessException {
+        List<User> result = userService.findAll();
+        return new PageGridBean(query, result);
     }
 
     /**
