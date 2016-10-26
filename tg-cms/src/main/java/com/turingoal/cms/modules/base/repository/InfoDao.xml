@@ -23,7 +23,7 @@
     <!-- 查询 Info -->
     <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.InfoQuery" resultType="com.turingoal.cms.modules.base.domain.Info">
         SELECT 
-            b_info.*, attrs.image as attr_image, b_node.node_name, b_node.info_model_id, 
+            b_info.*, attrs.image as attr_image, b_node.nodd_name, b_node.info_model_id, 
             node_model.model_name as node_model_name, info_model.model_name as info_model_name
         FROM tg_cms_m_base_info b_info
         LEFT JOIN tg_cms_m_base_node b_node ON b_info.node_id=b_node.id 

@@ -26,7 +26,7 @@
     
     <!-- 查询全部 Node -->
     <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.NodeQuery" resultType="com.turingoal.cms.modules.base.domain.Node">
-        SELECT (CASE parent_id WHEN '0' THEN '' ELSE parent_id END ||"id") order_num,*,node_template AS node_template_name, info_template AS info_template_name, node_name as text 
+        SELECT (CASE parent_id WHEN '0' THEN '' ELSE parent_id END ||"id") order_num,*,node_template AS node_template_name, info_template AS info_template_name, nodd_name as text 
         FROM tg_cms_m_base_node
         <where>
             <if test="parentId!=null and parentId!=''"> AND parent_id = #{parentId}</if>
@@ -50,7 +50,7 @@
     <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.NodeForm">
         INSERT INTO tg_cms_m_base_node (
             id, parent_id, node_model_id, info_model_id, node_template, 
-            info_template, code_num, node_name, create_data_time, refers_count, 
+            info_template, code_num, nodd_name, create_data_time, refers_count, 
             views_count, real_node, hidden, html_state, node_link, 
             html_link, meta_keywords, meta_description, new_window, generate_node, 
             generate_info, node_path, info_path, static_method, static_pages, 
@@ -71,7 +71,7 @@
         UPDATE tg_cms_m_base_node SET
             parent_id = #{parentId}, node_model_id = #{nodeModelId}, info_model_id = #{infoModelId}, 
             node_template = #{nodeTemplate}, info_template = #{infoTemplate}, code_num = #{codeNum}, 
-            node_name = #{noddName}, create_data_time = #{createDataTime}, node_link = #{nodeLink}, 
+            nodd_name = #{noddName}, create_data_time = #{createDataTime}, node_link = #{nodeLink}, 
             html_link = #{htmlLink}, meta_keywords = #{metaKeywords}, meta_description = #{metaDescription}, 
             new_window = #{newWindow}, generate_node = #{generateNode}, generate_info = #{generateInfo}, 
             node_path = #{nodePath}, info_path = #{infoPath}, static_method = #{staticMethod}, 
