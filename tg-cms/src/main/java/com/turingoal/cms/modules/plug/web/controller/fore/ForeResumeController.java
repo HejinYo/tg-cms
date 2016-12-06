@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.turingoal.cms.modules.base.web.controller.fore.TemplateEngineHelper;
 import com.turingoal.cms.modules.plug.domain.form.ResumeForm;
 import com.turingoal.cms.modules.plug.service.ResumeService;
-import com.turingoal.common.constants.ConstantDateFormatTypes;
+import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.math.CaptchaUtil;
 
@@ -47,7 +47,7 @@ public class ForeResumeController {
      */
     @InitBinder
     protected final void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(ConstantDateFormatTypes.YYYY_MM_DD), true));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(ConstantPattern4Date.YYYY_MM_DD), true));
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 }

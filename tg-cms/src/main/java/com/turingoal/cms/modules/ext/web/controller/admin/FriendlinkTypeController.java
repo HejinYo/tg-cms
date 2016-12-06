@@ -24,7 +24,7 @@ import com.turingoal.cms.modules.ext.domain.query.FriendlinkTypeQuery;
 import com.turingoal.cms.modules.ext.service.FriendlinkTypeService;
 import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
-import com.turingoal.common.constants.ConstantDateFormatTypes;
+import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
@@ -155,7 +155,7 @@ public class FriendlinkTypeController {
      */
     @InitBinder
     protected final void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(ConstantDateFormatTypes.YYYY_MM_DD), true));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(ConstantPattern4Date.YYYY_MM_DD), true));
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 }

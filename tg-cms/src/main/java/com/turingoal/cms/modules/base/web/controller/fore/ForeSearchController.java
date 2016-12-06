@@ -30,8 +30,8 @@ import com.turingoal.cms.modules.base.domain.Info;
 import com.turingoal.cms.modules.base.service.InfoService;
 import com.turingoal.cms.modules.base.service.NodeService;
 import com.turingoal.common.bean.PageGridBean;
-import com.turingoal.common.util.lang.StringUtil;
 import com.turingoal.common.support.lucene.LuceneHelper;
+import com.turingoal.common.util.lang.StringUtil;
 
 /**
  * Controller-栏目
