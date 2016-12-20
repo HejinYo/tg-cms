@@ -16,7 +16,7 @@ public final class SystemLogHelper {
     }
 
     /**
-     * 操作日志
+     * 操作日志保存到数据库
      */
     public static void log(final String message, final Object... objects) {
         logToDb(ConstantLogInfoTypes.OPERATE_LOG, SystemHelper.getCurrentUsername(), message, objects);
