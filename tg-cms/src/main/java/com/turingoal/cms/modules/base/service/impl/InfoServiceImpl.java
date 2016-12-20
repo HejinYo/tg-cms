@@ -34,7 +34,6 @@ import com.turingoal.cms.modules.base.repository.NodeDao;
 import com.turingoal.cms.modules.base.service.InfoService;
 import com.turingoal.cms.modules.commons.ConstantAuditState;
 import com.turingoal.common.annotation.MethodLog;
-import com.turingoal.common.support.lucene.LuceneHelper;
 import com.turingoal.common.util.lang.StringUtil;
 
 /**

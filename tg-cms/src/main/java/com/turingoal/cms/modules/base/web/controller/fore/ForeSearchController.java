@@ -1,37 +1,10 @@
 package com.turingoal.cms.modules.base.web.controller.fore;
 
-import static org.apache.lucene.search.BooleanClause.Occur.SHOULD;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.apache.lucene.analysis.cn.smart.SmartChineseAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
-import org.apache.lucene.queryparser.classic.ParseException;
-import org.apache.lucene.queryparser.classic.QueryParser;
-import org.apache.lucene.search.BooleanClause.Occur;
-import org.apache.lucene.search.BooleanQuery;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.Sort;
-import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.search.TopFieldCollector;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import com.turingoal.cms.modules.base.domain.Info;
-import com.turingoal.cms.modules.base.service.InfoService;
-import com.turingoal.cms.modules.base.service.NodeService;
-import com.turingoal.common.bean.PageGridBean;
-import com.turingoal.common.support.lucene.LuceneHelper;
-import com.turingoal.common.util.lang.StringUtil;
 
 /**
  * Controller-栏目
