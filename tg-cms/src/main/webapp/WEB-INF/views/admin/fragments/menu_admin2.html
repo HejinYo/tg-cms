@@ -1,0 +1,78 @@
+<!--/*******菜单栏*******/-->
+<div th:fragment="menu(root,current)" id="nav-col">
+	<section id="col-left" class="col-left-nano">
+		<div id="col-left-inner" class="col-left-nano-content">
+			<div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown"></div>
+			<div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
+				<ul class="nav nav-pills nav-stacked">
+					<li class="nav-header nav-header-first hidden-sm hidden-xs">系统功能</li>
+					<li><a th:href="@{/admin/index.gsp}"><i class="fa fa-th-large"></i><span> 系统首页</span></a></li>
+					<!--/******* 内容管理 *******/-->
+					<li th:class="${current == 'index'}? 'active':(${root == 'content'}? 'active')"><a href="#" class="dropdown-toggle"><i class="fa fa-pencil-square-o"></i> <span> 内容管理</span> <i class="fa fa-angle-right drop-icon"></i></a>
+						<ul class="submenu">
+							<li th:class="${current == 'info'}? 'active'"><a th:href="@{/admin/m/base/info/list.gsp}"> 文章管理</a></li>
+							<li th:class="${current == 'special'}? 'active'"><a th:href="@{/admin/m/base/special/list.gsp}"> 专题管理</a></li>
+							<!-- <li th:class="${current == 'comment'}? 'active'"><a th:href="@{/admin/m/base/comment/list.gsp}"> 评论管理</a></li> -->
+							<li th:class="${current == 'guestbook'}? 'active'"><a th:href="@{/admin/m/ext/guestbook/list.gsp}"> 留言管理</a></li>
+							<li th:class="${current == 'tag'}? 'active'"><a th:href="@{/admin/m/base/tag/list.gsp}"> TAG管理</a></li>
+							<li th:class="${current == 'friendlink'}? 'active'"><a th:href="@{/admin/m/ext/friendlink/list.gsp}"> 友情链接</a></li>
+							<li th:class="${current == 'vote'}? 'active'"><a th:href="@{/admin/m/ext/vote/list.gsp}"> 投票管理</a></li>
+							<li th:class="${current == 'ad'}? 'active'"><a th:href="@{/admin/m/ext/ad/list.gsp}"> 广告管理</a></li>
+							<li th:class="${current == 'question'}? 'active'"><a th:href="@{/admin/m/ext/question/list_null.gsp}"> 问卷管理</a></li>
+						</ul></li>
+
+					<!--/******* 素材管理 *******/-->
+					<li th:class="${root == 'material'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-film"></i> <span> 素材管理</span> <i class="fa fa-angle-right drop-icon"></i></a>
+						<ul class="submenu">
+							<li th:class="${current == 'image'}? 'active'"><a th:href="@{/admin/m/base/image/list.gsp}"> 图片管理</a></li>
+							<li th:class="${current == 'video'}? 'active'"><a th:href="@{/admin/m/base/video/list.gsp}"> 视频管理</a></li>
+							<!-- <li th:class="${current == 'doc'}? 'active'"><a th:href="@{/admin/m/base/doc/list.gsp}"> 文档管理</a></li>
+							<li th:class="${current == 'file'}? 'active'"><a th:href="@{/admin/m/base/file/list.gsp}"> 文件管理</a></li> -->
+						</ul></li>
+
+					<!--/******* 站点管理 *******/-->
+					<li th:class="${root == 'site'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-sitemap"></i> <span> 站点管理</span> <i class="fa fa-angle-right drop-icon"></i></a>
+						<ul class="submenu">
+							<li th:class="${current == 'node'}? 'active'"><a th:href="@{/admin/m/base/node/list.gsp}"> 栏目管理</a></li>
+							<!-- <li th:class="${current == 'collect'}? 'active'"><a th:href="@{/admin/m/base/collect/list.gsp}"> 采集管理</a></li> -->
+							<li th:class="${current == 'specialType'}? 'active'"><a th:href="@{/admin/m/base/specialType/list.gsp}"> 专题分类</a></li>
+							<li th:class="${current == 'guestbookType'}? 'active'"><a th:href="@{/admin/m/ext/guestbookType/list.gsp}"> 留言板类型</a></li>
+							<li th:class="${current == 'friendlinkType'}? 'active'"><a th:href="@{/admin/m/ext/friendlinkType/list.gsp}"> 友情链接类型</a></li>
+							<li th:class="${current == 'adSlot'}? 'active'"><a th:href="@{/admin/m/ext/adSlot/list.gsp}"> 广告位管理</a></li>
+						</ul></li>
+
+					<!--/******* 插件管理 *******/-->
+					<li th:class="${root == 'plug'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-plug"></i> <span> 插件管理</span> <i class="fa fa-angle-right drop-icon"></i></a>
+						<ul class="submenu">
+							<li th:class="${current == 'resume'}? 'active'"><a th:href="@{/admin/m/plug/resume/list.gsp}"> 招聘管理</a></li>
+						</ul></li>
+
+					<!--/******* 全局配置 *******/-->
+					<li th:class="${root == 'gconfig'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-cogs"></i> <span> 全局配置</span> <i class="fa fa-angle-right drop-icon"></i></a>
+						<ul class="submenu">
+							<li th:class="${current == 'publishPoint'}? 'active'"><a th:href="@{/admin/m/base/publishPoint/list.gsp}"> 发布点配置</a></li>
+							<li th:class="${current == 'global'}? 'active'"><a th:href="@{/admin/m/base/global/list.gsp}"> 全局参数</a></li>
+							<li th:class="${current == 'template'}? 'active'"><a th:href="@{/admin/m/base/template/list.gsp}"> 模板配置</a></li>
+							<li th:class="${current == 'model'}? 'active'"><a th:href="@{/admin/m/base/model/list.gsp}"> 模型配置</a></li>
+							<li th:class="${current == 'attr'}? 'active'"><a th:href="@{/admin/m/base/attr/list.gsp}"> 文章属性</a></li>
+							<li th:class="${current == 'scoreGroup'}? 'active'"><a th:href="@{/admin/m/ext/scoreGroup/list.gsp}"> 评分组配置</a></li>
+						</ul></li>
+
+					<!--/******* 公共部分↓ *******/-->
+					<li th:class="${root == 'uum'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-user"></i> <span> 用户权限</span> <i class="fa fa-angle-right drop-icon"></i></a>
+						<ul class="submenu">
+							<li th:class="${current == 'user'}? 'active'"><a th:href="@{/admin/c/user/list.gsp}"> 用户管理</a></li>
+						</ul></li>
+					<li th:class="${root == 'monitor'}? 'active'"><a href="#" class="dropdown-toggle"><i class="fa fa-binoculars"></i> <span> 系统监控</span> <i class="fa fa-angle-right drop-icon"></i></a>
+						<ul class="submenu">
+							<li th:class="${current == 'logLoginList'}? 'active'"><a th:href="@{/admin/c/monitor/log/listLogin.gsp}"> 登录日志</a></li>
+							<li th:class="${current == 'logOperateList'}? 'active'"><a th:href="@{/admin/c/monitor/log/listOperate.gsp}"> 操作日志</a></li>
+							<li th:class="${current == 'sysinfo'}? 'active'"><a th:href="@{/admin/c/monitor/sysinfo/list.gsp}"> 系统信息</a></li>
+						</ul></li>
+					<li th:class="${current == 'about'}? 'active'"><a th:href="@{/admin/c/index/about.gsp}"><i class="fa fa-info-circle"></i><span> 关于系统</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<div id="nav-col-submenu"></div>
+</div>

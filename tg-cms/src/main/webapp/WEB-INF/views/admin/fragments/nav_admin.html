@@ -1,36 +1,24 @@
 <!--/*******导航栏*******/-->
-<header class="navbar" id="header-navbar">
-	<div class="container">
-		<a th:href="@{/admin/index.gsp}" id="logo" class="navbar-brand"> <img th:src="@{/resources/imgs/common/logo_w.png}" alt="" class="normal-logo logo-white" /> <img th:src="@{/resources/imgs/common/logo_w.png}" alt="" class="normal-logo logo-black" /> <img
-			th:src="@{/resources/imgs/common/logo_w.png}" alt="" class="small-logo hidden-xs hidden-sm hidden" />
+<div class="layui-header header header-demo">
+	<div class="layui-main">
+		<a class="logo" th:href="@{/index.htm}"> <img th:src="@{/resources/imgs/common/logo.png}" alt="17企航">
 		</a>
-		<div class="clearfix">
-			<button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
-				<span class="sr-only">导航</span> <span class="fa fa-bars"></span>
-			</button>
-			<div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
-				<ul class="nav navbar-nav pull-left">
-					<li><a class="btn" id="make-small-nav"> <i class="fa fa-bars"></i>
-					</a></li>
-					<li><a class="btn" th:href="@{/admin/index.gsp}" title="首页"> <i class="fa fa-home"></i>
-					</a></li>
-					<li class="dropdown hidden-xs"><a th:text="#{customer.systemTitle}"> 图灵谷 </a></li>
-				</ul>
-			</div>
-			<div class="nav-no-collapse pull-right" id="header-nav">
-				<ul class="nav navbar-nav pull-right">
-					<li class="dropdown profile-dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <!-- <img src="" alt="" />  --> <span class="hidden-xs" th:text="|当前用户：${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}|">name</span> <b class="caret"></b>
-					</a>
-						<ul class="dropdown-menu dropdown-menu-right">
-							<li><a th:href="@{/admin/c/user/updateCurrentUser.gsp}" data-target="#commonSmWin" data-toggle="modal"><i class="fa fa-user"></i>个人信息</a></li>
-							<li><a th:href="@{/admin/c/user/editPass.gsp}" data-target="#commonSmWin" data-toggle="modal"><i class="fa fa-key"></i>修改密码</a></li>
-							<li><a type="button" onclick="tg_lockScreen()" title="锁定系统"><i class="fa fa-lock"></i>锁定系统 </a></li>
-							<li><a th:href="@{/logout}" title="退出系统"><i class="fa fa-power-off"></i>退出系统 </a></li>
-						</ul></li>
-					<li class="hidden-xxs"><a th:href="@{/logout}" class="btn"> <i class="fa fa-power-off"></i>
-					</a></li>
-				</ul>
-			</div>
-		</div>
+		<ul class="layui-nav">
+			<li class="layui-nav-item" th:classappend="${nodeCodeNum=='selfCenter'} ? 'layui-this'" th:if="${session.SPRING_SECURITY_CONTEXT!=null}"><a th:text="${session.SPRING_SECURITY_CONTEXT.authentication.principal.username}" href="javascript:;">姓名</a>
+				<dl class="layui-nav-child">
+					<dd>
+						<a th:href="@{/admin/c/user/updateCurrentUser.gsp}" data-target="#commonSmWin" data-toggle="modal">个人信息</a>
+					</dd>
+					<dd>
+						<a th:href="@{/admin/c/user/editPass.gsp}" data-target="#commonSmWin" data-toggle="modal">修改密码</a>
+					</dd>
+					<dd>
+						<a type="button" onclick="tg_lockScreen()" title="锁定系统">锁定系统 </a>
+					</dd>
+					<dd>
+						<a th:href="@{/logout}" title="退出系统"><i class="fa fa-power-off"></i>退出系统 </a>
+					</dd>
+				</dl></li>
+		</ul>
 	</div>
-</header>
+</div>

@@ -1,0 +1,45 @@
+﻿<!--/*******底部引入js*******/-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var BASE_URL = /*[[@{/}]]*/;
+    /*]]>*/
+</script>
+<!--/* Mainly scripts */-->
+<script th:src="@{/resources/vendor/jquery/jquery-2.2.4.min.js}"></script>
+<script th:src="@{/resources/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.nanoscroller.min.js}"></script>
+<!--/* Jquery form */-->
+<script th:src="@{/resources/vendor/jquery/plugins/jquery.form.js}"></script>
+<script th:src="@{/resources/vendor/jquery/plugins/jquery.formautofill.js}"></script>
+<!--/* jQuery Validation plugin javascript */-->
+<script th:src="@{/resources/vendor/jquery/validation/jquery.validate.min.js}"></script>
+<script th:src="@{/resources/vendor/jquery/validation/localization/messages_zh.min.js}"></script>
+<!--/* Toastr */-->
+<script th:src="@{/resources/vendor/other/toastr/toastr.min.js}"></script>
+<!--/* layer */-->
+<script th:src="@{/resources/vendor/layui/layer/layer.js}"></script>
+<!--/* Custom and plugin javascript */-->
+<script th:src="@{/resources/vendor/tgCube/js/scripts.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/pace.min.js}"></script>
+<!--/* common */-->
+<script th:src="@{/resources/js/common/tg_common.js}"></script>
+<!--/* util */-->
+<script th:src="@{/resources/js/common/tg_util.js}"></script>
+<div th:replace="common/common_window::window(windowId=commonWin)">公共弹出窗口(大)</div>
+<div th:replace="common/common_sm_window::window(windowId=commonSmWin)">公共弹出窗口(小)</div>
+<div th:replace="common/common_window::window(windowId=uploaderWin)">公共上传窗口</div>
+<!--/* 锁定屏幕 */-->
+<script th:inline="javascript">
+    var lockUrl = /*[[@{/admin/c/index/lock.gsp}]]*/'url';
+    var checkLockUrl = /*[[@{/admin/c/index/checkLock.gsp}]]*/'url';
+    var unlockUrl = /*[[@{/admin/c/index/unlock.gsp}]]*/'url';
+    var logoutUrl = /*[[@{/admin/logout}]]*/'url';
+    function tg_lockScreen() {
+        tg_lock(lockUrl, logoutUrl, unlockUrl);
+    }
+    //加载完成后执行
+    $(function() {
+        //检查是否已锁定屏幕
+        tg_checkLock(checkLockUrl, logoutUrl, unlockUrl);
+    });
+</script>
