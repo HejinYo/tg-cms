@@ -50,8 +50,9 @@ public class InfoServiceImpl implements InfoService {
     private CustomFieldValueDao customFieldValueDao;
     @Autowired
     private TagServiceImpl tagServiceImpl;
-    @Autowired
-    private LuceneHelper luceneHelper;
+    /*
+     * @Autowired private LuceneHelper luceneHelper;
+     */
     @Autowired
     private InfoAttrsDao infoAttrsDao;
     @Autowired
@@ -225,7 +226,7 @@ public class InfoServiceImpl implements InfoService {
         form.setCreateDataUsername(SystemHelper.getCurrentUsername());
         infoDao.add(form);
         updateCusFieldValue(form, cusMap);
-        luceneHelper.addIndex(fullDoc(form));
+        // luceneHelper.addIndex(fullDoc(form));
         addAttrImage(form);
         tagServiceImpl.updateRefCount(form.getMetaKeywords(), form.getId());
         // 操作日志
@@ -267,7 +268,7 @@ public class InfoServiceImpl implements InfoService {
         form.setUpdateDataUsername(SystemHelper.getCurrentUsername());
         int result = infoDao.update(form);
         updateCusFieldValue(form, cusMap);
-        luceneHelper.updateIndex(String.valueOf(form.getId()), fullDoc(form));
+        // luceneHelper.updateIndex(String.valueOf(form.getId()), fullDoc(form));
         updateAttrImage(form);
         tagServiceImpl.updateRefCount(form.getMetaKeywords(), form.getId());
         // 操作日志

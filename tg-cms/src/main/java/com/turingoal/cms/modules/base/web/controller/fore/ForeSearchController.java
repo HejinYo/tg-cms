@@ -38,7 +38,7 @@ import com.turingoal.common.util.lang.StringUtil;
  */
 @Controller
 public class ForeSearchController {
-    @Autowired
+    /*@Autowired
     private NodeService nodeService;
     @Autowired
     private InfoService infoService;
@@ -47,12 +47,12 @@ public class ForeSearchController {
     @Autowired
     private SmartChineseAnalyzer luceneAnalyzer;
     @Autowired
-    private TemplateEngineHelper templateEngineHelper;
+    private TemplateEngineHelper templateEngineHelper;*/
 
     /**
      * 栏目
      */
-    @RequestMapping("/search_{page:[0-9]*}.htm")
+/*    @RequestMapping("/search_{page:[0-9]*}.htm")
     public void index(final String q, @PathVariable final Integer page, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ParseException {
         IndexSearcher searcher = luceneHelper.getIndexSearcher();
         List<String> ids = new ArrayList<String>();
@@ -81,7 +81,7 @@ public class ForeSearchController {
         request.setAttribute("q", q);
         templateEngineHelper.process("search", request, response);
         return;
-    }
+    }*/
 
     /**
      * 将form表单里面的字符串去掉空白

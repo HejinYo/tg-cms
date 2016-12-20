@@ -58,6 +58,6 @@
     <import resource="classpath:spring-config/spring-log.xml" />
     <import resource="classpath:spring-config/spring-validator.xml" />
     <import resource="classpath:spring-config/spring-task.xml" />
-    <import resource="classpath:spring-config/spring-lucene.xml" />
+    <!-- <import resource="classpath:spring-config/spring-lucene.xml" /> -->
     <!--<import resource="classpath:spring-config/spring-session.xml" />-->
 </beans>
