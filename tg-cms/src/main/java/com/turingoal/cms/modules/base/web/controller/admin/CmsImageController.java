@@ -25,10 +25,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.Page;
+import com.turingoal.cms.core.commons.SystemHelper;
 import com.turingoal.cms.modules.base.domain.CmsImage;
+import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.cms.modules.base.domain.form.CmsImageForm;
 import com.turingoal.cms.modules.base.domain.query.CmsImageQuery;
 import com.turingoal.cms.modules.base.service.CmsImageService;
+import com.turingoal.cms.modules.base.service.GlobalService;
 import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
@@ -48,6 +51,8 @@ public class CmsImageController {
     private static final String SHOW_PAGE = "modules/material/image/show";
     @Autowired
     private CmsImageService imageService;
+    @Autowired
+    private GlobalService globalService;
 
     /**
      * 图片上传页面
@@ -62,6 +67,10 @@ public class CmsImageController {
      */
     @RequestMapping(value = "/imageUpload2.gsp", method = RequestMethod.GET)
     public final String imageUpload2() {
+        if (SystemHelper.getGlobal() == null) {
+            Global gs = globalService.get();
+            SystemHelper.setGlobal(gs);
+        }
         return "common/imageUpload2";
     }
 

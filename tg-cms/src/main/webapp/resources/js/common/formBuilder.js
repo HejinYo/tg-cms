@@ -1,6 +1,6 @@
 // 文本框
 function createTextField(record) {
-	var input = $('<input />').addClass('form-control input-sm').attr('name',
+	var input = $('<input />').addClass('layui-input').attr('name',
 			record.fieldName);
 	input.attr('placeholder', '请输入' + record.fieldLabel);
 	input.val(record.innerType == 1
@@ -283,7 +283,7 @@ function formBuilder(options, result, sucFun) {
 		var ueditors = $('<div>');
 		var ueditorIds = [];
 
-		var singleFiles = $('<div class="form-group">');
+		var singleFiles = $('<div class="layui-form-item"><div class="layui-inline">');
 		singleFiles.append($('<label class="col-md-2 control-label"></label>'));
 		singleFiles.append($('<div class="col-md-10"></div>'));
 		singleFiles.append($('<div class="clearfix"></div>'));
@@ -319,10 +319,10 @@ function formBuilder(options, result, sucFun) {
 			} else if (record.type == 12) {
 				field = createAttr(record);
 			}
-			var formGroup = $('<div></div>').addClass('form-group');
-			var label = $("<label></label>").addClass('col-md-2 control-label')
+			var formGroup = $('<div></div></div>').addClass('layui-form-item');
+			var label = $("<label></label>").addClass('layui-form-label')
 					.html(record.fieldLabel + "：");
-			var inputDiv = $('<div></div>').addClass('col-md-10');
+			var inputDiv = $('<div></div></div>').addClass('layui-input-block');
 			inputDiv.append(field);
 			formGroup.append(label);
 			formGroup.append(inputDiv);

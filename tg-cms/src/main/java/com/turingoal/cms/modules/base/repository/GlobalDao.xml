@@ -4,8 +4,8 @@
 <mapper namespace="com.turingoal.cms.modules.base.repository.GlobalDao">
     
     <!-- 通过id得到一个全局配置 -->
-    <select id="get" parameterType="string">
-        SELECT * FROM tg_cms_m_base_global WHERE LIMIT 1
+    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Global">
+        SELECT * FROM tg_cms_m_base_global LIMIT 1
     </select>
     
     <!-- 修改 全局配置  -->
