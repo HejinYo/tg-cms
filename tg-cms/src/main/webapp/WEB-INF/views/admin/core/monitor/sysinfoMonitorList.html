@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title th:text="|#{customer.systemTitle}-系统监控-缓存监控|">图灵谷</title>
+<title th:text="|#{customer.systemTitle}-管理中心-系统监控-缓存监控|">图灵谷</title>
 <div th:replace="fragments/head_admin">head</div>
-<!--/* 当前页css */-->
+<!--/***** 当前页css  start *****/-->
+<!--/***** 当前页css  end *****/-->
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -37,9 +38,8 @@
 				</table>
 			</div>
 		</div>
-		<div th:replace="fragments/footer_admin">底部</div>
+		<div th:replace="fragments/footer_admin">底部版权信息等</div>
 	</div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
-<!--/* 当前页js */-->
 </html>
