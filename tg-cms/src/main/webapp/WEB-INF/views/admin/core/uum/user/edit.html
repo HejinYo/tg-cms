@@ -1,55 +1,75 @@
-<form th:action="@{/admin/c/user/edit.gsp}" th:object="${result}" id="editForm" role="form" action="#" class="form-horizontal" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改用户</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<input th:field="*{id}" type="text" hidden="true" />
-				<div class="form-group">
-					<label class="col-md-3 control-label"><label class="text-danger">*</label> 用户名：</label>
-					<div class="col-md-7">
-						<input th:field="*{username}" readonly="true" placeholder="请输入用户名" type="text" class="form-control" />
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-用户权限-组织机构维度|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=uum,child=user)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>用户权限</cite></a> <a th:href="@{/admin/c/user/list.gsp}">用户管理</a> <a><cite>修改</cite></a>
+					</span>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label"><label class="text-danger">*</label> 真实姓名：</label>
-					<div class="col-md-7">
-						<input th:field="*{realname}" placeholder="请输入真实姓名" type="text" class="form-control" />
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 用户修改
+				</blockquote>
+				<form th:action="@{/admin/c/user/edit.gsp}" th:object="${result}" id="editForm" role="form" action="#" class="form-horizontal" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>修改用户</legend>
+					</fieldset>
+					<input th:field="*{id}" type="text" hidden="true" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">用户名：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="username" th:field="*{username}" placeholder="请输入用户名" lay-verify="username" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="31" readonly>
+						</div>
 					</div>
-				</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">真实姓名：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="realname" th:field="*{realname}" placeholder="请输入真实姓名" lay-verify="realname" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="31">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var rules = {
-            username : {
-                required : true,
-                maxlength : 30,
-                minlength : 5
-            },
-            realname : {
-                required : true,
-                maxlength : 20,
-                minlength : 2
+    var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        username : function(value) {
+            if (value.length < 5) {
+                return '用户名至少得5个字哦！';
+            } else if (value.length > 30) {
+                return '用户名不能太长哦，最长30个字！';
+            }
+        },
+        realname : function(value) {
+            if (value.length < 5) {
+                return '真实姓名至少得5个字哦！';
+            } else if (value.length > 30) {
+                return '真实姓名不能太长哦，最长30个字！';
             }
         }
-        var messages = {
-
-        }
-        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
     });
     /*]]>*/
 </script>

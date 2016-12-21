@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import com.github.pagehelper.Page;
-import com.turingoal.common.domain.LogInfo;
-import com.turingoal.common.domain.query.LogInfoQuery;
 import com.turingoal.cms.core.service.MonitorLogInfoService;
+import com.turingoal.cms.modules.commons.ConstantValue;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
+import com.turingoal.common.domain.LogInfo;
+import com.turingoal.common.domain.query.LogInfoQuery;
 import com.turingoal.common.exception.BusinessException;
 
 /**
@@ -35,8 +37,12 @@ public class MonitorLogController {
      * 登录日志页面
      */
     @RequestMapping(value = "/listLogin.gsp", method = RequestMethod.GET)
-    public String listLoginPage() throws BusinessException {
-        return LIST_LOGIN_PAGE;
+    public ModelAndView listLoginPage(final LogInfoQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_LOGIN_PAGE);
+        query.setLimit(ConstantValue.L_FIFTH);
+        Page<LogInfo> result = loginfoService.findLoginLogByPage(query);
+        mav.addObject("loginList", new PageGridBean(query, result, true));
+        return mav;
     }
 
     /**
@@ -53,8 +59,12 @@ public class MonitorLogController {
      * 操作日志页面
      */
     @RequestMapping(value = "/listOperate.gsp", method = RequestMethod.GET)
-    public String listtOperatePage() throws BusinessException {
-        return LIST_OPERAGE_PAGE;
+    public ModelAndView listtOperatePage(final LogInfoQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_OPERAGE_PAGE);
+        query.setLimit(ConstantValue.L_FIFTH);
+        Page<LogInfo> result = loginfoService.findOperateLogByPage(query);
+        mav.addObject("operateList", new PageGridBean(query, result, true));
+        return mav;
     }
 
     /**

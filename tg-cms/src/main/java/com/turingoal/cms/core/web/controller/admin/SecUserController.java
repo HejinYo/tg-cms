@@ -82,8 +82,11 @@ public class SecUserController {
      * 用户列表页面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public ModelAndView listPage() throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        List<User> result = userService.findAll();
+        mav.addObject("userList", result);
+        return mav;
     }
 
     /**
@@ -108,14 +111,15 @@ public class SecUserController {
      * 新增用户
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final UserForm form, final BindingResult bindingResult) throws BusinessException {
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final UserForm form, final BindingResult bindingResult) throws BusinessException {
         // 数据校验
         if (bindingResult.hasErrors()) {
-            return new JsonResultBean(JsonResultBean.FAULT, SpringBindingResultWrapper.warpErrors(bindingResult));
+            // return new JsonResultBean(JsonResultBean.FAULT, SpringBindingResultWrapper.warpErrors(bindingResult));
+            return "redirect:/admin/c/user/list.gsp";
         } else {
             userService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
+            // return new JsonResultBean(JsonResultBean.SUCCESS);
+            return "redirect:/admin/c/user/list.gsp";
         }
     }
 
@@ -133,14 +137,15 @@ public class SecUserController {
      * 修改用户
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final UserForm form, final BindingResult bindingResult) throws BusinessException {
+    public final String edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final UserForm form, final BindingResult bindingResult) throws BusinessException {
         // 数据校验
         if (bindingResult.hasErrors()) {
-            return new JsonResultBean(JsonResultBean.FAULT, SpringBindingResultWrapper.warpErrors(bindingResult));
+            // return new JsonResultBean(JsonResultBean.FAULT, SpringBindingResultWrapper.warpErrors(bindingResult));
+            return "redirect:/admin/c/user/list.gsp";
         } else {
             userService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
+            // return new JsonResultBean(JsonResultBean.SUCCESS);
+            return "redirect:/admin/c/user/list.gsp";
         }
     }
 

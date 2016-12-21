@@ -7,11 +7,17 @@
     <select id="find" parameterType="com.turingoal.common.domain.query.LogInfoQuery" resultType="com.turingoal.common.domain.LogInfo">
         SELECT * FROM tg_c_log
         <where>
-            <if test="logType!=null and logType!=''"> AND log_type = #{logType}</if>
-            <if test="startTime!=null"> AND event_date &gt;= #{startTime}</if>
-            <if test="endTime!=null"> AND event_date &lt;= #{endTime} </if>
-            <if test="simpleQueryParam != null and simpleQueryParam!=''">  
-               AND username LIKE CONCAT('%',#{simpleQueryParam},'%') OR message LIKE CONCAT('%',#{simpleQueryParam},'%'))
+            <if test="logType!=null and logType!=''"> 
+                AND log_type = #{logType}
+            </if>
+            <if test="startTime!=null"> 
+                AND event_date &gt;= #{startTime}
+            </if>
+            <if test="endTime!=null"> 
+                AND event_date &lt;= #{endTime} 
+            </if>
+           <if test="simpleQueryParam != null and simpleQueryParam!=''">  
+               AND (log_type LIKE CONCAT('%',#{simpleQueryParam},'%') OR username LIKE CONCAT('%',#{simpleQueryParam},'%') OR message LIKE CONCAT('%',#{simpleQueryParam},'%'))
             </if> 
         </where>
         ORDER BY event_date DESC
