@@ -15,23 +15,14 @@
 			<div class="layui-main">
 				<!--/***** 面包屑 *****/-->
 				<div class="layui-elem-quote" style="margin-top: 10px;">
-					<span class="layui-breadcrumb"> <a><cite>内容管理</cite></a> <a th:href="@{/manage/m/task/list.htm?type=2}">文章管理</a> <a><cite>列表</cite></a>
+					<span class="layui-breadcrumb"> <a><cite>内容管理</cite></a><a><cite>文章管理</cite></a>
 					</span>
 				</div>
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="main-box">
-							<div class="main-box-body clearfix">
-								<br />
-								<div class="site-tree">
-									<ul class="layui-tree" id="nodeTree">
-									</ul>
-								</div>
-								<div class="site-content" style="width: 1399px;" id="infoContent"></div>
-							</div>
-						</div>
-					</div>
+				<div class="site-tree">
+					<ul class="layui-tree" id="nodeTree">
+					</ul>
 				</div>
+				<div class="site-content" style="width: 1399px;" id="infoContent"></div>
 			</div>
 		</div>
 		<div th:replace="fragments/footer_admin">底部版权信息等</div>

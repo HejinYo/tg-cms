@@ -1,154 +1,108 @@
 <!DOCTYPE html>
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title th:text="|#{customer.systemTitle}-图灵谷-内容管理-专题管理|">图灵谷</title>
+<title th:text="|#{customer.systemTitle}-内容管理-专题管理|">图灵谷</title>
 <div th:replace="fragments/head_admin">head</div>
 <!--/***** 当前页css  start *****/-->
-<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
-<!--/* Switch复选框按钮  修改是否可用用*/-->
-<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
 <!--/***** 当前页css  end *****/-->
 </head>
-<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
-	<div id="theme-wrapper">
+<body>
+	<div class="layui-layout layui-layout-admin">
 		<div th:replace="fragments/nav_admin">导航栏</div>
-		<div id="page-wrapper" class="container">
-			<div th:replace="fragments/menu_admin::menu(root=content,current=special)">菜单栏</div>
-			<div id="content-wrapper">
-				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=内容管理,current=专题管理)">面包屑栏</div>
-				<div class="main-box clearfix">
-					<header class="main-box-header clearfix">
-						<div class="row m-b-sm m-t-sm">
-							<div class="col-xs-2">
-								<a th:href="@{/admin/m/base/special/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus-circle"></i>&nbsp;新增</a>
-							</div>
-							<div class="col-xs-8"></div>
-							<div class="col-xs-2">
-								<input type="text" hidden="true" />
-								<div class="input-group">
-									<input id="simpleQueryParam" name="simpleQueryParam" type="text" placeholder="请输入关键字搜索" class="form-control" /> <span class="input-group-btn">
-										<button onclick="myTable.filter()" type="button" class="btn btn-primary">搜索</button>
-									</span>
+		<div th:replace="fragments/menu_admin::menu(parent=content,child=special)">菜单栏</div>
+		<!--/*******内容*******/-->
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>内容管理</cite></a><a th:href="@{/admin/m/base/special/list.gsp}">专题管理</a><a><cite>列表</cite></a>
+					</span>
+				</div>
+				<!--/*******操作*******/-->
+				<form th:action="@{/admin/m/base/special/list.gsp}" method="get">
+					<div class="layui-form-item">
+						<blockquote class="layui-elem-quote layui-quote-nm">
+							<div class="layui-inline">
+								<div class="layui-input-inline">
+									<a th:href="@{/admin/m/base/special/add.gsp}" class="layui-btn"><i class="layui-icon">&#xe61f;</i> 新增</a>
 								</div>
 							</div>
-						</div>
-					</header>
-					<div class="main-box-body clearfix">
-						<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover text-center">
-							<thead>
-								<tr>
-									<th width="60" class="text-center">序号</th>
-									<th class="text-center">状态</th>
-									<th class="text-center">标题</th>
-									<th class="text-center">专题类别</th>
-									<th class="text-center">浏览总数</th>
-									<th class="text-center">是否推荐</th>
-									<th class="text-center">创建日期</th>
-									<th width="180" class="text-center">操作</th>
-								</tr>
-							</thead>
-						</table>
+							<div class="layui-inline" style="float: right;">
+								<div class="layui-input-inline" style="width: 200px;">
+									<input type="text" name="type" value="2" hidden="hidden"> <input type="search" id="simpleQueryParam" name="simpleQueryParam" placeholder="关键字" autocomplete="off" class="layui-input">
+								</div>
+								<button class="layui-btn" lay-submit="" lay-filter="searchForm">
+									<i class="layui-icon">&#xe615;</i>
+								</button>
+							</div>
+						</blockquote>
 					</div>
-				</div>
-				<div th:replace="fragments/footer_admin">底部</div>
+				</form>
+				<!--/***** 列表 *****/-->
+				<table class="layui-table" lay-even="" lay-skin="row">
+					<thead id="dataTable">
+						<tr>
+							<th style="width: 40px">#</th>
+							<th>状态</th>
+							<th>标题</th>
+							<th>专题类别</th>
+							<th>浏览总数</th>
+							<th>是否推荐</th>
+							<th>创建日期</th>
+							<th style="width: 140px">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${specialList.records == null or specialList.records.size() == 0}">
+							<td colspan="8" style="text-align: center;">暂时没有数据</td>
+						</tr>
+						<tr th:each="item,items:${specialList.records}">
+							<td th:text="${specialList.pageSize*(specialList.page-1)+items.index+1}" style="text-align: center;">序号</td>
+							<td th:text="${item.enabled}">状态</td>
+							<td th:text="${item.title}">标题</td>
+							<td th:text="${item.typeName}">专题类型</td>
+							<td th:text="${item.viewsCount}">浏览总数</td>
+							<td th:text="${item.recommend==1?'是':'否'}">是否推荐</td>
+							<td th:text="${item.createDataTime}">创建日期</td>
+							<td style="text-align: center;"><a class="layui-btn layui-btn-small layui-btn-primary" th:href="@{/admin/m/base/special/infoList_{id}.gsp(id=${item.id})}"><i class="layui-icon">&#xe615;</i></a><a class="layui-btn layui-btn-small"
+								th:href="@{/admin/m/base/special/edit_{id}.htm(id=${item.id})}"><i class="layui-icon">&#xe642;</i></a>
+								<button class="layui-btn layui-btn-small layui-btn-normal" th:onclick="|deleted('${item.id}')|">
+									<i class="layui-icon">&#xe640;</i>
+								</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="pageDiv"></div>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部版权信息等</div>
 	</div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
 <!--/***** 当前页js start *****/-->
-<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
-<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
-<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
-<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
-<script th:src="@{/resources/vendor/bootstrap/plugins/bootstrap-datepicker.js}"></script>
-<!--/* Switch复选框按钮  修改是否可用用*/-->
-<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
-<!--/* 模板引擎生成数据 */-->
 <script th:inline="javascript">
     /*<![CDATA[*/
-    //表格
-    var myTable;
-    //表格列定义
-    var columnDefs = [ {
-        //第一列，用来显示序号
-        "searchable" : false,
-        "orderable" : false,
-        "targets" : 0
-    } ];
-    var columns = [ {
-        //第一列，用来显示序号
-        "data" : null,
-        "class" : "text-center"
-    }, {
-        "data" : "enabled",
-        render : function(data,type,row,meta){
-		    if(data==1){
-		        return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
-		    }else{
-	                  return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
-		    }
-        }
-    }, {
-        "data" : "title"
-    }, {
-        "data" : "typeName"
-    }, {
-        "data" : "viewsCount"
-    }, {
-        "data" : "recommend",
-        render : function(data,type,row,meta){
-            if(data==1){
-                return '<span class="text-success">是</span>';
-            }else if(data!=1){
-                return  '<span class="text-danger">否</span>';
+    var result = /*[[${specialList}]]*/;
+    $(function(){
+        $("#simpleQueryParam").val(GetQueryString("simpleQueryParam"));
+        var option = {
+            listUrl : /*[[@{/admin/m/base/special/list.gsp?}]]*/,
+            totalPages : result.totalPages,
+            page : result.page,
+            param : {
+                simpleQueryParam
             }
-        }
-    }, {
-        "data" : "createDataTime"
-    },{
-        "data" : null,
-        "class" : "text-center", //最后一列，操作按钮
-        render : function(data, type, row, meta) {
-            var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
-            var infosUrl= /*[[@{/admin/m/base/special/infoList_}]]*/'url'
-            var infosUrlPath= infosUrl + row.id + ".gsp"; //文章列表地址
-            var result = '';
-            //修改按钮
-            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
-            result += ' <a href="'+infosUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-navicon">&nbsp;文章列表</i></a>';
-            //删除按钮
-            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
-            return result;
-        }
-    } ];
-    //ajax参数
-    var ajaxDataParamFun = function(d) {
-        d.simpleQueryParam = $('#simpleQueryParam').val(); //模糊查询
-    };
-    //表格setting
-    var setting = {
-        listUrl : /*[[@{/admin/m/base/special/list.gsp}]]*/'url',
-        editUrl : /*[[@{/admin/m/base/special/edit_}]]*/'url',
-        deleteUrl : /*[[@{/admin/m/base/special/delete_}]]*/'url',
-        enableUrl : /*[[@{/admin/m/base/special/enable_}]]*/'url',
-        disableUrl : /*[[@{/admin/m/base/special/disable_}]]*/'url',
-        columnDefs : columnDefs, //表格列定义
-        columns : columns, //表格列
-        dataTableDiv : 'dataTable', //表格
-        ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-        pageable : true, //是否分页
-        showIndexColumn : true, //是否显示第一列的索引列
-        enabledChange : true
-    };
-    //创建表格
-    myTable = new TG_Tabel.createNew(setting);
-    //加载完成后执行
-    $(function() {
-        //表格初始化
-        myTable.init();
-    });
+        };
+        tg_basePage(option);
+    })
+
+    var deleteUrl = /*[[@{/admin/m/base/special/delete_{id}.htm}]]*/;
+    function deleted(id) {
+        tg_deleteItem(deleteUrl.replace('{id}',id), function(){
+            location.reload();
+        });
+    }
     /*]]>*/
 </script>
+<!--/***** 当前页js end *****/-->
 </html>
