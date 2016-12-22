@@ -7,108 +7,110 @@
 <body>
 	<div class="layui-layout layui-layout-admin">
 		<div th:replace="fragments/nav_admin">导航栏</div>
-		<div th:replace="fragments/menu_admin::menu(parent=index,child=about)">菜单栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=about,child=about)">菜单栏</div>
 		<!--/*******内容*******/-->
 		<div class="layui-body">
-			<h1 class="site-h1">
-				<i class="layui-icon">&#xe606;</i>关于系统-糖果cms
-			</h1>
-			<blockquote class="layui-elem-quote">图灵谷cms（tg-cms），我们就叫她糖果cms吧</blockquote>
-			<br />
-			<fieldset class="layui-elem-field layui-field-title site-title">
-				<legend> 她是什么，就是一个cms，一颗小小的小糖果 </legend>
-			</fieldset>
-			<blockquote class="layui-elem-quote layui-quote-nm">
-				<p>cms那么多，为什么我们还要重复发明一个轮子？</p>
-				<p>cms很多，但是java的cms很少，优秀的更少</p>
-				<p>cms很多，但是免费的很少，开源的更少</p>
-				<p>cms很多，简单的很少，好用的更少</p>
-			</blockquote>
-			<br />
-			<fieldset class="layui-elem-field layui-field-title site-title">
-				<legend> 她是什么，就是一个cms，一颗小小的小糖果 </legend>
-			</fieldset>
-			<blockquote class="layui-elem-quote layui-quote-nm">
-				<p>一个java开发的cms</p>
-				<p>一个免费开源的cms</p>
-				<p>一个简单易用的cms</p>
-			</blockquote>
-			<br />
-			<fieldset class="layui-elem-field layui-field-title site-title">
-				<legend> 她是什么，就是一个cms，一颗小小的小糖果 </legend>
-			</fieldset>
-			<blockquote class="layui-elem-quote layui-quote-nm">
-				<p>她简单。没有多站点，没有采集，没有多语言。真的不是我们偷懒，这些功能真的很少用到</p>
-				<p>她青春。都是新的技术，新的版本。新技术代表生产力，新不代表不稳定，您可以保留意见</p>
-				<p>她活跃。我们会尽量经常更新，尽量......</p>
-				<p>她年轻。她还没满周岁，有很多毛病，请大家谅解</p>
-			</blockquote>
-			<br />
-			<fieldset class="layui-elem-field layui-field-title site-title">
-				<legend> 声明 </legend>
-			</fieldset>
-			<blockquote class="layui-elem-quote layui-quote-nm">
-				<p>糖果还很年轻，功能上等各方面还不完善，请大家能够包容，也请大家提出一些好的意见和建议（不一定采纳, 因为小糖果很任性 ^ ^ ） 。</p>
-				<p>相信在我们的共同努力下她会一步步成长起来，希望能够 看到她亭亭玉立的那一天......</p>
-			</blockquote>
-			<br />
-			<fieldset class="layui-elem-field layui-field-title site-title">
-				<legend> 协议 </legend>
-			</fieldset>
-			<blockquote class="layui-elem-quote layui-quote-nm">
-				<p>开源、免费（仅限非商业项目，且在页面明显位置保留版权信息）</p>
-				<p>商用的话就悄悄联系下我们吧</p>
-			</blockquote>
-			<br />
-			<fieldset class="layui-elem-field layui-field-title site-title">
-				<legend> 版本 </legend>
-			</fieldset>
-			<blockquote class="layui-elem-quote layui-quote-nm">
-				<table class="layui-table">
-					<thead>
-						<tr>
-							<th><strong>发布时间</strong></th>
-							<th><strong>版本</strong></th>
-							<th><strong>代号</strong></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>2016-07-15</td>
-							<td>V2.1</td>
-							<td>橡皮糖（糖果还未成形，架构变动较大，就叫橡皮糖吧）</td>
-						</tr>
-						<tr>
-							<td>2016-01-21</td>
-							<td>V1.1</td>
-							<td>麦芽糖（糖果还未成形，架构变动较大，就叫麦芽糖吧）</td>
-						</tr>
-						<tr>
-							<td>2015-10-26</td>
-							<td>V0.9</td>
-							<td>棉花糖（糖果还未成形，就叫她棉花糖吧）</td>
-						</tr>
-					</tbody>
-				</table>
-			</blockquote>
-			<br />
-			<fieldset class="layui-elem-field layui-field-title site-title">
-				<legend> 关于我们 </legend>
-			</fieldset>
-			<blockquote class="layui-elem-quote layui-quote-nm">
-				<p>
-					<a href="http://www.turingoal.com" target="_blank">图灵谷（北京）科技有限公司</a>
-				</p>
-				<p>
-					<a href="http://www.turingoal.com" target="_blank">www.turingoal.com</a>
-				</p>
-				<p>
-					<a href="mailto:service@turingoal.com">service@turingoal.com</a>
-				</p>
-				<p>
-					糖果CMS交流QQ群 <a href="https://jq.qq.com/?_wv=1027&k=42iumHc" target="_blank">512177870</a>
-				</p>
-			</blockquote>
+			<div class="layui-main">
+				<h1 class="site-h1">
+					<i class="layui-icon">&#xe606;</i>关于系统-糖果cms
+				</h1>
+				<blockquote class="layui-elem-quote">图灵谷cms（tg-cms），我们就叫她糖果cms吧</blockquote>
+				<br />
+				<fieldset class="layui-elem-field layui-field-title site-title">
+					<legend> 她是什么，就是一个cms，一颗小小的小糖果 </legend>
+				</fieldset>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<p>cms那么多，为什么我们还要重复发明一个轮子？</p>
+					<p>cms很多，但是java的cms很少，优秀的更少</p>
+					<p>cms很多，但是免费的很少，开源的更少</p>
+					<p>cms很多，简单的很少，好用的更少</p>
+				</blockquote>
+				<br />
+				<fieldset class="layui-elem-field layui-field-title site-title">
+					<legend> 她是什么，就是一个cms，一颗小小的小糖果 </legend>
+				</fieldset>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<p>一个java开发的cms</p>
+					<p>一个免费开源的cms</p>
+					<p>一个简单易用的cms</p>
+				</blockquote>
+				<br />
+				<fieldset class="layui-elem-field layui-field-title site-title">
+					<legend> 她是什么，就是一个cms，一颗小小的小糖果 </legend>
+				</fieldset>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<p>她简单。没有多站点，没有采集，没有多语言。真的不是我们偷懒，这些功能真的很少用到</p>
+					<p>她青春。都是新的技术，新的版本。新技术代表生产力，新不代表不稳定，您可以保留意见</p>
+					<p>她活跃。我们会尽量经常更新，尽量......</p>
+					<p>她年轻。她还没满周岁，有很多毛病，请大家谅解</p>
+				</blockquote>
+				<br />
+				<fieldset class="layui-elem-field layui-field-title site-title">
+					<legend> 声明 </legend>
+				</fieldset>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<p>糖果还很年轻，功能上等各方面还不完善，请大家能够包容，也请大家提出一些好的意见和建议（不一定采纳, 因为小糖果很任性 ^ ^ ） 。</p>
+					<p>相信在我们的共同努力下她会一步步成长起来，希望能够 看到她亭亭玉立的那一天......</p>
+				</blockquote>
+				<br />
+				<fieldset class="layui-elem-field layui-field-title site-title">
+					<legend> 协议 </legend>
+				</fieldset>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<p>开源、免费（仅限非商业项目，且在页面明显位置保留版权信息）</p>
+					<p>商用的话就悄悄联系下我们吧</p>
+				</blockquote>
+				<br />
+				<fieldset class="layui-elem-field layui-field-title site-title">
+					<legend> 版本 </legend>
+				</fieldset>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<table class="layui-table">
+						<thead>
+							<tr>
+								<th><strong>发布时间</strong></th>
+								<th><strong>版本</strong></th>
+								<th><strong>代号</strong></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>2016-07-15</td>
+								<td>V2.1</td>
+								<td>橡皮糖（糖果还未成形，架构变动较大，就叫橡皮糖吧）</td>
+							</tr>
+							<tr>
+								<td>2016-01-21</td>
+								<td>V1.1</td>
+								<td>麦芽糖（糖果还未成形，架构变动较大，就叫麦芽糖吧）</td>
+							</tr>
+							<tr>
+								<td>2015-10-26</td>
+								<td>V0.9</td>
+								<td>棉花糖（糖果还未成形，就叫她棉花糖吧）</td>
+							</tr>
+						</tbody>
+					</table>
+				</blockquote>
+				<br />
+				<fieldset class="layui-elem-field layui-field-title site-title">
+					<legend> 关于我们 </legend>
+				</fieldset>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<p>
+						<a href="http://www.turingoal.com" target="_blank">图灵谷（北京）科技有限公司</a>
+					</p>
+					<p>
+						<a href="http://www.turingoal.com" target="_blank">www.turingoal.com</a>
+					</p>
+					<p>
+						<a href="mailto:service@turingoal.com">service@turingoal.com</a>
+					</p>
+					<p>
+						糖果CMS交流QQ群 <a href="https://jq.qq.com/?_wv=1027&k=42iumHc" target="_blank">512177870</a>
+					</p>
+				</blockquote>
+			</div>
 		</div>
 		<div th:replace="fragments/footer_admin">底部版权信息等</div>
 	</div>

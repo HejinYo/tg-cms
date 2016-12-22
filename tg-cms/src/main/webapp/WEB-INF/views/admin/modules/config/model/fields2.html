@@ -1,0 +1,180 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h4 class="modal-title">字段管理</h4>
+</div>
+<div class="modal-body">
+	<div class="row">
+		<div id="paramInfoDiv">
+			<input name="ownerType" th:value="|${result.type}Model|" type="hidden" /> <input name="ownerId" th:value="${result.id}" type="hidden" />
+		</div>
+		<div class="col-md-12">
+			<a th:href="@{/admin/m/base/customField/add.gsp}" data-target="#customFieldWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+		</div>
+		<div class="col-md-6">
+			<div class="ibox float-e-margins">
+				<table id="modelFieldsTable" class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>字段名称</th>
+							<th>字段标签</th>
+							<th>字段类型</th>
+							<th width="80">操作</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="ibox float-e-margins">
+				<table id="sysModelFieldsTable" class="table table-striped table-hover">
+					<thead>
+						<tr>
+							<th>操作</th>
+							<th>字段名称</th>
+							<th>字段标签</th>
+							<th>字段类型</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">
+		<strong>关 闭</strong>
+	</button>
+</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var fieldTypes = [ '', '文本输入框', '日期输入框', '单选框', '多选框', '文本域', '文本编辑器', '图片上传', '图片集上传', '视频上传', '附件上传', '文库上传', '属性控件' ];
+    //表格
+    var modelTable;
+    var sysFieldsTable;
+    //表格列定义
+    var columnDefs2 = [ {
+        //第一列，用来拖拽
+        "searchable" : false,
+        "orderable" : false,
+        "targets" : 0
+    } ];
+
+    //ajax参数
+    var ajaxDataParamFun1 = function(d) {
+        d.ownerType = /*[[|${result.type}Model|]]*/'';
+        d.ownerId = /*[[${result.id}]]*/'';
+    };
+    //ajax参数
+    var ajaxDataParamFun2 = function(d) {
+        d.modelType = /*[[|${result.type}Model|]]*/'';
+        d.modelId = /*[[${result.id}]]*/'';
+    };
+
+    var columns1 = [ {
+        "data" : "fieldName",
+        render : function(data, type, row, meta) {
+            var str = "";
+            if (row.type == 1 || row.type == 3 || row.type == 4 || row.type == 5 || row.type == 7 || row.type == 8 || row.type == 9 || row.type == 10 || row.type == 11) {
+                str = "cus_str_";
+            } else if (row.type == 2) {
+                str = "cus_date_";
+            } else {
+                str = "cus_blob_";
+            }
+            return data.replace(str, "");
+        }
+    }, {
+        "data" : "fieldLabel"
+    }, {
+        "data" : "type",
+        render : function(data, type, row, meta) {
+            return fieldTypes[data];
+        }
+    }, {
+        "data" : null, //最后一列，操作按钮
+        "class" : "text-center",
+        render : function(data, type, row, meta) {
+            var editUrlPre = /*[[@{/admin/m/base/customField/edit_{id}.gsp}]]*/'url';
+            var result = '<a href="' + editUrlPre.replace("{id}", row.id) + '" data-target="#customFieldWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>';
+            result += ' <button class="btn btn-warning btn-xs" type="button" onclick="modelTable.deleteItem(\'' + row.id + '\')"><i class="fa fa-trash-o"></i></button>';
+            return result;
+        }
+    } ];
+
+    var columns2 = [ {
+        "data" : null, //最后一列，操作按钮
+        "class" : "text-center",
+        render : function(data, type, row, meta) {
+            var result = '<button class="btn btn-xs" type="button" onclick="addSysField(\'' + row.fieldName + '\')"><i class="fa fa-chevron-left"></i></button>';
+            return result;
+        }
+    }, {
+        "data" : "fieldName"
+    }, {
+        "data" : "fieldLabel"
+    }, {
+        "data" : "type",
+        render : function(data, type, row, meta) {
+            return fieldTypes[data];
+        }
+    } ];
+
+    //表格setting
+    var setting = {
+        listUrl : /*[[@{/admin/m/base/customField/findFieldByModel.gsp}]]*/'url',
+        columnDefs : columnDefs2, //表格列定义
+        columns : columns1, //表格列
+        dataTableDiv : 'modelFieldsTable', //表格
+        pageable : false, //是否分页
+        ajaxDataParamFun : ajaxDataParamFun1, //ajax参数
+        showIndexColumn : false, //是否显示第一列的索引列
+        enabledChange : false
+    };
+    //创建表格
+    modelTable = new TG_Tabel.createNew(setting);
+
+    //表格setting
+    var setting2 = {
+        listUrl : /*[[@{/admin/m/base/customField/findSysField.gsp}]]*/'url',
+        columnDefs : columnDefs2, //表格列定义
+        columns : columns2, //表格列
+        dataTableDiv : 'sysModelFieldsTable', //表格
+        pageable : false, //是否分页
+        ajaxDataParamFun : ajaxDataParamFun2, //ajax参数
+        showIndexColumn : false, //是否显示第一列的索引列
+        enabledChange : false
+    };
+    //创建表格
+    sysFieldsTable = new TG_Tabel.createNew(setting2);
+
+    $(function() {
+        //初始化表格
+        modelTable.init();
+        sysFieldsTable.init();
+    });
+
+    // 删除
+    var deleteUrl = /*[[@{/admin/m/base/customField/delete_{id}.gsp}]]*/'url';
+    modelTable.deleteItem = function(id) {
+        var deleteUrlPath = deleteUrl.replace("{id}", id);
+        tg_dleteItem(deleteUrlPath, function() {
+            modelTable.refresh();
+            sysFieldsTable.refresh();
+            tg_alertSuccess();
+        });
+    }
+
+    function addSysField(fieldName) {
+        var url = /*[[@{/admin/m/base/customField/addSysField.gsp}]]*/'url';
+        var parms = {
+            fieldName : fieldName,
+            ownerType : /*[[|${result.type}Model|]]*/'ownerType',
+            ownerId : /*[[${result.id}]]*/'ownerId'
+        }
+        tg_simpleAjaxPost(url, parms, function() {
+            modelTable.refresh();
+            sysFieldsTable.refresh();
+        });
+    }
+    /*]]>*/
+</script>

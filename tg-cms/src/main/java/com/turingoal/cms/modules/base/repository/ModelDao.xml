@@ -30,10 +30,18 @@
     <!-- 修改 Model -->
     <update id="update" parameterType="com.turingoal.cms.modules.base.domain.form.ModelForm">
         UPDATE tg_cms_m_base_model SET
-            type = #{type}, 
-            model_name = #{modelName}, 
-            description = #{description}, 
-            sort_order = #{sortOrder}
+            <if test="type !=null and type !=''">
+                type = #{type}, 
+            </if>
+            <if test="modelName !=null and modelName !=''">
+                model_name = #{modelName}, 
+            </if>
+            <if test="description !=null and description !=''">
+                description = #{description}, 
+            </if>
+            <if test="sortOrder !=null and sortOrder !=''">
+                sort_order = #{sortOrder}
+            </if>
         WHERE id = #{id}
     </update>
 

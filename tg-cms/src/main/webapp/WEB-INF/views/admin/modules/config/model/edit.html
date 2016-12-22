@@ -1,67 +1,84 @@
-<form th:action="@{/admin/m/base/model/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改模型</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<input th:field="*{id}" type="text" hidden="true" />
-				<div class="form-group">
-					<label class="col-md-3 control-label">类 型<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<select class="form-control" th:field="*{type}">
-							<option value="info">文档模型</option>
-							<option value="node">栏目模型</option>
-							<option value="special">专题模型</option>
-						</select>
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=model)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/base/model/list.gsp}">模型配置</a> <a><cite>编辑</cite></a>
+					</span>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">模型名称<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input th:field="*{modelName}" placeholder="请输入模型名称" type="text" class="form-control" />
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 模型配置
+				</blockquote>
+				<form th:action="@{/admin/m/base/model/edit.gsp}" th:object="${result}" class="layui-form" id="editForm" role="form" action="#" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>编辑模型</legend>
+					</fieldset>
+					<input th:field="*{id}" type="text" hidden="true" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">类 型：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<select name="type" th:field="*{type}">
+								<option value="info">文档模型</option>
+								<option value="node">栏目模型</option>
+								<option value="special">专题模型</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">备 注：</label>
-					<div class="col-md-7">
-						<textarea th:field="*{description}" rows="4" class="form-control" placeholder="最大140个字符"></textarea>
+					<div class="layui-form-item">
+						<label class="layui-form-label">模型名称：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input name="modelName" th:field="*{modelName}" class="layui-input" lay-verify="modelName" placeholder="请输入模型名称" type="text" maxlength="21" />
+						</div>
 					</div>
-				</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">备 注：</label>
+						<div class="layui-input-block">
+							<textarea name="description" th:field="*{description}" class="layui-textarea" lay-verify="description" placeholder="请输入模型名称" type="text" maxlength="150"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var rules = {
-            type : {
-                required : true
-            },
-            modelName : {
-                required : true,
-                maxlength : 20
-            },
-            description : {
-                maxlength : 140
+    var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        modelName : function(value) {
+            if (value.length < 2) {
+                return '模型名称至少得2个字哦！';
+            } else if (value.length > 20) {
+                return '模型名称不能太长哦，最长20个字！';
+            }
+        },
+        description : function(value) {
+            if (value.length > 140) {
+                return '描述不能太长哦，最长140个字！';
             }
         }
-        var messages = {
-
-        }
-        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
     });
     /*]]>*/
 </script>

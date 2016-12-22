@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局参数|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
+</head>
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=gconfig,current=global)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=全局配置,current=全局参数)">面包屑栏</div>
+				<div class="main-box clearfix">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="ibox float-e-margins">
+								<header class="main-box-header clearfix">
+									<h2>全局参数</h2>
+								</header>
+								<div class="ibox-content">
+									<form th:action="@{/admin/m/base/global/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
+										<div class="row">
+											<div class="col-md-12">
+												<input th:field="*{id}" type="text" hidden="true" />
+												<div class="form-group">
+													<label class="col-md-2 control-label">协 议<label class="text-danger">*</label>：
+													</label>
+													<div class="col-md-3">
+														<input th:field="*{sysProtocol}" placeholder="请输入协议" type="text" class="form-control" />
+													</div>
+													<label class="col-md-2 control-label">服务端口号<label class="text-danger">*</label>：
+													</label>
+													<div class="col-md-3">
+														<input th:field="*{sysPort}" placeholder="请输入服务端口号" type="text" class="form-control" />
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-2 control-label">上下文路径：</label>
+													<div class="col-md-3">
+														<input th:field="*{contextPath}" placeholder="请输入上下文路径" type="text" class="form-control" />
+													</div>
+													<label class="col-md-2 control-label">是否包含域名<label class="text-danger">*</label>：
+													</label>
+													<div class="col-md-3">
+														<select class="form-control" th:field="*{withDomain}">
+															<option value="1">是</option>
+															<option value="2">否</option>
+														</select>
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-md-2 control-label">附件发布点<label class="text-danger">*</label>：
+													</label>
+													<div class="col-md-3">
+														<input th:field="*{uploadsPublishpointId}" placeholder="请输入附件发布点" type="text" class="form-control" />
+													</div>
+													<label class="col-md-2 control-label">版本号<label class="text-danger">*</label>：
+													</label>
+													<div class="col-md-3">
+														<input th:field="*{sysVersion}" placeholder="请输入版本号" type="text" class="form-control" />
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer col-md-12">
+											<div class="col-md-9"></div>
+											<button class="btn btn-primary col-md-1" type="submit" id="editBtn">
+												<strong>提 交</strong>
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer_admin">底部</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            sysProtocol : {
+                required : true
+            }
+        }
+        var messages = {
+
+        }
+        tg_baseFormAjaxSubmit('editForm', rules, messages, function() {
+            tg_alertSuccess();
+            var infoListUrl = /*[[@{/admin/m/base/global/list.gsp}]]*/'';
+            window.location.href = infoListUrl;
+        });
+    });
+    /*]]>*/
+</script>
+</html>

@@ -49,8 +49,11 @@ public class ModelController {
      * 模型列表页面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public final String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public final ModelAndView listPage(final ModelQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        List<Model> result = modelService.findAll(query);
+        mav.addObject("modelList", result);
+        return mav;
     }
 
     /**
@@ -84,16 +87,12 @@ public class ModelController {
      * 新增 模型
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final ModelForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            modelService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final ModelForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { modelService.add(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        modelService.add(form);
+        return "redirect:/admin/m/base/model/list.gsp";
     }
 
     /**
@@ -110,16 +109,12 @@ public class ModelController {
      * 修改 模型
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final ModelForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            modelService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final ModelForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { modelService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        modelService.update(form);
+        return "redirect:/admin/m/base/model/list.gsp";
     }
 
     /**

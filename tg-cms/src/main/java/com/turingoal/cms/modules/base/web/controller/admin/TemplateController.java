@@ -37,7 +37,6 @@ import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.io.FileUtil;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -61,8 +60,11 @@ public class TemplateController {
      * 模板列表页面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public final String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public final ModelAndView listPage(final TemplateQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        List<Template> result = templateService.findAll(query);
+        mav.addObject("templateList", result);
+        return mav;
     }
 
     /**
@@ -87,17 +89,14 @@ public class TemplateController {
      * 新增 模板
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final TemplateForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException, IOException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            form.setContentPath(request.getServletContext().getRealPath("/"));
-            templateService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final TemplateForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException, IOException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { form.setContentPath(request.getServletContext().getRealPath("/")); templateService.add(form); return new
+         * JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        form.setContentPath(request.getServletContext().getRealPath("/"));
+        templateService.add(form);
+        return "redirect:/admin/m/base/template/list.gsp";
     }
 
     /**
@@ -114,16 +113,12 @@ public class TemplateController {
      * 修改 模板
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final TemplateForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            templateService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final TemplateForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { templateService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        templateService.update(form);
+        return "redirect:/admin/m/base/template/list.gsp";
     }
 
     /**

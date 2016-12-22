@@ -1,7 +1,9 @@
 package com.turingoal.cms.modules.base.service;
 
+import java.util.List;
 import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.cms.modules.base.domain.form.GlobalForm;
+import com.turingoal.cms.modules.base.domain.query.GlobalQuery;
 
 /**
  * 全局参数Service
@@ -9,12 +11,27 @@ import com.turingoal.cms.modules.base.domain.form.GlobalForm;
 public interface GlobalService {
 
     /**
-     * 获得全局参数
+     * 获得全局配置
      */
-    Global get();
+    List<Global> find(final GlobalQuery query);
 
     /**
-     * 修改全局参数
+     * 通过id得到一个 全局配置
+     */
+    Global get(final String id);
+
+    /**
+     * 新增全局配置
+     */
+    void add(final GlobalForm form);
+
+    /**
+     * 修改 全局配置
      */
     int update(final GlobalForm form);
+
+    /**
+     * 删除 全局配置
+     */
+    int delete(final String id);
 }

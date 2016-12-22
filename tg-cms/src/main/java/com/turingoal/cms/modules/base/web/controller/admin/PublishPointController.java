@@ -27,7 +27,6 @@ import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -48,8 +47,11 @@ public class PublishPointController {
      * 发布点列表页面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public final String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public final ModelAndView listPage(final PublishPointQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        Page<PublishPoint> result = publishPointService.findAll(query);
+        mav.addObject("PPList", result);
+        return mav;
     }
 
     /**
@@ -83,16 +85,16 @@ public class PublishPointController {
      * 新增 发布点
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final PublishPointForm form, final BindingResult bindingResult) throws BusinessException {
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final PublishPointForm form, final BindingResult bindingResult) throws BusinessException {
         // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            publishPointService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+        // if (bindingResult.hasErrors()) {
+        // String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
+        // return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
+        // } else {
+        publishPointService.add(form);
+        // return new JsonResultBean(JsonResultBean.SUCCESS);
+        return "redirect:/admin/m/base/publishPoint/list.gsp";
+        // }
     }
 
     /**
@@ -109,16 +111,14 @@ public class PublishPointController {
      * 修改 发布点
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final PublishPointForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            publishPointService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final PublishPointForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else {
+         */
+        publishPointService.update(form);
+        // return new JsonResultBean(JsonResultBean.SUCCESS);
+        return "redirect:/admin/m/base/publishPoint/list.gsp";
+        // }
     }
 
     /**

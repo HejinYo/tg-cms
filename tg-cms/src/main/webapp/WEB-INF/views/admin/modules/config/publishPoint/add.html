@@ -1,144 +1,169 @@
-<form th:action="@{/admin/m/base/publishPoint/add.gsp}" id="addForm" role="form" class="form-horizontal" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">新增发布点</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label class="col-md-3 control-label">发布点名称<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="pName" placeholder="请输入发布点名称" type="text" class="form-control" />
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-发布点配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=publishPoint)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/base/publishPoint/list.gsp}">发布点配置</a> <a><cite>新增</cite></a>
+					</span>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">发布类型<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<select class="form-control" name="pType">
-							<option value="1">文件系统</option>
-							<option value="2">FTP</option>
-						</select>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 新增发布点配置
+				</blockquote>
+				<form th:action="@{/admin/m/base/publishPoint/add.gsp}" id="addForm" role="form" class="layui-form" action="#" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>新增发布点配置</legend>
+					</fieldset>
+					<div class="layui-form-item">
+						<label class="layui-form-label">名称：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="pName" placeholder="请输入发布点名称" lay-verify="pName" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">发布方式<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<select class="form-control" name="pMethod">
-							<option value="1">HTML发布</option>
-							<option value="2">附件发布</option>
-						</select>
+					<div class="layui-form-item">
+						<label class="layui-form-label">发布类型：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<select name="pType">
+								<option value="1">文件系统</option>
+								<option value="2">FTP</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">保存路径<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="storePath" placeholder="请输入保存路径" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">发布方式：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<select name="pMethod">
+								<option value="1">HTML发布</option>
+								<option value="2">附件发布</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">显示路径<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="displayPath" placeholder="请输入显示路径" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">保存路径：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="storePath" placeholder="请输入保存路径" lay-verify="storePath" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="41">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">ftp服务器<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="ftpHostname" placeholder="请输入ftp服务器地址" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">显示路径：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="displayPath" placeholder="请输入保存路径" lay-verify="displayPath" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="41">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">ftp端口<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="ftpPort" placeholder="请输入ftp端口" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">ftp服务器：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="ftpHostname" placeholder="请输入ftp服务器地址" lay-verify="ftpHostname" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">ftp用户名<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="ftpUsername" placeholder="请输入ftp用户名" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">ftp端口：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="ftpPort" placeholder="请输入ftp端口" lay-verify="ftpPort" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">ftp密码<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="ftpPassword" placeholder="请输入ftp密码" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">ftp用户名：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="ftpUsername" placeholder="请输入ftp用户名" lay-verify="ftpUsername" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">描述：</label>
-					<div class="col-md-7">
-						<textarea name="description" rows="3" placeholder="最长140个字符" class="form-control"></textarea>
+					<div class="layui-form-item">
+						<label class="layui-form-label">ftp密码：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="ftpPassword" placeholder="请输入ftp密码" lay-verify="ftpPassword" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
 					</div>
-				</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">描述：</label>
+						<div class="layui-input-block">
+							<textarea type="text" name="description" placeholder="最长140个字符" lay-verify="description" class="layui-textarea" autofocus="autofocus" maxlength="150"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var rules = {
-            pName : {
-                required : true,
-                maxlength : 20
-            },
-            type : {
-                required : true
-            },
-            method : {
-                required : true
-            },
-            storePath : {
-                required : true,
-                maxlength : 40
-            },
-            displayPath : {
-                required : true,
-                maxlength : 40
-            },
-            ftpHostname : {
-                required : true,
-                maxlength : 20
-            },
-            ftpPort : {
-                required : true,
-                maxlength : 20
-            },
-            ftpUsername : {
-                required : true,
-                maxlength : 20
-            },
-            ftpPassword : {
-                required : true,
-                maxlength : 20
-            },
-            description : {
-                maxlength : 140
+    var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        pName : function(value) {
+            if (value.length < 5) {
+                return '用户名至少得5个字哦！';
+            } else if (value.length > 20) {
+                return '用户名不能太长哦，最长20个字！';
+            }
+        },
+        storePath : function(value) {
+            if (value.length < 5) {
+                return '保存路径至少得5个字哦！';
+            } else if (value.length > 40) {
+                return '保存路径不能太长哦，最长40个字！';
+            }
+        },
+        displayPath : function(value) {
+            if (value.length < 5) {
+                return '显示路径至少得5个字哦！';
+            } else if (value.length > 40) {
+                return '显示路径不能太长哦，最长40个字！';
+            }
+        },
+        ftpHostname : function(value) {
+            if (value.length < 2) {
+                return 'ftp服务器至少得2个字哦！';
+            } else if (value.length > 20) {
+                return 'ftp服务器不能太长哦，最长20个字！';
+            }
+        },
+        ftpPort : function(value) {
+            if (value.length < 2) {
+                return 'ftp端口至少得2个字哦！';
+            } else if (value.length > 20) {
+                return 'ftp端口不能太长哦，最长20个字！';
+            }
+        },
+        ftpUsername : function(value) {
+            if (value.length < 2) {
+                return 'ftp用户名至少得2个字哦！';
+            } else if (value.length > 20) {
+                return 'ftp用户名不能太长哦，最长20个字！';
+            }
+        },
+        ftpPassword : function(value) {
+            if (value.length < 5) {
+                return 'ftp密码至少得5个字哦！';
+            } else if (value.length > 20) {
+                return 'ftp密码不能太长哦，最长20个字！';
+            }
+        },
+        description : function(value) {
+            if (value.length > 140) {
+                return '描述不能太长哦，最长140个字！';
             }
         }
-        var messages = {
-
-        }
-        myTable.add('commonWin', 'addForm', rules, messages);
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
     });
     /*]]>*/
 </script>
+</html>

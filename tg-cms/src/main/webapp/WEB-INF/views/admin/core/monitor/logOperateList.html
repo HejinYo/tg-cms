@@ -46,24 +46,20 @@
 					<thead>
 						<tr>
 							<th width="40px">#</th>
-							<th width="120px">操作类型</th>
 							<th width="120px">用户</th>
-							<th width="120px">ip</th>
 							<th>操作信息</th>
 							<th width="150px">操作时间</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${operateList.records == null or operateList.records.size() == 0}">
-							<td colspan="6" style="text-align: center;">暂时没有数据</td>
+							<td colspan="4" style="text-align: center;">暂时没有数据</td>
 						</tr>
-						<tr th:each="login,itemStat:${operateList.records}">
+						<tr th:each="operate,itemStat:${operateList.records}">
 							<td th:text="${operateList.pageSize*(operateList.page-1)+itemStat.index+1}" style="text-align: center;"></td>
-							<td th:text="${login.logType}" style="text-align: center;"></td>
-							<td th:text="${login.username}" style="text-align: center;"></td>
-							<td th:text="${login.ipAddress}" style="text-align: center;"></td>
-							<td th:text="${login.message}"></td>
-							<td th:text="${login.eventDate}==null?'':${#dates.format(login.eventDate,'yyyy-MM-dd HH:mm:ss')}" style="text-align: center;"></td>
+							<td th:text="${operate.username}" style="text-align: center;"></td>
+							<td th:text="${operate.message}"></td>
+							<td th:text="${operate.eventDate}==null?'':${#dates.format(operate.eventDate,'yyyy-MM-dd HH:mm:ss')}" style="text-align: center;"></td>
 						</tr>
 					</tbody>
 				</table>
