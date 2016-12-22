@@ -3,20 +3,19 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.turingoal.cms.modules.base.repository.GlobalDao">
     
-<<<<<<< HEAD
     <!-- 获得全局配置 -->
     <select id="find" parameterType="com.turingoal.cms.modules.base.domain.query.GlobalQuery" resultType="com.turingoal.cms.modules.base.domain.Global">
         SELECT * FROM tg_cms_m_base_global ORDER BY create_data_time DESC
-=======
-    <!-- 通过id得到一个全局配置 -->
-    <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Global">
-        SELECT * FROM tg_cms_m_base_global LIMIT 1
->>>>>>> refs/remotes/origin/master
     </select>
     
     <!-- 通过id得到一个全局配置 -->
     <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.Global">
         SELECT * FROM tg_cms_m_base_global WHERE id = #{id}
+    </select>
+    
+     <!-- 获取第一条数据 -->
+    <select id="getFirst" resultType="com.turingoal.cms.modules.base.domain.Global">
+        SELECT * FROM tg_cms_m_base_global LIMIT 1
     </select>
     
     <!-- 新增 全局配置 -->

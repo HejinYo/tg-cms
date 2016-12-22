@@ -89,7 +89,7 @@
         };
         tg_basePage(option);
     })
-     var deleteUrl = /*[[@{/admin/m/base/model/delete_{id}.gsp}]]*/;
+     var deleteUrl = /*[[@{/admin/m/base/global/delete_{id}.gsp}]]*/;
     function del(id){
         tg_deleteItem(deleteUrl.replace('{id}',id), function(){
             location.reload();

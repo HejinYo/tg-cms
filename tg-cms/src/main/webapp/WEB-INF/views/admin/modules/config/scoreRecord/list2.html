@@ -1,92 +1,94 @@
 <!DOCTYPE html>
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<title th:text="|#{customer.systemTitle}-全局配置-评分组配置|">图灵谷</title>
 <div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/webuploader/webuploader.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
 </head>
-<body>
-	<div class="layui-layout layui-layout-admin">
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
 		<div th:replace="fragments/nav_admin">导航栏</div>
-		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=scoreGroup)">菜单栏</div>
-		<div class="layui-body">
-			<div class="layui-main">
-				<!--/***** 面包屑 *****/-->
-				<div class="layui-elem-quote" style="margin-top: 10px;">
-					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a href="#">评分组配置</a> <a><cite>列表</cite></a>
-					</span>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=gconfig,current=scoreGroup)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=全局配置,current=评分组配置)">面包屑栏</div>
+				<div class="main-box clearfix">
+					<div class="main-box-body clearfix">
+						<br />
+						<div class="col-lg-4">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4>评分组配置</h4>
+								</div>
+								<div class="panel-body">
+									<div class="col-lg-12">
+										<a th:href="@{/admin/m/ext/scoreGroup/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+									</div>
+									<div class="col-lg-12">
+										<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover text-center">
+											<thead>
+												<tr>
+													<th width="50" class="text-center">#</th>
+													<th class="text-center">名称</th>
+													<th class="text-center">编码</th>
+													<th width="120" class="text-center">操作</th>
+												</tr>
+											</thead>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4>选项管理</h4>
+								</div>
+								<div class="panel-body">
+									<div class="col-lg-12">
+										<input id="groupId" type="hidden" /> <a id="itemAddBtn" th:href="@{/admin/m/ext/scoreGroup/addItem.gsp}" disabled="disabled" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+									</div>
+									<table id="dataItemTable" cellspacing="0" width="100%" class="col-lg-12 table table-striped table-hover">
+										<thead>
+											<tr>
+												<th width="50" class="text-center">#</th>
+												<th>选项名称</th>
+												<th>分值</th>
+												<th width="120" class="text-center">操作</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 评分组配置
-				</blockquote>
-				<blockquote class="layui-elem-quote layui-quote-nm">
-					<div class="layui-inline">
-						<div class="layui-input-inline">
-							<a th:href="@{/admin/m/ext/scoreGroup/add.gsp}" class="layui-btn">新增</a>
-						</div>
-					</div>
-				</blockquote>
-				<table cellspacing="0" width="100%" class="layui-table" lay-even="" lay-skin="row">
-					<thead>
-						<tr>
-							<th width="40" class="text-center">#</th>
-							<th class="text-center">名称</th>
-							<th class="text-center">编码</th>
-							<th width="120" class="text-center">操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${scoreGroupList == null or scoreGroupList.size() == 0}">
-							<td colspan="4" style="text-align: center;">暂时没有数据</td>
-						</tr>
-						<tr th:each="item,itemStat:${scoreGroupList}">
-							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>
-							<td th:text="${item.groupName}" style="text-align: center;"></td>
-							<td th:text="${item.codeNum}" style="text-align: center;"></td>
-							<td><a th:href="|@{/admin/m/base/attr/edit_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon"></i></a> <a th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
-						</tr>
-					</tbody>
-				</table>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 选项管理
-				</blockquote>
-				<blockquote class="layui-elem-quote layui-quote-nm">
-					<div class="layui-inline">
-						<div class="layui-input-inline">
-							<input id="groupId" type="hidden" /> <a th:href="@{/admin/m/ext/scoreGroup/addItem.gsp}" class="layui-btn">新增</a>
-						</div>
-					</div>
-				</blockquote>
-				<table cellspacing="0" width="100%" class="layui-table" lay-even="" lay-skin="row">
-					<thead>
-						<tr>
-							<th width="50" class="text-center">#</th>
-							<th>选项名称</th>
-							<th>分值</th>
-							<th width="120" class="text-center">操作</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${scoreItemList == null or scoreItemList.size() == 0}">
-							<td colspan="4" style="text-align: center;">暂时没有数据</td>
-						</tr>
-						<tr th:each="item,itemStat:${scoreItemList}">
-							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>
-							<td th:text="${item.itemName}" style="text-align: center;"></td>
-							<td th:text="${item.score}" style="text-align: center;"></td>
-							<td><a th:href="|@{/admin/m/base/attr/edit_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon"></i></a> <a th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
-						</tr>
-					</tbody>
-				</table>
+				<div th:replace="fragments/footer_admin">底部</div>
 			</div>
 		</div>
-		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
-</html>
+<!--/***** 当前页js start *****/-->
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
+<script th:src="@{/resources/vendor/bootstrap/plugins/bootstrap-datepicker.js}"></script>
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
+<!--/* web uploader */-->
+<script th:src="@{/resources/vendor/webuploader/webuploader.js}"></script>
+<script th:src="@{/resources/js/common/formBuilder.js}"></script>
+<!--/* 模板引擎生成数据 */-->
 <script th:inline="javascript">
     /*<![CDATA[*/
-    var $ = layui.jquery;
     //表格
     var myTable;
     //表格列定义
@@ -204,3 +206,4 @@
     }
     /*]]>*/
 </script>
+</html>

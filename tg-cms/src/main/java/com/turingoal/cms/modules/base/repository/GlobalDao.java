@@ -21,6 +21,11 @@ public interface GlobalDao {
     Global get(final String id);
 
     /**
+     * 获取第一条数据
+     */
+    Global getFirst();
+
+    /**
      * 新增全局配置
      */
     void add(final GlobalForm form);

@@ -41,7 +41,7 @@ public class AttrServiceImpl implements AttrService {
     @MethodLog(name = "通过id得到属性", description = "通过id得到一个属性")
     public Attr get(final String id) {
         Attr attr = attrDao.get(id);
-        attr.setImagePath(SystemHelper.getGlobal().getContextPath() + attr.getImagePath());
+        //attr.setImagePath(SystemHelper.getGlobal().getContextPath() + attr.getImagePath());
         return attr;
     }
 

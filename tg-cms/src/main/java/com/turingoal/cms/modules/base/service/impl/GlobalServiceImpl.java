@@ -36,6 +36,14 @@ public class GlobalServiceImpl implements GlobalService {
     }
 
     /**
+     * 获取第一条数据
+     */
+    @MethodLog(name = "获取第一条数据", description = "获取第一条数据")
+    public Global getFirst() {
+        return globalDao.getFirst();
+    }
+
+    /**
      * 新增全局参数
      */
     @MethodLog(name = "新增全局参数", description = "新增全局参数")
@@ -60,5 +68,4 @@ public class GlobalServiceImpl implements GlobalService {
     public int delete(final String id) {
         return globalDao.delete(id);
     }
-
 }

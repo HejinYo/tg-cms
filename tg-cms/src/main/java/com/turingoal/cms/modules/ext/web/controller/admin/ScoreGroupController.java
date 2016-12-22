@@ -53,8 +53,13 @@ public class ScoreGroupController {
      * 返回计分组查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public ModelAndView listPage(final ScoreGroupQuery query, final ScoreItemQuery squery) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        List<ScoreGroup> result = scoreGroupService.findAll(query);
+        mav.addObject("scoreGroupList", result);
+        List<ScoreItem> items = scoreGroupService.findItem(squery.getGroupId());
+        mav.addObject("scoreItemList", items);
+        return mav;
     }
 
     /**
