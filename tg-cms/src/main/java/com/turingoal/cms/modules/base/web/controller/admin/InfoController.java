@@ -2,6 +2,7 @@ package com.turingoal.cms.modules.base.web.controller.admin;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -30,7 +31,6 @@ import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.net.RequestUtil;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -62,10 +62,15 @@ public class InfoController {
     /**
      * 文章列表页面
      */
-    @RequestMapping(value = "/infoList_{nodeId}.gsp", method = RequestMethod.GET)
-    public final ModelAndView infoListPage(@PathVariable("nodeId") final String nodeId) throws BusinessException {
+    @RequestMapping(value = "/infoList.gsp", method = RequestMethod.GET)
+    public final ModelAndView infoListPage(final InfoQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(INFO_LIST_PAGE);
-        mav.addObject("node", nodeId);
+        if ("0".equals(query.getNodeId())) {
+            query.setNodeId(null);
+        }
+        List<Info> result = infoService.findAll(query);
+        mav.addObject("result", result);
+        mav.addObject("nodeId", query.getNodeId());
         return mav;
     }
 
@@ -103,16 +108,9 @@ public class InfoController {
      * 新增 Info
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final InfoForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            infoService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final InfoForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
+        infoService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
+        return "redirect:/admin/m/base/info/list.gsp";
     }
 
     /**
@@ -129,16 +127,9 @@ public class InfoController {
      * 修改 文章
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final InfoForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            infoService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final InfoForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
+        infoService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
+        return "redirect:/admin/m/base/info/list.gsp";
     }
 
     /**

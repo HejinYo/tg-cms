@@ -1,126 +1,76 @@
-<div class="panel panel-default" id="infos">
-	<div class="panel-heading">
-		<h4>修改文章</h4>
-	</div>
-	<div class="panel-body">
-		<form th:action="@{/admin/m/base/info/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
-			<div class="row">
-				<div class="col-md-12">
-					<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{nodeId}" type="hidden" />
-					<div class="form-group">
-						<label class="col-md-2 control-label">文章标题<label class="text-danger">*</label>：
-						</label>
-						<div class="col-md-7">
-							<input th:field="*{title}" placeholder="请输入文章标题" type="text" class="form-control " />
-						</div>
-						<div class="col-md-3">
-							<input type="text" th:field="*{titleColor}" class="form-control colorpicker-demo1" style="width: 100px; float: left;" />
-							<div class="btn-group" data-toggle="buttons">
-								<label class="btn btn-primary" th:classappend="${result.titleStrong==1?'active':''}"> <input type="checkbox" value="1" name="titleStrong" /> <i class="fa fa-bold"></i>
-								</label> <label class="btn btn-primary" th:classappend="${result.titleEm==1?'active':''}"> <input type="checkbox" autocomplete="off" value="1" name="titleEm" /> <i class="fa fa-italic"></i>
-								</label>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">链接地址：</label>
-						<div class="col-md-10">
-							<input th:field="*{linkPath}" placeholder="请输入链接地址" type="text" class="form-control " />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">关键字：</label>
-						<div class="col-md-10">
-							<input th:field="*{metaKeywords}" placeholder="请输入关键字" type="text" class="form-control " />
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">描述：</label>
-						<div class="col-md-10">
-							<textarea th:field="*{metaDescription}" placeholder="请输入描述" rows="3" class="form-control "></textarea>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-2 control-label">排序<label class="text-danger">*</label>：
-						</label>
-						<div class="col-md-4">
-							<input type="text" class=" form-control" th:field="*{sortOrder}" />
-						</div>
-						<label class="col-md-2 control-label">发布日期： </label>
-						<div class="col-md-4" id="daterange">
-							<div class="input-daterange input-group">
-								<input type="text" class=" form-control" th:field="*{publishTime}" /> <span class="input-group-addon">到</span> <input type="text" class=" form-control" th:field="*{offTime}" />
-							</div>
-						</div>
-					</div>
-					<div id="formBuilderDiv"></div>
-				</div>
-				<div class="col-md-12 text-right">
-					<button class="btn btn-primary" type="submit">
-						<strong>提 交</strong>
-					</button>
-					<button type="button" class="btn btn-default closeBtn">
-						<strong>取 消</strong>
-					</button>
+<div class="site-title">
+	<fieldset>
+		<legend>
+			<a>修改文章</a>
+		</legend>
+	</fieldset>
+</div>
+<div class="site-text site-block">
+	<form th:action="@{/admin/m/base/info/edit.gsp}" id="editForm" th:object="${result}" role="form" method="post" class="layui-form">
+		<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{nodeId}" type="hidden" />
+		<div class="layui-form-item">
+			<label class="layui-form-label">文章标题：<span style="color: red">*</span></label>
+			<div class="layui-input-block">
+				<input maxlength="55" type="text" name="title" th:value="*{title}" lay-verify="title" placeholder="请输入文章标题" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">链接地址：</label>
+			<div class="layui-input-block">
+				<input th:field="*{linkPath}" placeholder="请输入链接地址" type="text" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<label class="layui-form-label">关键字：</label>
+			<div class="layui-input-block">
+				<input th:field="*{metaKeywords}" placeholder="请输入关键字" type="text" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">描述：</label>
+			<div class="layui-input-block">
+				<textarea th:field="*{metaDescription}" placeholder="请输入描述" rows="3" class="layui-textarea"></textarea>
+			</div>
+		</div>
+		<div class="layui-form-item">
+			<div class="layui-inline">
+				<label class="layui-form-label">排序：<span style="color: red">*</span></label>
+				<div class="layui-input-inline">
+					<input type="number" th:field="*{sortOrder}" lay-verify="number" autocomplete="off" class="layui-input">
 				</div>
 			</div>
-		</form>
-	</div>
+			<div class="layui-inline">
+				<label class="layui-form-label">发布日期：</label>
+				<div class="layui-input-inline">
+					<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" th:field="*{publishTime}" class="layui-input" onclick="layui.laydate({elem: this})">
+				</div>
+				<div class="layui-form-mid">-</div>
+				<div class="layui-input-inline">
+					<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" th:field="*{offTime}" class="layui-input" onclick="layui.laydate({elem: this})">
+				</div>
+			</div>
+		</div>
+		<div id="formBuilderDiv"></div>
+		<div class="layui-form-item">
+			<div class="layui-input-block">
+				<button class="layui-btn" lay-submit="" lay-filter="submit1">提交</button>
+				<button type="button" class="layui-btn layui-btn-primary closeBtn">取消</button>
+			</div>
+		</div>
+	</form>
 </div>
 <script th:inline="javascript">
     /*<![CDATA[*/
     $('.closeBtn').click(function() {
-        var infoListUrl = /*[[@{/admin/m/base/info/infoList_{nodeId}.gsp(nodeId=${result.nodeId})}]]*/'';
+        var infoListUrl = /*[[@{/admin/m/base/info/infoList.gsp?nodeId={nodeId}(nodeId=${result.nodeId})}]]*/'';
         $("#infoContent").load(infoListUrl);
     });
-    $('#daterange .input-daterange').datepicker({
-        keyboardNavigation : false,
-        forceParse : false,
-        autoclose : true
-    });
-    $(function() {
-        var rules = {
-            title : {
-                required : true,
-                maxlength : 40
-            },
-            linkPath : {
-                url : true
-            },
-            sortOrder : {
-                required : true,
-                digits : true,
-                range : [ 1, 100 ]
-            },
-            publishTime : {
-                date : true
-            },
-            offTime : {
-                date : true
-            },
-            metaKeywords : {
-                maxlength : 100
-            },
-            metaDescription : {
-                maxlength : 250
-            }
-        }
-        var messages = {
-
-        }
-        tg_baseFormAjaxSubmit('editForm', rules, messages, function() {
-            tg_alertSuccess();
-            var infoListUrl = /*[[@{/admin/m/base/info/infoList_{nodeId}.gsp(nodeId=${result.nodeId})}]]*/'';
-            $("#infoContent").load(infoListUrl);
-        });
-        
-        var result = /*[[${result}]]*/null;
-        formBuilder({
-            ownerType : 'infoModel',
-            ownerId : /*[[${result.infoModelId}]]*/'ownerId',
-            valueOwnerId : /*[[${result.id}]]*/'id',
-        }, result, function() {
-        });
+    var result = /*[[${result}]]*/;
+    formBuilder({
+        ownerType : 'infoModel',
+        ownerId : /*[[${result.infoModelId}]]*/'ownerId',
+        valueOwnerId : /*[[${result.id}]]*/'id',
+    }, result, function() {
     });
     /*]]>*/
 </script>
