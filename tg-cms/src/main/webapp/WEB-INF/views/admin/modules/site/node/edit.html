@@ -1,145 +1,168 @@
-<form th:action="@{/admin/m/base/node/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改栏目</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-xs-12">
-				<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{parentId}" type="text" hidden="true" />
-				<div class="form-group">
-					<label class="col-xs-2 control-label">栏目名称<label class="text-danger">*</label>：
-					</label>
-					<div class="col-xs-3">
-						<input th:field="*{noddName}" placeholder="请输入栏目名称" type="text" class="form-control" />
-					</div>
-					<label class="col-xs-2 control-label">栏目代码<label class="text-danger">*</label>：
-					</label>
-					<div class="col-xs-3">
-						<input th:field="*{codeNum}" placeholder="请输入栏目代码" type="text" class="form-control" />
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=site,child=node)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>站点管理</cite></a> <a th:href="@{/admin/m/base/node/list.gsp}">栏目管理</a> <a><cite>编辑</cite></a>
+					</span>
 				</div>
-				<div class="form-group">
-					<label class="col-xs-2 control-label">栏目模型<label class="text-danger">*</label>：
-					</label>
-					<div class="col-xs-3">
-						<select class="form-control" th:field="*{nodeModelId}">
-							<option th:each="data : ${nodeModels}" th:value="${data.id}" th:text="${data.modelName}">name</option>
-						</select>
-					</div>
-					<label class="col-xs-2 control-label">文档模型<label class="text-danger">*</label>：
-					</label>
-					<div class="col-xs-3">
-						<select class="form-control" th:field="*{infoModelId}">
-							<option th:each="data : ${infoModels}" th:value="${data.id}" th:text="${data.modelName}">name</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-2 control-label"><label class="text-danger">*</label> 栏目模板： </label>
-					<div class="col-md-3">
-						<div class="input-group m-b">
-							<input th:field="*{nodeTemplate}" placeholder="请输入栏目模板" type="text" class="form-control input-sm" /> <span class="input-group-addon" style="padding: 0px;"><a th:href="@{/admin/m/base/template/selectTemplate_nodeTemplate.gsp}" data-target="#selectTemplateWin"
-								class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-search"></i></a></span>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 栏目管理
+				</blockquote>
+				<form th:action="@{/admin/m/base/node/edit.gsp}" th:object="${result}" class="layui-form" id="editForm" role="form" action="#" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>编辑栏目</legend>
+					</fieldset>
+					<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{parentId}" type="text" hidden="true" />
+					<div class="layui-form-item">
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">栏目名称：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<input type="text" th:field="*{noddName}" name="noddName" placeholder="请输入栏目名称" lay-verify="noddName" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+							</div>
+						</div>
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">栏目代码：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<input type="text" th:field="*{codeNum}" name="codeNum" placeholder="请输入栏目代码" lay-verify="codeNum" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+							</div>
 						</div>
 					</div>
-					<label class="col-md-2 control-label"><label class="text-danger">*</label> 文档模板： </label>
-					<div class="col-md-3">
-						<div class="input-group m-b">
-							<input th:field="*{infoTemplate}" placeholder="请输入文档模板" type="text" class="form-control input-sm" /> <span class="input-group-addon" style="padding: 0px;"><a th:href="@{/admin/m/base/template/selectTemplate_infoTemplate.gsp}" data-target="#selectTemplateWin"
-								class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-search"></i></a></span>
+					<div class="layui-form-item">
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">栏目模型：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<select name="nodeModelId" th:field="*{nodeModelId}">
+									<option th:each="data : ${nodeModels}" th:value="${data.id}" th:text="${data.modelName}">name</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">文档模型：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<select name="infoModelId" th:field="*{infoModelId}">
+									<option th:each="data : ${infoModels}" th:value="${data.id}" th:text="${data.modelName}">name</option>
+								</select>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 是否隐藏： </label>
-					<div class="col-xs-3">
-						<select class="form-control" th:field="*{hidden}">
-							<option value="1">是</option>
-							<option value="2">否</option>
-						</select>
+					<div class="layui-form-item">
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">栏目模板：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<input name="nodeTemplate" th:field="*{nodeTemplate}" placeholder="请输入栏目模板" type="text" class="layui-input" /> <a th:href="@{/admin/m/base/template/selectTemplate_nodeTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i> </a>
+							</div>
+						</div>
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">文档模板：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<input name="infoTemplate" th:field="*{infoTemplate}" placeholder="请输入文档模板" type="text" class="layui-input" /><a th:href="@{/admin/m/base/template/selectTemplate_infoTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i></a>
+							</div>
+						</div>
 					</div>
-					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 真实栏目： </label>
-					<div class="col-xs-3">
-						<select class="form-control" th:field="*{realNode}">
-							<option value="1">是</option>
-							<option value="2">否</option>
-						</select>
+					<div class="layui-form-item">
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">是否隐藏：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<select name="hidden" th:field="*{hidden}">
+									<option value="1">是</option>
+									<option value="2">否</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline" style="width: 350px;">
+							<label class="layui-form-label">真实栏目：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<select name="realNode" th:field="*{realNode}">
+									<option value="1">是</option>
+									<option value="2">否</option>
+								</select>
+							</div>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-2 control-label">排序：</label>
-					<div class="col-xs-8">
-						<input th:field="*{sortOrder}" placeholder="请输入排序" type="text" class="form-control " />
+					<div class="layui-form-item">
+						<label class="layui-form-label">排序：</label>
+						<div class="layui-input-block">
+							<input type="number" th:field="*{sortOrder}" name="sortOrder" placeholder="请输入排序" lay-verify="sortOrder" required autocomplete="off" class="layui-input" autofocus="autofocus" min="1" max="99">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-xs-2 control-label">链接地址：</label>
-					<div class="col-xs-8">
-						<input th:field="*{nodeLink}" placeholder="请输入链接地址" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">链接地址：</label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{nodeLink}" name="nodeLink" placeholder="请输入链接地址" lay-verify="nodeLink" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
 					</div>
-				</div>
-				<div id="formBuilderDiv"></div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var rules = {
-            noddName : {
-                required : true,
-                maxlength : 20
-            },
-            codeNum : {
-                required : true,
-                maxlength : 20
-            },
-            nodeLink : {
-                url : true
-            },
-            nodeTemplate : {
-                required : true,
-            },
-            infoTemplate : {
-                required : true,
-            },
-            sortOrder : {
-                range : [ 1, 99 ]
+    var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        noddName : function(value) {
+            if (value.length < 2) {
+                return '栏目名称至少得2个字哦！';
+            } else if (value.length > 20) {
+                return '栏目名称太长哦，最长20个字！';
+            }
+        },
+        codeNum : function(value) {
+            if (value.length < 2) {
+                return '栏目代码至少得2个字哦！';
+            } else if (value.length > 20) {
+                return '栏目代码不能太长哦，最长20个字！';
+            }
+        },
+        nodeLink : function(value) {
+            if (value.length < 0) {
+                return '链接地址不能为空哦！';
+            }
+        },
+        nodeTemplate : function(value) {
+            if (value.length < 1) {
+                return '栏目模板至少得1个字哦！';
+            } else if (value.length > 20) {
+                return '栏目模板不能太长哦，最长20个字！';
+            }
+        },
+        infoTemplate : function(value) {
+            if (value.length < 2) {
+                return '文档模板至少得2个字哦！';
+            } else if (value.length > 50) {
+                return '文档模板不能太长哦，最长20个字！';
+            }
+        },
+        sortOrder : function(value) {
+            if (value.length < 1) {
+                return '排序字段至少得2个字哦！';
+            } else if (value.length > 99) {
+                return '排序字段不能太长哦，最长20个字！';
             }
         }
-        var messages = {
-
-        }
-        myTable.add('commonWin', 'editForm', rules, messages);
-
-        var result = /*[[${result}]]*/null;
-        function sucFun() {
-            tg_formWinAjaxSubmit("commonWin", "editForm", rules, messages, function() {
-                loadTreeData();
-            });
-        }
-        formBuilder({
-            ownerType : 'nodeModel',
-            ownerId : $('select[name="nodeModelId"]').val(),
-            valueOwnerId : /*[[${result.id}]]*/''
-        }, result, sucFun);
-        $('#editForm select[name="nodeModelId"]').change(function() {
-            formBuilder({
-                ownerType : 'nodeModel',
-                ownerId : $(this).val(),
-                valueOwnerId : /*[[${result.id}]]*/''
-            }, result, sucFun);
-        });
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
     });
     /*]]>*/
 </script>

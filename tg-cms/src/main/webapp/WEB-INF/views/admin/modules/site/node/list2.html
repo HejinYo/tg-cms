@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-站点管理-栏目管理|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/treeview//bootstrap-treeview.css}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/treeTable/themes/vsStyle/treeTable.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/tgCube/css/libs/datepicker.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/webuploader/webuploader.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
+</head>
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=site,current=node)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=站点管理,current=栏目管理)">面包屑栏</div>
+				<div class="main-box clearfix">
+					<header class="main-box-header clearfix">
+						<div class="row m-b-sm m-t-sm">
+							<div class="col-md-2">
+								<a th:href="@{/admin/m/base/node/add_0.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+							</div>
+						</div>
+					</header>
+					<div class="main-box-body clearfix">
+						<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th width="60" class="text-center">#</th>
+									<th>栏目名称</th>
+									<th>状态</th>
+									<th>栏目代码</th>
+									<th>栏目模板</th>
+									<th>文档模板</th>
+									<th class="text-center">是否隐藏</th>
+									<th class="text-center">真实栏目</th>
+									<th class="text-center">排序</th>
+									<th width="180" class="text-center">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div th:replace="fragments/footer_admin">底部</div>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/***** 当前页js start *****/-->
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
+<script th:src="@{/resources/vendor/bootstrap/plugins/bootstrap-datepicker.js}"></script>
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
+<script th:src="@{/resources/vendor/bootstrap/plugins/treeview/bootstrap-treeview.js}"></script>
+<script th:src="@{/resources/vendor/treeTable/jquery.treeTable.min.js}"></script>
+<!-- ueditor -->
+<script th:src="@{/resources/vendor/ueditor/ueditor.config.js}"></script>
+<script th:src="@{/resources/vendor/ueditor/ueditor.all.min.js}"></script>
+<!--/* web uploader */-->
+<script th:src="@{/resources/vendor/webuploader/webuploader.js}"></script>
+<script th:src="@{/resources/js/common/formBuilder.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    //表格
+    var myTable;
+    //表格列定义
+    var columnDefs = [ {
+        //第一列，用来显示序号
+        "searchable" : false,
+        "orderable" : false,
+        "targets" : 0
+    } ];
+    var columns = [ {
+        //第一列，用来显示序号
+        "data" : null,
+        "class" : "text-center"
+    }, {
+        "data" : "noddName"
+    }, {
+        "data" : "enabled",
+        render : function(data, type, row, meta) {
+            if (data == 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+            } else {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+            }
+        }
+    }, {
+        "data" : "codeNum"
+    }, {
+        "data" : "nodeTemplate"
+    }, {
+        "data" : "infoTemplate"
+    }, {
+        "data" : "hidden",
+        "class" : "text-center", //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<span class="text-success">是</span>';
+            } else {
+                return '<span class="text-danger">否</span>';
+            }
+        }
+    }, {
+        "data" : "realNode",
+        "class" : "text-center", //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<span class="text-success">是</span>';
+            } else {
+                return '<span class="text-danger">否</span>';
+            }
+        }
+    }, {
+        "data" : "sortOrder"
+    }, {
+        "data" : null,
+        "class" : "text-center", //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
+            var addUrl = /*[[@{/admin/m/base/node/add_{id}.gsp}]]*/'url';
+            var result = '';
+            //修改按钮
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            result += ' <a href="' + addUrl.replace("{id}", row.id) + '" data-target="#commonWin" class="btn btn-info btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增子栏目</a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
+            return result;
+        }
+    } ];
+    //ajax参数
+    var ajaxDataParamFun = function(d) {
+        d.simpleQueryParam = $('#simpleQueryParam').val(); //模糊查询
+    };
+    //表格setting
+    var setting = {
+        listUrl : /*[[@{/admin/m/base/node/list.gsp}]]*/'url',
+        editUrl : /*[[@{/admin/m/base/node/edit_}]]*/'url',
+        deleteUrl : /*[[@{/admin/m/base/node/delete_}]]*/'url',
+        enableUrl : /*[[@{/admin/m/base/node/enable_}]]*/'url',
+        disableUrl : /*[[@{/admin/m/base/node/disable_}]]*/'url',
+        columnDefs : columnDefs, //表格列定义
+        columns : columns, //表格列
+        dataTableDiv : 'dataTable', //表格
+        ajaxDataParamFun : ajaxDataParamFun, //ajax参数
+        pageable : false, //是否分页
+        showIndexColumn : true, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    myTable = new TG_Tabel.createNew(setting);
+    //加载完成后执行
+    $(function() {
+        //表格初始化
+        myTable.init();
+    });
+    /*]]>*/
+</script>
+<div th:replace="common/common_window::window(windowId=selectTemplateWin)">公共弹出窗口</div>
+</html>

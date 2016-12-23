@@ -1,0 +1,143 @@
+<form th:action="@{/admin/m/base/node/add.gsp}" id="addForm" role="form" class="form-horizontal" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">新增栏目</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row" style="max-height: 600px; overflow: scroll-y;">
+			<div class="col-xs-12">
+				<input type="hidden" th:value="${parendId}" name="parentId" />
+				<div class="form-group">
+					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 栏目名称： </label>
+					<div class="col-xs-3">
+						<input name="noddName" placeholder="请输入栏目名称" type="text" class="form-control " />
+					</div>
+					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 栏目代码： </label>
+					<div class="col-xs-3">
+						<input name="codeNum" placeholder="请输入栏目代码" type="text" class="form-control " />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 栏目模型： </label>
+					<div class="col-xs-3">
+						<select class="form-control" name="nodeModelId">
+							<option th:each="data : ${nodeModels}" th:value="${data.id}" th:text="${data.modelName}">name</option>
+						</select>
+					</div>
+					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 文档模型： </label>
+					<div class="col-xs-3">
+						<select class="form-control" name="infoModelId">
+							<option th:each="data : ${infoModels}" th:value="${data.id}" th:text="${data.modelName}">name</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label"><label class="text-danger">*</label> 栏目模板： </label>
+					<div class="col-md-3">
+						<div class="input-group m-b">
+							<input name="nodeTemplate" placeholder="请输入栏目模板" type="text" class="form-control input-sm" /> <span class="input-group-addon" style="padding: 0px;"><a th:href="@{/admin/m/base/template/selectTemplate_nodeTemplate.gsp}" data-target="#selectTemplateWin" class="btn btn-primary btn-xs"
+								type="button" data-toggle="modal"><i class="fa fa-search"></i></a></span>
+						</div>
+					</div>
+					<label class="col-md-2 control-label"><label class="text-danger">*</label> 文档模板： </label>
+					<div class="col-md-3">
+						<div class="input-group m-b">
+							<input name="infoTemplate" placeholder="请输入文档模板" type="text" class="form-control input-sm" /> <span class="input-group-addon" style="padding: 0px;"><a th:href="@{/admin/m/base/template/selectTemplate_infoTemplate.gsp}" data-target="#selectTemplateWin" class="btn btn-primary btn-xs"
+								type="button" data-toggle="modal"><i class="fa fa-search"></i></a></span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 是否隐藏： </label>
+					<div class="col-xs-3">
+						<select class="form-control" name="hidden">
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+					<label class="col-xs-2 control-label"><label class="text-danger">*</label> 真实栏目： </label>
+					<div class="col-xs-3">
+						<select class="form-control" name="realNode">
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label">排序：</label>
+					<div class="col-xs-8">
+						<input name="sortOrder" placeholder="请输入排序" type="text" class="form-control " />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-2 control-label">链接地址：</label>
+					<div class="col-xs-8">
+						<input name="nodeLink" placeholder="请输入链接地址" type="text" class="form-control " />
+					</div>
+				</div>
+				<div id="formBuilderDiv"></div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            noddName : {
+                required : true,
+                maxlength : 20
+            },
+            codeNum : {
+                required : true,
+                maxlength : 20
+            },
+            nodeLink : {
+                url : true
+            },
+            nodeTemplate : {
+                required : true,
+            },
+            infoTemplate : {
+                required : true,
+            },
+            sortOrder : {
+                range : [ 1, 99 ]
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'addForm', rules, messages);
+        formBuilder({
+            ownerType : 'nodeModel',
+            ownerId : $('#addForm select[name="nodeModelId"]').val(),
+            valueOwnerId : '' // 新增不需要
+        }, {}, function() {
+            tg_formWinAjaxSubmit("commonWin", "addForm", rules, messages, function() {
+                loadTreeData();
+            });
+        });
+
+        $('#addForm select[name="nodeModelId"]').change(function() {
+            formBuilder({
+                ownerType : 'nodeModel',
+                ownerId : $(this).val(),
+                valueOwnerId : '' // 新增不需要
+            }, {}, function() {
+                tg_formWinAjaxSubmit("commonWin", "addForm", rules, messages, function() {
+                    loadTreeData();
+                });
+            });
+        });
+    });
+    /*]]>*/
+</script>

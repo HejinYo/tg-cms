@@ -1,83 +1,95 @@
-<form th:object="${result}" class="form-horizontal">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">查看招聘信息</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label class="col-md-3 control-label">姓 名：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{username}"></label>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=custom,child=resume)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>插件管理</cite></a> <a href="#">招聘管理</a> <a><cite>列表</cite></a>
+					</span>
+				</div>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 招聘管理
+				</blockquote>
+				<div class="layui-form-item">
+					<label class="layui-form-label">姓 名：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.username}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">性 别：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{gender==1?'男':'女'}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">性 别：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.gender==1?'男':'女'}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">手 机：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{cellphoneNum}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">手 机：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.cellphoneNum}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">邮 箱：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{email}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">邮 箱：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.email}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">出生日期：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:if="${result.birthday==null or result.birthday==''}"></label> <label class="display-label" th:if="${result.birthday!=null and result.birthday!=''}" th:text="${#dates.format(result.birthday, 'yyyy-MM-dd')}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">出生日期：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.birthday}==null?'':${#dates.format(result.birthday, 'yyyy-MM-dd')}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">应聘职位：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{applyPost}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">应聘职位：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.applyPost}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">投递日期：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:if="${result.createDataTime==null or result.createDataTime==''}"></label> <label class="display-label" th:if="${result.createDataTime!=null and result.createDataTime!=''}" th:text="${#dates.format(result.createDataTime, 'yyyy-MM-dd')}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">投递日期：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.createDataTime}==null?'':${#dates.format(result.createDataTime, 'yyyy-MM-dd')}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">期望薪水：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{expectedSalary}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">期望薪水：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.expectedSalary}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">教育经历：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{educationExperience}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">教育经历：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.educationExperience}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">工作经历：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{workExperience}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">工作经历：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.workExperience}" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">描 述：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="*{remarks}"></label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">描 述：</label>
+					<div class="layui-input-block">
+						<label class="layui-input" th:text="${result.remarks}" />
 					</div>
 				</div>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
 	</div>
-</form>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>

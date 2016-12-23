@@ -41,8 +41,11 @@ public class ResumeController {
      * 返回招聘信息查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public ModelAndView listPage(final ResumeQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        Page<Resume> result = resumeService.findByPage(query);
+        mav.addObject("resumeList", new PageGridBean(query, result, true));
+        return mav;
     }
 
     /**

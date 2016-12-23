@@ -29,7 +29,6 @@ import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.net.RequestUtil;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -52,8 +51,11 @@ public class NodeController {
      * 栏目列表页面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public final String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public final ModelAndView listPage(final NodeQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        List<Node> result = nodeService.findAll(query);
+        mav.addObject("nodeList", result);
+        return mav;
     }
 
     /**
@@ -91,16 +93,13 @@ public class NodeController {
      * 新增 栏目
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final NodeForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            nodeService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final NodeForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { nodeService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_")); return new
+         * JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        nodeService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
+        return "rediect:/admin/m/base/node/list.gsp";
     }
 
     /**
@@ -119,16 +118,13 @@ public class NodeController {
      * 修改 栏目
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final NodeForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            nodeService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final NodeForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { nodeService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_")); return new
+         * JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        nodeService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
+        return "rediect:/admin/m/base/node/list.gsp";
     }
 
     /**

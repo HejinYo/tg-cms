@@ -1,0 +1,83 @@
+<form th:object="${result}" class="form-horizontal">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">查看招聘信息</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label class="col-md-3 control-label">姓 名：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{username}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">性 别：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{gender==1?'男':'女'}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">手 机：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{cellphoneNum}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">邮 箱：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{email}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">出生日期：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:if="${result.birthday==null or result.birthday==''}"></label> <label class="display-label" th:if="${result.birthday!=null and result.birthday!=''}" th:text="${#dates.format(result.birthday, 'yyyy-MM-dd')}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">应聘职位：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{applyPost}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">投递日期：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:if="${result.createDataTime==null or result.createDataTime==''}"></label> <label class="display-label" th:if="${result.createDataTime!=null and result.createDataTime!=''}" th:text="${#dates.format(result.createDataTime, 'yyyy-MM-dd')}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">期望薪水：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{expectedSalary}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">教育经历：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{educationExperience}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">工作经历：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{workExperience}"></label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">描 述：</label>
+					<div class="col-md-7">
+						<label class="display-label" th:text="*{remarks}"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>

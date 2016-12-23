@@ -6,10 +6,10 @@
 			</a></li>
 
 			<!--/* 系统首页 */-->
-			<li class="layui-nav-item layui-nav-title"><a th:href="@{/admin/index.gsp}">系统首页</a></li>
+			<li class="layui-nav-item" th:classappend="${parent=='index'} ? 'layui-nav-itemed'"><a th:href="@{/admin/index.gsp}">系统首页</a></li>
 
 			<!--/* 内容管理 */-->
-			<li class="layui-nav-item" th:classappend="${child == 'index'}? 'layui-nav-itemed':(${parent == 'content'}? 'layui-nav-itemed')"><a href="javascript:;"> 内容管理</a>
+			<li class="layui-nav-item" th:classappend="${parent == 'content'}? 'layui-nav-itemed':(${parent == 'content'}? 'layui-nav-itemed')"><a href="javascript:;"> 内容管理</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='info'} ? 'layui-this'">
 						<a th:href="@{/admin/m/base/info/list.gsp}"> <i class="layui-icon">&#xe609;</i> <cite> 文章管理</cite>
