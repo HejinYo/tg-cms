@@ -59,7 +59,7 @@
 						</tr>
 						<tr th:each="login,itemStat:${loginList.records}">
 							<td th:text="${loginList.pageSize*(loginList.page-1)+itemStat.index+1}" style="text-align: center;"></td>
-							<td style="text-align: center;"><label th:if="${login.success==1}">成功</label><label th:if="${login.success==2}">失败</label></td>
+							<td style="text-align: center;"><label th:if="${login.success==1}" style="color:green;">成功</label><label th:if="${login.success==2}" style="color:red;">失败</label></td>
 							<td th:text="${login.username}" style="text-align: center;"></td>
 							<td th:text="${login.ipAddress}" style="text-align: center;"></td>
 							<td th:text="${login.ipLoc}" style="text-align: center;"></td>
