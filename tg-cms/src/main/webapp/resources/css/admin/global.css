@@ -1,9 +1,3 @@
-/* 布局 */
-.site-inline{font-size: 0;}
-.site-tree, .site-content{display: inline-block;  *display:inline; *zoom:1; vertical-align: top; font-size: 14px;}
-.site-tree{width: 220px; min-height: 900px; padding: 5px 0 20px;}
-.site-content{width: 899px; min-height: 900px; padding: 20px 0 10px 20px;}
-
 /* 头部 */
 .header{height: 65px; border-bottom: 1px solid #404553;  background-color: #393D49; color: #fff;}
 .logo{position: absolute; left: 0; top: 18px;}
@@ -35,64 +29,6 @@
 body .layui-layout-admin .footer-demo{height: auto; padding: 15px 0; line-height: 26px;}
 .footer a{padding: 0 5px;}
 
-/* 首页banner部分 */
-.site-banner{position: relative; height: 600px; text-align: center; overflow: hidden; background-color: #393D49;}
-.site-banner-bg
-,.site-banner-main{position: absolute; left: 0; top: 0; width: 100%; height: 100%;}
-.site-banner-bg{background-position: center 0;}
-
-
-.site-zfj{padding-top: 25px; height: 220px;}
-.site-zfj i{position: absolute; left: 50%; top: 25px; width: 200px; height: 200px; margin-left: -100px; font-size: 200px; color: #c2c2c2;}
-
-@-webkit-keyframes site-zfj {
-  0% {opacity: 1;  -webkit-transform: translate3d(0, 0, 0) rotate(0deg) scale(1);}
-  10% {opacity: 0.8; -webkit-transform: translate3d(-100px, 0px, 0) rotate(10deg) scale(0.7);}
-  35% {opacity: 0.6; -webkit-transform: translate3d(100px, 0px, 0) rotate(30deg) scale(0.4);}
-  50% {opacity: 0.4; -webkit-transform: translate3d(0, 0, 0) rotate(360deg) scale(0);}
-  80% {opacity: 0.2; -webkit-transform: translate3d(0, 0, 0) rotate(720deg) scale(1);}
-  90% {opacity: 0.1; -webkit-transform: translate3d(0, 0, 0) rotate(3600deg) scale(6);}
-  100% {opacity: 1; -webkit-transform: translate3d(0, 0, 0) rotate(3600deg) scale(1);}
-}
-@keyframes site-zfj {
-  0% {opacity: 1;  transform: translate3d(0, 0, 0) rotate(0deg) scale(1);}
-  10% {opacity: 0.8; transform: translate3d(-100px, 0px, 0) rotate(10deg) scale(0.7);}
-  35% {opacity: 0.6; transform: translate3d(100px, 0px, 0) rotate(30deg) scale(0.4);}
-  50% {opacity: 0.4; transform: translate3d(0, 0, 0) rotate(360deg) scale(0);}
-  80% {opacity: 0.2; transform: translate3d(0, 0, 0) rotate(720deg) scale(1);}
-  90% {opacity: 0.1; transform: translate3d(0, 0, 0) rotate(3600deg) scale(6);}
-  100% {opacity: 1; transform: translate3d(0, 0, 0) rotate(3600deg) scale(1);}
-}
-
-@-webkit-keyframes site-desc {
-  0% { -webkit-transform: scale(1.1);}
-  100% {opacity: 1; -webkit-transform: scale(1);}
-}
-@keyframes site-desc {
-  0% { transform: scale(1.1);}
-  100% {transform: scale(1);}
-}
-
-.layui-anim-scaleSpring{-webkit-animation-name: layui-scale-spring; animation-name: layui-scale-spring}
-.site-zfj-anim i{-webkit-animation-name: site-zfj; animation-name: site-zfj; -webkit-animation-duration: 5s; animation-duration: 5s;  -webkit-animation-timing-function: linear; animation-timing-function: linear;}
-
-
-.site-desc{position: relative; height: 70px; margin-top: 25px;  background: url(../images/layui/desc.png) center no-repeat;}
-.site-desc-anim{-webkit-animation-name: site-desc; animation-name: site-desc;}
-
-.site-desc cite{position: absolute; bottom: -40px; left: 0; width: 100%; color: #c2c2c2; font-style: normal;}
-.site-download{margin-top: 80px; font-size: 0;}
-.site-download a{position: relative; padding: 0 45px 0 90px; height: 60px; line-height: 60px; border: 1px solid #464B5B; font-size: 24px; color: #ccc; transition: all .5s; -webkit-transition: all .5s;}
-.site-download a:hover{border: 1px solid #778097; color: #fff; border-radius: 30px; }
-.site-download a cite{position: absolute; left: 45px; font-size: 30px;}
-.site-version{position: relative; margin-top: 15px; color: #ccc; font-size: 12px;}
-.site-version span{padding: 0 3px;}
-.site-version *{font-style: normal;}
-.site-version a{color: #e2e2e2;}
-
-.site-banner-other{position: absolute; left: 0; bottom: 32px; width: 100%; text-align: center;}
-.site-banner-other iframe{border: none;}
-
 /* 辅助 */
 .site-title{ margin: 30px 0 20px;}
 .site-title fieldset{border: none; padding: 0; border-top: 1px solid #eee;}
@@ -107,41 +43,6 @@ body .layui-layout-admin .site-demo{bottom: 82px; padding: 0;}
 body .site-demo-nav .layui-nav-item{line-height: 40px}
 .layui-nav-item .layui-icon{position: relative; font-size: 20px;}
 .layui-nav-item a cite{padding: 0 10px;}
-
-.site-demo-util{position: relative; width: 300px;}
-.site-demo-util img{width: 300px; border-radius: 100%;}
-.site-demo-util span{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #333; cursor: pointer;}
-@-webkit-keyframes demo-fengjie {
-  0% {-webkit-filter: blur(0); opacity: 1; background: #fff; height: 300px; border-radius: 100%;}
-  80% {-webkit-filter: blur(50px);  opacity: 0.95;}
-  100% {-webkit-filter: blur(20px); opacity: 0; background: #fff;}
-}
-@keyframes demo-fengjie {
-  0% {filter: blur(0); opacity: 1; background: #fff; height: 300px; border-radius: 100%;}
-  80% {filter: blur(50px);  opacity: 0.95;}
-  100% {filter: blur(20px); opacity: 0; background: #fff;}
-}
-.site-demo-fengjie{-webkit-animation-name: demo-fengjie; animation-name: demo-fengjie; -webkit-animation-duration: 5s; animation-duration: 5s;}
-
-
-.layui-layout-admin .site-demo-body{top: 113px;}
-.site-demo-title{position: fixed; left: 200px; right: 0; top: 72px;}
-.site-demo-code{position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: none; padding: 10px; resize: none; font-size: 12px; background-color: #F7FBFF; color: #881280; font-family: Courier New;}
-
-
-
-/* 其它 */
-#trans-tooltip,
-#tip-arrow-bottom,
-#tip-arrow-top{display: none !important;}
-
-
-/* 独立组件 */
-.alone{width:730px; margin:200px auto;}
-.alone ul{margin-left:1px; font-size:0;}
-.alone li{display:inline-block; width:181px; font-size: 16px; text-align:center; line-height:80px; margin:0 1px 1px 0; background-color:#393D49; color:#fff;}
-.alone li:hover{opacity:0.8;}
-.alone li a{display:block; color:#fff;}
 
 
 /* 适配多设备 */
