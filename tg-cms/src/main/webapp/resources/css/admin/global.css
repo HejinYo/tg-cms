@@ -16,9 +16,7 @@
 .header-demo .layui-nav-bar{background-color: #393D49;}
 
 /* 底部 */
-.footer{padding: 30px 0; line-height: 30px; text-align: center; background-color: #eee; color: #666; font-weight: 300;}
-body .layui-layout-admin .footer-demo{height: auto; padding: 15px 0; line-height: 26px;}
-.footer a{padding: 0 5px;}
+body .layui-layout-admin .footer-demo{line-height: 26px; line-height: 40px; text-align: center; background-color: #eee; color: #666; font-weight: 300;}
 
 /* 辅助 */
 .site-h1{margin-bottom: 20px; line-height: 60px; padding-bottom: 10px; color: #393D49; border-bottom: 1px solid #eee;  font-size: 28px; font-weight: 300;}
@@ -29,7 +27,6 @@ body .layui-layout-admin .footer-demo{height: auto; padding: 15px 0; line-height
   .layui-main{width: auto; margin: 0 10px;}
   .logo,
   .header-demo .logo{left: 10px;}
-  .site-nav-layim{display: none !important;}
   .header .layui-nav .layui-nav-item{margin: 0 10px;}
   .header .layui-nav .layui-nav-item a{padding: 0 5px;}
   .layui-layout-admin .layui-side{position: fixed; top: 0; left: -260px; transition: all .3s; -webkit-transition: all .3s; z-index: 10000;}
