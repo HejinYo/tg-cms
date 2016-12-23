@@ -35,7 +35,6 @@ import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
 import com.turingoal.common.util.net.RequestUtil;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -60,11 +59,14 @@ public class SpecialController {
     private InfoService infoService;
 
     /**
-     * 专题列表页面
+     * 专题列表页 面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public final String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public final ModelAndView listPage(final SpecialQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        Page<Special> result = specialService.findByPage(query);
+        mav.addObject("specialList", new PageGridBean(query, result, true));
+        return mav;
     }
 
     /**
@@ -102,16 +104,9 @@ public class SpecialController {
      * 新增 专题
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final SpecialForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            specialService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final SpecialForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
+        specialService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
+        return "redirect:/admin/m/base/special/list.gsp";
     }
 
     /**
@@ -130,16 +125,9 @@ public class SpecialController {
      * 修改 专题
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final SpecialForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            specialService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final SpecialForm form, final BindingResult bindingResult, final HttpServletRequest request) throws BusinessException {
+        specialService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
+        return "redirect:/admin/m/base/special/list.gsp";
     }
 
     /**
@@ -175,10 +163,12 @@ public class SpecialController {
     /**
      * 返回选择文章页面
      */
-    @RequestMapping(value = "/infoList_{id}.gsp", method = RequestMethod.GET)
-    public final ModelAndView infoList(@PathVariable("id") final String id) throws BusinessException {
+    @RequestMapping(value = "/infoList.gsp", method = RequestMethod.GET)
+    public final ModelAndView infoList(final InfoQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(INFO_PAGE);
-        mav.addObject("specialId", id);
+        Page<Info> result = infoService.findUnInfo(query);
+        mav.addObject("specialId", query.getId());
+        mav.addObject("InfoList", new PageGridBean(query, result, true));
         return mav;
     }
 

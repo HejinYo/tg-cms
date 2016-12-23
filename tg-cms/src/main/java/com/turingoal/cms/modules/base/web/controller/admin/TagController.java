@@ -27,7 +27,6 @@ import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -48,8 +47,11 @@ public class TagController {
      * 标签列表页面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public final String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public final ModelAndView listPage(final TagQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        Page<Tag> tagList = tagService.findByPage(query);
+        mav.addObject("tagList", new PageGridBean(query, tagList, true));
+        return mav;
     }
 
     /**
@@ -83,16 +85,9 @@ public class TagController {
      * 新增 标签
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final TagForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            tagService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final TagForm form, final BindingResult bindingResult) throws BusinessException {
+        tagService.add(form);
+        return "redirect:/admin/m/base/tag/list.gsp";
     }
 
     /**
@@ -109,16 +104,9 @@ public class TagController {
      * 修改 标签
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final TagForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            tagService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final TagForm form, final BindingResult bindingResult) throws BusinessException {
+        tagService.update(form);
+        return "redirect:/admin/m/base/tag/list.gsp";
     }
 
     /**

@@ -52,10 +52,12 @@ public class GuestbookController {
      * 返回留言信息查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public ModelAndView listPage() throws BusinessException {
+    public ModelAndView listPage(final GuestbookQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(LIST_PAGE);
-        GuestbookTypeQuery query = new GuestbookTypeQuery();
-        mav.addObject("guestbookType", guestbookTypeService.findAll(query));
+        GuestbookTypeQuery typeQuery = new GuestbookTypeQuery();
+        Page<Guestbook> guestbookList = guestbookService.findByPage(query);
+        mav.addObject("guestbookType", guestbookTypeService.findAll(typeQuery));
+        mav.addObject("guestbookList", new PageGridBean(query, guestbookList, true));
         return mav;
     }
 
@@ -107,16 +109,9 @@ public class GuestbookController {
      * 回复修改 留言信息
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final GuestbookForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            guestbookService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String update(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final GuestbookForm form, final BindingResult bindingResult) throws BusinessException {
+        guestbookService.update(form);
+        return "redirect:/admin/m/ext/guestbook/list.gsp";
     }
 
     /**
