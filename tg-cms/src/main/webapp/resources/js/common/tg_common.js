@@ -1,3 +1,4 @@
+var $ = layui.jquery;
 // 弹出窗口
 toastr.options = {
     closeButton : true,
