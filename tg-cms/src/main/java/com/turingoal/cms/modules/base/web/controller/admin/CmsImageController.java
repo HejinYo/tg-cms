@@ -68,7 +68,7 @@ public class CmsImageController {
     @RequestMapping(value = "/imageUpload2.gsp", method = RequestMethod.GET)
     public final String imageUpload2() {
         if (SystemHelper.getGlobal() == null) {
-            Global gs = globalService.getFirst();
+            Global gs = globalService.get();
             SystemHelper.setGlobal(gs);
         }
         return "common/imageUpload2";
