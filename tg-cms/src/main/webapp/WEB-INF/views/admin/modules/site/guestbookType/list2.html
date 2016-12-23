@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-站点管理-留言类型|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
+</head>
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=site,current=guestbookType)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=站点管理,current=留言板类型)">面包屑栏</div>
+				<div class="main-box clearfix">
+					<header class="main-box-header clearfix">
+						<div class="row m-b-sm m-t-sm">
+							<div class="col-md-8">
+								<a th:href="@{/admin/m/ext/guestbookType/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+							</div>
+						</div>
+					</header>
+					<div class="main-box-body clearfix">
+						<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>状态</th>
+									<th>类型名称</th>
+									<th>类型编码</th>
+									<th>开放模式</th>
+									<th>审核模式</th>
+									<th>验证码模式</th>
+									<th>最大长度</th>
+									<th>排序</th>
+									<th width="100" class="text-center">操作</th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+				</div>
+				<div th:replace="fragments/footer_admin">底部</div>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/***** 当前页js start *****/-->
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
+<!--/* 排序 */-->
+<script th:src="@{/resources/vendor/other/sortable/Sortable.min.js}"></script>
+<!--/***** 当前页js end *****/-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    //表格
+    var myTable;
+    //表格列定义
+    var columnDefs = [];
+    var columns = [ {
+        "data" : "enabled",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this,' + "\'" + row.id + "\'" + ')" /> ';
+            } else if (data !== 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, ' + "\'" + row.id + "\'" + ')" />';
+            }
+        }
+    }, {
+        "data" : "typeName"
+    }, {
+        "data" : "codeNum"
+    }, {
+        "data" : null,
+        render : function(data, type, row, meta) {
+            if (row.openType === 1) {
+                return '<span style="color:red;">关闭留言</span>';
+            } else if (row.openType === 2) {
+                return '<span style="color:green;">开放前台会员</span>';
+            } else if (row.openType === 3) {
+                return '前台会员及游客';
+            }
+        }
+    }, {
+        "data" : null,
+        render : function(data, type, row, meta) {
+            if (row.verifyType === 1) {
+                return '不需要审核';
+            } else if (row.verifyType === 2) {
+                return '游客需要审核';
+            } else if (row.verifyType === 3) {
+                return '游客及前台会员';
+            } else if (row.verifyType === 4) {
+                return '所有人员';
+            }
+        }
+    }, {
+        "data" : "captchaType",
+        render : function(data, type, row, meta) {
+            if (data === 1) {
+                return '不需要验证码';
+            } else if (data === 2) {
+                return '游客需要验证';
+            } else if (data === 3) {
+                return '游客及前台会员';
+            } else if (data === 4) {
+                return '所有人员';
+            }
+        }
+    }, {
+        "data" : "maxLength"
+    }, {
+        "data" : "sortOrder"
+    }, {
+        "data" : null,
+        "class" : "text-center", //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
+            var result = '';
+            //修改按钮
+            result += '<a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
+            return result;
+        }
+    } ];
+    //表格setting
+    var setting = {
+        listUrl : /*[[@{/admin/m/ext/guestbookType/list.gsp}]]*/'url',
+        editUrl : /*[[@{/admin/m/ext/guestbookType/edit_}]]*/'url',
+        deleteUrl : /*[[@{/admin/m/ext/guestbookType/delete_}]]*/'url',
+        enableUrl : /*[[@{/admin/m/ext/guestbookType/enable_}]]*/'url',
+        disableUrl : /*[[@{/admin/m/ext/guestbookType/disable_}]]*/'url',
+        columnDefs : columnDefs, //表格列定义
+        columns : columns, //表格列
+        dataTableDiv : 'dataTable', //表格
+        pageable : false, //是否分页
+        showIndexColumn : false, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    myTable = new TG_Tabel.createNew(setting);
+    //加载完成后执行
+    $(function() {
+        //表格初始化
+        myTable.init();
+    });
+    /*]]>*/
+</script>
+</html>

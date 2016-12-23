@@ -1,3 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-用户权限-组织机构维度|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=site,child=friendlinkType)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>站点管理</cite></a> <a th:href="@{/admin/m/ext/friendlinkType/list.gsp}">友情链接类型</a> <a><cite>编辑</cite></a>
+					</span>
+				</div>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 友情链接类型
+				</blockquote>
+				<form th:action="@{/admin/m/ext/friendlinkType/edit.gsp}" th:object="${result}" class="layui-form" id="editForm" role="form" action="#" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>编辑友情链接类型</legend>
+					</fieldset>
+					<input th:field="*{id}" hidden>
+					<div class="layui-form-item">
+						<label class="layui-form-label">类型名称：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="typeName" th:field="*{typeName}" placeholder="请输入类型名称" lay-verify="typeName" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">类型编码：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="codeNum" th:field="*{codeNum}" placeholder="请输入类型编码" lay-verify="codeNum" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label"> 排序：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="number" name="sortOrder" th:field="*{sortOrder}" min="1" max="99" value="1" required autocomplete="off" class="layui-input" autofocus="autofocus">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label"> 描 述：</label>
+						<div class="layui-input-block">
+							<textarea type="text" name="description" th:field="*{description}" placeholder="最多输入140字" lay-verify="description" autocomplete="off" class="layui-textarea" autofocus="autofocus" maxlength="150"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        typeName : function(value) {
+            if (value.length < 1) {
+                return '类型名称不能为空哦！';
+            } else if (value.length > 20) {
+                return '类型名称不能太长哦，最长20个字！';
+            }
+        },
+        codeNum : function(value) {
+            if (value.length < 1) {
+                return '类型编码不能为空哦！';
+            } else if (value.length > 20) {
+                return '类型编码不能太长哦，最长20个字！';
+            }
+        },
+        sortOrder : function(value) {
+            if (value.length < 1) {
+                return '排序不能小于1！';
+            } else if (value.length > 99) {
+                return '排序不能大于99！';
+            }
+        },
+        description : function(value) {
+            if (value.length > 140) {
+                return 'meta描述不能太长哦，最长140个字！';
+            }
+        }
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
+    });
+    /*]]>*/
+</script>
 <form th:action="@{/admin/m/ext/friendlinkType/edit.gsp}" th:object="${result}" class="form-horizontal" id="editForm" role="form" action="#" method="post">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

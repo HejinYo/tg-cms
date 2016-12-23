@@ -27,7 +27,6 @@ import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -48,8 +47,11 @@ public class AdSlotController {
      * 返回广告位查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public ModelAndView listPage(final AdSlotQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        Page<AdSlot> result = adSlotService.findAll(query);
+        mav.addObject("adSlotList", new PageGridBean(query, result, true));
+        return mav;
     }
 
     /**
@@ -83,16 +85,12 @@ public class AdSlotController {
      * 新增广告位
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final AdSlotForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            adSlotService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final AdSlotForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { adSlotService.add(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        adSlotService.add(form);
+        return "redirect:/admin/m/ext/adSlot/list.gsp";
     }
 
     /**
@@ -109,16 +107,12 @@ public class AdSlotController {
      * 返回广告位修改界面
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final AdSlotForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            adSlotService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final AdSlotForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { adSlotService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        adSlotService.update(form);
+        return "redirect:/admin/m/ext/adSlot/list.gsp";
     }
 
     /**

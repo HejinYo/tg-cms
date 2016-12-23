@@ -18,5 +18,6 @@ public class GuestbookTypeForm extends BaseFormBean implements Serializable {
     private Integer verifyType; // 审核模式
     private Integer captchaType; // 验证码模式
     private Integer maxLength; // 最大长度
+    private Integer sortOrder; // 排序
     private String description; // 描述
 }

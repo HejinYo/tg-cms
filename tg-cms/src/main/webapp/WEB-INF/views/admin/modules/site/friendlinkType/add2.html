@@ -1,0 +1,68 @@
+<form th:action="@{/admin/m/ext/friendlinkType/add.gsp}" id="addForm" role="form" class="form-horizontal" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">新增友情链接类型</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 类型名称： </label>
+					<div class="col-md-7">
+						<input name="typeName" placeholder="请输入类型名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 类型编码： </label>
+					<div class="col-md-7">
+						<input name="codeNum" placeholder="请输入类型编码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-xs-3 control-label"><label class="text-danger">*</label> 排序：</label>
+					<div class="col-xs-7">
+						<input name="sortOrder" type="number" min="1" max="99" step="1" value="1" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">描 述：</label>
+					<div class="col-md-7">
+						<textarea class="form-control" name="description" placeholder="最长140个字符" rows="3"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            typeName : {
+                required : true,
+                maxlength : 20
+            },
+            codeNum : {
+                required : true,
+                maxlength : 20
+            },
+            sortOrder : {
+                required : true
+            },
+            description : {
+                rangelength : [ 0, 140 ]
+            }
+        }
+        var messages = {}
+        myTable.add('commonWin', 'addForm', rules, messages);
+    });
+    /*]]>*/
+</script>
