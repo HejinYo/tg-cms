@@ -346,7 +346,7 @@ function tg_checkLock(checkLockUrl, logoutUrl, unlockUrl) {
     tg_simpleAjaxPost(checkLockUrl, null, sucCallbackFun, falseCallbackFun);
 }
 
-//删除
+// 删除
 function tg_deleteItem(url, sucCallbackFun, failCallbackFun) {
     var okCallbackFun = function() {
         tg_simpleAjaxPost(url, null, sucCallbackFun, failCallbackFun);
@@ -357,11 +357,11 @@ function tg_deleteItem(url, sucCallbackFun, failCallbackFun) {
 function tg_basePage(option) {
     layui.use([ 'laypage', 'layer' ], function() {
         var baseUrl = option.listUrl;
-        for(var item in option.param){
-            if($("#"+item).val() != ''){
-                baseUrl += "&" + item + "=" + $("#"+item).val()
+        for ( var item in option.param) {
+            if ($("#" + item).val() != '') {
+                baseUrl += "&" + item + "=" + $("#" + item).val()
             }
-        }        
+        }
         var laypage = layui.laypage, layer = layui.layer;
         laypage({
             cont : option.pageDiv == null ? 'pageDiv' : option.pageDiv,
