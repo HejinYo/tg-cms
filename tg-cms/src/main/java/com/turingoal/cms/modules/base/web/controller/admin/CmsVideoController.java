@@ -66,8 +66,10 @@ public class CmsVideoController {
      * 返回视频列表查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public ModelAndView listPage() throws BusinessException {
+    public ModelAndView listPage(final CmsVideoQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(LIST_PAGE);
+        Page<CmsVideo> result = videoService.findByPage(query);
+        mav.addObject("videoList", new PageGridBean(query, result, true));
         return mav;
     }
 

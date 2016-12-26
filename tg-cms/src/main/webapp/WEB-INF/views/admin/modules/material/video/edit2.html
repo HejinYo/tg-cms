@@ -1,0 +1,52 @@
+<form th:action="@{/admin/m/base/video/edit.gsp}" th:object="${result}" id="editForm" class="form-horizontal" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改视频信息</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">视频名称：</label>
+					<div class="col-md-7">
+						<input th:field="*{videoName}" placeholder="请输入视频名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">视频描述：</label>
+					<div class="col-md-7">
+						<textarea th:field="*{description}" placeholder="最大140个字符" rows="3" class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            videoName : {
+                required : true,
+                maxlength : 40
+            },
+            description : {
+                maxlength : 140
+            }
+        }
+        var messages = {
+
+        }
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>
