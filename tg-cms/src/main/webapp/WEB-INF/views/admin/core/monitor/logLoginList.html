@@ -76,7 +76,7 @@
 <div th:replace="fragments/import_js_admin">引入js</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
- var result = /*[[${loginList}]]*/;
+    var result = /*[[${loginList}]]*/;
     $(function(){
         $("#simpleQueryParam").val(GetQueryString("simpleQueryParam"));
         $("#startTime").val(GetQueryString("startTime"));
@@ -94,10 +94,9 @@
         tg_basePage(option);
     })
     
-        layui.use('laydate', function() {
-        var laydate = layui.laydate;
-
-        var start = {
+	layui.use('laydate', function() {
+	    var laydate = layui.laydate;
+	    var start = {
             min : '',
             max : '2099-06-16 23:59:59',
             istoday : false,
@@ -106,8 +105,7 @@
                 end.start = datas //将结束日的初始值设定为开始日
             }
         };
-
-        var end = {
+	    var end = {
             min : '',
             max : '2099-06-16 23:59:59',
             istoday : false,
@@ -115,7 +113,6 @@
                 start.max = datas; //结束日选好后，重置开始日的最大日期
             }
         };
-
         document.getElementById('startTime').onclick = function() {
             start.elem = this;
             laydate(start);

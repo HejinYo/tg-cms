@@ -1,68 +1,107 @@
-<form th:action="@{/admin/m/ext/scoreGroup/editItem.gsp}" th:object="${result}" id="itemEditForm" class="form-horizontal" role="form" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改评分组选项</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<input th:field="*{id}" type="text" hidden="true" />
-				<div class="form-group">
-					<label class="col-md-3 control-label">名 称<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input th:field="*{itemName}" placeholder="请输入选项名称" type="text" class="form-control" />
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=scoreGroup)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/ext/scoreGroup/list.gsp}">评分项配置</a> <a><cite>新增</cite></a>
+					</span>
+				</div>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 评分项配置
+				</blockquote>
+				<form th:action="@{/admin/m/ext/scoreGroup/editItem.gsp}" th:object="${result}" id="itemEditForm" class="layui-form" role="form" action="#" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>新增评分组选项</legend>
+					</fieldset>
+					<input th:field="*{id}" type="text" hidden="true" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">名 称：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input name="itemName" class="layui-input" th:field="*{itemName}" lay-verify="itemName" placeholder="请输入选项名称" type="text" maxlength="21" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">分 值<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input th:field="*{score}" placeholder="请输入选项分值" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">分 值：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input name="score" class="layui-input" lay-verify="score" th:field="*{score}" value="1" min=1; max=100 placeholder="请输入选项名称" type="number" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">选项图片：</label>
-					<div class="col-md-7" id="iconDiv"></div>
-				</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">更换图片：</label>
+						<div class="layui-input-block">
+							<!-- <img id="imgShow" th:src="|/uploads${result.filePath}|" th:onerror="|this.src='@{/resources/imgs/common/no_logo.png}'|" width="164"><br /> -->
+							<input id="icon" type="file" name="file" lay-type="images" class="layui-upload-file">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var record = {
-            innerType : 1,
-            fieldName : 'icon',
-            valueStr : /*[[${result.icon}]]*/'imgId'
-        };
-        var icon = createImagUpload(record);
-        $("#iconDiv").append(icon);
-
-        var rules = {
-            itemName : {
-                required : true,
-                maxlength : 20
+     var showImgUrl = /*[[@{/fore/common/showImage_}]]*/;
+    var $ = layui.jquery;
+    var form = layui.form();
+    layui.use('upload', function() {
+        url = BASE_URL + 'manage/common/uploadImage.htm';
+        tg_upload("icon", url);
+    });
+    function tg_upload(id, url) {
+        $("#" + id).after('<input id="Input'+id+'" type="text" value="" name="'+id+'" hidden="hidden">');
+        var fileName;
+        //文件上传
+        layui.upload({
+            url : url,//上传接口
+            elem : '#' + id,
+            ext : 'jpg|png|gif', //图片格式限制
+            before : function(input) {
+                layer.msg('文件上传中');
             },
-            score : {
-                required : true,
-                digits : true,
-                range : [ 1, 100 ]
+            success : function(res) { //上传成功后的回调
+                $("#" + id).parent().next().text("上传成功");
+                $("#Input" + id).attr("value", res.msg);
+                $("#imgShow").attr("src", showImgUrl+res.msg+'.htm');
+            }
+        });
+    }
+    //自定义验证规则
+    form.verify({
+        itemName : function(value) {
+            if (value.length < 1) {
+                return '名称不能为空！';
+            } else if (value.length > 20) {
+                return '名称最长20个字符！';
+            }
+        },
+        score : function(value) {
+            if (value.length < 1) {
+                return '分数不能小于1！';
+            }else if(value.length>100){
+                return '分数不能大于100！';
             }
         }
-        var messages = {
-
-        }
-        myTableDataItem.add('commonWin', 'itemEditForm', rules, messages);
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
     });
     /*]]>*/
 </script>
