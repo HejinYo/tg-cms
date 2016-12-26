@@ -12,7 +12,7 @@
 <link rel="stylesheet" th:href="@{/template/default/_resources/css/app.css}">
 <link rel="stylesheet" th:href="@{/template/default/_resources/css/blocks.css}">
 <!-- CSS Implementing Plugins -->
-<link rel="stylesheet"th:href="@{/template/default/_resources/vendor/animate.css}">
+<link rel="stylesheet" th:href="@{/template/default/_resources/vendor/animate.css}">
 <link rel="stylesheet" th:href="@{/template/default/_resources/vendor/line-icons/line-icons.css}">
 <link rel="stylesheet" th:href="@{/template/default/_resources/vendor/font-awesome/css/font-awesome.min.css}">
 <link rel="stylesheet" th:href="@{/template/default/_resources/vendor/sky-forms-pro/skyforms/css/sky-forms.css}">
@@ -23,7 +23,7 @@
 <link rel="stylesheet" th:href="@{/template/default/_resources/css/business.style.css}">
 <link rel="stylesheet" th:href="@{/template/default/_resources/css/global.css}">
 <!-- CSS Customization -->
-<link rel="stylesheet" href="assets/css/custom.css">
+<link rel="stylesheet" th:href="@{/template/default/_resources/css/custom.css}">
 </head>
 
 <body id="body" data-spy="scroll" data-target=".one-page-header">
@@ -363,41 +363,39 @@
 			</div>
 		</div>
 	</section>
+</body>
+<!-- JS Global Compulsory -->
+<script th:src="@{/template/default/_resources/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/template/default/_resources/vendor/jquery/jquery-migrate.min.js}"></script>
+<script th:src="@{/template/default/_resources/vendor/bootstrap/js/bootstrap.min.js}"></script>
 
-	<!-- JS Global Compulsory -->
-	<script src="assets/plugins/jquery/jquery.min.js"></script>
-	<script src="assets/plugins/jquery/jquery-migrate.min.js"></script>
-	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<!-- JS Implementing Plugins -->
+<script th:src="@{/template/default/_resources/vendor/smoothScroll.js}"></script>
+<script th:src="@{/template/default/_resources/vendor/pace/pace.min.js}"></script>
+<script th:src="@{/template/default/_resources/vendor/jquery.parallax.js}"></script>
+<script th:src="@{/template/default/_resources/vendor/owl-carousel2/owl.carousel.min.js}"></script>
+<script th:src="@{/template/default/_resources/vendor/backstretch/jquery.backstretch.min.js}"></script>
 
-	<!-- JS Implementing Plugins -->
-	<script src="assets/plugins/smoothScroll.js"></script>
-	<script src="assets/plugins/pace/pace.min.js"></script>
-	<script src="assets/plugins/jquery.parallax.js"></script>
-	<script src="assets/plugins/owl-carousel2/owl.carousel.min.js"></script>
-	<script src="assets/plugins/backstretch/jquery.backstretch.min.js"></script>
+<!-- JS Page Level-->
+<script th:src="@{/template/default/_resources/js/one.app.js}"></script>
+<script th:src="@{/template/default/_resources/js/plugins/promo.js}"></script>
+<script th:src="@{/template/default/_resources/js/plugins/pace-loader.js}"></script>
+<script th:src="@{/template/default/_resources/js/plugins/owl2-carousel-v1.js}"></script>
+<script th:src="@{/template/default/_resources/js/plugins/owl2-carousel-v2.js}"></script>
+<script th:src="@{/template/default/_resources/js/plugins/owl2-carousel-v3.js}"></script>
+<script th:src="@{/template/default/_resources/js/plugins/owl2-carousel-v4.js}"></script>
 
-	<!-- JS Page Level-->
-	<script src="assets/js/one.app.js"></script>
-	<script src="assets/js/plugins/promo.js"></script>
-	<script src="assets/js/plugins/pace-loader.js"></script>
-	<script src="assets/js/plugins/owl2-carousel-v1.js"></script>
-	<script src="assets/js/plugins/owl2-carousel-v2.js"></script>
-	<script src="assets/js/plugins/owl2-carousel-v3.js"></script>
-	<script src="assets/js/plugins/owl2-carousel-v4.js"></script>
-
-	<script type="text/javascript">
-        jQuery(document).ready(function() {
-            App.init();
-            Owl2Carouselv1.initOwl2Carouselv1();
-            Owl2Carouselv2.initOwl2Carouselv2();
-            Owl2Carouselv3.initOwl2Carouselv3();
-            Owl2Carouselv4.initOwl2Carouselv4();
-        });
-    </script>
-
-	<!--[if lt IE 9]>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        App.init();
+        Owl2Carouselv1.initOwl2Carouselv1();
+        Owl2Carouselv2.initOwl2Carouselv2();
+        Owl2Carouselv3.initOwl2Carouselv3();
+        Owl2Carouselv4.initOwl2Carouselv4();
+    });
+</script>
+<!--[if lt IE 9]>
   <script src="../assets/plugins/respond.js"></script>
   <script src="../assets/plugins/html5shiv.js"></script>
   <![endif]-->
-</body>
 </html>
