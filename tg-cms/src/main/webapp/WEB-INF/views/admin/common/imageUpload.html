@@ -76,10 +76,10 @@
 </html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-     var showImgUrl = /*[[@{/fore/common/showImage_}]]*/;
+     var showImgUrl = /*[[@{/admin/m/base/common/showImage_}]]*/;
     var form = layui.form();
     layui.use('upload', function() {
-        url = BASE_URL + 'admin/m/base/image/uploadImg.gsp';
+        url = BASE_URL + 'admin/m/base/common/uploadImg.gsp';
         tg_upload("coverImg", url);
     });
     var $ = layui.jquery;

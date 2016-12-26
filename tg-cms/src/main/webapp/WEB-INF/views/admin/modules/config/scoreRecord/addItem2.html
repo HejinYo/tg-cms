@@ -1,0 +1,68 @@
+<form th:action="@{/admin/m/ext/scoreGroup/addItem.gsp}" id="itemAddForm" class="form-horizontal" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">新增评分组选项</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input name="groupId" type="hidden" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">名 称<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input name="itemName" placeholder="请输入选项名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">分 值<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input name="score" value="0" placeholder="请输入选项分值" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">选项图片：</label>
+					<div class="col-md-7" id="iconDiv"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var record = {
+            innerType : 1,
+            fieldName : 'icon',
+            valueStr : ''
+        };
+        var icon = createImagUpload(record);
+        $("#iconDiv").append(icon);
+        $('#itemAddForm').find('input[name="groupId"]').val($('#groupId').val());
+        var rules = {
+            itemName : {
+                required : true,
+                maxlength : 20
+            },
+            score : {
+                required : true,
+                digits : true,
+                range : [ 1, 100 ]
+            }
+        }
+        var messages = {
+
+        }
+        myTableDataItem.add('commonWin', 'itemAddForm', rules, messages);
+    });
+    /*]]>*/
+</script>

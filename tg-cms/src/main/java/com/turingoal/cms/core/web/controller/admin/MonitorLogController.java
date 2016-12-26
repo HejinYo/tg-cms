@@ -82,7 +82,7 @@ public class MonitorLogController {
      */
     @InitBinder
     protected final void initBinder(final HttpServletRequest request, final ServletRequestDataBinder binder) throws Exception {
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(ConstantPattern4Date.YYYY_MM_DD_HH24_MM_SS), true));
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat(ConstantPattern4Date.YYYY_MM_DD), true));
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 }
