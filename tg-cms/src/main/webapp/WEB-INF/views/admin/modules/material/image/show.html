@@ -1,40 +1,44 @@
-<form th:object="${result}" id="showForm" class="form-horizontal" role="form" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">查看图片信息</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label class="col-md-3 control-label">图片名称：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="${result.imgName}">图片名称：</label>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=material,child=image)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>素材管理</cite></a> <a th:href="@{/admin/m/base/image/list.gsp}">图片管理</a> <a><cite>查看</cite></a>
+					</span>
+				</div>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 查看图片信息
+				</blockquote>
+				<div class="layui-form-item">
+					<label class="layui-form-label">图片名称：<span style="color: red">*</span></label>
+					<div class="layui-input-block">
+						<label id="title" name="title" th:text="${result.imgName}" type="text" class="layui-input" />
 					</div>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">图片描述：</label>
-					<div class="col-md-7">
-						<label class="display-label" th:text="${result.description}">图片名称：</label>
+				<div class="layui-form-item">
+					<label class="layui-form-label">图片描述：<span style="color: red">*</span></label>
+					<div class="layui-input-block">
+						<label class="layui-textarea" th:utext="${result.description}"></label>
 					</div>
 				</div>
-				<div class="form-group">
-					<div class="col-md-12 text-center">
-						<img th:src="${result.imgPath}" style="width:100%;" />
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<!-- <label id="img" th:text="${result.filePath}" hidden /> <img th:src="@{/fore/common/showImage_{id}.gsp(id=${result.coverImg})}" width="400px" height="300px"> -->
 					</div>
 				</div>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    $(function() {
-    });
-    /*]]>*/
-</script>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>

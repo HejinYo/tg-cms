@@ -32,6 +32,7 @@ import com.turingoal.cms.modules.base.domain.form.CmsImageForm;
 import com.turingoal.cms.modules.base.domain.query.CmsImageQuery;
 import com.turingoal.cms.modules.base.service.CmsImageService;
 import com.turingoal.cms.modules.base.service.GlobalService;
+import com.turingoal.cms.modules.commons.ConstantValue;
 import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
@@ -78,8 +79,11 @@ public class CmsImageController {
      * 返回图片查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public ModelAndView listPage() throws BusinessException {
+    public ModelAndView listPage(final CmsImageQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(LIST_PAGE);
+        query.setLimit(ConstantValue.L_TEN);
+        Page<CmsImage> result = imageService.findByPage(query);
+        mav.addObject("imgList", new PageGridBean(query, result, true));
         return mav;
     }
 

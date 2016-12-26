@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-素材管理-图片管理|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<link th:href="@{/resources/vendor/webuploader/webuploader.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
+</head>
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=material,current=image)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=素材管理,current=图片管理)">面包屑栏</div>
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="main-box">
+							<header class="main-box-header">
+								<a th:href="@{/admin/m/base/image/imageUpload.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;上传图片</a>
+							</header>
+							<div class="main-box-body clearfix">
+								<div class="col-xs-12" id="imagesShowDiv"></div>
+								<div class="col-xs-12" id="pageShowDiv"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div th:replace="fragments/footer_admin">底部</div>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/***** 当前页js start *****/-->
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var tgUrl = /*[[${session.global.contextPath}]]*/'url';
+    var currPage = 1;
+    var limit = 24;
+    function loadImagesByPage(page) {
+        var listUrl = /*[[@{/admin/m/base/image/list.gsp}]]*/'';
+        var showUrlPath = /*[[@{/admin/m/base/image/show_{id}.gsp}]]*/''; //修改地址
+        tg_simpleAjaxPost(listUrl, {
+            page : page,
+            limit : limit
+        }, function(d) {
+            var result = $.parseJSON(d);
+            var records = result.records;
+            $("#imagesShowDiv").html("");
+            for (var i = 0; i < records.length; i++) {
+                var record = records[i];
+                var $li = $('<div class="file-item thumbnail col-xs-1">' + '<img></div>');
+                $li.find('img').attr('src', tgUrl + record.imgPath + "_200x200." + record.format).width(110).height(110);
+                $li.append('<div class="col-xs-12 text-center" style="margin-top:5px;"><a href="' + showUrlPath.replace("{id}", record.id) + '" data-target="#commonWin" data-toggle="modal" title="查看" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>'
+                        + ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + record.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a></div>');
+                $("#imagesShowDiv").append($li);
+            }
+
+            var $ul = $('<ul>').addClass("pagination pull-right");
+            var shouye = $('<li class="paginate_button" onclick="loadImagesByPage(1)"><a href="javascript:;">首页</a></li>');
+            var shangye = $('<li class="paginate_button" onclick="loadImagesByPage(' + (result.page - 1) + ')"><a href="javascript:;"><i class="fa fa-chevron-left"></i></a></li>');
+            var currye = $('<li class="paginate_button active"><a href="javascript:;">' + result.page + '</a></li>');
+            var xiaye = $('<li class="paginate_button" onclick="loadImagesByPage(' + (result.page + 1) + ')"><a href="javascript:;"><i class="fa fa-chevron-right"></i></a></li>');
+            var moye = $('<li class="paginate_button" onclick="loadImagesByPage(' + (result.totalPages) + ')"><a href="javascript:;">末页</a></li>');
+
+            if (result.totalPages <= 1) {
+                shouye.addClass("disabled");
+                shangye.addClass("disabled");
+                xiaye.addClass("disabled");
+                moye.addClass("disabled");
+            }
+            if (result.page == 1) {
+                shouye.addClass("disabled");
+                shangye.addClass("disabled");
+            }
+            if (result.totalPages == result.page) {
+                xiaye.addClass("disabled");
+                moye.addClass("disabled");
+            }
+
+            $ul.append(shouye).append(shangye).append(currye).append(xiaye).append(moye).append(moye);
+            $("#pageShowDiv").html("");
+            $("#pageShowDiv").append('<div class="col-xs-4"></div>');
+            var end = result.end > result.totalRecords ? result.totalRecords : result.end;
+            $("#pageShowDiv").append('<div class="col-xs-4"><div class="dataTables_info" id="dataTable_info" role="status" aria-live="polite">第 ' + (result.start + 1) + ' 至  ' + end + ' 条记录，共  ' + result.totalRecords + ' 条</div></div>');
+            $("#pageShowDiv").append($('<div class="col-xs-4"></div>').append($ul));
+            currPage = result.page;
+        });
+    }
+    var myTable = {
+        refresh : function() {
+            loadImagesByPage(currPage);
+        },
+        deleteItem : function(id) {
+            var deleteUrlPath = /*[[@{/admin/m/base/image/delete_{id}.gsp}]]*/'url';
+            tg_dleteItem(deleteUrlPath.replace("{id}", id), function() {
+                tg_alertSuccess();
+                myTable.refresh();
+            });
+        }
+    }
+    //加载完成后执行
+    $(function() {
+        loadImagesByPage(currPage);
+    });
+    /*]]>*/
+</script>
+</html>

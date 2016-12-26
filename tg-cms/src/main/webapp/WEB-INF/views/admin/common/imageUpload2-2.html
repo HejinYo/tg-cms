@@ -1,0 +1,192 @@
+<div class="modal-header">
+	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	<h4 class="modal-title">图片上传</h4>
+</div>
+<div class="modal-body">
+	<div class="panel blank-panel">
+		<div class="panel-heading">
+			<div class="panel-options">
+				<ul class="nav nav-tabs" id="nav-tabs-selImage">
+					<li class="active" upType='single'><a data-toggle="tab" href="#tab-1">单张上传</a></li>
+					<li upType='multi' th:if="${#httpServletRequest.getParameter('type')!='single'}"><a data-toggle="tab" href="#tab-2">多图上传</a></li>
+					<li upType='online' id="onlineNavTab"><a data-toggle="tab" href="#tab-3">在线图片</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="panel-body">
+			<div class="tab-content">
+				<div id="tab-1" class="tab-pane active">
+					<div class="col-md-9">
+						<div class="row">
+							<div class="btn picker">选择图片</div>
+						</div>
+						<div class="row">
+							<div class="thelist uploader-list"></div>
+						</div>
+					</div>
+				</div>
+				<div id="tab-2" class="tab-pane" th:if="${#httpServletRequest.getParameter('type')!='single'}">
+					<div class="uploader wu-example">
+						<div class="btns">
+							<div class="picker btn">选择图片</div>
+							<button class="ctlBtn btn btn-primary">开始上传</button>
+						</div>
+						<div class="clearfix"></div>
+						<div class="row">
+							<div class="thelist uploader-list"></div>
+						</div>
+					</div>
+				</div>
+				<div id="tab-3" class="tab-pane">
+					<form th:action="@{/admin/m/base/image/list.gsp}" id="onlineImageFilterForm" role="form" action="#" method="post"></form>
+					<div class="row">
+						<div id="onlineImageTableDiv" class="col-md-12 thelist uploader-list"></div>
+						<div id="onlineImagePageDiv" class="col-md-12 text-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary selectImageBtn" type="button">
+		<strong>确 定</strong>
+	</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">
+		<strong>关 闭</strong>
+	</button>
+</div>
+<script th:src="@{/resources/js/common/imageUpload.js}"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var fileUploadUrl = /*[[@{/admin/m/base/image/uploadImg}]]*/'';
+    var findByIdsUrl = /*[[@{/admin/m/base/image/findByIds}]]*/'';
+    var type = /*[[${#httpServletRequest.getParameter('type')}]]*/'type';
+    var filedName = /*[[${#httpServletRequest.getParameter('fieldName')}]]*/'fieldName';
+    var showImageId = '#' + filedName;
+
+    var tgUrl = /*[[${session.global.contextPath}]]*/'url';
+    var currPage = 1;
+    var limit = 24;
+    function loadImagesByPage(page) {
+        var listUrl = /*[[@{/admin/m/base/image/list.gsp}]]*/'';
+        tg_simpleAjaxPost(listUrl, {
+            page : page,
+            limit : limit
+        }, function(d) {
+            var result = $.parseJSON(d);
+            var records = result.records;
+            $("#onlineImageTableDiv").html("");
+            for (var i = 0; i < records.length; i++) {
+                var record = records[i];
+                var $li = $('<div class="file-item thumbnail col-xs-2" id="' + record.id + '" onclick="onlinSelect(this)" imageChecked="no">' + '<img></div>');
+                $li.find('img').attr('src', tgUrl + record.imgPath).width(110).height(110);
+                $("#onlineImageTableDiv").append($li);
+            }
+
+            var $ul = $("<ul>").addClass("pagination pull-right");
+            var shouye = $('<li class="paginate_button" onclick="loadImagesByPage(1)"><a href="javascript:;">首页</a></li>');
+            var shangye = $('<li class="paginate_button" onclick="loadImagesByPage(' + (result.page - 1) + ')"><a href="javascript:;"><i class="fa fa-chevron-left"></i></a></li>');
+            var currye = $('<li class="paginate_button active"><a href="javascript:;">' + result.page + '</a></li>');
+            var xiaye = $('<li class="paginate_button" onclick="loadImagesByPage(' + (result.page + 1) + ')"><a href="javascript:;"><i class="fa fa-chevron-right"></i></a></li>');
+            var moye = $('<li class="paginate_button" onclick="loadImagesByPage(' + (result.totalPages) + ')"><a href="javascript:;">末页</a></li>');
+
+            if (result.totalPages == 1) {
+                shouye.addClass("disabled");
+                shangye.addClass("disabled");
+                xiaye.addClass("disabled");
+                moye.addClass("disabled");
+            }
+            if (result.page == 1) {
+                shouye.addClass("disabled");
+                shangye.addClass("disabled");
+            }
+            if (result.totalPages == result.page) {
+                xiaye.addClass("disabled");
+                moye.addClass("disabled");
+            }
+
+            $ul.append(shouye).append(shangye).append(currye).append(xiaye).append(moye).append(moye);
+            $("#onlineImagePageDiv").html("");
+            $("#onlineImagePageDiv").append($ul);
+            currPage = result.page;
+        });
+    }
+
+    $(function() {
+        var singUploader = createImageUploader($('#tab-1'), fileUploadUrl, false, 'imageInputIdName');
+        if (type === 'multi') {
+            var mulitUploader = createImageUploader($('#tab-2'), fileUploadUrl, true, 'imageInputIdName');
+        }
+        loadImagesByPage(1);
+    });
+    function onlinSelect(obj) {
+        var $this = $(obj);
+        if (type === 'single') {
+            $('#tab-3').find('.fa-check').remove();
+            $('#tab-3').find('.fileNameInput').remove();
+            $('#tab-3').find('.file-item').attr('imageChecked', 'no');
+        }
+        if ($this.attr('imageChecked') === 'no') {
+            $this.attr('imageChecked', 'ok');
+            $this.append($('<span class="fa fa-check pull-right" style="font-size:25px;position: absolute;right: 0px;bottom: 0px;color: #00b7ee;"></span>'));
+            $this.append($('<input type="hidden" class="fileNameInput" name="imageInputIdName" value="' + $this.attr('id') + '">'));
+        } else {
+            $this.attr('imageChecked', 'no');
+            $this.find('.fa-check').remove();
+            $this.find('.fileNameInput').remove();
+        }
+    }
+
+    var ids = '';
+    var idInputs = {};
+    $('.selectImageBtn').click(function() {
+        var currTabType = $('#nav-tabs-selImage .active').attr('upType');
+        if (currTabType === 'online') {
+            if (type === 'single') {
+                idInputs = $('#tab-3 input[name="imageInputIdName"]').first();
+            } else if (type === 'multi') {
+                idInputs = $('#tab-3 input[name="imageInputIdName"]');
+            }
+        } else if (currTabType === 'single') {
+            idInputs = $('#tab-1 input[name="imageInputIdName"]');
+        } else if (currTabType === 'multi') {
+            idInputs = $('#tab-2 input[name="imageInputIdName"]');
+        }
+        if (idInputs == null || idInputs.length == 0) {
+            layer.alert("请选择图片进行上传！");
+        } else {
+            idInputs.each(function() {
+                ids += $(this).val() + ',';
+            });
+
+            tg_simpleAjaxPost(findByIdsUrl, {
+                ids : ids
+            }, function(d) {
+                var result = $.parseJSON(d);
+                if (type === 'single') {
+                    $(showImageId).html('');
+                }
+                if (result.obj != null && result.obj.length > 0) {
+                    for (var i = 0; i < result.obj.length; i++) {
+                        var src = result.obj[i].imgPath;
+                        var id = result.obj[i].id;
+                        var fileName = result.obj[i].imgName;
+                        var divId = new Date().getTime() + i;
+
+                        var $li = $('<div style="width:120px; height:140px;"  class="file-item thumbnail col-xs-2" id="'+divId+'">' + '<img><a class="pull-right delBtn" style="cursor: pointer;">删除</a></div>');
+                        $li.append($('<input type="hidden" name="'+filedName+'" value="'+id+'">'));
+                        $li.find('img').attr('src', src).width(110).height(110);
+
+                        $(showImageId).append($li);
+                    }
+                    $(showImageId).on('click', '.delBtn', function() {
+                        $(this).parent().remove();
+                    });
+                    $('#uploaderWin').modal('hide');
+                }
+            });
+        }
+    });
+    /*]]>*/
+</script>
