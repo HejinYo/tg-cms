@@ -5,34 +5,8 @@
 <div th:replace="default/fragments/head">head</div>
 </head>
 <body id="body" data-spy="scroll" data-target=".one-page-header">
-	<!-- Header -->
-	<nav class="one-page-header navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="menu-container page-scroll">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-					<span class="sr-only">导航按钮</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#body"> <img class="img-responsive" src="assets/img/logo_w.png" alt="logo">
-				</a>
-			</div>
-
-			<!-- 导航 -->
-			<div class="collapse navbar-collapse navbar-ex1-collapse">
-				<div class="menu-container">
-					<ul class="nav navbar-nav">
-						<li class="page-scroll home"><a href="#body"><span data-hover="Turingoal">图灵谷科技</span></a></li>
-						<li class="page-scroll"><a href="#services"><span data-hover="Services">主要业务</span></a></li>
-						<li class="page-scroll"><a href="#processes"><span data-hover="Processes">企业文化</span></a></li>
-						<li class="page-scroll"><a href="#projects"><span data-hover="Clients">典型案例</span></a></li>
-						<li class="page-scroll"><a href="#clients"><span data-hover="Clients">合作伙伴</span></a></li>
-						<li class="page-scroll"><a href="#contact"><span data-hover="Contact">联系我们</span></a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<!-- End Header -->
-
+	<!--/*******导航栏*******/-->
+	<div th:replace="default/fragments/nav">head</div>
 	<!-- Promo -->
 	<section class="g-bg-dark-blue1">
 		<div class="fullscreen-static-image promo-block--cover fullheight">
@@ -50,7 +24,6 @@
 		</div>
 	</section>
 	<!-- End Promo -->
-
 	<!-- 主要业务 -->
 	<section id="services">
 		<div class="container content-md g-text-height-md">
@@ -281,7 +254,6 @@
 					</h2>
 				</div>
 			</div>
-
 			<ul class="list-unstyled owl2-carousel-v3 g-mb-60">
 				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img1.png" alt=""></li>
 				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img2.png" alt=""></li>
@@ -292,18 +264,15 @@
 				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img7.png" alt=""></li>
 				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img8.png" alt=""></li>
 			</ul>
-
 			<div class="row text-center page-scroll">
 				<div class="col-sm-8 col-sm-offset-2">
 					<p>自公司创立以来，我们服务过的客户涵盖政府机关、行政事业单位、国企、民企凭借综合服务能力为客户带来最直接、最专业的沟通+咨询+信息化落地的整套服务方案。</p>
 					<br>
 				</div>
 			</div>
-
 		</div>
 	</section>
-
-	<!-- 联系我们 -->
+	<!--/*******联系我们*******/-->
 	<section id="contact" class="g-bg-dark-blue1">
 		<div class="container content-md g-text-height-md">
 			<div class="row g-mb-60 text-center g-heading-v7">
@@ -315,7 +284,6 @@
 					<p>我们可以并能够帮助您成就卓越！</p>
 				</div>
 			</div>
-
 			<!-- Contact Details -->
 			<ul class="list-unstyled row text-center">
 				<li class="col-md-3 contact-blocks-v1"><i class="contact-blocks-v1__icon g-display-block g-color-primary icon-call-in"></i>
