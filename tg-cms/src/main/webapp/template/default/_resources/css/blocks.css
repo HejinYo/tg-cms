@@ -159,7 +159,7 @@
 
 /*Promo Background Images*/
 .promo-bg-img-v1 {
-  background: url(../img/bg/img1.jpg) no-repeat;
+  background: url(template/default/_resources/imgs/temp/img1.jpg) no-repeat;
   background-size: cover;
 }
 .promo-bg-img-v2 {
