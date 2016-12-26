@@ -1,0 +1,112 @@
+<form th:action="@{/admin/m/ext/friendlink/edit.gsp}" th:object="${result}" id="editForm" class="form-horizontal" role="form" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改友情链接</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{enabled}" type="text" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">类 型<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select class="form-control" name="typeId">
+							<option th:each="data : ${friendlinkType}" th:value="${data.id}" th:text="${data.typeName}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">网站名称<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input name="flName" th:field="*{flName}" placeholder="请输入网站名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">网站地址：</label>
+					<div class="col-md-7">
+						<input name="flUrl" th:field="*{flUrl}" placeholder="请输入网站地址" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">网站logo：</label>
+					<div class="col-md-7" id="flLogoDiv"></div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">站长邮箱：</label>
+					<div class="col-md-7">
+						<input name="flEmail" th:field="*{flEmail}" placeholder="请输入站长Email" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">是否推荐：</label>
+					<div class="col-md-7">
+						<select class="form-control" th:field="*{recommend}" name="recommend">
+							<option value="1">是</option>
+							<option value="2">否</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">排序<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input th:field="*{sortOrder}" placeholder="请输入排序" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">描 述：</label>
+					<div class="col-md-7">
+						<textarea class="form-control" th:field="*{description}" placeholder="最多输入140字" name="description"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var record = {
+            innerType : 1,
+            fieldName : 'flLogo',
+            valueStr : /*[[${result.flLogo}]]*/'imgId'
+        };
+        var flLogo = createImagUpload(record);
+        $("#flLogoDiv").append(flLogo);
+        var rules = {
+            flName : {
+                required : true,
+                maxlength : 20
+            },
+            flUrl : {
+                url : true,
+                maxlength : 35
+            },
+            flEmail : {
+                email : true,
+                maxlength : 40
+            },
+            sortOrder : {
+                required : true,
+                digits : true,
+                max : 99
+            },
+            description : {
+                maxlength : 140
+            }
+        };
+        var messages = {};
+        myTable.add('commonWin', 'editForm', rules, messages);
+    });
+    /*]]>*/
+</script>

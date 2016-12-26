@@ -1,0 +1,118 @@
+<form th:action="@{/admin/m/ext/vote/add.gsp}" id="addOptionForm" role="form" class="form-horizontal" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">新增投票信息</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label class="col-md-2 control-label">投票标题<label class="text-danger">*</label>：</label>
+					<div class="col-md-10">
+                        <input name="title" placeholder="请输入投票标题" type="text" class="form-control" />
+                    </div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">模　　式<label class="text-danger">*</label>：</label>
+					<div class="col-md-4">
+						<select class="form-control" name="voteMode">
+                             <option value="1">独立访客</option>
+                             <option value="2">独立IP</option>
+                             <option value="3">独立用户</option>
+                        </select>
+					</div>
+                    <label class="col-md-2 control-label">投票编码<label class="text-danger">*</label>：</label>
+					<div class="col-md-4">
+						<input name="codeNum" placeholder="请输入投票编码" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+                    <label class="col-md-2 control-label">开始时间<label class="text-danger">*</label>：</label>
+                    <div class="col-md-4">
+                        <div class="input-group date">
+                            <input readonly="readonly" id="startTime" name="startTime" type="text" class="form-control"/>
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                    <label readonly="true" class="col-md-2 control-label">结束时间：</label>
+                    <div class="col-md-4">
+                        <div class="input-group date">
+                            <input name="endTime" readonly="readonly" type="text" class="form-control"/>
+                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                </div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">间隔天数<label class="text-danger">*</label>：</label>
+					<div class="col-md-4">
+						<input name="intervalDays" value="0" placeholder="请输入间隔天数" type="text" class="form-control" />
+					</div>
+					<label class="col-md-2 control-label">最多可选项<label class="text-danger">*</label>：</label>
+					<div class="col-md-4">
+						<input name="maxSelected" value="0" placeholder="请输入最多可选项" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-2 control-label">描　　述：</label>
+					<div class="col-md-10">
+						<textarea  class="form-control" placeholder="最多输入140字" name="description"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+	$('.date').datepicker({
+	    todayBtn: "linked",
+	    keyboardNavigation: false,
+	    forceParse: false,
+	    initialDate : new Date(),
+	    altField: '#actualDate',
+	    calendarWeeks: true,
+	    autoclose: true
+	});
+    /*<![CDATA[*/
+    $(function() {
+        $("#startTime").val(new Date().Format("yyyy-mm-dd"));
+        var rules = {
+        	title : {
+                required : true,
+                maxlength : 40
+            },
+            codeNum : {
+                required : true,
+                maxlength : 20,
+                minlength : 2
+            },
+            intervalDays:{
+                required : true,
+            	digits:true,
+            	max : 999,
+            	min : 1
+            },
+            maxSelected : {
+                required : true,
+            	digits:true,
+            	max : 20,
+            	min : 0
+            },
+            description : {
+            	maxlength : 140
+            }
+        };
+        var messages = {
+        	
+        };
+        myTable.add('commonWin', 'addOptionForm', rules, messages);
+    });
+    /*]]>*/
+</script>
