@@ -1,111 +1,109 @@
-<form th:action="@{/admin/m/ext/friendlink/add.gsp}" id="addForm" role="form" class="form-horizontal" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">新增友情链接</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label class="col-md-3 control-label">类 型<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<select class="form-control" name="typeId">
-							<option th:each="data : ${result}" th:value="${data.id}" th:text="${data.typeName}"></option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">网站名称<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="flName" placeholder="请输入网站名称" type="text" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">网站地址：</label>
-					<div class="col-md-7">
-						<input name="flUrl" placeholder="请输入网站地址" type="text" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">网站logo：</label>
-					<div class="col-md-7" id="flLogoDiv"></div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">站长邮箱：</label>
-					<div class="col-md-7">
-						<input name="flEmail" placeholder="请输入站长Email" type="text" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">是否推荐：</label>
-					<div class="col-md-7">
-						<select class="form-control" name="recommend">
-							<option value="1">是</option>
-							<option value="2">否</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">排序<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input name="sortOrder" placeholder="请输入排序" type="text" class="form-control" />
-					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">描 述：</label>
-					<div class="col-md-7">
-						<textarea class="form-control" placeholder="最多输入140字" name="description"></textarea>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-内容管理-友情链接|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<!--/***** 当前页css  end *****/-->
+</head>
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <div th:replace="fragments/nav_admin">导航栏</div>
+        <div th:replace="fragments/menu_admin::menu(parent=content,child=friendlink)">菜单栏</div>
+        <!--/*******内容*******/-->
+        <div class="layui-body">
+            <div class="layui-main">
+                <!--/***** 面包屑 *****/-->
+                <div class="layui-elem-quote" style="margin-top: 10px;">
+                    <span class="layui-breadcrumb"> <a><cite>内容管理</cite></a><a th:href="@{/admin/m/ext/friendlink/list.gsp}">友情链接</a><a><cite>新增</cite></a>
+                    </span>
+                </div>
+                <!--/*******操作*******/-->
+                <form th:action="@{/admin/m/ext/friendlink/add.gsp}" id="addForm" role="form" method="post" class="layui-form">
+                    <fieldset class="layui-elem-field layui-field-title">
+                        <legend>友情链接-新增</legend>
+                    </fieldset>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">类型：<span style="color: red">*</span></label>
+                        <div class="layui-input-block">
+                            <select id="typeId" name="typeId" lay-verify="required"><option th:if="${result.size()<=0}" value="">暂无</option>
+                                <option th:each="data : ${result}" th:value="${data.id}" th:text="${data.typeName}"></option></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">网站名称：<span style="color: red">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="flName" required lay-verify="flName" placeholder="请输入网站名称" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">网站地址：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="flUrl" required lay-verify="url" placeholder="请输入网站地址" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">网站logo：</label>
+                        <div class="layui-input-block"></div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">站长邮箱：</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="flEmail" required lay-verify="email" placeholder="请输入站长Email" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">是否推荐：</label>
+                        <div class="layui-input-block">
+                            <select id="recommend" name="recommend" lay-verify="required"><option value="1">是</option>
+                                <option value="2">否</option></select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">排序：<span style="color: red">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="number" name="sortOrder" required lay-verify="number" min="1" max="99" placeholder="请输入排序" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">描述：</label>
+                        <div class="layui-input-block">
+                            <textarea name="description" placeholder="最多输入140字" lay-verify="description" rows="3" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div th:replace="fragments/footer_admin">底部版权信息等</div>
+    </div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/***** 当前页js start *****/-->
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var record = {
-            innerType : 1,
-            fieldName : 'flLogo',
-            valueStr : ''
-        };
-        var flLogo = createImagUpload(record);
-        $("#flLogoDiv").append(flLogo);
-        var rules = {
-            flName : {
-                required : true,
-                maxlength : 20
-            },
-            flUrl : {
-                url : true,
-                maxlength : 35
-            },
-            flEmail : {
-                email : true,
-                maxlength : 40
-            },
-            sortOrder : {
-                required : true,
-                digits : true,
-                max : 99
-            },
-            description : {
-                maxlength : 140
+    var form = layui.form();
+    var $ = layui.jquery;
+  //自定义验证规则
+    var rules = {
+        flName : function(value) {
+            if (value.length < 1 || value.length > 20) {
+                return '网站名称在1~20个字符之间';
             }
-        };
-        var messages = {};
-        myTable.add('commonWin', 'addForm', rules, messages);
-    });
+        },
+        description : function(value) {
+            if (value.length < 5 || value.length > 140) {
+                return '描述在5~140个字符之间';
+            }
+        }
+    };
+    form.verify(rules);
     /*]]>*/
 </script>
+<!--/***** 当前页js end *****/-->
+</html>

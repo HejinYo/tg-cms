@@ -31,7 +31,6 @@ import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -55,10 +54,12 @@ public class AdController {
      * 返回广告管理查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public ModelAndView listPage() throws BusinessException {
+    public ModelAndView listPage(final AdQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(LIST_PAGE);
-        AdSlotQuery query = new AdSlotQuery();
-        mav.addObject("slot", adSlotService.findList(query));
+        AdSlotQuery dSlotaquery = new AdSlotQuery();
+        Page<Ad> result = adService.findAll(query);
+        mav.addObject("slot", adSlotService.findList(dSlotaquery));
+        mav.addObject("adList", new PageGridBean(query, result, true));
         return mav;
     }
 
@@ -97,16 +98,9 @@ public class AdController {
      * 新增广告信息
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final AdForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            adService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final AdForm form, final BindingResult bindingResult) throws BusinessException {
+        adService.add(form);
+        return "redirect:/admin/m/ext/ad/list.gsp";
     }
 
     /**
@@ -126,16 +120,9 @@ public class AdController {
      * 返回广告管理修改界面
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final AdForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            adService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final AdForm form, final BindingResult bindingResult) throws BusinessException {
+        adService.update(form);
+        return "redirect:/admin/m/ext/ad/list.gsp";
     }
 
     /**

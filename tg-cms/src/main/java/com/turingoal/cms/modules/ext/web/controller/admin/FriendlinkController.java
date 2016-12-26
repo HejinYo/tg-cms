@@ -30,7 +30,6 @@ import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
 
@@ -54,10 +53,10 @@ public class FriendlinkController {
      * 返回友情链接查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public ModelAndView listPage() throws BusinessException {
+    public ModelAndView listPage(final FriendlinkQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(LIST_PAGE);
-        FriendlinkQuery query = new FriendlinkQuery();
-        mav.addObject("friendlink", friendlinkService.find(query));
+        Page<Friendlink> result = friendlinkService.find(query);
+        mav.addObject("friendlinkList", new PageGridBean(query, result, true));
         return mav;
     }
 
@@ -87,16 +86,9 @@ public class FriendlinkController {
      * 新增友情链接
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final FriendlinkForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            friendlinkService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final FriendlinkForm form, final BindingResult bindingResult) throws BusinessException {
+        friendlinkService.add(form);
+        return "redirect:/admin/m/ext/friendlink/list.gsp";
     }
 
     /**
@@ -125,16 +117,9 @@ public class FriendlinkController {
      * 返回友情链接修改界面
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final FriendlinkForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            friendlinkService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final FriendlinkForm form, final BindingResult bindingResult) throws BusinessException {
+        friendlinkService.update(form);
+        return "redirect:/admin/m/ext/friendlink/list.gsp";
     }
 
     /**

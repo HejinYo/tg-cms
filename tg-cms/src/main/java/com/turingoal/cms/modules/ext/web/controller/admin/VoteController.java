@@ -54,8 +54,11 @@ public class VoteController {
      * 返回投票信息查询界面
      */
     @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
-    public String listPage() throws BusinessException {
-        return LIST_PAGE;
+    public ModelAndView listPage(final VoteQuery query) throws BusinessException {
+        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        Page<Vote> result = voteService.findByPage(query);
+        mav.addObject("voteList", new PageGridBean(query, result, true));
+        return mav;
     }
 
     /**
@@ -88,16 +91,9 @@ public class VoteController {
      * 新增投票信息
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final VoteForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            voteService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final VoteForm form, final BindingResult bindingResult) throws BusinessException {
+        voteService.add(form);
+        return "redirect:/admin/m/ext/vote/list.gsp";
     }
 
     /**
@@ -114,16 +110,9 @@ public class VoteController {
      * 修改投票信息
      */
     @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final VoteForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            voteService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
+    public final String edit(@Validated({ ValidGroupUpdate.class }) @ModelAttribute("form") final VoteForm form, final BindingResult bindingResult) throws BusinessException {
+        voteService.update(form);
+        return "redirect:/admin/m/ext/vote/list.gsp";
     }
 
     /**

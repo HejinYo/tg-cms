@@ -47,7 +47,7 @@
         )
         VALUES(
             #{id}, #{typeId}, #{flName}, #{flUrl}, #{flLogo}, 
-            #{flEmail}, #{recommend}, #{sort_order}, #{description}, #{enabled},
+            #{flEmail}, #{recommend}, #{sortOrder}, #{description}, #{enabled},
             #{createDataTime}, #{createDataUsername}
         )
     </insert>
@@ -61,7 +61,7 @@
             fl_logo = #{flLogo}, 
             fl_email = #{flEmail}, 
             recommend = #{recommend}, 
-            sort_order = #{sort_order}, 
+            sort_order = #{sortOrder}, 
             description = #{description}, 
             enabled = #{enabled},
             update_data_time = #{updateDataTime},
