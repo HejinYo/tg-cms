@@ -1,25 +1,31 @@
 ﻿<!DOCTYPE HTML>
-<html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>图灵谷（北京）科技有限公司-首页</title>
+<title>图灵谷（北京）科技有限公司</title>
 <div th:replace="default/fragments/head">head</div>
 </head>
-<body>
-	<div class="wrapper">
-		<div th:replace="default/fragments/nav::nav(nodeCodeNum=index)">head</div>
-		<div class="container banner">
-			<div class="row">
-				<div class='col-md-4 banner_left'>
-					<span></span>
+<body id="body" data-spy="scroll" data-target=".one-page-header">
+	<!--/*******导航栏*******/-->
+	<div th:replace="default/fragments/nav">head</div>
+	<!--/*******幻灯片*******/-->
+	<section class="g-bg-dark-blue1">
+		<div class="fullscreen-static-image promo-block--cover fullheight">
+			<div class="container valign__middle">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 text-center">
+						<div class="promo-block__item page-scroll animated fadeIn">
+							<span class="g-display-block g-mb-10">领先技术，铸就卓越！</span>
+							<h2 class="promo-block__item-text g-mb-20">领先技术，铸就卓越！</h2>
+							<a href="#services" class="btn-u btn-brd btn-brd-hover btn-u-light">查看更多</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<!-- End Promo -->
-	<!-- 主要业务 -->
+	<!--/*******主要业务*******/-->
 	<section id="services">
 		<div class="container content-md g-text-height-md">
-
 			<div class="row g-mb-60 text-center g-heading-v7">
 				<div class="col-sm-8 col-sm-offset-2">
 					<h2 class="h2">
@@ -27,7 +33,6 @@
 					</h2>
 				</div>
 			</div>
-
 			<div class="row service-box-v1 service-box-v1--business equal-height-columns no-gutter">
 				<div class="col-md-3 col-sm-6">
 					<div class="service-block service-block-default equal-height-column no-margin-bottom">
@@ -84,11 +89,9 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- 企业文化 -->
-	<section id="processes" class="g-bg-dark-blue1">
+	<!--/*******企业文化 *******/-->
+	<section id="culture" class="g-bg-dark-blue1">
 		<div class="container content-md g-text-height-md">
-
 			<div class="row g-mb-60 text-center g-heading-v7">
 				<div class="col-sm-8 col-sm-offset-2">
 					<h2 class="h2 color-light">
@@ -97,7 +100,6 @@
 					<p>"用做产品的态度做项目，用做服务的态度做产品！"</p>
 				</div>
 			</div>
-
 			<div class="row g-mb-20">
 				<div class="col-md-6 g-mb-20 steps-v1--lspace">
 					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
@@ -108,7 +110,6 @@
 						<li class="steps-v1__block g-rounded-50x"><i class="steps-v1__icon icon-fire"></i> <img class="steps-v1__img g-rounded-50x" src="assets/img-temp/testimonials/img1.jpg" alt=""></li>
 					</ul>
 				</div>
-
 				<div class="col-md-6 steps-v1--rspace">
 					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
 						<li>
@@ -121,7 +122,6 @@
 					</ul>
 				</div>
 			</div>
-
 			<div class="row g-mb-50">
 				<div class="col-md-6 g-mb-20 steps-v1--lspace">
 					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
@@ -134,7 +134,6 @@
 						<li class="steps-v1__block g-rounded-50x"><i class="steps-v1__icon icon-rocket"></i> <img class="steps-v1__img img-responsive g-rounded-50x" src="assets/img-temp/testimonials/img3.jpg" alt=""></li>
 					</ul>
 				</div>
-
 				<div class="col-md-6 steps-v1--rspace">
 					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
 						<li>
@@ -149,8 +148,7 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- Pricing -->
+	<!--/*******典型案例  *******/-->
 	<section id="projects">
 		<div class="container content-md g-text-height-md">
 			<div class="row g-mb-60 text-center g-heading-v7">
@@ -161,36 +159,19 @@
 					<p>Sed feugiat porttitor nunc, non dignissim ipsum vestibulum in. Donec in blandit dolor. Vivamus a fringilla lorem, vel faucibus ante. Nunc ullamcorper, justo a iaculis elementum, enim orci viverra eros, fringilla porttitor lorem eros vel odio.</p>
 				</div>
 			</div>
-
 		</div>
 		<div class="container-fluid g-text-height-md g-no-side-padding">
 			<ul class="list-unstyled owl2-carousel-v4 g-no-mb">
 				<li class="item">
 					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img1.jpg" alt="">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img1.jpg}" alt="">
 						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
 							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
 							</span>
 						</div>
 					</div>
 					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img2.jpg" alt="">
-						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
-							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
-							</span>
-						</div>
-					</div>
-				</li>
-				<li class="item">
-					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img4.jpg" alt="">
-						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
-							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
-							</span>
-						</div>
-					</div>
-					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img3.jpg" alt="">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img2.jpg}" alt="">
 						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
 							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
 							</span>
@@ -199,14 +180,14 @@
 				</li>
 				<li class="item">
 					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img6.jpg" alt="">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img4.jpg}" alt="">
 						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
 							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
 							</span>
 						</div>
 					</div>
 					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img5.jpg" alt="">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img3.jpg}" alt="">
 						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
 							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
 							</span>
@@ -215,14 +196,30 @@
 				</li>
 				<li class="item">
 					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img7.jpg" alt="">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img6.jpg}" alt="">
 						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
 							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
 							</span>
 						</div>
 					</div>
 					<div class="owl2-carousel-v2__item">
-						<img class="img-responsive owl2-carousel-v2__item-img" src="assets/img-temp/news/img4.jpg" alt="">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img5.jpg}" alt="">
+						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
+							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
+							</span>
+						</div>
+					</div>
+				</li>
+				<li class="item">
+					<div class="owl2-carousel-v2__item">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img7.jpg}" alt="">
+						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
+							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
+							</span>
+						</div>
+					</div>
+					<div class="owl2-carousel-v2__item">
+						<img class="img-responsive owl2-carousel-v2__item-img" th:src="@{/template/default/_resources/img-temp/news/img4.jpg}" alt="">
 						<div class="owl2-carousel-v2__item-info owl2-carousel-v2__item-info--news">
 							<span class="owl2-carousel-v2__item-info__item"> <em>May 20, 2016</em> <span>MASTER CLASS OF THE WEEK</span> <em>By Kate Lee for Business</em>
 							</span>
@@ -231,30 +228,24 @@
 				</li>
 			</ul>
 		</div>
-
 	</section>
-	<!-- End Pricing -->
-
-
-	<!-- 典型客户 -->
+	<!--/******* 合作伙伴  *******/-->
 	<section id="clients">
 		<div class="container content-md g-text-height-md">
 			<div class="row g-mb-60 text-center g-heading-v7">
 				<div class="col-sm-8 col-sm-offset-2">
 					<h2 class="h2">
-						<span class="g-text-height-lg">合作伙伴</span>
+						<span class="g-text-height-lg">合作伙伴及服务单位</span>
 					</h2>
 				</div>
 			</div>
 			<ul class="list-unstyled owl2-carousel-v3 g-mb-60">
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img1.png" alt=""></li>
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img2.png" alt=""></li>
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img3.png" alt=""></li>
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img4.png" alt=""></li>
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img5.png" alt=""></li>
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img6.png" alt=""></li>
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img7.png" alt=""></li>
-				<li class="item owl2-carousel-v3__item"><img src="assets/img-temp/clients/img8.png" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/zhongping.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/zhongwen.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/zhishang.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/cec.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/jiaotongbu.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/minzhengbu.png}" alt=""></li>
 			</ul>
 			<div class="row text-center page-scroll">
 				<div class="col-sm-8 col-sm-offset-2">

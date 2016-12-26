@@ -12,11 +12,11 @@
 			<li class="layui-nav-item" th:classappend="${parent == 'content'}? 'layui-nav-itemed':(${parent == 'content'}? 'layui-nav-itemed')"><a href="javascript:;"> 内容管理</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='info'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/info/list.gsp}"> <i class="layui-icon">&#xe609;</i> <cite> 文章管理</cite>
+						<a th:href="@{/admin/m/base/info/list.gsp}"> <i class="layui-icon">&#xe621;</i> <cite> 文章管理</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='special'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/special/list.gsp}"> <i class="layui-icon">&#xe628;</i> <cite> 专题管理</cite>
+						<a th:href="@{/admin/m/base/special/list.gsp}"> <i class="layui-icon">&#xe62c;</i> <cite> 专题管理</cite>
 						</a>
 					</dd>
 					<!-- <dd th:classappend="${child=='comment'} ? 'layui-this'">
@@ -24,7 +24,7 @@
 						</a>
 					</dd> -->
 					<dd th:classappend="${child=='guestbook'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/guestbook/list.gsp}"> <i class="layui-icon">&#xe637;</i> <cite> 留言管理</cite>
+						<a th:href="@{/admin/m/ext/guestbook/list.gsp}"> <i class="layui-icon">&#xe60a;</i> <cite> 留言管理</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='tag'} ? 'layui-this'">
@@ -32,19 +32,19 @@
 						</a>
 					</dd>
 					<dd th:classappend="${child=='friendlink'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/friendlink/list.gsp}"> <i class="layui-icon">&#xe637;</i> <cite> 友情链接</cite>
+						<a th:href="@{/admin/m/ext/friendlink/list.gsp}"> <i class="layui-icon">&#xe64c;</i> <cite> 友情链接</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='vote'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/vote/list.gsp}"> <i class="layui-icon">&#xe637;</i> <cite> 投票管理</cite>
+						<a th:href="@{/admin/m/ext/vote/list.gsp}"> <i class="layui-icon">&#xe60f;</i> <cite> 投票管理</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='ad'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/ad/list.gsp}"> <i class="layui-icon">&#xe637;</i> <cite> 广告管理</cite>
+						<a th:href="@{/admin/m/ext/ad/list.gsp}"> <i class="layui-icon">&#xe630;</i> <cite> 广告管理</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='question'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/question/list_null.gsp}"> <i class="layui-icon">&#xe637;</i> <cite> 问卷管理</cite>
+						<a th:href="@{/admin/m/ext/question/list_null.gsp}"> <i class="layui-icon">&#xe62a;</i> <cite> 问卷管理</cite>
 						</a>
 					</dd>
 				</dl></li>
@@ -53,11 +53,11 @@
 			<li class="layui-nav-item" th:classappend="${parent == 'material'}? 'layui-nav-itemed'"><a href="javascript:;"> 素材管理</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='image'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/image/list.gsp}"> <i class="layui-icon">&#xe63c;</i> <cite> 图片管理</cite>
+						<a th:href="@{/admin/m/base/image/list.gsp}"> <i class="layui-icon">&#xe64a;</i> <cite> 图片管理</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='video'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/video/list.gsp}"> <i class="layui-icon">&#xe627;</i> <cite> 视频管理</cite>
+						<a th:href="@{/admin/m/base/video/list.gsp}"> <i class="layui-icon">&#xe63b;</i> <cite> 视频管理</cite>
 						</a>
 					</dd>
 					<!-- <dd th:classappend="${child=='doc'} ? 'layui-this'">
@@ -74,7 +74,7 @@
 			<li class="layui-nav-item" th:classappend="${parent == 'site'}? 'layui-nav-itemed'"><a href="javascript:;"> 站点管理</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='node'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/node/list.gsp}"> <i class="layui-icon">&#xe641;</i> <cite> 栏目管理</cite>
+						<a th:href="@{/admin/m/base/node/list.gsp}"> <i class="layui-icon">&#xe632;</i> <cite> 栏目管理</cite>
 						</a>
 					</dd>
 					<!-- <dd th:classappend="${child=='collect'} ? 'layui-this'">
@@ -82,19 +82,19 @@
 						</a>
 					</dd> -->
 					<dd th:classappend="${child=='specialType'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/specialType/list.gsp}"> <i class="layui-icon">&#xe613;</i><cite> 专题分类</cite>
+						<a th:href="@{/admin/m/base/specialType/list.gsp}"> <i class="layui-icon">&#xe637;</i><cite> 专题分类</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='guestbookType'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/guestbookType/list.gsp}"> <i class="layui-icon">&#xe613;</i><cite> 留言板类型 </cite>
+						<a th:href="@{/admin/m/ext/guestbookType/list.gsp}"> <i class="layui-icon">&&#xe638;</i><cite> 留言板类型 </cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='friendlinkType'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/friendlinkType/list.gsp}"> <i class="layui-icon">&#xe613;</i><cite> 友情链接类型 </cite>
+						<a th:href="@{/admin/m/ext/friendlinkType/list.gsp}"> <i class="layui-icon">&#xe64c;</i><cite> 友情链接类型 </cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='adSlot'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/adSlot/list.gsp}"> <i class="layui-icon">&#xe613;</i><cite> 广告位管理 </cite>
+						<a th:href="@{/admin/m/ext/adSlot/list.gsp}"> <i class="layui-icon">&#xe630;</i><cite> 广告位管理 </cite>
 						</a>
 					</dd>
 				</dl></li>
@@ -103,7 +103,7 @@
 			<li class="layui-nav-item" th:classappend="${parent == 'custom'}? 'layui-nav-itemed'"><a href="javascript:;">插件管理</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='resume'} ? 'layui-this'">
-						<a th:href="@{/admin/m/plug/resume/list.gsp}"> <i class="layui-icon">&#xe600;</i> <cite> 招聘管理</cite>
+						<a th:href="@{/admin/m/plug/resume/list.gsp}"> <i class="layui-icon">&#xe60c;</i> <cite> 招聘管理</cite>
 						</a>
 					</dd>
 				</dl></li>
@@ -112,27 +112,27 @@
 			<li class="layui-nav-item" th:classappend="${parent=='gconfig'} ? 'layui-nav-itemed'"><a href="javascript:;"> 全局配置</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='publishPoint'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/publishPoint/list.gsp}"> <i class="layui-icon">&#xe638;</i> <cite> 发布点配置 </cite>
+						<a th:href="@{/admin/m/base/publishPoint/list.gsp}"> <i class="layui-icon">&#xe643;</i> <cite> 发布点配置 </cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='global'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/global/list.gsp}"> <i class="layui-icon">&#xe631;</i> <cite> 全局参数</cite>
+						<a th:href="@{/admin/m/base/global/list.gsp}"> <i class="layui-icon">&#xe617;</i> <cite> 全局参数</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='template'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/template/list.gsp}"> <i class="layui-icon">&#xe631;</i> <cite> 模板配置</cite>
+						<a th:href="@{/admin/m/base/template/list.gsp}"> <i class="layui-icon">&#xe629;</i> <cite> 模板配置</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='model'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/model/list.gsp}"> <i class="layui-icon">&#xe631;</i> <cite> 模型配置 </cite>
+						<a th:href="@{/admin/m/base/model/list.gsp}"> <i class="layui-icon">&#xe628;</i> <cite> 模型配置 </cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='attr'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/attr/list.gsp}"> <i class="layui-icon">&#xe631;</i> <cite> 文章属性 </cite>
+						<a th:href="@{/admin/m/base/attr/list.gsp}"> <i class="layui-icon">&#xe60a;</i> <cite> 文章属性 </cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='scoreGroup'} ? 'layui-this'">
-						<a th:href="@{/admin/m/ext/scoreGroup/list.gsp}"> <i class="layui-icon">&#xe631;</i> <cite> 评分组配置</cite>
+						<a th:href="@{/admin/m/ext/scoreGroup/list.gsp}"> <i class="layui-icon">&#xe64d;</i> <cite> 评分组配置</cite>
 						</a>
 					</dd>
 				</dl></li>
@@ -141,22 +141,22 @@
 			<li class="layui-nav-item" th:classappend="${parent=='uum'} ? 'layui-nav-itemed'"><a href="javascript:;"> 用户权限</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='user'} ? 'layui-this'">
-						<a th:href="@{/admin/c/user/list.gsp}"> <i class="layui-icon">&#xe605;</i> <cite> 用户管理</cite>
+						<a th:href="@{/admin/c/user/list.gsp}"> <i class="layui-icon">&#xe612;</i> <cite> 用户管理</cite>
 						</a>
 					</dd>
 				</dl></li>
 			<li class="layui-nav-item" th:classappend="${parent=='monitor'} ? 'layui-nav-itemed'"><a href="javascript:;"> 系统监控</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='logLoginList'} ? 'layui-this'">
-						<a th:href="@{/admin/c/monitor/log/listLogin.gsp}"> <i class="layui-icon">&#xe605;</i> <cite> 登录日志</cite>
+						<a th:href="@{/admin/c/monitor/log/listLogin.gsp}"> <i class="layui-icon">&#xe60e;</i> <cite> 登录日志</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='logOperateList'} ? 'layui-this'">
-						<a th:href="@{/admin/c/monitor/log/listOperate.gsp}"> <i class="layui-icon">&#xe605;</i> <cite> 操作日志</cite>
+						<a th:href="@{/admin/c/monitor/log/listOperate.gsp}"> <i class="layui-icon">&#xe64f;</i> <cite> 操作日志</cite>
 						</a>
 					</dd>
 					<dd th:classappend="${child=='sysinfo'} ? 'layui-this'">
-						<a th:href="@{/admin/c/monitor/sysinfo/list.gsp}"> <i class="layui-icon">&#xe605;</i> <cite> 系统信息</cite>
+						<a th:href="@{/admin/c/monitor/sysinfo/list.gsp}"> <i class="layui-icon">&#xe63c;</i> <cite> 系统信息</cite>
 						</a>
 					</dd>
 				</dl></li>
