@@ -22,11 +22,8 @@
 					<fieldset class="layui-elem-field layui-field-title">
 						<legend>新增字段</legend>
 					</fieldset>
-					<input name="ownerType" type="text" th:value="|${model.Type}Model|" hidden="true" /> 
-					<input name="ownerId" type="text" th:value="${model.Id}" hidden="true" /> 
-					<input name="innerType" type="text" value="1" hidden="true" /> 
-					<input name="newline" type="text" value="1" hidden="true" /> 
-					<input name="state" type="text" value="1" hidden="true" />
+					<input name="ownerType" type="text" th:value="|${model.Type}Model|" hidden="true" /> <input name="ownerId" type="text" th:value="${model.Id}" hidden="true" /> <input name="innerType" type="text" value="1" hidden="true" /> <input name="newline" type="text" value="1" hidden="true" /> <input
+						name="state" type="text" value="1" hidden="true" />
 					<div class="layui-form-item">
 						<label class="layui-form-label">字段类型：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
@@ -59,13 +56,13 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">字段标签：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input name="fieldLabel" placeholder="请输入字段标签" required layui-verify="fieldLabel" type="text" class="layui-input" />
+							<input name="fieldLabel" placeholder="请输入字段标签" required lay-verify="fieldLabel" type="text" class="layui-input" />
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">字段名称：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input name="fieldName" placeholder="请输入字段名称" required layui-verify="fieldName" type="text" class="layui-input" />
+							<input name="fieldName" placeholder="请输入字段名称" required lay-verify="fieldName" type="text" class="layui-input" />
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -77,25 +74,25 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">默认值：</label>
 						<div class="layui-input-block">
-							<input name="fieldDefaultValue" placeholder="请输入默认值" layui-verify="fieldDefaultValue" type="text" class="layui-input" />
+							<input name="fieldDefaultValue" placeholder="请输入默认值" lay-verify="fieldDefaultValue" type="text" class="layui-input" />
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">最大长度：</label>
 						<div class="layui-input-block">
-							<input name="fieldMaxLength" placeholder="请输入最大长度"  layui-verify="fieldMaxLength" type="text" class="layui-input" />
+							<input name="fieldMaxLength" placeholder="请输入最大长度" lay-verify="fieldMaxLength" type="text" class="layui-input" />
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">提示信息：</label>
 						<div class="layui-input-block">
-							<input name="prompt" placeholder="请输入提示信息" type="text" layui-verify="prompt" class="layui-input" />
+							<input name="prompt" placeholder="请输入提示信息" type="text" lay-verify="prompt" class="layui-input" />
 						</div>
 					</div>
 					<div class="layui-form-item" id="checkboxOptionsDiv" style="display: none">
 						<label class="layui-form-label">可选项：</label>
 						<div class="layui-input-block">
-							<textarea name="checkboxOptions" layui-verify="checkboxOptions" placeholder="请输入可选项" class="layui-textarea" lay-verify="description" type="text" maxlength="150"></textarea>
+							<textarea name="checkboxOptions" lay-verify="checkboxOptions" placeholder="请输入可选项" class="layui-textarea" type="text" maxlength="150"></textarea>
 						</div>
 					</div>
 					<div class="layui-form-item">
