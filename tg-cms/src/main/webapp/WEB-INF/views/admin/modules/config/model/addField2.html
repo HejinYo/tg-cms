@@ -1,0 +1,158 @@
+<form th:action="@{/admin/m/base/customField/add.gsp}" id="addFieldForm" role="form" class="form-horizontal" action="#" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">新增字段</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<input name="ownerType" type="text" hidden="true" /> <input name="ownerId" type="text" hidden="true" /> <input name="innerType" type="text" value="1" hidden="true" /> <input name="newline" type="text" value="1" hidden="true" /> <input name="state" type="text" value="1" hidden="true" />
+				<div class="form-group">
+					<label class="col-md-3 control-label">字段类型<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<select name="type" class="form-control">
+							<option selected="selected" value="1">文本输入框</option>
+							<option value="2">日期输入框</option>
+							<option value="3">单选框</option>
+							<option value="4">多选框</option>
+							<option value="5">文本域</option>
+							<option value="6">文本编辑器</option>
+							<option value="7">图片上传</option>
+							<option value="8">图片集上传</option>
+							<option value="9">视频上传</option>
+							<option value="10">附件上传</option>
+							<option value="11">文库上传</option>
+							<option disabled="disabled" value="12">属性控件</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group hide" id="dateFormatDiv">
+					<label class="col-md-3 control-label">日期格式化：</label>
+					<div class="col-md-7">
+						<select name="dateFormat" disabled="disabled" class="form-control">
+							<option selected="selected" value="yyyy-MM-dd">yyyy-MM-dd</option>
+							<option value="HH:mm:ss">HH:mm:ss</option>
+							<option value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</option>
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">字段标签<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input name="fieldLabel" placeholder="请输入字段标签" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">字段名称<label class="text-danger">*</label>：
+					</label>
+					<div class="col-md-7">
+						<input name="fieldName" placeholder="请输入字段名称" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">是否必填：</label>
+					<div class="col-md-7">
+						<label class="radio-inline"> <input type="radio" checked="checked" value="1" name="required" id="inlineRadio1" />是
+						</label> <label class="radio-inline"> <input type="radio" value="2" name="required" id="inlineRadio2" />否
+						</label>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">默认值：</label>
+					<div class="col-md-7">
+						<input name="fieldDefaultValue" placeholder="请输入默认值" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">最大长度：</label>
+					<div class="col-md-7">
+						<input name="fieldMaxLength" placeholder="请输入最大长度" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">提示信息：</label>
+					<div class="col-md-7">
+						<input name="prompt" placeholder="请输入提示信息" type="text" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group hide" id="checkboxOptionsDiv">
+					<label class="col-md-3 control-label">可选项：</label>
+					<div class="col-md-7">
+						<textarea name="checkboxOptions" disabled="disabled" placeholder="请输入可选项" type="text" rows="4" class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            type : {
+                required : true
+            },
+            fieldLabel : {
+                required : true,
+                maxlength : 20
+
+            },
+            fieldName : {
+                required : true,
+                maxlength : 20
+            },
+            required : {
+                required : true
+            },
+            fieldDefaultValue : {
+                maxlength : 20
+            },
+            fieldMaxLength : {
+                digits : true,
+                range : [ 1, 200 ]
+            },
+            prompt : {
+                maxlength : 20
+            },
+            checkboxOptions : {
+                maxlength : 200
+            }
+        }
+        var messages = {
+
+        }
+        $('#addFieldForm input[name="ownerType"]').val($('#paramInfoDiv input[name="ownerType"]').val());
+        $('#addFieldForm input[name="ownerId"]').val($('#paramInfoDiv input[name="ownerId"]').val());
+
+        modelTable.add('customFieldWin', 'addFieldForm', rules, messages);
+
+        $('#addFieldForm select[name="type"]').change(function() {
+            var typeVal = $(this).val();
+            if (typeVal == 2) {
+                $('#dateFormatDiv').removeClass('hide').addClass('show');
+                $('#dateFormatDiv select').removeAttr('disabled');
+            } else {
+                $('#dateFormatDiv').removeClass('show').addClass('hide');
+                $('#dateFormatDiv select').attr('disabled', 'disabled');
+            }
+            if (typeVal == 3 || typeVal == 4) {
+                $('#checkboxOptionsDiv').removeClass('hide').addClass('show');
+                $('#checkboxOptionsDiv textarea').removeAttr('disabled');
+            } else {
+                $('#checkboxOptionsDiv').removeClass('show').addClass('hide');
+                $('#checkboxOptionsDiv textarea').attr('disabled', 'disabled');
+            }
+        });
+    });
+    /*]]>*/
+</script>

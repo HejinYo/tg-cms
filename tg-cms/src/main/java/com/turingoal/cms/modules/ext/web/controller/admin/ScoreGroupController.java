@@ -113,16 +113,6 @@ public class ScoreGroupController {
     }
 
     /**
-     * 返回计分组选项信息新增界面
-     */
-    @RequestMapping(value = "/addItem.gsp", method = RequestMethod.GET)
-    public ModelAndView addItemPage() {
-        ModelAndView mav = new ModelAndView(ADD_ITEM_PAGE);
-        mav.addObject("groupId", groupId);
-        return mav;
-    }
-
-    /**
      * 新增计分组信息
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
@@ -135,34 +125,12 @@ public class ScoreGroupController {
     }
 
     /**
-     * 新增计分组选项信息
-     */
-    @RequestMapping(value = "/addItem.gsp", method = RequestMethod.POST)
-    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final ScoreItemForm form, final BindingResult bindingResult) throws BusinessException {
-        /*
-         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { scoreGroupService.addItem(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
-         */
-        scoreGroupService.addItem(form);
-        return "redirect:/admin/m/ext/scoreGroup/list.gsp";
-    }
-
-    /**
      * 返回计分组信息修改界面
      */
     @RequestMapping(value = "/edit_{id}.gsp", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable final String id) {
         ModelAndView mav = new ModelAndView(EDIT_PAGE);
         mav.addObject("result", scoreGroupService.get(id));
-        return mav;
-    }
-
-    /**
-     * 返回计分组选项信息修改界面
-     */
-    @RequestMapping(value = "/editItem_{id}.gsp", method = RequestMethod.GET)
-    public ModelAndView editItemPage(@PathVariable final String id) {
-        ModelAndView mav = new ModelAndView(EDIT_ITEM_PAGE);
-        mav.addObject("result", scoreGroupService.getItem(id));
         return mav;
     }
 
@@ -179,6 +147,38 @@ public class ScoreGroupController {
     }
 
     /**
+     * 返回计分组选项信息新增界面
+     */
+    @RequestMapping(value = "/addItem.gsp", method = RequestMethod.GET)
+    public ModelAndView addItemPage() {
+        ModelAndView mav = new ModelAndView(ADD_ITEM_PAGE);
+        mav.addObject("groupId", groupId);
+        return mav;
+    }
+
+    /**
+     * 新增计分组选项信息
+     */
+    @RequestMapping(value = "/addItem.gsp", method = RequestMethod.POST)
+    public final String add(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final ScoreItemForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { scoreGroupService.addItem(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        scoreGroupService.addItem(form);
+        return "redirect:/admin/m/ext/scoreGroup/listItem_" + groupId + ".gsp";
+    }
+
+    /**
+     * 返回计分组选项信息修改界面
+     */
+    @RequestMapping(value = "/editItem_{id}.gsp", method = RequestMethod.GET)
+    public ModelAndView editItemPage(@PathVariable final String id) {
+        ModelAndView mav = new ModelAndView(EDIT_ITEM_PAGE);
+        mav.addObject("result", scoreGroupService.getItem(id));
+        return mav;
+    }
+
+    /**
      * 修改计分组选项信息
      */
     @RequestMapping(value = "/editItem.gsp", method = RequestMethod.POST)
@@ -187,7 +187,7 @@ public class ScoreGroupController {
          * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { scoreGroupService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
          */
         scoreGroupService.update(form);
-        return "redirect:/admin/m/ext/scoreGroup/list.gsp";
+        return "redirect:/admin/m/ext/scoreGroup/listItem_" + groupId + ".gsp";
     }
 
     /**

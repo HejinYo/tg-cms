@@ -28,7 +28,6 @@ import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.support.spring.SpringBindingResultWrapper;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 
 /**
@@ -46,14 +45,26 @@ public class CustomFieldController {
     @Autowired
     private CustomFieldService customFieldService;
 
+    private static Model model;
+    private static String fieldsId;
+
     /**
      * 字段管理
      */
     @RequestMapping(value = "/fields_{id}.gsp", method = RequestMethod.GET)
-    public final ModelAndView fields(@PathVariable final String id) {
+    public final ModelAndView fields(@PathVariable final String id, final CustomFieldQuery query) {
         ModelAndView mav = new ModelAndView(FIELDS_PAGE);
-        Model model = modelService.get(id);
+        model = modelService.get(id);
+        fieldsId = id;
         mav.addObject("result", model);
+        // 将属于该模型的字段显示出来
+        query.setOwnerType(model.getType() + "Model");
+        query.setOwnerId(id);
+        List<CustomField> cusList = customFieldService.findFieldAndValueByModel(query);
+        mav.addObject("cusList", cusList);
+        // 获取所有的系统字段
+        List<CustomFieldForm> sysList = customFieldService.findSysField(id, model.getType());
+        mav.addObject("sysList", sysList);
         return mav;
     }
 
@@ -61,8 +72,22 @@ public class CustomFieldController {
      * 新增页面
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.GET)
-    public final String addPage() {
-        return ADD_PAGE;
+    public ModelAndView addPage() {
+        ModelAndView mav = new ModelAndView(ADD_PAGE);
+        mav.addObject("model", model);
+        return mav;
+    }
+
+    /**
+     * 新增模型字段
+     */
+    @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
+    public final String modelFieldAdd(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final CustomFieldForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { customFieldService.add(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        customFieldService.add(form);
+        return "redirect:/admin/m/base/customField/fields_" + fieldsId + ".gsp";
     }
 
     /**
@@ -71,8 +96,21 @@ public class CustomFieldController {
     @RequestMapping(value = "/edit_{id}.gsp", method = RequestMethod.GET)
     public final ModelAndView editPage(@PathVariable final String id) {
         ModelAndView mav = new ModelAndView(EDIT_PAGE);
-        mav.addObject("result", customFieldService.get(id));
+        CustomField cus = customFieldService.get(id);
+        mav.addObject("result", cus);
         return mav;
+    }
+
+    /**
+     * 修改 模型字段
+     */
+    @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
+    public final String modelFieldEdit(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final CustomFieldForm form, final BindingResult bindingResult) throws BusinessException {
+        /*
+         * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { customFieldService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
+         */
+        customFieldService.update(form);
+        return "redirect:/admin/m/base/customField/fields_" + fieldsId + ".gsp";
     }
 
     /**
@@ -102,38 +140,6 @@ public class CustomFieldController {
     public PageGridBean findSysField(final String modelId, final String modelType) {
         List<CustomFieldForm> result = customFieldService.findSysField(modelId, modelType);
         return new PageGridBean(result);
-    }
-
-    /**
-     * 新增模型字段
-     */
-    @RequestMapping(value = "/add.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean modelFieldAdd(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final CustomFieldForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            customFieldService.add(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
-    }
-
-    /**
-     * 修改 模型字段
-     */
-    @RequestMapping(value = "/edit.gsp", method = RequestMethod.POST)
-    @ResponseBody
-    public final JsonResultBean modelFieldEdit(@Validated({ ValidGroupAdd.class }) @ModelAttribute("form") final CustomFieldForm form, final BindingResult bindingResult) throws BusinessException {
-        // 数据校验
-        if (bindingResult.hasErrors()) {
-            String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult);
-            return new JsonResultBean(JsonResultBean.FAULT, errorMsg);
-        } else {
-            customFieldService.update(form);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
-        }
     }
 
     /**

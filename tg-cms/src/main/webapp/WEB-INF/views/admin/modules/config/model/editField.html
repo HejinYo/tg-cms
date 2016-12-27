@@ -1,168 +1,183 @@
-<form th:action="@{/admin/m/base/customField/edit.gsp}" th:object="${result}" class="form-horizontal" id="editFieldForm" role="form" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改模型</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{innerType}" type="text" hidden="true" /> <input th:field="*{sortOrder}" type="text" hidden="true" /> <input th:field="*{newline}" type="text" hidden="true" /> <input th:field="*{state}" type="text" hidden="true" />
-				<div class="form-group">
-					<label class="col-md-3 control-label">字段类型<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input th:if="${result.innerType==2}" th:field="*{type}" type="hidden" /> <select th:field="*{type}" th:disabled="${result.innerType==2}" class="form-control">
-							<option value="1">文本输入框</option>
-							<option value="2">日期输入框</option>
-							<option value="3">单选框</option>
-							<option value="4">多选框</option>
-							<option value="5">文本域</option>
-							<option value="6">文本编辑器</option>
-							<option value="7">图片上传</option>
-							<option value="8">图片集上传</option>
-							<option value="9">视频上传</option>
-							<option value="10">附件上传</option>
-							<option value="11">文库上传</option>
-							<option disabled="disabled" value="12">属性控件</option>
-						</select>
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=model)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/base/model/list.gsp}">字段配置</a> <a><cite>编辑</cite></a>
+					</span>
 				</div>
-				<div class="form-group" id="dateFormatDiv" th:classappend="${result.type==2}?'show':'hide'">
-					<label class="col-md-3 control-label">日期格式化：</label>
-					<div class="col-md-7">
-						<select th:field="*{dateFormat}" th:disabled="${result.innerType==2}" class="form-control">
-							<option value="yyyy-MM-dd">yyyy-MM-dd</option>
-							<option value="HH:mm:ss">HH:mm:ss</option>
-							<option value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</option>
-						</select>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 字段配置
+				</blockquote>
+				<form th:action="@{/admin/m/base/customField/edit.gsp}" th:object="${result}" class="layui-form" id="editFieldForm" role="form" action="#" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>编辑字段</legend>
+					</fieldset>
+					<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{innerType}" type="text" hidden="true" /> <input th:field="*{sortOrder}" type="text" hidden="true" /> <input th:field="*{newline}" type="text" hidden="true" />
+					<!--  <input th:field="*{state}" type="text" hidden="true" /> -->
+					<div class="layui-form-item">
+						<label class="layui-form-label">字段类型：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input th:if="${result.innerType==2}" th:field="*{type}" type="hidden" /> <select th:field="*{type}" name="type" lay-filter="type" th:disabled="${result.innerType==2}">
+								<option selected="selected" value="1">文本输入框</option>
+								<option value="2">日期输入框</option>
+								<option value="3">单选框</option>
+								<option value="4">多选框</option>
+								<option value="5">文本域</option>
+								<option value="6">文本编辑器</option>
+								<option value="7">图片上传</option>
+								<option value="8">图片集上传</option>
+								<option value="9">视频上传</option>
+								<option value="10">附件上传</option>
+								<option value="11">文库上传</option>
+								<option disabled="disabled" value="12">属性控件</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">字段标签<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input th:field="*{fieldLabel}" placeholder="请输入字段标签" type="text" class="form-control" />
+					<div class="layui-form-item" id="dateFormatDiv" style="display: none">
+						<label class="layui-form-label">日期格式化：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<select name="dateFormat" th:field="*{dateFormat}" th:disabled="${result.innerType==2}">
+								<option selected="selected" value="yyyy-MM-dd">yyyy-MM-dd</option>
+								<option value="HH:mm:ss">HH:mm:ss</option>
+								<option value="yyyy-MM-dd HH:mm:ss">yyyy-MM-dd HH:mm:ss</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">字段名称<label class="text-danger">*</label>：
-					</label>
-					<div class="col-md-7">
-						<input th:if="${result.innerType==2}" th:field="*{fieldName}" type="hidden" /> <input th:disabled="${result.innerType==2}" th:field="${result.fieldName}" placeholder="请输入字段名称" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">字段标签：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input name="fieldLabel" th:field="*{fieldLabel}" placeholder="请输入字段标签" required layui-verify="fieldLabel" type="text" class="layui-input" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">是否必填：</label>
-					<div class="col-md-7">
-						<label class="radio-inline"> <input type="radio" th:checked="${result.required==1}" value="1" name="required" id="inlineRadio1" />是
-						</label> <label class="radio-inline"> <input type="radio" th:checked="${result.required==2}" value="2" name="required" id="inlineRadio2" />否
-						</label>
+					<div class="layui-form-item">
+						<label class="layui-form-label">字段名称：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input th:if="${result.innerType==2}" th:field="*{fieldName}" type="hidden" /><input th:disabled="${result.innerType==2}" th:field="${result.fieldName}" placeholder="请输入字段名称" type="text" class="layui-input" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">默认值：</label>
-					<div class="col-md-7">
-						<input th:field="*{fieldDefaultValue}" placeholder="请输入默认值" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">是否必填：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="radio" th:if="${result.required==1}" th:checked="${result.required==1}" value="1" title="是" name="required" id="inlineRadio1" /> <input type="radio" th:if="${result.required==2}" th:checked="${result.required==2}" value="2" title="否" name="required" id="inlineRadio2" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">最大长度：</label>
-					<div class="col-md-7">
-						<input th:field="*{fieldMaxLength}" placeholder="请输入最大长度" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">默认值：</label>
+						<div class="layui-input-block">
+							<input name="fieldDefaultValue" th:field="*{fieldDefaultValue}" placeholder="请输入默认值" layui-verify="fieldDefaultValue" type="text" class="layui-input" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">提示信息：</label>
-					<div class="col-md-7">
-						<input th:field="*{prompt}" placeholder="请输入提示信息" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">最大长度：</label>
+						<div class="layui-input-block">
+							<input name="fieldMaxLength" th:field="*{fieldMaxLength}" placeholder="请输入最大长度" layui-verify="fieldMaxLength" type="text" class="layui-input" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group" id="checkboxOptionsDiv" th:classappend="${result.type==3 or result.type==4}?'show':'hide'">
-					<label class="col-md-3 control-label">可选项：</label>
-					<div class="col-md-7">
-						<textarea th:field="*{checkboxOptions}" th:disabled="${result.type!=3 and result.type!=4}" th:placeholder="请输入可选项" rows="4" type="text" class="form-control"></textarea>
+					<div class="layui-form-item">
+						<label class="layui-form-label">提示信息：</label>
+						<div class="layui-input-block">
+							<input name="prompt" th:field="*{prompt}" placeholder="请输入提示信息" type="text" layui-verify="prompt" class="layui-input" />
+						</div>
 					</div>
-				</div>
+					<div class="layui-form-item" id="checkboxOptionsDiv" style="display: none">
+						<label class="layui-form-label">可选项：</label>
+						<div class="layui-input-block">
+							<textarea name="checkboxOptions" th:field="*{checkboxOptions}" th:disabled="${result.type!=3 and result.type!=4}" layui-verify="checkboxOptions" placeholder="请输入可选项" class="layui-textarea" lay-verify="description" type="text" maxlength="150"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var rules = {
-            type : {
-                required : true
-            },
-            fieldLabel : {
-                required : true,
-                maxlength : 20
-
-            },
-            fieldName : {
-                required : true,
-                maxlength : 20
-            },
-            required : {
-                required : true
-            },
-            fieldDefaultValue : {
-                maxlength : 20
-            },
-            fieldMaxLength : {
-                digits : true,
-                range : [ 1, 200 ]
-            },
-            prompt : {
-                maxlength : 20
-            },
-            checkboxOptions : {
-                maxlength : 200
+    var form = layui.form();
+    var type = /*[[${result.type}]]*/;
+    if(type==2){
+        console.log(123);
+    }else if(type==3 || type==4){
+        $('#checkboxOptionsDiv').show();    
+    }
+    var innerType = /*[[${result.innerType}]]*/'innerType';
+    if (innerType == 1) {
+        var type = /*[[${result.type}]]*/'type';
+        var str = "";
+        if (type == 1 || type == 3 || type == 4 || type == 5 || type == 7 || type == 8 || type == 9 || type == 10 || type == 11) {
+            str = "cus_str_";
+        } else if (type == 2) {
+            str = "cus_date_";
+        } else {
+            str = "cus_blob_";
+        }
+        var fieldNameVal = $('#editFieldForm input[name="fieldName"]').val().replace(str, "");
+        $('#editFieldForm input[name="fieldName"]').val(fieldNameVal);
+    }
+    //自定义验证规则
+    form.verify({
+        fieldLabel : function(value) {
+            if (value.length < 1) {
+                return '标签不能为空！';
+            } else if (value.length > 20) {
+                return '标签长度不能大于20个字符!';
+            }
+        },
+        fieldName : function(value) {
+            if (value.length < 1) {
+                return '字段名称不能为空！';
+            } else if (value.length > 20) {
+                return '字段名称不能大于20个字符!';
+            }
+        },
+        fieldDefaultValue : function(value) {
+            if (value.length > 20) {
+                return '默认值不能大于20个字符!';
+            }
+        },
+        prompt : function(value) {
+            if (value.length > 20) {
+                return '提示信息不能大于20个字符!';
+            }
+        },
+        checkboxOptions : function(value) {
+            if (value.length > 200) {
+                return '描述不能太长哦，最长200个字！';
             }
         }
-        var messages = {
-
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
+    });
+    //监听SELECT
+    form.on('select(type)', function(data) {
+        if (data.value == 2) {
+            $('#dateFormatDiv').show();
+        } else {
+            $('#dateFormatDiv').hide();
         }
-        modelTable.add('customFieldWin', 'editFieldForm', rules, messages);
-
-        $('#editFieldForm select[name="type"]').change(function() {
-            var typeVal = $(this).val();
-            if (typeVal == 2) {
-                $('#dateFormatDiv').removeClass('hide').addClass('show');
-                $('#dateFormatDiv select').removeAttr('disabled');
-            } else {
-                $('#dateFormatDiv').removeClass('show').addClass('hide');
-                $('#dateFormatDiv select').attr('disabled', 'disabled');
-            }
-            if (typeVal == 3 || typeVal == 4) {
-                $('#checkboxOptionsDiv').removeClass('hide').addClass('show');
-                $('#checkboxOptionsDiv textarea').removeAttr('disabled');
-            } else {
-                $('#checkboxOptionsDiv').removeClass('show').addClass('hide');
-                $('#checkboxOptionsDiv textarea').attr('disabled', 'disabled');
-            }
-        });
-        var innerType = /*[[${result.innerType}]]*/'innerType';
-        if (innerType == 1) {
-            var type = /*[[${result.type}]]*/'type';
-            var str = "";
-            if (type == 1 || type == 3 || type == 4 || type == 5 || type == 7 || type == 8 || type == 9 || type == 10 || type == 11) {
-                str = "cus_str_";
-            } else if (type == 2) {
-                str = "cus_date_";
-            } else {
-                str = "cus_blob_";
-            }
-            var fieldNameVal = $('#editFieldForm input[name="fieldName"]').val().replace(str, "");
-            $('#editFieldForm input[name="fieldName"]').val(fieldNameVal);
+        if (data.value == 3 || data.value == 4) {
+            $('#checkboxOptionsDiv').show();
+        } else {
+            $('#checkboxOptionsDiv').hide();
         }
     });
     /*]]>*/
