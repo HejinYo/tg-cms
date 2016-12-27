@@ -1,0 +1,52 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>图灵谷（北京）科技有限公司-联系我们</title>
+<div th:replace="default/fragments/head">head</div>
+</head>
+<body>
+	<div class="wrapper">
+		<div th:replace="default/fragments/nav::nav(nodeCodeNum=contact)">head</div>
+		<div class="container banner">
+			<section class="title-section">
+				<ul class="breadcrumb breadcrumb__t">
+					<li><a th:href="@{/index.htm}">图灵谷科技</a></li>
+					<li class="active">联系我们</li>
+				</ul>
+			</section>
+		</div>
+		<div class="main">
+			<div class='container contact'>
+				<div class="contact_top">
+					<div class="row">
+						<div class="col-md-6">
+							<iframe width="504" height="425" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://j.map.baidu.com/p2YI3"></iframe>
+						</div>
+						<div class="col-md-6">
+							<div class="contact-list">
+								<ul>
+									<li><i class="address"></i>
+										<p>北京昌平区回龙观紫晶七星广场515</p>
+										<div class="clearfix"></div></li>
+									<li><i class="phone"></i>
+										<p>
+											联系电话: 010-89942808<br />
+										</p>
+										<div class="clearfix"></div></li>
+									<li><i class="msg"></i>
+										<p>
+											联系邮箱: <span class="yellow1"><a href="#">service@turingoal.com</a></span>
+										</p>
+										<div class="clearfix"></div></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="default/fragments/footer">footer</div>
+	</div>
+</body>
+<div th:replace="default/fragments/import_js">import_js</div>
+</html>

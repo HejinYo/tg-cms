@@ -1,0 +1,41 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>图灵谷（北京）科技有限公司-产品服务</title>
+<div th:replace="default/fragments/head">head</div>
+</head>
+<body>
+	<div class="wrapper">
+		<div th:replace="default/fragments/nav::nav(nodeCodeNum=news)">head</div>
+		<div class="container banner">
+			<section class="title-section">
+				<ul class="breadcrumb breadcrumb__t">
+					<li><a th:href="@{/index.htm}">图灵谷科技</a></li>
+					<li class="active">公司动态</li>
+				</ul>
+			</section>
+		</div>
+		<div class="main">
+			<div class='container content_middle'>
+				<div class="row">
+					<div class="col-md-8 middle_left">
+						<ul tg_cms:info_list="news_info,news" class="test_box middle_grid">
+							<li class="test_img"><img class="img-responsive" alt="" /></li>
+							<li class="test_desc">
+								<h4>
+									<a href="#" th:text="${news_info.title}">公司动态</a>
+								</h4>
+								<p th:text="${news_info.metaDescription}">公司动态。</p>
+							</li>
+							<div class="clearfix"></div>
+						</ul>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="default/fragments/footer">footer</div>
+	</div>
+</body>
+<div th:replace="default/fragments/import_js">import_js</div>
+</html>

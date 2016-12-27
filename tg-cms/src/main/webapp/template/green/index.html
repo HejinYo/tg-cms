@@ -1,0 +1,206 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>图灵谷（北京）科技有限公司</title>
+<div th:replace="default/fragments/head">head</div>
+</head>
+<body id="body" data-spy="scroll" data-target=".one-page-header">
+	<!--/*******导航栏*******/-->
+	<div th:replace="default/fragments/nav">head</div>
+	<!--/*******幻灯片*******/-->
+	<section class="g-bg-dark-blue1">
+		<div class="fullscreen-static-image promo-block--cover fullheight">
+			<div class="container valign__middle">
+				<div class="row">
+					<div class="col-sm-8 col-sm-offset-2 text-center">
+						<div class="promo-block__item page-scroll animated fadeIn">
+							<span class="g-display-block g-mb-10">领先技术，铸就卓越！</span>
+							<h2 class="promo-block__item-text g-mb-20">用科技为您创造价值！</h2>
+							<a href="#services" class="btn-u btn-brd btn-brd-hover btn-u-light">查看更多</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/*******主要业务*******/-->
+	<section id="services">
+		<div class="container content-md g-text-height-md">
+			<div class="row g-mb-60 text-center g-heading-v7">
+				<div class="col-sm-8 col-sm-offset-2">
+					<h2 class="h2">
+						<span class="g-text-height-lg">我们能做什么</span>
+					</h2>
+				</div>
+			</div>
+			<div class="row service-box-v1 service-box-v1--business equal-height-columns no-gutter">
+				<div class="col-md-3 col-sm-6">
+					<div class="service-block service-block-default equal-height-column no-margin-bottom">
+						<i class="icon icon-fire"></i>
+						<h2 class="heading-sm h3">信息化系统</h2>
+						<p>信息化系统高端定制开发</p>
+						<ul class="list-unstyled">
+							<li>电子政务系统</li>
+							<li>电子法务系统</li>
+							<li>在线办公（OA）</li>
+							<li>客户关系管理（CRM）</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="service-block service-block-default equal-height-column no-margin-bottom">
+						<i class="icon icon-energy"></i>
+						<h2 class="heading-sm h3">系统集成</h2>
+						<p>信息系统集成</p>
+						<ul class="list-unstyled">
+							<li>音视频技术服务</li>
+							<li>安防监控</li>
+							<li>会议室、多功能厅</li>
+							<li>剧场、剧院设计</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="service-block service-block-default equal-height-column no-margin-bottom">
+						<i class="icon icon-layers"></i>
+						<h2 class="heading-sm h3">互联网推广</h2>
+						<p>互联网营销推广</p>
+						<ul class="list-unstyled">
+							<li>网站建设</li>
+							<li>SEO优化</li>
+							<li>网络营销</li>
+							<li>广告代理</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-md-3 col-sm-6">
+					<div class="service-block service-block-default equal-height-column no-margin-bottom">
+						<i class="icon icon-social-youtube"></i>
+						<h2 class="heading-sm h3">自有产品</h2>
+						<p>自有产品及平台</p>
+						<ul class="list-unstyled">
+							<li>17企航（企业管理平台）</li>
+							<li>时间沙漏（兴趣社交平台）</li>
+							<li>糖果CMS（内容发布）</li>
+							<li>图灵谷“奠基”开发平台</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/*******企业文化 *******/-->
+	<section id="culture" class="g-bg-dark-blue1">
+		<div class="container content-md g-text-height-md">
+			<div class="row g-mb-60 text-center g-heading-v7">
+				<div class="col-sm-8 col-sm-offset-2">
+					<h2 class="h2 color-light">
+						<span class="g-text-height-lg">我们的优势</span>
+					</h2>
+					<p>"用做产品的态度做项目，用做服务的态度做产品！"</p>
+				</div>
+			</div>
+			<div class="row g-mb-20">
+				<div class="col-md-6 g-mb-20 steps-v1--lspace">
+					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
+						<li>
+							<h3 class="heading-sm h3">领先的专业技术</h3>
+						</li>
+						<li><p>采用主流先进技术，保持行业领先</p></li>
+						<li class="steps-v1__block g-rounded-50x"><i class="steps-v1__icon icon-fire"></i> <img class="steps-v1__img g-rounded-50x" th:src="@{/template/default/_resources/imgs/temp/item.png}" alt=""></li>
+					</ul>
+				</div>
+				<div class="col-md-6 steps-v1--rspace">
+					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
+						<li>
+							<h3 class="heading-sm h3">
+								<span>创新的解决方案</span>
+							</h3>
+						</li>
+						<li><p>突破常规的创新解决方案，更加简单有效</p></li>
+						<li class="steps-v1__block g-rounded-50x"><i class="steps-v1__icon icon-energy"></i> <img class="steps-v1__img img-responsive g-rounded-50x" th:src="@{/template/default/_resources/imgs/temp/item.png}" alt=""></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row g-mb-50">
+				<div class="col-md-6 g-mb-20 steps-v1--lspace">
+					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
+						<li>
+							<h3 class="heading-sm h3">
+								<span>卓越的管理理念</span>
+							</h3>
+						</li>
+						<li><p>人性化的管理理念，以人为本</p></li>
+						<li class="steps-v1__block g-rounded-50x"><i class="steps-v1__icon icon-rocket"></i> <img class="steps-v1__img img-responsive g-rounded-50x" th:src="@{/template/default/_resources/imgs/temp/item.png}" alt=""></li>
+					</ul>
+				</div>
+				<div class="col-md-6 steps-v1--rspace">
+					<ul class="list-unstyled steps-v1 g-bg-dark-blue2 g-no-mb">
+						<li>
+							<h3 class="heading-sm h3">
+								<span>完善的技术支持</span>
+							</h3>
+						</li>
+						<li><p>完善的技术支持，强力后盾</p></li>
+						<li class="steps-v1__block g-rounded-50x"><i class="steps-v1__icon icon-layers"></i> <img class="steps-v1__img img-responsive g-rounded-50x" th:src="@{/template/default/_resources/imgs/temp/item.png}" alt=""></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/*******典型案例  *******/-->
+	<!--/******* 合作伙伴  *******/-->
+	<section id="clients">
+		<div class="container content-md g-text-height-md">
+			<div class="row g-mb-60 text-center g-heading-v7">
+				<div class="col-sm-8 col-sm-offset-2">
+					<h2 class="h2">
+						<span class="g-text-height-lg">合作伙伴及服务单位</span>
+					</h2>
+				</div>
+			</div>
+			<ul class="list-unstyled owl2-carousel-v3 g-mb-60">
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/zhongping.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/zhongwen.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/zhishang.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/cec.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/jiaotongbu.png}" alt=""></li>
+				<li class="item owl2-carousel-v3__item"><img th:src="@{/template/default/_resources/imgs/temp/minzhengbu.png}" alt=""></li>
+			</ul>
+			<div class="row text-center page-scroll">
+				<div class="col-sm-8 col-sm-offset-2">
+					<p>自创立以来，我们服务过的客户涵盖政府机关、行政事业单位、国企、民企等。凭借综合服务能力为客户带来最直接、最专业的沟通+咨询+信息化落地的整套服务方案。</p>
+					<br>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/*******联系我们*******/-->
+	<section id="contact" class="g-bg-dark-blue1">
+		<div class="container content-md g-text-height-md">
+			<div class="row g-mb-60 text-center g-heading-v7">
+				<div class="col-sm-8 col-sm-offset-2">
+					<h2 class="h2">
+						<span class="g-text-height-lg">联系我们</span>
+					</h2>
+					<p>感谢您的信赖与支持，期待与您的更进一步交流......</p>
+				</div>
+			</div>
+			<!-- Contact Details -->
+			<ul class="list-unstyled row text-center">
+				<li class="col-md-3 contact-blocks-v1"><i class="contact-blocks-v1__icon g-display-block g-color-primary icon-call-in"></i>
+					<h4>电话</h4> <span class="g-display-block g-color-white">010-89942808</span></li>
+				<li class="col-md-3 contact-blocks-v1"><i class="contact-blocks-v1__icon g-display-block g-color-primary icon-envelope"></i>
+					<h4>Email</h4> <a href="mailto:service@turingoal.com"><span class="g-display-block g-color-white">service@turingoal.com</span></a></li>
+				<li class="col-md-3 contact-blocks-v1"><i class="contact-blocks-v1__icon g-display-block g-color-primary icon-earphones-alt"></i>
+					<h4>微博</h4> <a href="http://weibo.com/turingoal" target="_blank"><span class="g-display-block g-color-white">http://weibo.com/turingoal</span></a></li>
+				<li class="col-md-3 contact-blocks-v1"><i class="contact-blocks-v1__icon g-display-block g-color-primary icon-globe"></i>
+					<h4>地址</h4> <span class="g-display-block g-color-white">北京昌平紫晶七星广场515</span></li>
+			</ul>
+		</div>
+		<!--/*******版权信息*******/-->
+		<div th:replace="default/fragments/footer">footer</div>
+	</section>
+</body>
+<div th:replace="default/fragments/import_js">import_js</div>
+</html>
