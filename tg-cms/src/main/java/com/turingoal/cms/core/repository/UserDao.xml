@@ -38,12 +38,10 @@
     <!-- 新增 User -->
     <insert id="add" parameterType="com.turingoal.cms.core.domain.form.UserForm">
         INSERT INTO tg_c_user (
-            id, username, realname, user_pass,
-            create_data_time, create_data_username
+            id, username, realname, user_pass,domain,create_data_time, create_data_username
         )
         VALUES(
-            #{id}, #{username}, #{realname}, #{userPass}, 
-            #{createDataTime}, #{createDataUsername}
+            #{id}, #{username}, #{realname}, #{userPass}, #{domain},#{createDataTime}, #{createDataUsername}
         )
     </insert>
     

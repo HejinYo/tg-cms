@@ -85,6 +85,7 @@ public class UserServiceImpl implements UserService {
      */
     @MethodLog(name = "新增User", description = "新增一个User")
     public void add(final UserForm form) {
+        form.setDomain("admin");
         form.setCreateDataUsername(SystemHelper.getCurrentUsername());
         String userPass = form.getUserPass();
         if (StringUtil.isNullOrBlank(userPass)) {
