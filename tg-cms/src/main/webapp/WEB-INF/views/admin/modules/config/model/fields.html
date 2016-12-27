@@ -116,14 +116,25 @@
             ownerType : /*[[|${result.type}Model|]]*/'ownerType',
             ownerId : /*[[${result.id}]]*/'ownerId'
         }
-        tg_simpleAjaxPost(url, parms, function() {
-            location.reload(); 
+        $.post(url,parms,function(data){
+            var result = $.parseJSON(data);
+            if(result.success==false){
+                layer.alert(result.msg);
+            }else{
+                setTimeout(function(){
+                    location.reload(); 
+                },100);
+            }
+            
         });
+        /* tg_simpleAjaxPost(url, parms, function() {
+            location.reload(); 
+        }); */
     }
     
     var deleteUrl = /*[[@{/admin/m/base/customField/delete_{id}.gsp}]]*/;
     function del(id){
-        tg_deleteItem(deleteUrl.replace('{id}',id), function(){
+        tg_deleteItem(deleteUrl.replace('{id}',id), function(){           
             location.reload();
         });       
     }

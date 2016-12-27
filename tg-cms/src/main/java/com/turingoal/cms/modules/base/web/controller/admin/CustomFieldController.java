@@ -172,8 +172,18 @@ public class CustomFieldController {
     @RequestMapping(value = "/addSysField.gsp", method = RequestMethod.POST)
     @ResponseBody
     public final JsonResultBean addSysField(final String fieldName, final String ownerType, final String ownerId) {
-        customFieldService.addSysField(fieldName, ownerType, ownerId);
-        return new JsonResultBean(JsonResultBean.SUCCESS);
+        // 校验数据是否已存在
+        CustomFieldForm form = new CustomFieldForm();
+        form.setFieldName(fieldName);
+        form.setOwnerId(ownerId);
+        form.setOwnerType(ownerType);
+        boolean isExist = customFieldService.validateField(form);
+        if (isExist) {
+            return new JsonResultBean(JsonResultBean.FAULT, "数据已存在！");
+        } else {
+            customFieldService.addSysField(fieldName, ownerType, ownerId);
+            return new JsonResultBean(JsonResultBean.SUCCESS);
+        }
     }
 
     /**
