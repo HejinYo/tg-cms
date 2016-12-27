@@ -57,9 +57,11 @@ public class QuestionController {
      * 返回调查问卷查询界面
      */
     @RequestMapping(value = "/list_{id}.gsp", method = RequestMethod.GET)
-    public ModelAndView listPage(@PathVariable final String id) throws BusinessException {
+    public ModelAndView listPage(@PathVariable final String id, final QuestionQuery query) throws BusinessException {
         ModelAndView mav = new ModelAndView(LIST_PAGE);
         mav.addObject("question", questionService.get(id));
+        Page<Question> result = questionService.findByPage(query);
+        mav.addObject("questionList", new PageGridBean(query, result, true));
         return mav;
     }
 

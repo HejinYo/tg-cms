@@ -35,7 +35,7 @@ public final class TemplateEngineHelper {
         /// SystemHelper.setGlobal(gs.get(0));
         // }
         // Template template = templateService.get(""); // 此处应获取当前启用的模板
-        String templateCodeNum = "default"; // 默认模板
+        String templateCodeNum = "green"; // 默认模板
         // if (template != null) {
         // templateCodeNum = template.getCodeNum();
         // }

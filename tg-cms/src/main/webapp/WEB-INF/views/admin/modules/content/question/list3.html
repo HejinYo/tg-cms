@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-内容管理-问卷管理|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+<!--/***** 当前页css  start *****/-->
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.fixedHeader.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/resources/vendor/tgCube/css/libs/dataTables.tableTools.css}" />
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<link th:href="@{/resources/vendor/bootstrap/plugins/toggle/css/bootstrap-toggle.min.css}" rel="stylesheet" />
+<!--/***** 当前页css  end *****/-->
+</head>
+<body class="theme-turquoise fixed-header fixed-leftmenu fixed-footer">
+	<div id="theme-wrapper">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div id="page-wrapper" class="container">
+			<div th:replace="fragments/menu_admin::menu(root=content,current=question)">菜单栏</div>
+			<div id="content-wrapper">
+				<div th:replace="fragments/breadcrumbs_admin::breadcrumbs(parent=内容管理,current=问卷管理)">面包屑栏</div>
+				<div class="main-box clearfix">
+					<div class="main-box-body clearfix">
+						<br />
+						<div class="col-lg-4">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4>问卷管理</h4>
+								</div>
+								<div class="panel-body">
+									<div class="col-lg-12">
+										<a th:href="@{/admin/m/ext/question/add.gsp}" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+									</div>
+									<div class="col-lg-12">
+									<table id="dataTable" cellspacing="0" width="100%" class="table table-striped table-hover text-center">
+										<thead>
+											<tr>
+												<th width="50" class="text-center">#</th>
+												<th class="text-center">状态</th>
+												<th class="text-center">问卷标题</th>
+												<th width="120" class="text-center">操作</th>
+											</tr>
+										</thead>
+									</table>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-8">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4>选项管理</h4>
+								</div>
+								<div class="panel-body">
+									<div class="col-lg-12">
+										<input name="questionId" id="questionId" type="hidden" /> <a id="addItem" th:href="@{/admin/m/ext/question/addItem.gsp}" disabled="disabled" data-target="#commonWin" class="btn btn-primary btn-sm" type="button" data-toggle="modal"><i class="fa fa-plus"></i>&nbsp;新增</a>
+									</div>
+									<div class="col-lg-12" id="questionItemDiv">
+										<br />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div th:replace="fragments/footer_admin">底部</div>
+			</div>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+<!--/***** 当前页js start *****/-->
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.fixedHeader.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/dataTables.tableTools.js}"></script>
+<script th:src="@{/resources/vendor/tgCube/js/jquery.dataTables.bootstrap.js}"></script>
+<script th:src="@{/resources/vendor/bootstrap/plugins/bootstrap-datepicker.js}"></script>
+<!--/* Switch复选框按钮  修改是否可用用*/-->
+<script th:src="@{/resources/vendor/bootstrap/plugins/toggle/js/bootstrap-toggle.min.js}"></script>
+<!--/* 模板引擎生成数据 */-->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    //表格
+    var myTable;
+    //表格列定义
+    var columnDefs = [ {
+        //第一列，用来显示序号
+        "searchable" : false,
+        "orderable" : false,
+        "targets" : 0
+    } ];
+    var columns = [ {
+        //第一列，用来显示序号
+        "data" : null,
+        "class" : "text-center"
+    }, {
+        "data" : "enabled",
+        render : function(data, type, row, meta) {
+            if (row.enabled === 1) {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" checked="checked" onchange="myTable.changeEnabled(this, \'' + row.id + '\')" />';
+            } else {
+                return '<input type="checkbox" data-size="mini" data-toggle="toggle" class="js-switch" data-on="启用" data-off="停用" onchange="myTable.changeEnabled(this, \'' + row.id + '\')" />';
+            }
+        }
+    }, {
+        "data" : "title"
+    }, {
+        "data" : null,
+        "class" : "text-center", //最后一列，操作按钮
+        render : function(data, type, row, meta) {
+            var editUrlPath = myTable.editUrl + row.id + ".gsp"; //修改地址
+            var result = '';
+            //查看按钮
+            result += '<a href="#" onclick="renderItem(\'' + row.id + '\')" class="btn btn-primary btn-xs"><i class="fa fa-eye"></i></a>';
+            //修改按钮
+            result += ' <a href="'+editUrlPath+'" data-target="#commonWin" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>';
+            //删除按钮
+            result += ' <a href="#" type="button" onclick="myTable.deleteItem(\'' + row.id + '\')" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
+            return result;
+        }
+    } ];
+    //ajax参数
+    var ajaxDataParamFun = function(d) {
+    };
+    //表格setting
+    var setting = {
+        listUrl : /*[[@{/admin/m/ext/question/list.gsp}]]*/'url',
+        editUrl : /*[[@{/admin/m/ext/question/edit_}]]*/'url',
+        deleteUrl : /*[[@{/admin/m/ext/question/delete_}]]*/'url',
+        enableUrl : /*[[@{/admin/m/ext/question/enable_}]]*/'url',
+        disableUrl : /*[[@{/admin/m/ext/question/disable_}]]*/'url',
+        columnDefs : columnDefs, //表格列定义
+        columns : columns, //表格列
+        dataTableDiv : 'dataTable', //表格
+        ajaxDataParamFun : ajaxDataParamFun, //ajax参数
+        pageable : false, //是否分页
+        showIndexColumn : true, //是否显示第一列的索引列
+        enabledChange : true
+    };
+    //创建表格
+    myTable = new TG_Tabel.createNew(setting);
+
+    var ItemEditUrlPre = /*[[@{/admin/m/ext/question/editItem_}]]*/'url';
+    var addOptionPre = /*[[@{/admin/m/ext/question/addOption_}]]*/'url';
+    function loadItemData(questionId) {
+        var listUrl = /*[[@{/admin/m/ext/question/itemList.gsp}]]*/'';
+        tg_simpleAjaxPost(listUrl, {
+            questionId : questionId
+        }, function(d) {
+            var result = $.parseJSON(d);
+            var records = result.records;
+            $("#questionItemDiv").html("<br />");
+            for (var i = 0; i < records.length; i++) {
+                var record = records[i];
+                var $divPanel = $('<div class="panel panel-success">').append($('<div class="panel-heading">').append($("<h4>").html(record.title)));
+                var $divBody = $('<div class="panel-body"></div>');
+                $divBody.append('<a href="' + (addOptionPre + record.id) + '.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-plus"></i></a>');
+                $divBody.append(' <a href="' + (ItemEditUrlPre + record.id) + '.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a>');
+                $divBody.append(' <button class="btn btn-warning btn-xs" type="button" onclick="deleteItem(\'' + record.id + '\')"><i class="fa fa-trash-o"></i></button>');
+                var $table = $('<table class="table invoice-table">');
+                $table.append('<tr><td>标题</td><td>类型</td><td>得票数</td><td>操作</td><tr>');
+                for (var j = 0; j < record.questionOptions.length; j++) {
+                    var optionRecord = record.questionOptions[j];
+                    var editUrlPre = /*[[@{/admin/m/ext/question/editOption_}]]*/'url';
+                    var $tr = $('<tr>').append($('<td>').html(optionRecord.title)).append($('<td>').html(optionRecord.inputField)).append($('<td>').html(optionRecord.selectCount));
+                    $tr.append($('<td>').html(
+                            '<a href="' + (editUrlPre + optionRecord.id) + '.gsp" data-target="#commonWin" class="btn btn-primary btn-xs" type="button" data-toggle="modal"><i class="fa fa-edit"></i></a> <button class="btn btn-warning btn-xs" type="button" onclick="deleteOption(\'' + optionRecord.id
+                                    + '\')"><i class="fa fa-trash-o"></i></button>'));
+                    $table.append($tr);
+                }
+                $divBody.append($table);
+                $divPanel.append($divBody);
+                $("#questionItemDiv").append($divPanel);
+            }
+        });
+    }
+
+    //加载完成后执行
+    $(function() {
+        //表格初始化
+        myTable.init();
+    });
+
+    var myItemTable = {
+        refresh : function() {
+            loadItemData($("#questionId").val());
+        }
+    }
+
+    function renderItem(questionId) {
+        $('#addItem').attr('disabled', false);
+        $("#questionId").val(questionId);
+        loadItemData(questionId);
+    }
+
+    function deleteItem(id) {
+        var turl = /*[[@{/admin/m/ext/question/deleteItem_}]]*/'url';
+        var url = turl + id + ".gsp";
+        tg_dleteItem(url, function() {
+            tg_alertSuccess();
+            myItemTable.refresh();
+        });
+    }
+    function deleteOption(id) {
+        var turl = /*[[@{/admin/m/ext/question/deleteOption_}]]*/'url';
+        var url = turl + id + ".gsp";
+        tg_dleteItem(url, function() {
+            tg_alertSuccess();
+            myItemTable.refresh();
+        });
+    }
+    /*]]>*/
+</script>
+</html>
