@@ -24,7 +24,7 @@
 						<blockquote class="layui-elem-quote layui-quote-nm">
 							<div class="layui-inline">
 								<div class="layui-input-inline" style="width: 200px;">
-									<select id="typeId" name="typeId">
+									<select id="typeId" name="typeId" class="layui-select">
 										<option value="">留言类型</option>
 										<option th:each="guestbookType : ${guestbookType}" th:value="${guestbookType.id}" th:text="${guestbookType.typeName}"></option>
 									</select>
