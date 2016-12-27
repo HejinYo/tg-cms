@@ -57,14 +57,16 @@ public class SecUserController {
     /**
      * 修改密码
      */
-    @RequestMapping(value = "/changePassword.gsp")
-    @ResponseBody
-    public final JsonResultBean changePassword(@RequestParam("oldUserPass") final String oldUserPass, @RequestParam("userPass") final String userPass) throws BusinessException {
-        if (!SpringSecurityPasswordUtil.isPasswordValid(SystemHelper.getCurrentUserId(), userPass)) {
-            return new JsonResultBean(false, "原密码不正确，请重新输入！");
-        } else {
+    @RequestMapping(value = "/changePassword.gsp", method = RequestMethod.POST)
+    public final String changePassword(@RequestParam("oldUserPass") final String oldUserPass, @RequestParam("userPass") final String userPass) throws BusinessException {
+        User user = userService.get(SystemHelper.getCurrentUserId());
+        if (oldUserPass != null && userPass != null && SpringSecurityPasswordUtil.isPasswordValid(user.getUserPass(), oldUserPass)) {
             userService.updateCurrentUserPass(userPass);
-            return new JsonResultBean(JsonResultBean.SUCCESS);
+            // return new JsonResultBean(JsonResultBean.SUCCESS);
+            return "redirect:/logout";
+        } else {
+            // return new JsonResultBean(false, "原密码不正确，请重新输入！");
+            return "redirect:/admin/c/user/editPass.gsp";
         }
     }
 
@@ -76,6 +78,17 @@ public class SecUserController {
     public final JsonResultBean resetUserPass(@RequestParam("id") final String id) throws BusinessException {
         userService.resetUserPass(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
+    }
+
+    /**
+     * 检查原密码是否一致
+     */
+    @RequestMapping(value = "/checkOldPass.htm", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean changePassword(@ModelAttribute("oldPass") final String oldPass) {
+        User user = userService.get(SystemHelper.getCurrentUserId());
+        // 判断原密码是否一致
+        return (oldPass != null && SpringSecurityPasswordUtil.isPasswordValid(user.getUserPass(), oldPass));
     }
 
     /**

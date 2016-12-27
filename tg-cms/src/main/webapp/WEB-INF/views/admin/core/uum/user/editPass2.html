@@ -1,0 +1,68 @@
+<form th:action="@{/admin/c/user/changePassword.gsp}" th:object="${result}" id="editForm" role="form" action="#" class="form-horizontal" method="post">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h4 class="modal-title">修改密码</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 原密码： </label>
+					<div class="col-md-7">
+						<input name="oldUserPass" placeholder="请输入原密码" type="password" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 新密码： </label>
+					<div class="col-md-7">
+						<input name="userPass" id="userPass" placeholder="请输入新密码" type="password" class="form-control" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label"><label class="text-danger">*</label> 重复新密码： </label>
+					<div class="col-md-7">
+						<input name="userPass2" placeholder="请重复新密码" type="password" class="form-control" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="submit">
+			<strong>提 交</strong>
+		</button>
+		<button type="button" class="btn btn-default" data-dismiss="modal">
+			<strong>关 闭</strong>
+		</button>
+	</div>
+</form>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    $(function() {
+        var rules = {
+            oldUserPass : {
+                required : true,
+                maxlength : 20,
+                minlength : 6
+            },
+            userPass : {
+                required : true,
+                maxlength : 20,
+                minlength : 6
+            },
+            userPass2 : {
+                equalTo : "#userPass",
+                required : true,
+                maxlength : 20,
+                minlength : 6
+            },
+        }
+        var messages = {
+
+        }
+        tg_formWinAjaxSubmit('updatePassWin', 'editForm', rules, messages, function() {
+            window.location.href = /*[[@{/admin/logout.gsp}]]*/'url';
+        });
+    });
+    /*]]>*/
+</script>

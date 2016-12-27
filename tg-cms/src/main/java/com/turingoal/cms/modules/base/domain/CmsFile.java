@@ -21,5 +21,6 @@ public class CmsFile extends BaseTreeNodeBean implements Serializable {
     private java.util.Date createDataTime; // 创建时间
     private String description; // 描述
     private String md5; // md5值
-    private String src;
+    private String src;    
+    
 }

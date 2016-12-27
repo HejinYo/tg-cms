@@ -1,116 +1,57 @@
-<div class="col-lg-4">
-	<div id="fileTreeView"></div>
-</div>
-<div class="col-lg-8">
-	<table id="fileListTable" class="table table-striped table-hover">
-		<thead>
-			<tr>
-				<th width="60">#</th>
-				<th>名称</th>
-				<th>类型</th>
-				<th>大小</th>
-				<th>操作</th>
-			</tr>
-		</thead>
-	</table>
-</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=template)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a href="#">模版配置</a> <a><cite>列表</cite></a>
+					</span>
+				</div>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 模版配置
+				</blockquote>
+				<div style="display: inline-block; width: 300px; height: 300px; padding: 10px; border: 1px solid #ddd; overflow: auto;">
+					<ul id="fileTreeView"></ul>
+				</div>
+				<div class="site-tips" style="display: inline-block; height: 200px; width: 485px; padding: 10px; margin-left: 10px; vertical-align: top;" id="fileListTable"></div>
+			</div>
+		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
+	</div>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    function deleteFile(obj) {
-        var deleteUrl = /*[[@{/admin/m/base/template/deleteFile.gsp}]]*/'url';
-        tg_dleteItem(deleteUrl + '?filePath=' + $(obj).attr('filePath'), function() {
-            fileListTable.refresh();
-        });
-    }
-    //表格
-    var fileListTable;
-    //表格列定义
-    var columnDefs = [ {
-        //第一列，用来拖拽
-        "searchable" : false,
-        "orderable" : false,
-        "targets" : 0
-    } ];
-    var columns = [ {
-        //第一列，用来拖拽
-        "data" : null,
-        "class" : "text-center"
-    }, {
-        "data" : "fileName",
-        render : function(data, type, row, meta) {
-            var fileClass = row.leaf ? 'fa fa-file-code-o text-warning' : 'fa fa-folder text-warning';
-            var editUrlPre = /*[[@{/admin/m/base/template/editFile.gsp?filePath=}]]*/'url';
-            if (!row.leaf) {
-                return '<a onclick="refreshFileList(this)" leaf="' + row.leaf + '" parentPath="' + row.filePath + '"><i class="'+fileClass+'"></i> ' + data + '</a>';
-            } else {
-                return '<a href="' + (editUrlPre + row.filePath) + '" data-target="#templateWin" data-toggle="modal""><i class="'+fileClass+'"></i> ' + data + '</a>';
-            }
-        }
-    }, {
-        "data" : "format"
-    }, {
-        "data" : "fileLength",
-        render : function(data, type, row, meta) {
-            return TG_UTIL.fileSize(data);
-        }
-    }, {
-        "data" : null, //最后一列，操作按钮
-        "class" : "text-center",
-        render : function(data, type, row, meta) {
-            var result = '';
-            //删除按钮
-            result += ' <a href="#" type="button" onclick="deleteFile(this)" filePath="' + row.filePath + '" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></a>';
-            return result;
-        }
-    } ];
-
-    var parentPath = /*[[${result.codeNum}]]*/'';
-    //ajax参数
-    var ajaxDataParamFun = function(d) {
-        d.parentPath = parentPath;
-    };
-    //表格setting
-    var setting = {
-        listUrl : /*[[@{/admin/m/base/template/getFilesByPath.gsp}]]*/'url',
-        columnDefs : columnDefs, //表格列定义
-        columns : columns, //表格列
-        dataTableDiv : 'fileListTable', //表格
-        ajaxDataParamFun : ajaxDataParamFun, //ajax参数
-        pageable : false, //是否分页
-        showIndexColumn : true, //是否显示第一列的索引列
-        enabledChange : false
-    };
-    //创建表格
-    fileListTable = new TG_Tabel.createNew(setting);
-    //加载完成后执行
-    $(function() {
-        //表格初始化
-        fileListTable.init();
-
-        var url = /*[[@{/admin/m/base/template/getFileTree.gsp}]]*/'url';
-        tg_simpleAjaxPost(url, {
-            codeNum : /*[[${result.codeNum}]]*/''
-        }, function(d) {
-            var result = $.parseJSON(d);
-            $('#fileTreeView').treeview({
-                color : "#428bca",
-                showBorder : false,
-                nodeIcon : null,
-                data : result.obj.nodes,
-                onNodeSelected : function(event, folder) {
-                    parentPath = folder.filePath;
-                    fileListTable.refresh();
-                }
-            });
-        });
+    var nodes = [];
+   
+    //获取目录
+    var url = /*[[@{/admin/m/base/template/getFileTree.gsp}]]*/'url';
+    var codeNum = /*[[${result.codeNum}]]*/;
+    $.post(url,{codeNum:codeNum},function(data){
+        var result = $.parseJSON(data);
+        var node=result.obj.nodes;
+        nodes.push(node);
     });
-
-    function refreshFileList(obj) {
-        if ($(obj).attr('leaf') == 'false') {
-            parentPath = $(obj).attr('parentPath');
-            fileListTable.refresh();
-        }
-    }
-
+   
+    console.log(nodes); 
+    layui.tree({
+        elem : '#fileTreeView', //指定元素      
+        target : '_blank', //是否新选项卡打开（比如节点返回href才有效）       
+        click : function(item) { //点击节点回调
+            $('#fileListTable').empty();
+            $('#fileListTable').append('<table id="fileListTable" class="layui-table" lay-even="" lay-skin="row"><thead><tr><th width="60">#</th><th>名称</th><th>类型</th><th>大小</th><th>操作</th></tr></thead>'+ 
+                   '<tbody><tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><tr></tbody></table>');
+        },
+        nodes :[nodes]
+    });
     /*]]>*/
 </script>

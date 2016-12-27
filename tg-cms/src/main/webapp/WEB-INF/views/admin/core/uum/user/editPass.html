@@ -1,68 +1,111 @@
-<form th:action="@{/admin/c/user/changePassword.gsp}" th:object="${result}" id="editForm" role="form" action="#" class="form-horizontal" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改密码</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label class="col-md-3 control-label"><label class="text-danger">*</label> 原密码： </label>
-					<div class="col-md-7">
-						<input name="oldUserPass" placeholder="请输入原密码" type="password" class="form-control" />
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-用户权限-组织机构维度|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=uum,child=user)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>用户权限</cite></a> <a href="#">用户管理</a> <a><cite>修改密码</cite></a>
+					</span>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label"><label class="text-danger">*</label> 新密码： </label>
-					<div class="col-md-7">
-						<input name="userPass" id="userPass" placeholder="请输入新密码" type="password" class="form-control" />
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 修改密码
+				</blockquote>
+				<form th:action="@{/admin/c/user/changePassword.gsp}" role="form" action="#" class="layui-form" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>修改密码</legend>
+					</fieldset>
+					<div class="layui-form-item">
+						<label class="layui-form-label">原密码：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input name="oldUserPass" lay-verify="oldUserPass" required placeholder="请输入原密码" type="password" class="layui-input" />
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label"><label class="text-danger">*</label> 重复新密码： </label>
-					<div class="col-md-7">
-						<input name="userPass2" placeholder="请重复新密码" type="password" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">新密码：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input id="userPass" name="userPass" lay-verify="userPass" required placeholder="请输入新密码" type="password" class="layui-input" />
+						</div>
 					</div>
-				</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">确认密码：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input name="userPass2" lay-verify="userPass2" required placeholder="请确认新密码" type="password" class="layui-input" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-form-label"></div>
+						<div class="layui-input-block">
+							<label id="errorMsg" class="error-this" hidden="hidden"></label>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var rules = {
-            oldUserPass : {
-                required : true,
-                maxlength : 20,
-                minlength : 6
-            },
-            userPass : {
-                required : true,
-                maxlength : 20,
-                minlength : 6
-            },
-            userPass2 : {
-                equalTo : "#userPass",
-                required : true,
-                maxlength : 20,
-                minlength : 6
-            },
+    var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        oldUserPass : function(value) {
+            if (value.length <= 0) {
+                return '请输入原密码！';
+            } else if (checkOldPass(value) == 'false') {
+                return '原密码输入不正确！';
+            } else if (value == $('#userPass').val()) {
+                return '新密码和原密码不能相同!';
+            }
+        },
+        userPass : function(value) {
+            if (!/^[\S]{6,12}$/.test(value)) {
+                return '密码必须6到12位，且不能出现空格！';
+            }
+        },
+        userPass2 : function(value) {
+            if (value.length <= 0) {
+                return '再次输入密码不能为空！';
+            } else if (value != $('#userPass').val()) {
+                return '新密码输入不一致';
+            }
         }
-        var messages = {
+    });
 
-        }
-        tg_formWinAjaxSubmit('updatePassWin', 'editForm', rules, messages, function() {
-            window.location.href = /*[[@{/admin/logout.gsp}]]*/'url';
+    //判断原密码正确性
+    var checkUrl = /*[[@{/admin/c/user/checkOldPass.htm}]]*/'url';
+    function checkOldPass(oldPass) {
+        $.ajax({
+            type : "POST",
+            url : checkUrl,
+            async : false,
+            data : {
+                "oldPass" : oldPass
+            },
+            success : function(data) {
+                result = data;
+            }
         });
+        return result
+    }
+    //监听提交
+    form.on('submit(submit1)', function(data) {
     });
     /*]]>*/
 </script>

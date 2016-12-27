@@ -1,85 +1,109 @@
-<form th:action="@{/admin/c/user/updateCurrentUser.gsp}" th:object="${result}" id="editForm" role="form" action="#" class="form-horizontal" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改个人信息</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="form-group">
-					<label class="col-md-3 control-label"><label class="text-danger">*</label> 用户名： </label>
-					<div class="col-md-7">
-						<input th:field="*{username}" readonly="true" placeholder="请输入用户名" type="text" class="form-control" />
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-用户权限-组织机构维度|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=uum,child=user)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>用户权限</cite></a> <a href="#">用户管理</a> <a><cite>修改个人信息</cite></a>
+					</span>
 				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label"><label class="text-danger">*</label> 真实姓名： </label>
-					<div class="col-md-7">
-						<input th:field="*{realname}" placeholder="请输入真实姓名" type="text" class="form-control" />
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 修改个人信息
+				</blockquote>
+				<form th:action="@{/admin/c/user/updateCurrentUser.gsp}" th:object="${result}" id="editForm" role="form" action="#" class="layui-form" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>修改个人信息</legend>
+					</fieldset>
+					<div class="layui-form-item">
+						<label class="layui-form-label">用户名：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="username" th:field="*{username}" placeholder="请输入用户名" lay-verify="username" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="31" readonly>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">性 别：</label>
-					<div class="col-md-7">
-						<select th:field="*{gender}" placeholder="请输入性别" class="form-control">
-							<option selected="selected" value="1">男</option>
-							<option value="2">女</option>
-						</select>
+					<div class="layui-form-item">
+						<label class="layui-form-label">真实姓名：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" name="realname" th:field="*{realname}" placeholder="请输入真实姓名" lay-verify="realname" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="31">
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">手 机：</label>
-					<div class="col-md-7">
-						<input th:field="*{cellphoneNumber}" placeholder="请输入手机" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">性 别：</label>
+						<div class="layui-input-block">
+							<select th:field="*{gender}" placeholder="请输入性别">
+								<option selected="selected" value="1">男</option>
+								<option value="2">女</option>
+							</select>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<label class="col-md-3 control-label">邮 箱：</label>
-					<div class="col-md-7">
-						<input th:field="*{email}" placeholder="请输入邮箱" type="text" class="form-control" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">手 机：</label>
+						<div class="layui-input-block">
+							<input type="text" name="cellphoneNumber" th:field="*{cellphoneNumber}" placeholder="请输入手机" lay-verify="phone" autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="11">
+						</div>
 					</div>
-				</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">邮 箱：</label>
+						<div class="layui-input-block">
+							<input type="text" name="email" th:field="*{email}" placeholder="请输入邮箱" lay-verify="email" autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="60">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<label class="error" th:if="${result.editable!=1}">该用户个人信息不可修改</label>
-		<button class="btn btn-primary" type="submit" th:disabled="${result.editable!=1}">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    $(function() {
-        var rules = {
-            username : {
-                required : true,
-                maxlength : 30,
-                minlength : 5
-            },
-            realname : {
-                required : true,
-                maxlength : 20,
-                minlength : 2
-            },
-            email : {
-                email : true,
-                maxlength : 60
-            },
-            cellphoneNumber : {
-                phoneNum : true
+     var editable = /*[[${result.editable}]]*/;
+    var url = /*[[@{/admin/index.gsp}]]*/;
+    if(editable =1){
+        layer.alert("该用户信息不可修改");
+        setTimeout(function(){
+            window.location.href=url; 
+        },3000);
+    }
+     var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        username : function(value) {
+            if (value.length < 5) {
+                return '用户名至少得5个字哦！';
+            } else if (value.length > 30) {
+                return '用户名不能太长哦，最长30个字！';
+            }
+        },
+        realname : function(value) {
+            if (value.length < 5) {
+                return '真实姓名至少得5个字哦！';
+            } else if (value.length > 30) {
+                return '真实姓名不能太长哦，最长30个字！';
+            }
+        },emial: function(value){
+            if(value.length>60){
+                return '邮箱最大长度不能超过60个字符！';
             }
         }
-        var messages = {
-
-        }
-        tg_formWinAjaxSubmit('updateUserWin', 'editForm', rules, messages, function() {
-            window.location.reload();
-        });
     });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
+    });
+ 
     /*]]>*/
 </script>
