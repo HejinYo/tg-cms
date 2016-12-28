@@ -1,12 +1,12 @@
-package com.turingoal.cms.modules.base.service.impl;
+package com.turingoal.cms.core.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.modules.base.domain.Global;
-import com.turingoal.cms.modules.base.domain.form.GlobalForm;
-import com.turingoal.cms.modules.base.repository.GlobalDao;
-import com.turingoal.cms.modules.base.service.GlobalService;
+import com.turingoal.cms.core.domain.Global;
+import com.turingoal.cms.core.domain.form.GlobalForm;
+import com.turingoal.cms.core.repository.GlobalDao;
+import com.turingoal.cms.core.service.GlobalService;
 import com.turingoal.common.annotation.MethodLog;
 
 /**

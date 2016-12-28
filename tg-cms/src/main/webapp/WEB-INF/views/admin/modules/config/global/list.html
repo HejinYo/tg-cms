@@ -19,49 +19,116 @@
 					<i class="layui-icon">&#xe60b;</i> 全局参数
 				</blockquote>
 				<form th:action="@{/admin/m/base/global/edit.gsp}" th:object="${result}" class="layui-form" id="editForm" role="form" action="#" method="post">
-					<fieldset class="layui-elem-field layui-field-title">
-						<legend>全局参数</legend>
-					</fieldset>
 					<input th:field="*{id}" type="text" hidden="true" />
-					<div class="layui-form-item">
-						<label class="layui-form-label">协议：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<input type="text" name="sysProtocol" th:field="*{sysProtocol}" placeholder="请输入协议" lay-verify="sysProtocol" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+					<fieldset class="layui-elem-field site-demo-button">
+						<legend>基本信息</legend>
+						<div class="layui-form-item">
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">网站名称：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<input type="text" name="title" th:field="*{title}" placeholder="请输入网站名称" lay-verify="title" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+								</div>
+							</div>
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">网站全称：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<input type="text" name="titleFull" th:field="*{titleFull}" placeholder="请输入网站全称" lay-verify="titleFull" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="41">
+								</div>
+							</div>
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">域名：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<input type="text" name="domainName" th:field="*{domainName}" placeholder="请输入域名" lay-verify="domainName" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="41">
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">服务端口号：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<input type="text" name="sysPort" th:field="*{sysPort}" placeholder="请输入服务端口号" lay-verify="sysPort" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						<div class="layui-form-item">
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">版权信息：</label>
+								<div class="layui-input-block">
+									<input type="text" name="copyInfo" th:field="*{copyInfo}" placeholder="请输入版权信息" lay-verify="copyInfo" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="41">
+								</div>
+							</div>
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">ICP备案：</label>
+								<div class="layui-input-block">
+									<input type="text" name="icp" th:field="*{icp}" placeholder="请输入ICP备案" lay-verify="icp" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="41">
+								</div>
+							</div>
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">版本号：</label>
+								<div class="layui-input-block">
+									<input type="text" name="sysVersion" th:field="*{sysVersion}" placeholder="请输入版本号" lay-verify="sysVersion" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">上下文路径：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<input type="text" name="contextPath" th:field="*{contextPath}" placeholder="请输入上下文路径" lay-verify="contextPath" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="260">
+					</fieldset>
+					<fieldset class="layui-elem-field site-demo-button">
+						<legend>基本配置</legend>
+						<div class="layui-form-item">
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">主题：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<select name="theme" th:field="*{theme}">
+										<option value="1">default</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">协议：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<input type="text" name="sysProtocol" th:field="*{sysProtocol}" placeholder="请输入协议" lay-verify="sysProtocol" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+								</div>
+							</div>
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">端口号：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<input type="text" name="sysPort" th:field="*{sysPort}" placeholder="请输入服务端口号" lay-verify="sysPort" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">是否包含域名：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<select name="withDomain" th:field="*{withDomain}">
-								<option value="1">是</option>
-								<option value="2">否</option>
-							</select>
+						<div class="layui-form-item">
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">是否包含域名：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<select name="withDomain" th:field="*{withDomain}">
+										<option value="1">是</option>
+										<option value="2">否</option>
+									</select>
+								</div>
+							</div>
+							<div class="layui-inline" style="width: 300px;">
+								<label class="layui-form-label">附件发布点：<span style="color: red">*</span></label>
+								<div class="layui-input-block">
+									<input type="text" name="uploadsPublishpointId" th:field="*{uploadsPublishpointId}" placeholder="请输入附件发布点" lay-verify="uploadsPublishpointId" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+								</div>
+							</div>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">附件发布点：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<input type="text" name="uploadsPublishpointId" th:field="*{uploadsPublishpointId}" placeholder="请输入附件发布点" lay-verify="uploadsPublishpointId" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						<div class="layui-form-item">
+							<label class="layui-form-label">上下文路径：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<input type="text" name="contextPath" th:field="*{contextPath}" placeholder="请输入上下文路径" lay-verify="contextPath" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="260">
+							</div>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">版本号：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<input type="text" name="sysVersion" th:field="*{sysVersion}" placeholder="请输入版本号" lay-verify="sysVersion" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+						<div class="layui-form-item">
+							<label class="layui-form-label">暂无图片：</label>
+							<div class="layui-input-block">
+								<img id="imgShow" th:src="|/uploads${result.noPic}|" th:onerror="|this.src='@{/resources/imgs/common/no_pic.png}'|" width="164"> <br /> <br /> <input id="noPic" type="file" name="noPic" lay-type="images" class="layui-upload-file">
+							</div>
 						</div>
-					</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">SEO关键字：</label>
+							<div class="layui-input-block">
+								<input type="text" name="seoKeywords" th:field="*{seoKeywords}" placeholder="请输入SEO关键字" lay-verify="seoKeywords" autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="110">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label">SEO描述：</label>
+							<div class="layui-input-block">
+								<textarea type="text" name="seoDescription" th:field="*{seoDescription}" placeholder="请输入SEO描述 " lay-verify="seoDescription" class="layui-textarea" autofocus="autofocus" maxlength="260" />
+							</div>
+						</div>
+					</fieldset>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
 							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
@@ -77,9 +144,72 @@
 <div th:replace="fragments/import_js_admin">引入js</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    var showImgUrl = /*[[@{/fore/common/showImage_}]]*/;
+    var $ = layui.jquery;
+    var form = layui.form();
+    layui.use('upload', function() {
+        url = BASE_URL + 'admin/common/uploadImage.htm';       
+        tg_upload("noPic", url);
+    });
+    function tg_upload(id, url) {
+        $("#" + id).after('<input id="Input'+id+'" type="text" value="" name="'+id+'" hidden="hidden">');
+        var fileName;
+        //文件上传
+        layui.upload({
+            url : url,//上传接口
+            elem : '#' + id,
+            ext : 'jpg|png|gif', //图片格式限制
+            before : function(input) {
+                layer.msg('文件上传中');
+            },
+            success : function(res) { //上传成功后的回调
+                $("#" + id).parent().next().text("上传成功");
+                $("#Input" + id).attr("value", res.msg);
+                $("#imgShow").attr("src", showImgUrl+res.msg+'.htm');
+            }
+        });
+    }
     var form = layui.form();
     //自定义验证规则
     form.verify({
+        title : function(value) {
+            if (value.length < 2) {
+                return '网站名称至少得2个字哦！';
+            } else if (value.length > 20) {
+                return '网站名称不能太长哦，最长20个字！';
+            }
+        },
+        titleFull : function(value) {
+            if (value.length < 2) {
+                return '网站全称至少得2个字哦！';
+            } else if (value.length > 40) {
+                return '网站全称不能太长哦，最长40个字！';
+            }
+        },
+        domainName : function(value) {
+            if (value.length < 2) {
+                return '域名至少得2个字哦！';
+            } else if (value.length > 40) {
+                return '域名不能太长哦，最长40个字！';
+            }
+        },
+        copyInfo : function(value) {
+            if (value.length > 40) {
+                return '版权信息不能太长哦，最长40个字！';
+            }
+        },
+        icp : function(value) {
+            if (value.length > 40) {
+                return 'ICP备案不能太长哦，最长40个字！';
+            }
+        },
+        sysVersion : function(value) {
+            if (value.length < 2) {
+                return '版本号至少得2个字哦！';
+            } else if (value.length > 50) {
+                return '版本号不能太长哦，最长20个字！';
+            }
+        },  
         sysProtocol : function(value) {
             if (value.length < 2) {
                 return '协议至少得2个字哦！';
@@ -97,8 +227,8 @@
         contextPath : function(value) {
             if (value.length < 5) {
                 return '上下文路径至少得5个字哦！';
-            } else if (value.length > 255) {
-                return '上下文路径不能太长哦，最长255个字！';
+            } else if (value.length > 250) {
+                return '上下文路径不能太长哦，最长250个字！';
             }
         },
         uploadsPublishpointId : function(value) {
@@ -108,13 +238,16 @@
                 return '附件发布点不能太长哦，最长20个字！';
             }
         },
-        sysVersion : function(value) {
-            if (value.length < 2) {
-                return '版本号至少得2个字哦！';
-            } else if (value.length > 50) {
-                return '版本号不能太长哦，最长20个字！';
+        seoKeywords : function(value) {
+            if (value.length > 100) {
+                return '域名不能太长哦，最长100个字！';
             }
-        }
+        },
+        seoDescription : function(value) {
+            if (value.length > 250) {
+                return '域名不能太长哦，最长250个字！';
+            }
+        }    
     });
     //监听提交
     form.on('submit(submit1)', function(data) {

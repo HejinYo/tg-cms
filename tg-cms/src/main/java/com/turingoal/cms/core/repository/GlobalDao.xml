@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.3//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.turingoal.cms.core.repository.GlobalDao">   
+     <!-- 获取第一条数据 -->
+    <select id="get" resultType="com.turingoal.cms.core.domain.Global">
+        SELECT * FROM tg_cms_m_base_global LIMIT 1
+    </select>
+  
+    <!-- 修改 全局配置  -->
+    <update id="update" parameterType="com.turingoal.cms.core.domain.form.GlobalForm">
+        UPDATE tg_cms_m_base_global SET
+            title = #{title},          
+            title_full = #{titleFull},            
+            domain_name = #{domainName},
+            theme = #{theme},
+            <if test="copyInfo !=null and copyInfo !=''">
+                copy_info = #{copyInfo},
+            </if>
+            <if test="icp !=null and icp !=''">
+                icp =#{icp},
+            </if>
+            <if test="sysVersion !=null and sysVersion !=''">
+                sys_version = #{sysVersion},
+            </if>                        
+            <if test="noPic !=null and noPic !=''">
+               no_pic = #{noPic},
+            </if>
+            <if test="seoKeywords !=null and seoKeywords !=''">
+                seo_keywords = #{seoKeywords},
+            </if>
+            <if test="seoDescription !=null and seoDescription !=''">
+                seo_description = #{seoDescription},
+            </if>                        
+             sys_protocol = #{sysProtocol}, 
+             sys_port = #{sysPort}, 
+             context_path = #{contextPath},
+             with_domain = #{withDomain},
+             uploads_publishpoint_id = #{uploadsPublishpointId}                                
+        WHERE id = #{id}
+    </update>
+</mapper>

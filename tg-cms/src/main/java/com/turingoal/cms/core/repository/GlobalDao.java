@@ -1,7 +1,7 @@
-package com.turingoal.cms.modules.base.repository;
+package com.turingoal.cms.core.repository;
 
-import com.turingoal.cms.modules.base.domain.Global;
-import com.turingoal.cms.modules.base.domain.form.GlobalForm;
+import com.turingoal.cms.core.domain.Global;
+import com.turingoal.cms.core.domain.form.GlobalForm;
 
 /**
  * 全局配置Dao

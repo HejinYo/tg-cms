@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.turingoal.cms.core.commons.SystemHelper;
-import com.turingoal.cms.modules.base.service.GlobalService;
+import com.turingoal.cms.core.service.GlobalService;
 import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import jodd.util.StringUtil;

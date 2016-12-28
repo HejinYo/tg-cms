@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
-import com.turingoal.cms.modules.base.service.GlobalService;
+import com.turingoal.cms.core.service.GlobalService;
 import com.turingoal.cms.modules.base.service.TemplateService;
 import com.turingoal.common.util.net.WebUtils;
 

@@ -8,8 +8,8 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import com.turingoal.cms.core.domain.Global;
 import com.turingoal.cms.core.domain.User;
-import com.turingoal.cms.modules.base.domain.Global;
 import com.turingoal.common.constants.ConstantSystemValues;
 import com.turingoal.common.support.system.TgSystemHelper;
 
