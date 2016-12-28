@@ -34,7 +34,7 @@
         memoryStoreEvictionPolicy="LRU"
         statistics="false" />
 
-    <!-- service 系统全局配置 -->
+    <!-- 系统全局配置 -->
     <cache
         name="sys-global"
         maxElementsInMemory="10000"
