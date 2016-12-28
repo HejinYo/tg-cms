@@ -27,6 +27,7 @@ public class TgThymeleafCoreProcessorDialect extends AbstractProcessorDialect {
         processors.add(new PremissionProcessor()); // 授权premissionProcessor
         processors.add(new SensitiveWordProcessor()); // 敏感词premissionProcessor
         processors.add(new PrettytimeProcessor()); // 日期美化 Processor
+        processors.add(new SysInfoProcessor()); // 系统信息
         return processors;
     }
 }

@@ -18,9 +18,9 @@ public class GlobalServiceImpl implements GlobalService {
     private GlobalDao globalDao;
 
     /**
-     * 获取第一条数据
+     * 获取全局配置
      */
-    @MethodLog(name = "获取第一条数据", description = "获取第一条数据")
+    @MethodLog(name = "获取全局配置", description = "获取全局配置")
     public Global get() {
         return globalDao.get();
     }
@@ -28,7 +28,7 @@ public class GlobalServiceImpl implements GlobalService {
     /**
      * 修改 全局参数
      */
-    @MethodLog(name = "修改全局参数", description = "修改一个全局参数")
+    @MethodLog(name = "修改全局配置", description = "修改全局配置")
     public int update(final GlobalForm form) {
         form.setUpdateDataUsername(SystemHelper.getCurrentUsername());
         return globalDao.update(form);
