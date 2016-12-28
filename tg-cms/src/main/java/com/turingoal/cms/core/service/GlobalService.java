@@ -7,7 +7,6 @@ import com.turingoal.cms.core.domain.form.GlobalForm;
  * 全局参数Service
  */
 public interface GlobalService {
-
     /**
      * 获取全局配置
      */
