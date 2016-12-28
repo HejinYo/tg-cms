@@ -247,11 +247,11 @@ public class TemplateController {
      */
     @RequestMapping(value = "/getFilesByPath.gsp")
     @ResponseBody
-    public PageGridBean getFilesByPath(final String parentPath, final HttpServletRequest request) throws BusinessException {
+    public List<CmsFile> getFilesByPath(final String parentPath, final HttpServletRequest request) throws BusinessException {
         String path = request.getServletContext().getRealPath("/template/" + parentPath);
         String rootPath = request.getServletContext().getRealPath("/template/");
         List<CmsFile> result = getFileListByPath(path, rootPath, false);
-        return new PageGridBean(result);
+        return result;
     }
 
     /**

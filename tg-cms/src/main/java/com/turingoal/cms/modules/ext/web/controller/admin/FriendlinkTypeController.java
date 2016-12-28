@@ -89,7 +89,7 @@ public class FriendlinkTypeController {
          * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { friendlinkTypeService.add(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
          */
         friendlinkTypeService.add(form);
-        return "/admin/m/ext/friendlinkType/list.gsp";
+        return "redirect:/admin/m/ext/friendlinkType/list.gsp";
     }
 
     /**
@@ -111,7 +111,7 @@ public class FriendlinkTypeController {
          * // 数据校验 if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { friendlinkTypeService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
          */
         friendlinkTypeService.update(form);
-        return "/admin/m/ext/friendlinkType/list.gsp";
+        return "redirect:/admin/m/ext/friendlinkType/list.gsp";
     }
 
     /**
