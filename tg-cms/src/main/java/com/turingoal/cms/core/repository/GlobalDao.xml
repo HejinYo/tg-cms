@@ -4,12 +4,12 @@
 <mapper namespace="com.turingoal.cms.core.repository.GlobalDao">   
      <!-- 获取全局配置 -->
     <select id="get" resultType="com.turingoal.cms.core.domain.Global">
-        SELECT * FROM tg_cms_m_base_global LIMIT 1
+        SELECT * FROM tg_c_global LIMIT 1
     </select>
   
     <!-- 修改 全局配置  -->
     <update id="update" parameterType="com.turingoal.cms.core.domain.form.GlobalForm">
-        UPDATE tg_cms_m_base_global SET
+        UPDATE tg_c_global SET
             title = #{title},          
             title_full = #{titleFull},            
             domain_name = #{domainName},

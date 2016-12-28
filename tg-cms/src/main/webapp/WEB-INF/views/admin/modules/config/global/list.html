@@ -18,7 +18,7 @@
 				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
 					<i class="layui-icon">&#xe60b;</i> 全局参数
 				</blockquote>
-				<form th:action="@{/admin/m/base/global/edit.gsp}" th:object="${result}" class="layui-form" id="editForm" role="form" action="#" method="post">
+				<form th:action="@{/admin/c/global/edit.gsp}" th:object="${result}" class="layui-form" id="editForm" role="form" action="#" method="post">
 					<input th:field="*{id}" type="text" hidden="true" />
 					<fieldset class="layui-elem-field site-demo-button">
 						<legend>基本信息</legend>
@@ -147,7 +147,7 @@
     //获取全部主题
     $.ajax({
         type: "post",
-        url: /*[[@{/admin/m/base/global/getThemes.gsp}]]*/,
+        url: /*[[@{/admin/c/global/getThemes.gsp}]]*/,
         data: "{}",
         dataType: "json",
         success: function (data) {

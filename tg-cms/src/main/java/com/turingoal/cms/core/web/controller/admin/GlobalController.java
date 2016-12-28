@@ -29,7 +29,7 @@ import com.turingoal.common.support.validator.ValidGroupUpdate;
  * 全局参数Controller
  */
 @Controller
-@RequestMapping("/m/base/global")
+@RequestMapping("/c/global")
 public class GlobalController {
     private static final String LIST_PAGE = "modules/config/global/list";
 
