@@ -21,13 +21,12 @@ public class SysInfoProcessor extends AbstractStandardExpressionAttributeTagProc
     public static final int PRECEDENCE = 10000; // 优先级
     public static final String DEFAULT_DIALECT_PREFIX = "tg_core"; // 默认前缀
     public static final String ATTR_NAME = "sys_info"; // 属性名称
+    @Autowired
+    private GlobalService globalService;
 
     public SysInfoProcessor() {
         super(TemplateMode.HTML, DEFAULT_DIALECT_PREFIX, ATTR_NAME, PRECEDENCE, true);
     }
-
-    @Autowired
-    private GlobalService globalService;
 
     /**
      * 处理
