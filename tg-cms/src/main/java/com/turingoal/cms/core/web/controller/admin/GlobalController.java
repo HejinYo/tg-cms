@@ -1,7 +1,10 @@
 package com.turingoal.cms.core.web.controller.admin;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import com.turingoal.cms.core.domain.form.GlobalForm;
 import com.turingoal.cms.core.service.GlobalService;
@@ -56,6 +60,24 @@ public class GlobalController {
          */
         globalService.update(form);
         return "redirect:/admin/m/base/global/list.gsp";
+    }
+
+    /**
+     * 获得主题名称
+     */
+    @RequestMapping(value = "/getThemes.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final List<String> getThemes(final HttpServletRequest request) {
+        String path = request.getServletContext().getRealPath("/template/");
+        File file = new File(path);
+        File[] themeList = file.listFiles();
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i < themeList.length; i++) {
+            if (themeList[i].isDirectory()) {
+                list.add(themeList[i].getName());
+            }           
+        }
+        return list;
     }
 
     /**

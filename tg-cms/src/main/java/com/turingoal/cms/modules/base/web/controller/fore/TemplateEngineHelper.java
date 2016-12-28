@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import com.turingoal.cms.core.domain.Global;
 import com.turingoal.cms.core.service.GlobalService;
 import com.turingoal.cms.modules.base.service.TemplateService;
 import com.turingoal.common.util.net.WebUtils;
@@ -35,7 +36,12 @@ public final class TemplateEngineHelper {
         /// SystemHelper.setGlobal(gs.get(0));
         // }
         // Template template = templateService.get(""); // 此处应获取当前启用的模板
-        String templateCodeNum = "green"; // 默认模板
+        Global global = globalService.get();
+        String templateCodeNum = "green";
+        if (global != null) {
+            templateCodeNum = global.getTheme();
+        }
+        // 默认模板
         // if (template != null) {
         // templateCodeNum = template.getCodeNum();
         // }

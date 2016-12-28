@@ -69,8 +69,8 @@
 							<div class="layui-inline" style="width: 300px;">
 								<label class="layui-form-label">主题：<span style="color: red">*</span></label>
 								<div class="layui-input-block">
-									<select name="theme" th:field="*{theme}">
-										<option value="1">default</option>
+									<input id="theme" name="theme" th:field="*{theme}" hidden /> <select lay-filter="themeList" name="themeList" id="themeList">
+										<option value=""></option>
 									</select>
 								</div>
 							</div>
@@ -144,6 +144,21 @@
 <div th:replace="fragments/import_js_admin">引入js</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    //获取全部主题
+    $.ajax({
+        type: "post",
+        url: /*[[@{/admin/m/base/global/getThemes.gsp}]]*/,
+        data: "{}",
+        dataType: "json",
+        success: function (data) {
+           $("#themeList").empty();
+           $.each(data, function(index,theme){
+               $("#themeList").append("<option value='"+theme+"'>"+theme+"</option>");  
+           });                          
+           form.render('select');
+        }
+    });
+    
     var showImgUrl = /*[[@{/fore/common/showImage_}]]*/;
     var $ = layui.jquery;
     var form = layui.form();
@@ -251,6 +266,9 @@
     });
     //监听提交
     form.on('submit(submit1)', function(data) {
+    });
+    form.on('select(themeList)',function(data){
+        $("#theme").val($('#themeList option:selected') .val());         
     });
     /*]]>*/
 </script>
