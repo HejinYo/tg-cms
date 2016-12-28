@@ -220,6 +220,7 @@ public class TemplateController {
         CmsFile rootFile = new CmsFile();
         String path = request.getServletContext().getRealPath("/template/" + (codeNum == null ? "" : codeNum));
         String rootPath = request.getServletContext().getRealPath("/template/");
+        rootFile.setName(codeNum);
         rootFile.setFilePath(codeNum);
         rootFile.setText(codeNum);
         refreshFileList(path, rootFile, rootPath, false);

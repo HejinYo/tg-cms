@@ -21,7 +21,7 @@
 				<div style="display: inline-block; width: 300px; height: 300px; padding: 10px; border: 1px solid #ddd; overflow: auto;">
 					<ul id="fileTreeView"></ul>
 				</div>
-				<div id="fileListTable" class="site-tips" style="display: inline-block; height: 200px; width: 485px; padding: 10px; margin-left: 10px; vertical-align: top;" ></div>
+				<div id="fileListTable" class="site-tips" style="display: inline-block; height: 200px; width: 485px; padding: 10px; margin-left: 10px; vertical-align: top;"></div>
 			</div>
 		</div>
 		<div th:replace="fragments/footer_admin">底部</div>
@@ -34,14 +34,18 @@
     var nodes = [];
    
     //获取目录
-    var url = /*[[@{/admin/m/base/template/getFileTree.gsp}]]*/'url';
     var codeNum = /*[[${result.codeNum}]]*/;
-    $.post(url,{codeNum:codeNum},function(data){
-        var result = $.parseJSON(data);
-        var node=result.obj.nodes;
-        nodes.push(node);
+    $.ajax({
+        type: "POST",
+        url: /*[[@{/admin/m/base/template/getFileTree.gsp}]]*/,
+        data: {codeNum:codeNum},
+        dataType: "json",
+        async:false,
+        success: function(data){    
+            var node=data.obj.nodes; 
+            nodes.push(node);
+        }
     });
-   
     console.log(nodes); 
     layui.tree({
         elem : '#fileTreeView', //指定元素      
