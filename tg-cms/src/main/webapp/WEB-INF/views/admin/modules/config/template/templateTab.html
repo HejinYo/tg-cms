@@ -41,17 +41,16 @@
         data: {codeNum:codeNum},
         dataType: "json",
         async:false,
-        success: function(data){    
-            var node=data.obj.nodes; 
-            nodes.push(node);
+        success: function(data){                                     
+            var nodeList=data.obj.nodes;
+            listNodes(nodes,nodeList);
         }
     });
-    console.log(nodes); 
+    //console.log(nodes); 
     layui.tree({
         elem : '#fileTreeView', //指定元素      
         target : '_blank', //是否新选项卡打开（比如节点返回href才有效）       
         click : function(item) { //点击节点回调
-            console.log(item[0][0].filePath);
             var url = /*[[@{/admin/m/base/template/getFilesByPath.gsp}]]*/;
             $.post(url,{parentPath:item[0][0].filePath},function(data){
                 console.log(data);
@@ -75,7 +74,20 @@
                        '</tbody></table>');
             });            
         },
-        nodes :[nodes]
+        nodes :nodes
     });
+    
+    function listNodes(parent,nodeList){
+        nodeList.forEach(function(e) {
+            var node = {};
+            node["name"] = e.text;
+            if(e.nodes.length>0){
+                var chr = [];
+                listNodes(chr,e.nodes);
+                node["children"] = chr;
+            }
+            parent.push(node);
+        })
+    }
     /*]]>*/
 </script>
