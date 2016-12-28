@@ -13,7 +13,7 @@ public interface GlobalDao {
     Global get();
 
     /**
-     * 修改 全局配置
+     * 修改全局配置
      */
     int update(final GlobalForm form);
 }
