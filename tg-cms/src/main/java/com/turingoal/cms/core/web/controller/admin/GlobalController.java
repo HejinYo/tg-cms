@@ -31,7 +31,7 @@ import com.turingoal.common.support.validator.ValidGroupUpdate;
 @Controller
 @RequestMapping("/c/global")
 public class GlobalController {
-    private static final String LIST_PAGE = "modules/config/global/list";
+    private static final String EDIT_PAGE = "modules/config/global/edit";
 
     @Autowired
     private GlobalService globalService;
@@ -39,9 +39,9 @@ public class GlobalController {
     /**
      * 列表页面
      */
-    @RequestMapping(value = "/list.gsp", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit.gsp", method = RequestMethod.GET)
     public final ModelAndView list() {
-        ModelAndView mav = new ModelAndView(LIST_PAGE);
+        ModelAndView mav = new ModelAndView(EDIT_PAGE);
         /*
          * List<Global> result = globalService.find(query); mav.addObject("globalList", result);
          */
@@ -59,7 +59,7 @@ public class GlobalController {
          * if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { globalService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
          */
         globalService.update(form);
-        return "redirect:/admin/m/base/global/list.gsp";
+        return "redirect:/admin/m/base/global/edit.gsp";
     }
 
     /**
