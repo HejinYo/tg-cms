@@ -5,27 +5,27 @@
 <div th:replace="fragments/head_admin">head</div>
 </head>
 <body>
-	<div class="layui-layout layui-layout-admin">
-		<div th:replace="fragments/nav_admin">导航栏</div>
-		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=template)">菜单栏</div>
-		<div class="layui-body">
-			<div class="layui-main">
-				<!--/***** 面包屑 *****/-->
-				<div class="layui-elem-quote" style="margin-top: 10px;">
-					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/base/template/list.gsp}">模版配置</a> <a><cite>列表</cite></a>
-					</span>
-				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 模版配置
-				</blockquote>
-				<div style="display: inline-block; width: 300px; height: 300px; padding: 10px; border: 1px solid #ddd; overflow: auto;">
-					<ul id="fileTreeView"></ul>
-				</div>
-				<div id="fileListTable" class="site-tips" style="display: inline-block; height: 200px; width: 485px; padding: 10px; margin-left: 10px; vertical-align: top;"></div>
-			</div>
-		</div>
-		<div th:replace="fragments/footer_admin">底部</div>
-	</div>
+    <div class="layui-layout layui-layout-admin">
+        <div th:replace="fragments/nav_admin">导航栏</div>
+        <div th:replace="fragments/menu_admin::menu(parent=gconfig,child=template)">菜单栏</div>
+        <div class="layui-body">
+            <div class="layui-main">
+                <!--/***** 面包屑 *****/-->
+                <div class="layui-elem-quote" style="margin-top: 10px;">
+                    <span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/base/template/list.gsp}">模版配置</a> <a><cite>列表</cite></a>
+                    </span>
+                </div>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+                    <i class="layui-icon">&#xe60b;</i> 模版配置
+                </blockquote>
+                <div style="display: inline-block; width: 300px; height: 300px; padding: 10px; border: 1px solid #ddd; overflow: auto;">
+                    <ul id="fileTreeView"></ul>
+                </div>
+                <div id="fileListTable" class="site-tips" style="display: inline-block; height: 200px; width: 485px; padding: 10px; margin-left: 10px; vertical-align: top;"></div>
+            </div>
+        </div>
+        <div th:replace="fragments/footer_admin">底部</div>
+    </div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
 </html>
@@ -48,31 +48,68 @@
     });
     //console.log(nodes); 
     layui.tree({
-        elem : '#fileTreeView', //指定元素      
-        target : '_blank', //是否新选项卡打开（比如节点返回href才有效）       
+        elem : '#fileTreeView', // 指定元素      
+        target : '_blank', //是否新选项卡打开（比如节点返回href才有效）      
         click : function(item) { //点击节点回调
-            var url = /*[[@{/admin/m/base/template/getFilesByPath.gsp}]]*/;
-            $.post(url,{parentPath:item[0][0].filePath},function(data){
-                console.log(data);
-                $('#fileListTable').empty();
-                $('#fileListTable').append(
-                      '<table id="fileListTable" class="layui-table" lay-even="" lay-skin="row">'+
-                        '<thead><tr>'+
-	                       '<th width="40">#</th>'+
-	                       '<th>名称</th>'+
-	                       '<th>类型</th>'+
-	                       '<th>大小</th>'+
-	                       '<th>操作</th>'+
-	                          '</tr></thead>'+ 
-                        '<tbody><tr th:if="${data == null or data.size() == 0}">'+
-	                       '<td colspan="5" style="text-align: center;">暂时没有数据</td></tr>'+
-	                       '<tr><td th:text="${itemStat.index+1}" style="text-align: center;"></td>'+
-	                       '<td th:text="${item.fileName}" style="text-align: center;"></td>'+
-	                       '<td th:text="${item.format}" style="text-align: center;"></td>'+
-	                       '<td th:text="${item.fileLength}" style="text-align: center;"></td>'+
-	                       '<td></td><tr>'+
-                       '</tbody></table>');
-            });            
+           
+            $.ajax({
+                type: "POST",
+                url: /*[[@{/admin/m/base/template/getFilesByPath.gsp}]]*/,
+                data: {parentPath:item.filePath},
+                dataType: "json",
+                success: function(data){                                                     
+                    if(data==null){
+                        $('#fileListTable').empty();
+                        $('#fileListTable').append(
+                              '<table class="layui-table" lay-even="" lay-skin="row">'+
+                                  '<thead><tr>'+
+                                  '<th style="width:40px;">#</th>'+
+                                  '<th style="width:200px;">名称</th>'+
+                                  '<th style="width:100px;">类型</th>'+
+                                  '<th style="width:100px;">大小</th>'+
+                                  '<th style="width:40px;">操作</th></tr></thead>'+ 
+                                '<tbody><tr>'+
+                                   '<td colspan="5" style="text-align: center;">暂时没有数据</td>'+
+                                '</tr></tbody></table>');
+                    }else{
+                        $('#fileListTable').empty();
+                        $('#fileListTable').append(
+                              '<table class="layui-table" lay-even="" lay-skin="row">'+
+                                '<thead><tr>'+
+                                   '<th style="width:40px;">#</th>'+
+                                   '<th style="width:200px;">名称</th>'+
+                                   '<th style="width:100px;">类型</th>'+
+                                   '<th style="width:100px;">大小</th>'+
+                                   '<th style="width:40px;">操作</th></tr></thead>'+ 
+                                '<tbody id="tbody"></tbody></table>');
+                        var editUrlPre = /*[[@{/admin/m/base/template/editFile.gsp?filePath=}]]*/'url';
+                        $.each(data,function(index,file){
+                             $('#tboay').empty();
+                             var tr = $('<tr></tr>'); 
+                             var td1 = $('<td style="text-align: center;"></td>');
+                             var td2 = $('<td style="text-align: center;"></td>');
+                             var td3 = $('<td style="text-align: center;"></td>');
+                             var td4 = $('<td style="text-align: center;"></td>');
+                             var td5 = $('<td style="text-align: center;"></td>');
+                             td1.append(index+1);
+                             if(file.leaf==false){
+                                 td2.append('<label style="color:orange;">'+file.fileName+'</label>');
+                             }else{
+                                 td2.append('<a href="' + (editUrlPre + file.filePath) + '" data-target="#templateWin" style="color:blue;">'+file.fileName+'</a>');
+                             }
+                             if(file.format==""){
+                                 td3.append('<i class="layui-icon" style="font-size: 25px; color: orange;">&#xe622;</i>');                        
+                             }else{
+                                 td3.append(file.format);                              
+                             }
+                             td4.append(file.fileLength);
+                             td5.append('<a href="#" type="button" onclick="deleteFile(this)" filePath="' +file.filePath + '" class="layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon"></i></a>');
+                             tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+                             $('#tbody').append(tr);
+                        });
+                    } 
+                }
+            });       
         },
         nodes :nodes
     });
@@ -81,6 +118,8 @@
         nodeList.forEach(function(e) {
             var node = {};
             node["name"] = e.text;
+            node["filePath"] = e.filePath;
+            node["leaf"] = e.leaf;
             if(e.nodes.length>0){
                 var chr = [];
                 listNodes(chr,e.nodes);
@@ -88,6 +127,14 @@
             }
             parent.push(node);
         })
+    }
+    
+    //删除文件
+    function deleteFile(obj) {
+        var deleteUrl = /*[[@{/admin/m/base/template/deleteFile.gsp}]]*/'url';
+        tg_dleteItem(deleteUrl + '?filePath=' + $(obj).attr('filePath'), function() {
+            fileListTable.refresh();
+        });
     }
     /*]]>*/
 </script>
