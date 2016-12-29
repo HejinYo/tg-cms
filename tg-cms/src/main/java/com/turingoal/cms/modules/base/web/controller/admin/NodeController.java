@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import com.turingoal.cms.core.domain.Global;
+import com.turingoal.cms.core.service.GlobalService;
 import com.turingoal.cms.modules.base.domain.Node;
 import com.turingoal.cms.modules.base.domain.form.NodeForm;
 import com.turingoal.cms.modules.base.domain.query.NodeQuery;
@@ -28,9 +30,9 @@ import com.turingoal.common.bean.JsonResultBean;
 import com.turingoal.common.bean.PageGridBean;
 import com.turingoal.common.constants.ConstantPattern4Date;
 import com.turingoal.common.exception.BusinessException;
-import com.turingoal.common.util.net.RequestUtil;
 import com.turingoal.common.support.validator.ValidGroupAdd;
 import com.turingoal.common.support.validator.ValidGroupUpdate;
+import com.turingoal.common.util.net.RequestUtil;
 
 /**
  * 栏目Controller
@@ -46,6 +48,8 @@ public class NodeController {
     private NodeService nodeService;
     @Autowired
     private ModelService modelService;
+    @Autowired
+    private GlobalService globalService;
 
     /**
      * 栏目列表页面
@@ -83,6 +87,8 @@ public class NodeController {
     @RequestMapping(value = "/add_{parendId}.gsp", method = RequestMethod.GET)
     public final ModelAndView addPage(@PathVariable final String parendId) {
         ModelAndView mav = new ModelAndView(ADD_PAGE);
+        Global global = globalService.get();
+        mav.addObject("codeNum", global.getTheme());
         mav.addObject("nodeModels", modelService.findByType("node"));
         mav.addObject("infoModels", modelService.findByType("info"));
         mav.addObject("parendId", parendId);
@@ -99,7 +105,7 @@ public class NodeController {
          * JsonResultBean(JsonResultBean.SUCCESS); }
          */
         nodeService.add(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-        return "rediect:/admin/m/base/node/list.gsp";
+        return "redirect:/admin/m/base/node/list.gsp";
     }
 
     /**
@@ -124,7 +130,7 @@ public class NodeController {
          * JsonResultBean(JsonResultBean.SUCCESS); }
          */
         nodeService.update(form, RequestUtil.getRequestMapWithPrefix(request, "cus_"));
-        return "rediect:/admin/m/base/node/list.gsp";
+        return "redirect:/admin/m/base/node/list.gsp";
     }
 
     /**

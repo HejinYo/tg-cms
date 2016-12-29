@@ -59,13 +59,13 @@
 						<div class="layui-inline" style="width: 350px;">
 							<label class="layui-form-label">栏目模板：<span style="color: red">*</span></label>
 							<div class="layui-input-block">
-								<input name="nodeTemplate" th:field="*{nodeTemplate}" placeholder="请输入栏目模板" type="text" class="layui-input" /> <a th:href="@{/admin/m/base/template/selectTemplate_nodeTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i> </a>
+								<input name="nodeTemplate" th:field="*{nodeTemplate}" placeholder="请输入栏目模板" type="text" class="layui-input" /> <a onclick="select(1)" th:href="@{/admin/m/base/template/selectTemplate_nodeTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i> </a>
 							</div>
 						</div>
 						<div class="layui-inline" style="width: 350px;">
 							<label class="layui-form-label">文档模板：<span style="color: red">*</span></label>
 							<div class="layui-input-block">
-								<input name="infoTemplate" th:field="*{infoTemplate}" placeholder="请输入文档模板" type="text" class="layui-input" /><a th:href="@{/admin/m/base/template/selectTemplate_infoTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i></a>
+								<input name="infoTemplate" th:field="*{infoTemplate}" placeholder="请输入文档模板" type="text" class="layui-input" /><a onclick="select(2)" th:href="@{/admin/m/base/template/selectTemplate_infoTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i></a>
 							</div>
 						</div>
 					</div>
@@ -92,7 +92,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">排序：</label>
 						<div class="layui-input-block">
-							<input type="number" th:field="*{sortOrder}" name="sortOrder" placeholder="请输入排序" lay-verify="sortOrder" required autocomplete="off" class="layui-input" autofocus="autofocus" min="1" max="99">
+							<input type="number" th:field="*{sortOrder}" value="1" min="1" max="99" name="sortOrder" placeholder="请输入排序" lay-verify="sortOrder" required autocomplete="off" class="layui-input" autofocus="autofocus" min="1" max="99">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -117,6 +117,124 @@
 </html>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    //页面层
+    function select(flag) {
+        var nodes =[];
+        layer.open({
+            type : 1,
+            title:'请选择模版',
+            skin : 'layui-layer-molv', //加上边框
+            area : [ '1000px', '800px' ], //宽高
+            content : '<div style="display: inline-block; width: 300px; height: 600px; padding: 10px; border: 1px solid #ddd; overflow: auto;"><ul id="fileTreeView"></ul></div><div id="fileListTable" class="site-tips" style="display: inline-block; height: 200px; width: 485px; padding: 10px; margin-left: 10px; vertical-align: top;"></div>',
+            btn:['确定'],
+            yes: function(index, layero){
+                layer.close(index);
+                //将选择的文件的路径赋值到界面上
+                var selVal = $('#fileListTable input[name="optionsRadios"]:checked').val();
+                console.log(selVal);
+                if(flag==1){
+                    $("#node").val(selVal);
+                }else{
+                    $("#info").val(selVal);
+                }                             
+            }
+        });
+        
+        //获取树列表
+        $.ajax({
+            type: "POST",
+            url: /*[[@{/admin/m/base/template/getFileTree.gsp}]]*/,
+            data: {codeNum:/*[[${codeNum}]]*/},
+            dataType: "json",
+            async:false,
+            success: function(data){   
+                var nodeList=data.obj.nodes;
+                listNodes(nodes,nodeList);
+            }
+        });
+        layui.tree({
+            elem : '#fileTreeView', // 指定元素      
+            target : '_blank', //是否新选项卡打开（比如节点返回href才有效）      
+            click : function(item) { //点击节点回调
+                
+                $.ajax({
+                    type: "POST",
+                    url: /*[[@{/admin/m/base/template/getFilesByPath.gsp}]]*/,
+                    data: {parentPath:item.filePath},
+                    dataType: "json",
+                    success: function(data){                                                     
+                        if(data==null){                           
+                            $('#fileListTable').empty();
+                            $('#fileListTable').append(
+                                  '<table class="layui-table" lay-even="" lay-skin="row">'+
+                                      '<thead><tr>'+
+                                      '<th style="width:40px;">#</th>'+
+                                      '<th style="width:200px;">名称</th>'+
+                                      '<th style="width:100px;">类型</th>'+
+                                      '<th style="width:100px;">大小</th>'+
+                                      '<th style="width:40px;">操作</th></tr></thead>'+ 
+                                    '<tbody><tr>'+
+                                       '<td colspan="5" style="text-align: center;">暂时没有数据</td>'+
+                                    '</tr></tbody></table>');
+                        }else{                            
+                            $('#fileListTable').empty();
+                            $('#fileListTable').append(
+                                  '<table class="layui-table" lay-even="" lay-skin="row">'+
+                                    '<thead><tr>'+
+                                       '<th style="width:40px;">#</th>'+
+                                       '<th style="width:200px;">名称</th>'+
+                                       '<th style="width:100px;">类型</th>'+
+                                       '<th style="width:100px;">大小</th>'+
+                                       '<th style="width:40px;">操作</th></tr></thead>'+ 
+                                    '<tbody id="tbody"></tbody></table>');                          
+                            $.each(data,function(index,file){
+                                 $('#tboay').empty();
+                                 var tr = $('<tr></tr>'); 
+                                 var td1 = $('<td style="text-align: center;"></td>');
+                                 var td2 = $('<td style="text-align: center;"></td>');
+                                 var td3 = $('<td style="text-align: center;"></td>');
+                                 var td4 = $('<td style="text-align: center;"></td>');
+                                 var td5 = $('<td style="text-align: center;"></td>');
+                                 td1.append('<label><input type="radio" value="'+file.filePath+'" name="optionsRadios" /></label>');
+                                 if(file.leaf==false){
+                                     td2.append('<label style="color:orange;">'+file.fileName+'</label>');
+                                 }else{
+                                     td2.append('<label style="color:blue;">'+file.fileName+'</label>');
+                                 }
+                                 if(file.format==""){
+                                     td3.append('<i class="layui-icon" style="font-size: 25px; color: orange;">&#xe622;</i>');                        
+                                 }else{
+                                     td3.append(file.format);                              
+                                 }
+                                 td4.append(file.fileLength);
+                                 td5.append('<a href="#" type="button" onclick="deleteFile(this)" filePath="' +file.filePath + '" class="layui-btn layui-btn-normal layui-btn-small"><i class="layui-icon"></i></a>');
+                                 tr.append(td1).append(td2).append(td3).append(td4).append(td5);
+                                 $('#tbody').append(tr);
+                            });
+                        } 
+                    }
+                });       
+            },
+            nodes :nodes
+        });    
+        
+    }
+    
+    function listNodes(parent,nodeList){
+        nodeList.forEach(function(e) {
+            var node = {};
+            node["name"] = e.text;
+            node["filePath"] = e.filePath;
+            node["leaf"] = e.leaf;
+            if(e.nodes.length>0){
+                var chr = [];
+                listNodes(chr,e.nodes);
+                node["children"] = chr;
+            }
+            parent.push(node);
+        })
+    }
+   
     var form = layui.form();
     //自定义验证规则
     form.verify({
@@ -150,14 +268,14 @@
             if (value.length < 2) {
                 return '文档模板至少得2个字哦！';
             } else if (value.length > 50) {
-                return '文档模板不能太长哦，最长20个字！';
+                return '文档模板不能太长哦，最长50个字！';
             }
         },
         sortOrder : function(value) {
             if (value.length < 1) {
-                return '排序字段至少得2个字哦！';
+                return '排序字段不能小于1！';
             } else if (value.length > 99) {
-                return '排序字段不能太长哦，最长20个字！';
+                return '排序字段不能大于99！';
             }
         }
     });
