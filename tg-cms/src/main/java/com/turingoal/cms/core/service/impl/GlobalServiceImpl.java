@@ -31,7 +31,7 @@ public class GlobalServiceImpl implements GlobalService {
     /**
      * 修改 全局参数，刷新缓存
      */
-    @CacheEvict(value = "sys-global")
+    @CacheEvict(value = "sys-global", allEntries = true)
     @MethodLog(name = "修改全局配置", description = "修改全局配置")
     public int update(final GlobalForm form) {
         form.setUpdateDataUsername(SystemHelper.getCurrentUsername());
