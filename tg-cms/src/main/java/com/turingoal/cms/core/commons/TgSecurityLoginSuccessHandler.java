@@ -17,6 +17,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import com.turingoal.cms.core.domain.User;
 import com.turingoal.common.domain.form.LogInfoForm;
 import com.turingoal.cms.core.domain.form.UserForm;
+import com.turingoal.cms.core.repository.GlobalDao;
 import com.turingoal.cms.core.repository.LogInfoDao;
 import com.turingoal.cms.core.repository.UserDao;
 import com.turingoal.common.constants.ConstantLogInfoTypes;
@@ -35,6 +36,8 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
     private UserDao userDao;
     @Autowired
     private LogInfoDao logInfoDao;
+    @Autowired
+    private GlobalDao globalDao;
 
     public TgSecurityLoginSuccessHandler() {
         super();
@@ -92,6 +95,8 @@ public class TgSecurityLoginSuccessHandler extends SimpleUrlAuthenticationSucces
             loginForm.setMessage("用户" + user.getUsername() + "[登录]系统【成功】！");
             loginForm.setSuccess(1);
             logInfoDao.add(loginForm);
+            // 全局配置信息
+            SystemHelper.setGlobal(globalDao.get());
         } catch (DataAccessException e) {
             if (log.isWarnEnabled()) {
                 log.info("无法更新用户登录信息至数据库");

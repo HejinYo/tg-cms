@@ -1,64 +1,62 @@
-<div class="site-title">
-	<fieldset>
-		<legend>
-			<a>修改文章</a>
-		</legend>
-	</fieldset>
-</div>
-<div class="site-text site-block">
-	<form th:action="@{/admin/m/base/info/edit.gsp}" id="editForm" th:object="${result}" role="form" method="post" class="layui-form">
-		<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{nodeId}" type="hidden" />
-		<div class="layui-form-item">
-			<label class="layui-form-label">文章标题：<span style="color: red">*</span></label>
-			<div class="layui-input-block">
-				<input maxlength="55" type="text" name="title" th:value="*{title}" lay-verify="title" placeholder="请输入文章标题" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">链接地址：</label>
-			<div class="layui-input-block">
-				<input th:field="*{linkPath}" placeholder="请输入链接地址" type="text" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">关键字：</label>
-			<div class="layui-input-block">
-				<input th:field="*{metaKeywords}" placeholder="请输入关键字" type="text" class="layui-input">
-			</div>
-		</div>
-		<div class="layui-form-item layui-form-text">
-			<label class="layui-form-label">描述：</label>
-			<div class="layui-input-block">
-				<textarea th:field="*{metaDescription}" placeholder="请输入描述" rows="3" class="layui-textarea"></textarea>
-			</div>
-		</div>
-		<div class="layui-form-item">
-			<div class="layui-inline">
-				<label class="layui-form-label">排序：<span style="color: red">*</span></label>
-				<div class="layui-input-inline">
-					<input type="number" th:field="*{sortOrder}" lay-verify="number" autocomplete="off" class="layui-input">
+<fieldset class="layui-elem-field">
+	<legend>修改文章</legend>
+	<div class="layui-field-box">
+		<div class="site-text site-block">
+			<form th:action="@{/admin/m/base/info/edit.gsp}" id="editForm" th:object="${result}" role="form" method="post" class="layui-form">
+				<input th:field="*{id}" type="text" hidden="true" /> <input th:field="*{nodeId}" type="hidden" />
+				<div class="layui-form-item">
+					<label class="layui-form-label">文章标题：<span style="color: red">*</span></label>
+					<div class="layui-input-block">
+						<input maxlength="55" type="text" name="title" th:value="*{title}" lay-verify="title" placeholder="请输入文章标题" class="layui-input">
+					</div>
 				</div>
-			</div>
-			<div class="layui-inline">
-				<label class="layui-form-label">发布日期：</label>
-				<div class="layui-input-inline">
-					<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" th:field="*{publishTime}" class="layui-input" onclick="layui.laydate({elem: this})">
+				<div class="layui-form-item">
+					<label class="layui-form-label">链接地址：</label>
+					<div class="layui-input-block">
+						<input th:field="*{linkPath}" placeholder="请输入链接地址" type="text" class="layui-input">
+					</div>
 				</div>
-				<div class="layui-form-mid">-</div>
-				<div class="layui-input-inline">
-					<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" th:field="*{offTime}" class="layui-input" onclick="layui.laydate({elem: this})">
+				<div class="layui-form-item">
+					<label class="layui-form-label">关键字：</label>
+					<div class="layui-input-block">
+						<input th:field="*{metaKeywords}" placeholder="请输入关键字" type="text" class="layui-input">
+					</div>
 				</div>
-			</div>
+				<div class="layui-form-item layui-form-text">
+					<label class="layui-form-label">描述：</label>
+					<div class="layui-input-block">
+						<textarea th:field="*{metaDescription}" placeholder="请输入描述" rows="3" class="layui-textarea"></textarea>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">排序：<span style="color: red">*</span></label>
+						<div class="layui-input-inline">
+							<input type="number" th:field="*{sortOrder}" lay-verify="number" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">发布日期：</label>
+						<div class="layui-input-inline">
+							<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" th:field="*{publishTime}" class="layui-input" onclick="layui.laydate({elem: this})">
+						</div>
+						<div class="layui-form-mid">-</div>
+						<div class="layui-input-inline">
+							<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" th:field="*{offTime}" class="layui-input" onclick="layui.laydate({elem: this})">
+						</div>
+					</div>
+				</div>
+				<div id="formBuilderDiv"></div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="submit1">提交</button>
+						<button type="button" class="layui-btn layui-btn-primary closeBtn">取消</button>
+					</div>
+				</div>
+			</form>
 		</div>
-		<div id="formBuilderDiv"></div>
-		<div class="layui-form-item">
-			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit="" lay-filter="submit1">提交</button>
-				<button type="button" class="layui-btn layui-btn-primary closeBtn">取消</button>
-			</div>
-		</div>
-	</form>
-</div>
+	</div>
+</fieldset>
 <script th:inline="javascript">
     /*<![CDATA[*/
     $('.closeBtn').click(function() {
