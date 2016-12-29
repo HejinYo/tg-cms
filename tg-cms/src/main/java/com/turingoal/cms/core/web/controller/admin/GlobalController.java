@@ -59,7 +59,7 @@ public class GlobalController {
          * if (bindingResult.hasErrors()) { String errorMsg = SpringBindingResultWrapper.warpErrors(bindingResult); return new JsonResultBean(JsonResultBean.FAULT, errorMsg); } else { globalService.update(form); return new JsonResultBean(JsonResultBean.SUCCESS); }
          */
         globalService.update(form);
-        return "redirect:/admin/m/base/global/edit.gsp";
+        return "redirect:/admin/c/global/edit.gsp";
     }
 
     /**

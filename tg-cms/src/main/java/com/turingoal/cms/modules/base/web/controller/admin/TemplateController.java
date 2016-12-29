@@ -56,6 +56,8 @@ public class TemplateController {
     @Autowired
     private TemplateService templateService;
 
+    private static String tabId = null;
+
     /**
      * 模板列表页面
      */
@@ -138,6 +140,7 @@ public class TemplateController {
     public final ModelAndView templateEdit(@PathVariable final String id) {
         ModelAndView mav = new ModelAndView(TEMPLATE_TAB_PAGE);
         mav.addObject("result", templateService.get(id));
+        tabId = id;
         return mav;
     }
 
@@ -273,12 +276,16 @@ public class TemplateController {
      * 创建一个新的文件
      */
     @RequestMapping(value = "/createFile.gsp")
-    @ResponseBody
-    public JsonResultBean createFile(final String filePath, final String fileName, final String content, final HttpServletRequest request) throws BusinessException, IOException {
+    public String createFile(final String filePath, final String fileName, final String content, final HttpServletRequest request) throws BusinessException, IOException {
         String path = request.getServletContext().getRealPath("/template/" + filePath);
         File file = new File(path);
         jodd.io.FileUtil.writeString(file, content);
-        return new JsonResultBean(JsonResultBean.SUCCESS);
+        if (tabId != null) {
+            return "redirect:/admin/m/base/template/templateTab_" + tabId + ".gsp";
+        } else {
+            return "redirect:/admin/m/base/template/list.gsp";
+        }
+
     }
 
     /**

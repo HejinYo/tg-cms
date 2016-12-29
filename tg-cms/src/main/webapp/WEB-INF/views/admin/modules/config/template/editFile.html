@@ -1,57 +1,73 @@
-<form th:action="@{/admin/m/base/template/createFile.gsp}" id="addForm" role="form" class="form-horizontal" action="#" method="post">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h4 class="modal-title">修改模板</h4>
-	</div>
-	<div class="modal-body">
-		<div class="row">
-			<div class="col-md-12">
-				<input type="hidden" name="filePath" th:value="${result.filePath}" />
-				<div class="form-group">
-					<label class="col-md-3 control-label">模板名称：</label>
-					<div class="col-md-7">
-						<input name="fileName" readonly="readonly" th:value="${result.fileName}" placeholder="请输入模板名称" type="text" class="form-control" />
-					</div>
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title th:text="|#{customer.systemTitle}-图灵谷-全局配置-全局配置|">图灵谷</title>
+<div th:replace="fragments/head_admin">head</div>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=gconfig,child=template)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/base/template/list.gsp}">模版配置</a> <a><cite>列表</cite></a>
+					</span>
 				</div>
-				<textarea name="content" id="codeMirror" th:text="${result.content}" style="width: 0px; height: 0px; position: absolute; border: none;"></textarea>
+				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
+					<i class="layui-icon">&#xe60b;</i> 模版配置
+				</blockquote>
+				<form th:action="@{/admin/m/base/template/createFile.gsp}" id="addForm" role="form" class="layui-form" action="#" method="post">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>修改模板</legend>
+					</fieldset>
+
+					<input type="hidden" name="filePath" th:value="${result.filePath}" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">模板名称：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input name="fileName" readonly="readonly" th:value="${result.fileName}" placeholder="请输入模板名称" type="text" class="layui-input" maxLength="21" />
+						</div>
+					</div>
+					<div class="layui-form-item">
+					   <label class="layui-form-label">模板内容：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<textarea name="content" th:utext="${result.content}" required rows="18"class="layui-textarea"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-
+		<div th:replace="fragments/footer_admin">底部</div>
 	</div>
-	<div class="modal-footer">
-		<button class="btn btn-primary" type="submit">
-			<strong>提 交</strong>
-		</button>
-		<button type="button" class="btn btn-default" data-dismiss="modal">
-			<strong>关 闭</strong>
-		</button>
-	</div>
-</form>
+</body>
+<div th:replace="fragments/import_js_admin">引入js</div>
+</html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-    //加载完成后执行
-    var editor_two = CodeMirror.fromTextArea(document.getElementById("codeMirror"), {
-        lineNumbers : true,
-        matchBrackets : true
-    });
-    $("#templateWin").on("shown.bs.modal", function() {
-        editor_two.refresh();
-    });
-
-    $(function() {
-        var rules = {
-            fileName : {
-                required : true,
-                maxlength : 20
-            },
-            content : {
-                required : true
-            }
+    var form = layui.form();
+    //自定义验证规则
+    form.verify({
+        fileName : function(value) {
+            if (value.length < 1) {
+                return '模版名称不能为空！';
+            } 
+        },
+        content : function(value) {
+            if (value.length < 1) {
+                return '模版内容不能为空！';
+            } 
         }
-        var messages = {
-
-        }
-        fileListTable.add('templateWin', 'addForm', rules, messages);
+    });
+    //监听提交
+    form.on('submit(submit1)', function(data) {
     });
     /*]]>*/
 </script>
