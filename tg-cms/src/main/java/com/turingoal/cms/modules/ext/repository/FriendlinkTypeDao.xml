@@ -13,6 +13,16 @@
         SELECT * FROM tg_cms_m_ext_friendlink_type WHERE id = #{id}
     </select>
     
+     <!-- 通过名称等到一个友情链接类型-->
+    <select id="getByTypeName" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.FriendlinkType">
+        SELECT * FROM tg_cms_m_ext_friendlink_type WHERE type_name = #{typeName}
+    </select>
+    
+     <!-- 通过编码的得到一个友情链接类型-->
+    <select id="getByCodeNum" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.FriendlinkType">
+        SELECT * FROM tg_cms_m_ext_friendlink_type WHERE code_num = #{codeNum}
+    </select>
+    
     <!-- 新增 一个友情链接类型 -->
     <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.FriendlinkTypeForm">
         INSERT INTO tg_cms_m_ext_friendlink_type (

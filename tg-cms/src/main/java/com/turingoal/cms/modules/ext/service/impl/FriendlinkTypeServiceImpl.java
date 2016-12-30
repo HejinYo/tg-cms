@@ -40,6 +40,22 @@ public class FriendlinkTypeServiceImpl implements FriendlinkTypeService {
     }
 
     /**
+     * 通过名称等到一个友情链接类型
+     */
+    @MethodLog(name = "通过名称等到一个友情链接类型", description = "通过名称等到一个友情链接类型")
+    public FriendlinkType getByTypeName(final String typeName) {
+        return friendlinkTypeDao.getByTypeName(typeName);
+    }
+
+    /**
+     * 通过编码的得到一个友情链接类型
+     */
+    @MethodLog(name = "通过编码的得到一个友情链接类型", description = "通过编码的得到一个友情链接类型")
+    public FriendlinkType getByCodeNum(final String codeNum) {
+        return friendlinkTypeDao.getByCodeNum(codeNum);
+    }
+
+    /**
      * 新增 友情链接类型
      */
     @MethodLog(name = "新增友情链接类型", description = "新增一个友情链接类型，返回id")
@@ -80,4 +96,5 @@ public class FriendlinkTypeServiceImpl implements FriendlinkTypeService {
     public void disable(final String id) {
         friendlinkTypeDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
     }
+
 }

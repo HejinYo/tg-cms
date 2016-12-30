@@ -73,6 +73,26 @@ public class FriendlinkTypeController {
     }
 
     /**
+     * 检查名称是否重复
+     */
+    @RequestMapping(value = "/checkTypeName.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkTypeName(@ModelAttribute("typeName") final String typeName, @ModelAttribute("id") final String id) throws BusinessException {
+        FriendlinkType friendlinkType = friendlinkTypeService.getByTypeName(typeName);
+        return !(friendlinkType != null && !id.equals(friendlinkType.getId()));
+    }
+
+    /**
+     * 检查编码是否重复
+     */
+    @RequestMapping(value = "/checkCodeNum.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkCodeNum(@ModelAttribute("codeNum") final String codeNum, @ModelAttribute("id") final String id) throws BusinessException {
+        FriendlinkType friendlinkType = friendlinkTypeService.getByCodeNum(codeNum);
+        return !(friendlinkType != null && !id.equals(friendlinkType.getId()));
+    }
+
+    /**
      * 新增界面
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.GET)

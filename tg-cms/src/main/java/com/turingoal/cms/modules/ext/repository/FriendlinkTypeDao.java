@@ -22,6 +22,16 @@ public interface FriendlinkTypeDao {
     FriendlinkType get(final String id);
 
     /**
+     * 通过名称等到一个友情链接类型
+     */
+    FriendlinkType getByTypeName(final String typeName);
+
+    /**
+     * 通过编码的得到一个友情链接类型
+     */
+    FriendlinkType getByCodeNum(final String codeNum);
+
+    /**
      * 新增 友情链接类型
      */
     void add(final FriendlinkTypeForm form);
