@@ -33,7 +33,7 @@
                     <thead id="dataTable">
                         <tr>
                             <th style="width: 40px">#</th>
-                            <th>状态</th>
+                            <th style="width: 40px">状态</th>
                             <th>是否推荐</th>
                             <th>链接类型</th>
                             <th>链接名称</th>
@@ -49,7 +49,7 @@
                         </tr>
                         <tr th:each="item,items:${friendlinkList.records}">
                             <td th:text="${friendlinkList.pageSize*(friendlinkList.page-1)+items.index+1}" style="text-align: center;">序号</td>
-                            <td th:text="${item.enabled==1?'启用':'停用'}">状态</td>
+                            <td class="layui-form"><input lay-filter="filter" th:id="${item.id}" lay-skin="switch" type="checkbox" th:attr="checked=${item.enabled ==1}"></td>
                             <td th:text="${item.recommend==1?'是':'否'}">是否推荐</td>
                             <td th:text="${item.typeName}">链接类型</td>
                             <td th:text="${item.flName}">链接名称</td>
@@ -74,6 +74,45 @@
 <!--/***** 当前页js start *****/-->
 <script th:inline="javascript">
     /*<![CDATA[*/
+    var form = layui.form();
+    var enableUrl = /*[[@{/admin/m/ext/friendlink/enable_{id}.gsp}]]*/;
+    var disableUrl = /*[[@{/admin/m/ext/friendlink/disable_{id}.gsp}]]*/;
+    form.on('switch(filter)', function(data){
+        var id = data.elem.id;
+        if(!$("#" + data.elem.id).prop("checked")){  
+            layer.confirm('您确定要停用吗？', {
+                btn: ['确定','取消'] 
+            }, function(){
+             //停用
+             var url = disableUrl.replace("{id}",data.elem.id);
+             $.post(url,{'id':data.elem.id},function(){    
+                 $("#" + data.elem.id).prop("checked", false);
+                 $("#" + data.elem.id).next().removeClass("layui-form-onswitch");
+             });  
+             layer.msg('停用成功！', {icon: 1});
+             setTimeout(function(){window.location.reload();},1000);
+            }, function(){
+                $("#" + data.elem.id).prop("checked", true);
+                $("#" + data.elem.id).next().addClass("layui-form-onswitch");
+            });
+        }else if($("#" + data.elem.id).prop("checked")){   
+            layer.confirm('您确定要启用吗？', {
+                btn: ['确定','取消'] 
+            }, function(){
+          //启用
+          var url = enableUrl.replace("{id}",data.elem.id);
+          $.post(url,{'id':data.elem.id},function(){
+              $("#" + data.elem.id).prop("checked", true);
+              $("#" + data.elem.id).next().addClass("layui-form-onswitch");
+          });
+          layer.msg('启用成功！', {icon: 1});
+          setTimeout(function(){window.location.reload();},1000);
+          }, function(){
+              $("#" + data.elem.id).prop("checked", false);
+              $("#" + data.elem.id).next().removeClass("layui-form-onswitch");
+          });
+        }    
+    });  
     var result = /*[[${friendlinkList}]]*/;
     $(function(){
         var option = {
