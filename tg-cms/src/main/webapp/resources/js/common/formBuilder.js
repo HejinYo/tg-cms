@@ -32,14 +32,15 @@ function createSingleCombobox(record) {
             var optionValues = options[i].split("=");
             var optionValue = optionValues[0];
             var optionText = optionValues.length == 1 ? optionValues[0] : optionValues[1];
-            container.append($("<label></label>").addClass('radio-inline').append($('<input />').attr('type', 'radio').attr('name', record.fieldName).attr('value', optionValue)).append(optionText));
+            // container.append($("<label></label>").addClass('radio-inline').append($('<input
+            // />').attr('type', 'radio').attr('name',
+            // record.fieldName).attr('value',
+            // optionValue)).append(optionText));
+            container.append($("<input />").attr('type', 'radio').attr('name', record.fieldName).attr('value', optionValue).attr('title', optionText));
         }
         var valueStr = record.innerType == 1 ? record.valueStr : record._result[record.fieldName];
         if (valueStr != null && valueStr != '') {
-            var values = valueStr.split(',');
-            for (var j = 0; j < values.length; j++) {
-                container.find('input[value="' + values[j] + '"]').attr('checked', 'checked');
-            }
+            container.find('input[value="' + valueStr + '"]').attr('checked', 'checked');
         }
 
     }
@@ -154,12 +155,16 @@ function initImage(ids, filedName) {
                     // class="file-item thumbnail col-xs-2" id="' + divId + '">'
                     // + '<img><a class="pull-right delBtn" style="cursor:
                     // pointer;">删除</a></div>');
-                    var $li = $('<input type="hidden" id="' + filedName + 'Input" name="' + filedName + '" value="' + id + '">');
+                    // --var $li = $('<input type="hidden" id="' + filedName +
+                    // 'Input" name="' + filedName + '" value="' + id + '">');
                     // $li.find('img').attr('src', src).width(110).height(110);
-                    $(showImageId).parent().parent().append($li);
+                    var $li = $('<div class="' + filedName + 'ImgShow"><br/><br/><div style="width:120px; height:140px;" id="' + divId + '">' + '<img><a class="delBtn" style="cursor:pointer;color:red;">删除</a><input type="hidden" id="' + filedName
+                            + 'Input" name="' + filedName + '" value="' + id + '"></div><div>');
+                    $li.find('img').attr('src', src).width(110).height(110);
+                    $(showImageId).parent().parent().parent().append($li);
                 }
-                $(showImageId).on('click', '.delBtn', function() {
-                    $(this).parent().remove();
+                $(showImageId + 'Div').on('click', '.delBtn', function() {
+                    $(this).parent().parent().remove();
                 });
             }
         });
@@ -206,11 +211,11 @@ function createAttr(record) {
         var rs = $.parseJSON(d);
         if (rs.obj != null && rs.obj.length > 0) {
             for (var i = 0; i < rs.obj.length; i++) {
-                var checkbox = $('<input />').attr('type', 'checkbox').attr('name', record.fieldName).val(rs.obj[i].id);
+                var checkbox = $('<input />').attr('type', 'checkbox').attr('name', record.fieldName).attr('title', rs.obj[i].attName).val(rs.obj[i].id);
                 if (rs.obj[i].infoId != null) {
                     checkbox.attr('checked', 'checked');
                 }
-                container.append($("<label></label>").addClass('checkbox-inline').append(checkbox).append(rs.obj[i].attName));
+                container.append(checkbox);
             }
         }
     });
@@ -226,7 +231,7 @@ function formBuilder(options, result, sucFun) {
         var ueditors = $('<div>');
         var ueditorIds = [];
 
-        var singleFiles = $('<div class="layui-form-item"><div class="layui-inline">');
+        var singleFiles = $('<div class="layui-form-item 1"><div class="layui-inline">');
         for (var i = 0; i < records.length; i++) {
             var record = records[i];
             var field = null;
@@ -261,7 +266,7 @@ function formBuilder(options, result, sucFun) {
             }
             var formGroup = $('<div></div></div>').addClass('layui-form-item');
             var label = $("<label></label>").addClass('layui-form-label').html(record.fieldLabel + "：");
-            var inputDiv = $('<div></div></div>').addClass('layui-input-block');
+            var inputDiv = $('<div></div></div>').addClass('layui-input-block').attr("id", record.fieldName + "Div");
             inputDiv.append(field);
             formGroup.append(label);
             formGroup.append(inputDiv);
@@ -270,7 +275,7 @@ function formBuilder(options, result, sucFun) {
                 ueditors.append(formGroup);
             } else if (record.type == 7 || record.type == 9 || record.type == 10 || record.type == 11) {
                 inputDiv.removeClass('layui-input-block').addClass('layui-input-inline');
-                singleFiles.find('.layui-inline').append(inputDiv);
+                singleFiles.find('.layui-inline').append('<label class="layui-form-label"></label>').append(inputDiv);
             } else {
                 $("#formBuilderDiv").append(formGroup);
             }
@@ -293,13 +298,11 @@ function formBuilder(options, result, sucFun) {
         }
 
         if ($('.input-group.date')) {
-            $('.input-group.date').datepicker({
-                todayBtn : "linked",
-                keyboardNavigation : false,
-                forceParse : false,
-                calendarWeeks : true,
-                autoclose : true
-            });
+            /*
+             * $('.input-group.date').datepicker({ todayBtn : "linked",
+             * keyboardNavigation : false, forceParse : false, calendarWeeks :
+             * true, autoclose : true });
+             */
         }
         if (sucFun) {
             sucFun();
@@ -320,11 +323,8 @@ function tg_imgUpload(id) {
         success : function(res) {
             if (res.success) { // 上传成功
                 $("#" + id).parent().next().text("上传成功");
-                if ($("#" + id + "Input").length > 0) {
-                    $("#" + id + "Input").attr("value", res.obj);
-                } else {
-                    $("#" + id).parent().after($('<input id="' + id + 'Input" type="text" name="' + id + '" value="' + res.obj + '" hidden="hidden">'));
-                }
+                $('.' + id + 'ImgShow').remove();
+                initImage(res.obj, id);
             } else {
                 ("#" + id).parent().next().text("上传失败");
             }

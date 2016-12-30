@@ -59,6 +59,7 @@
 </fieldset>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    var form = layui.form();
     $('.closeBtn').click(function() {
         var infoListUrl = /*[[@{/admin/m/base/info/infoList.gsp?nodeId={nodeId}(nodeId=${result.nodeId})}]]*/'';
         $("#infoContent").load(infoListUrl);
@@ -69,6 +70,7 @@
         ownerId : /*[[${result.infoModelId}]]*/'ownerId',
         valueOwnerId : /*[[${result.id}]]*/'id',
     }, result, function() {
+        window.setInterval("form.render();", 1000);
     });
     /*]]>*/
 </script>
