@@ -13,14 +13,12 @@
 				<table class="layui-table">
 					<thead>
 						<tr>
-							<th>#</th>
 							<th>参数名称</th>
 							<th>参数值</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="resultItem,itemStat : ${resultList}" class="gradeX">
-							<td th:text="${itemStat.index+1}">1</td>
 							<td th:text="${resultItem.name}">name</td>
 							<td th:text="${resultItem.value}">value</td>
 						</tr>
