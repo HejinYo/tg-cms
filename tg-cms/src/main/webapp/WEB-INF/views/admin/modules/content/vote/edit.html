@@ -7,92 +7,92 @@
 <!--/***** 当前页css  end *****/-->
 </head>
 <body>
-    <div class="layui-layout layui-layout-admin">
-        <div th:replace="fragments/nav_admin">导航栏</div>
-        <div th:replace="fragments/menu_admin::menu(parent=content,child=vote)">菜单栏</div>
-        <!--/*******内容*******/-->
-        <div class="layui-body">
-            <div class="layui-main">
-                <!--/***** 面包屑 *****/-->
-                <div class="layui-elem-quote" style="margin-top: 10px;">
-                    <span class="layui-breadcrumb"> <a><cite>内容管理</cite></a><a th:href="@{/admin/m/ext/vote/list.gsp}">投票管理</a><a><cite>修改</cite></a>
-                    </span>
-                </div>
-                <!--/*******操作*******/-->
-                <form th:action="@{/admin/m/ext/vote/edit.gsp}" id="editForm" th:object="${result}" role="form" method="post" class="layui-form">
-                    <fieldset class="layui-elem-field layui-field-title">
-                        <legend>投票管理-修改</legend>
-                    </fieldset>
-                    <input th:field="*{id}" type="text" hidden="true" />
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">投票标题：<span style="color: red">*</span></label>
-                        <div class="layui-input-block">
-                            <input type="text" th:field="*{title}" required lay-verify="title" placeholder="请输入投票标题" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">模式：<span style="color: red">*</span></label>
-                            <div class="layui-input-inline">
-                                <select th:field="*{voteMode}">
-                                    <option value="1">独立访客</option>
-                                    <option value="2">独立IP</option>
-                                    <option value="3">独立用户</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">投票编码：<span style="color: red">*</span></label>
-                            <div class="layui-input-block">
-                                <input type="text" th:field="*{codeNum}" required lay-verify="title" placeholder="请输入投票编码" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">开始时间：<span style="color: red">*</span></label>
-                            <div class="layui-input-inline">
-                                <input type="text" th:field="*{startTime}" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">开始时间：</label>
-                            <div class="layui-input-block">
-                                <input type="text" th:field="*{endTime}" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-inline">
-                            <label class="layui-form-label">间隔天数：<span style="color: red">*</span></label>
-                            <div class="layui-input-inline">
-                                <input type="number" th:field="*{intervalDays}" required lay-verify="number" min="0" max="99" placeholder="请输入间隔天数" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">最多可选项：<span style="color: red">*</span></label>
-                            <div class="layui-input-block">
-                                <input type="number" th:field="*{maxSelected}" required lay-verify="number" min="0" max="99" placeholder="请输入最多可选项" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item layui-form-text">
-                        <label class="layui-form-label">描述：</label>
-                        <div class="layui-input-block">
-                            <textarea th:field="*{description}" placeholder="最多输入140字" lay-verify="description" rows="3" class="layui-textarea"></textarea>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div th:replace="fragments/footer_admin">底部版权信息等</div>
-    </div>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=content,child=vote)">菜单栏</div>
+		<!--/*******内容*******/-->
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>内容管理</cite></a><a th:href="@{/admin/m/ext/vote/list.gsp}">投票管理</a><a><cite>修改</cite></a>
+					</span>
+				</div>
+				<!--/*******操作*******/-->
+				<form th:action="@{/admin/m/ext/vote/edit.gsp}" id="editForm" th:object="${result}" role="form" method="post" class="layui-form">
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>投票管理-修改</legend>
+					</fieldset>
+					<input th:field="*{id}" type="text" hidden="true" />
+					<div class="layui-form-item">
+						<label class="layui-form-label">投票标题：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{title}" required lay-verify="title" placeholder="请输入投票标题" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">模式：<span style="color: red">*</span></label>
+							<div class="layui-input-inline">
+								<select th:field="*{voteMode}" lay-verify="required">
+									<option value="1">独立访客</option>
+									<option value="2">独立IP</option>
+									<option value="3">独立用户</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">投票编码：<span style="color: red">*</span></label>
+							<div class="layui-input-block">
+								<input type="text" th:field="*{codeNum}" required lay-verify="codeNum" placeholder="请输入投票编码" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">开始时间：<span style="color: red">*</span></label>
+							<div class="layui-input-inline">
+								<input type="text" th:field="*{startTime}" lay-verify="startTime" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">结束时间：</label>
+							<div class="layui-input-block">
+								<input type="text" th:field="*{endTime}" lay-verify="endTime" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">间隔天数：<span style="color: red">*</span></label>
+							<div class="layui-input-inline">
+								<input type="number" th:field="*{intervalDays}" required lay-verify="required" min="1" max="999" placeholder="请输入间隔天数" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">最多可选项：<span style="color: red">*</span></label>
+							<div class="layui-input-inline">
+								<input type="number" th:field="*{maxSelected}" required lay-verify="required" min="0" max="20" placeholder="请输入最多可选项" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">描述：</label>
+						<div class="layui-input-block">
+							<textarea th:field="*{description}" placeholder="最多输入140字" lay-verify="description" rows="3" class="layui-textarea"></textarea>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div th:replace="fragments/footer_admin">底部版权信息等</div>
+	</div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
 <!--/***** 当前页js start *****/-->
@@ -102,21 +102,35 @@
     var $ = layui.jquery;
   //自定义验证规则
     var rules = {
-        title : function(value) {
-            if (value.length < 1 || value.length > 40) {
-                return '投票标题在1~20个字符之间';
+            title : function(value) {
+                if (value.length <= 0) {
+                    return '投票标题必填';
+                }else if(value.length > 40){
+                    return '投票标题不能超过40个字';
+                }
+            },
+            codeNum : function(value){
+                if(value.length < 2 || value.length > 20) {
+                    return '投票编码在2~20个字符之间';
+                }
+            },
+            startTime : function(value){
+                if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                    return '日期格式不正确';
+                }
+            },
+            endTime : function(value){
+                if(value.length > 0){
+                    if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                        return '日期格式不正确';
+                    }
+                }
+            },
+            description : function(value){
+                if(value.length > 140) {
+                    return '描述不能超过140个字符';
+                }
             }
-        },
-        codeNum : function(value){
-            if(value.length < 2 || value.length > 20) {
-                return '投票编码在2~20个字符之间';
-            }
-        },
-        description : function(value){
-            if(value.length > 140) {
-                return '描述不能超过140个字符';
-            }
-        }
     };
     form.verify(rules);
     /*]]>*/

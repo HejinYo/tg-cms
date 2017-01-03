@@ -15,9 +15,6 @@
 					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a th:href="@{/admin/m/base/attr/list.gsp}">文章属性</a> <a><cite>列表</cite></a>
 					</span>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 文章属性
-				</blockquote>
 				<form th:action="@{/admin/m/base/attr/edit.gsp}" th:object="${result}" class="layui-form" id="editForm" role="form" action="#" method="post">
 					<fieldset class="layui-elem-field layui-field-title">
 						<legend>新增文章属性</legend>

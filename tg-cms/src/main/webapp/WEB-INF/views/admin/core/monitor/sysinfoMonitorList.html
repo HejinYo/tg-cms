@@ -1,10 +1,8 @@
 <!DOCTYPE html>
 <html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title th:text="|#{customer.systemTitle}-管理中心-系统监控-缓存监控|">图灵谷</title>
+<title th:text="|#{customer.systemTitle}-管理中心-系统监控-系统信息|">图灵谷</title>
 <div th:replace="fragments/head_admin">head</div>
-<!--/***** 当前页css  start *****/-->
-<!--/***** 当前页css  end *****/-->
 </head>
 <body>
 	<div class="layui-layout layui-layout-admin">
@@ -17,20 +15,15 @@
 					<span class="layui-breadcrumb"> <a><cite>系统监控</cite></a> <a><cite>系统信息</cite></a>
 					</span>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 系统信息
-				</blockquote>
 				<table class="layui-table" lay-even="" lay-skin="row">
 					<thead>
 						<tr>
-							<th>#</th>
 							<th>参数名称</th>
 							<th>参数值</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="resultItem,itemStat : ${resultList}" class="gradeX">
-							<td th:text="${itemStat.index+1}" style="text-align: center;">1</td>
 							<td th:text="${resultItem.name}">name</td>
 							<td th:text="${resultItem.value}">value</td>
 						</tr>

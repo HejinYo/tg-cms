@@ -63,9 +63,9 @@
 							<td th:text="${item.typeName}">专题类型</td>
 							<td th:text="${item.viewsCount}">浏览总数</td>
 							<td th:text="${item.recommend==1?'是':'否'}">是否推荐</td>
-							<td th:text="${item.createDataTime}">创建日期</td>
+							<td th:text="${item.createDataTime!=null?#dates.format(item.createDataTime,'yyyy-MM-dd HH-mm-ss'):''}">创建日期</td>
 							<td style="text-align: center;"><a class="layui-btn layui-btn-small layui-btn-primary" th:href="@{/admin/m/base/special/infoList_{id}.gsp(id=${item.id})}"><i class="layui-icon">&#xe615;</i></a><a class="layui-btn layui-btn-small"
-								th:href="@{/admin/m/base/special/edit_{id}.htm(id=${item.id})}"><i class="layui-icon">&#xe642;</i></a>
+								th:href="@{/admin/m/base/special/edit_{id}.gsp(id=${item.id})}"><i class="layui-icon">&#xe642;</i></a>
 								<button class="layui-btn layui-btn-small layui-btn-normal" th:onclick="|deleted('${item.id}')|">
 									<i class="layui-icon">&#xe640;</i>
 								</button></td>

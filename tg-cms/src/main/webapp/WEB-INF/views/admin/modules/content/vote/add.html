@@ -26,14 +26,14 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label">投票标题：<span style="color: red">*</span></label>
                         <div class="layui-input-block">
-                            <input type="text" name="title" required lay-verify="title" placeholder="请输入投票标题" autocomplete="off" class="layui-input">
+                            <input type="text" name="title" lay-verify="title" required placeholder="请输入投票标题" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-form-item">
                         <div class="layui-inline">
                             <label class="layui-form-label">模式：<span style="color: red">*</span></label>
                             <div class="layui-input-inline">
-                                <select name="voteMode">
+                                <select name="voteMode" lay-verify="required">
                                     <option value="1">独立访客</option>
                                     <option value="2">独立IP</option>
                                     <option value="3">独立用户</option>
@@ -43,7 +43,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">投票编码：<span style="color: red">*</span></label>
                             <div class="layui-input-block">
-                                <input type="text" name="codeNum" required lay-verify="title" placeholder="请输入投票编码" autocomplete="off" class="layui-input">
+                                <input type="text" name="codeNum" required lay-verify="codeNum" placeholder="请输入投票编码" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -51,13 +51,13 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">开始时间：<span style="color: red">*</span></label>
                             <div class="layui-input-inline">
-                                <input type="text" name="startTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                                <input type="text" name="startTime" lay-verify="startTime" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">开始时间：</label>
+                            <label class="layui-form-label">结束时间：</label>
                             <div class="layui-input-block">
-                                <input type="text" name="endTime" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+                                <input type="text" name="endTime" lay-verify="endTime" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
                             </div>
                         </div>
                     </div>
@@ -65,13 +65,13 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">间隔天数：<span style="color: red">*</span></label>
                             <div class="layui-input-inline">
-                                <input type="number" name="intervalDays" required value="0" lay-verify="number" min="0" max="99" placeholder="请输入间隔天数" autocomplete="off" class="layui-input">
+                                <input type="number" name="intervalDays" required lay-verify="required" min="1" max="999" placeholder="请输入间隔天数" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">最多可选项：<span style="color: red">*</span></label>
-                            <div class="layui-input-block">
-                                <input type="number" name="maxSelected" required value="0" lay-verify="number" min="0" max="99" placeholder="请输入最多可选项" autocomplete="off" class="layui-input">
+                            <div class="layui-input-inline">
+                                <input type="number" name="maxSelected" required lay-verify="required" min="0" max="20" placeholder="请输入最多可选项" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                     </div>
@@ -102,13 +102,27 @@
   //自定义验证规则
     var rules = {
         title : function(value) {
-            if (value.length < 1 || value.length > 40) {
-                return '投票标题在1~20个字符之间';
+            if (value.length <= 0) {
+                return '投票标题必填';
+            }else if(value.length > 40){
+                return '投票标题不能超过40个字';
             }
         },
         codeNum : function(value){
             if(value.length < 2 || value.length > 20) {
                 return '投票编码在2~20个字符之间';
+            }
+        },
+        startTime : function(value){
+            if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                return '日期格式不正确';
+            }
+        },
+        endTime : function(value){
+            if(value.length > 0){
+                if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                    return '日期格式不正确';
+                }
             }
         },
         description : function(value){

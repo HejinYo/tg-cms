@@ -15,9 +15,6 @@
 					<span class="layui-breadcrumb"> <a><cite>站点管理</cite></a> <a href="#">栏目管理</a> <a><cite>列表</cite></a>
 					</span>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 栏目管理
-				</blockquote>
 				<blockquote class="layui-elem-quote layui-quote-nm">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
@@ -30,7 +27,7 @@
 						<tr>
 							<th style="width: 40px;">#</th>
 							<th style="width: 60px;">状态</th>
-							<th>栏目名称</th>							
+							<th>栏目名称</th>
 							<th>栏目代码</th>
 							<th>栏目模板</th>
 							<th>文档模板</th>
@@ -45,7 +42,7 @@
 							<td colspan="10" style="text-align: center;">暂时没有数据</td>
 						</tr>
 						<tr th:each="item,itemStat:${nodeList}">
-							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>							
+							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>
 							<td class="layui-form"><input lay-filter="filter" th:id="${item.id}" lay-skin="switch" type="checkbox" th:attr="checked=${item.enabled ==1}"></td>
 							<td th:text="${item.noddName}" style="text-align: center;"></td>
 							<td th:text="${item.codeNum}"></td>

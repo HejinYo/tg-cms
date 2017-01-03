@@ -15,9 +15,6 @@
 					<span class="layui-breadcrumb"> <a><cite>系统监控</cite></a> <a><cite>登录日志</cite></a>
 					</span>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 系统的登录日志
-				</blockquote>
 				<!--/*******操作*******/-->
 				<form th:action="@{/admin/c/monitor/log/listLogin.gsp}" method="get">
 					<div class="layui-form-item">
@@ -49,8 +46,8 @@
 							<th width="40px">结果</th>
 							<th width="120px">用户</th>
 							<th width="120px">ip</th>
-							<th width="200px">登录地址</th>
-							<th width="150px">操作时间</th>
+							<th>登录地址</th>
+							<th width="150px">登录时间</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -93,7 +90,6 @@
         };
         tg_basePage(option);
     })
-    
 	layui.use('laydate', function() {
 	    var laydate = layui.laydate;
 	    var start = {

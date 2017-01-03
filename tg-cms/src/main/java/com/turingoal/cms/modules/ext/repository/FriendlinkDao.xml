@@ -33,8 +33,9 @@
     
     <!-- 通过id得到一个友情链接信息-->
     <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.Friendlink">
-        SELECT linktype.type_name as type_name,link.* FROM tg_cms_m_ext_friendlink link
+        SELECT linktype.type_name as type_name, image.img_path, link.* FROM tg_cms_m_ext_friendlink link
             LEFT JOIN tg_cms_m_ext_friendlink_type linktype ON link.type_id = linktype.id
+            LEFT JOIN tg_cms_m_base_image image ON image.id = link.fl_logo
         WHERE link.id = #{id}
     </select>
     

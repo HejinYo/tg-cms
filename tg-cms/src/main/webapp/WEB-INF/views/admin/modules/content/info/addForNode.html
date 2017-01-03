@@ -7,42 +7,42 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label">文章标题：<span style="color: red">*</span></label>
 					<div class="layui-input-block">
-						<input maxlength="55" type="text" name="title" tlay-verify="title" placeholder="请输入文章标题" class="layui-input">
+						<input maxlength="55" type="text" name="title" required lay-verify="title" placeholder="请输入文章标题" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">链接地址：</label>
 					<div class="layui-input-block">
-						<input name="linkPath" placeholder="请输入链接地址" type="text" class="layui-input">
+						<input name="linkPath" placeholder="请输入链接地址，http://" lay-verify="linkPath" type="text" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<label class="layui-form-label">关键字：</label>
 					<div class="layui-input-block">
-						<input name="metaKeywords" placeholder="请输入关键字" type="text" class="layui-input">
+						<input name="metaKeywords" placeholder="请输入关键字" lay-verify="metaKeywords" type="text" class="layui-input">
 					</div>
 				</div>
 				<div class="layui-form-item layui-form-text">
 					<label class="layui-form-label">描述：</label>
 					<div class="layui-input-block">
-						<textarea name="metaDescription" placeholder="请输入描述" rows="3" class="layui-textarea"></textarea>
+						<textarea name="metaDescription" placeholder="请输入描述" lay-verify="metaDescription" rows="3" class="layui-textarea"></textarea>
 					</div>
 				</div>
 				<div class="layui-form-item">
 					<div class="layui-inline">
 						<label class="layui-form-label">排序：<span style="color: red">*</span></label>
 						<div class="layui-input-inline">
-							<input type="number" name="sortOrder" lay-verify="number" autocomplete="off" class="layui-input">
+							<input type="number" name="sortOrder" min="1" max="100" lay-verify="sortOrder" autocomplete="off" class="layui-input">
 						</div>
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label">发布日期：</label>
 						<div class="layui-input-inline">
-							<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" name="publishTime" class="layui-input" onclick="layui.laydate({elem: this})">
+							<input type="text" lay-verify="publishTime" placeholder="yyyy-mm-dd" autocomplete="off" name="publishTime" class="layui-input" onclick="layui.laydate({elem: this})">
 						</div>
 						<div class="layui-form-mid">-</div>
 						<div class="layui-input-inline">
-							<input type="text" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" name="offTime" class="layui-input" onclick="layui.laydate({elem: this})">
+							<input type="text" lay-verify="offTime" placeholder="yyyy-mm-dd" autocomplete="off" name="offTime" class="layui-input" onclick="layui.laydate({elem: this})">
 						</div>
 					</div>
 				</div>
@@ -60,6 +60,54 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var form = layui.form();
+
+    //自定义验证规则
+    form.verify({
+        title : function(value) {
+            if (value.length <= 0) {
+                return '文章标题必填';
+            } else if (value.length > 40) {
+                return '这标题也太长了，最长40个字哦！';
+            }
+        },
+        linkPath : function(value) {
+            if (value.length > 0) {
+                if(!/(^#)|(^http(s*):\/\/[^\s]+\.[^\s]+)/.test(value)){
+                    return '链接格式不正确'
+                }
+            }
+        },
+        metaKeywords : function(value) {
+            if (value.length > 100) {
+                return '关键字不能太长哦，最长100字！'
+            }
+        },
+        sortOrder : function(value) {
+            if (value < 1 || value > 100) {
+                return '排序需在1~100之间'
+            }
+        },
+        metaDescription : function(value) {
+            if (value.length > 140) {
+                return '描述不能太长哦，最长140字！';
+            }
+        },
+        publishTime : function(value) {
+            if (value.length > 0) {
+                if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                    return '日期格式不正确';
+                }
+            }
+        },
+        offTime : function(value) {
+            if (value.length > 0) {
+                if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                    return '日期格式不正确';
+                }
+            }
+        }
+    });
+
     $('.closeBtn').click(function() {
         var infoListUrl = /*[[@{/admin/m/base/info/infoList.gsp?nodeId={nodeId}(nodeId=${node.id})}]]*/'';
         $("#infoContent").load(infoListUrl);
@@ -70,7 +118,7 @@
         ownerId : infoModelId,
         valueOwnerId : '' // 新增不需要
     }, null, function() {
-        window.setInterval("form.render();", 1000);
+        window.setTimeout("form.render();", 2000);
     });
     /*]]>*/
 </script>

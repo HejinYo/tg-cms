@@ -5,65 +5,62 @@
 <div th:replace="fragments/head_admin">head</div>
 </head>
 <body>
-    <div class="layui-layout layui-layout-admin">
-        <div th:replace="fragments/nav_admin">导航栏</div>
-        <div th:replace="fragments/menu_admin::menu(parent=site,child=guestbookType)">菜单栏</div>
-        <div class="layui-body">
-            <div class="layui-main">
-                <!--/***** 面包屑 *****/-->
-                <div class="layui-elem-quote" style="margin-top: 10px;">
-                    <span class="layui-breadcrumb"> <a><cite>站点管理</cite></a> <a href="#">留言板类型</a> <a><cite>列表</cite></a>
-                    </span>
-                </div>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-                    <i class="layui-icon">&#xe60b;</i> 留言板类型
-                </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm">
-                    <div class="layui-inline">
-                        <div class="layui-input-inline">
-                            <a th:href="@{/admin/m/ext/guestbookType/add.gsp}" class="layui-btn"><i class="layui-icon">&#xe608;</i> 新增</a>
-                        </div>
-                    </div>
-                </blockquote>
-                <table cellspacing="0" width="100%" class="layui-table" lay-even="" lay-skin="row">
-                    <thead>
-                        <tr>
-                            <th width="40">#</th>
-                            <th width="40">状态</th>
-                            <th>类型名称</th>
-                            <th>类型编码</th>
-                            <th>开放模式</th>
-                            <th>审核模式</th>
-                            <th>验证码模式</th>
-                            <th>最大长度</th>
-                            <th>排序</th>
-                            <th width="90">操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:if="${guestbookTypeList.records == null or guestbookTypeList.records.size() == 0}">
-                            <td colspan="10" style="text-align: center;">暂时没有数据</td>
-                        </tr>
-                        <tr th:each="item,itemStat:${guestbookTypeList.records}">
-                            <td th:text="${guestbookTypeList.pageSize*(guestbookTypeList.page-1)+itemStat.index+1}" style="text-align: center;"></td>
-                            <td class="layui-form"><input lay-filter="filter" th:id="${item.id}" lay-skin="switch" type="checkbox" th:attr="checked=${item.enabled ==1}"></td>
-                            <td th:text="${item.typeName}" style="text-align: center;"></td>
-                            <td th:text="${item.codeNum}" style="text-align: center;"></td>
-                            <td style="text-align: center;"><label th:if="${item.openType==1}" style="color: red;">关闭留言</label> <label th:if="${item.openType==2}" style="color: green;">开放前台会员</label> <label th:if="${item.openType==3}">前台会员及游客</label></td>
-                            <td style="text-align: center;"><label th:if="${item.verifyType==1}">不需要审核</label> <label th:if="${item.verifyType==2}">游客需要审核</label> <label th:if="${item.verifyType==3}">游客及前台会员</label> <label th:if="${item.verifyType==4}">所有人员</label></td>
-                            <td style="text-align: center;"><label th:if="${item.captchaType==1}">不需要验证码</label> <label th:if="${item.captchaType==2}">游客需要验证</label> <label th:if="${item.captchaType==3}">游客及前台会员</label> <label th:if="${item.captchaType==4}">所有人员</label></td>
-                            <td th:text="${item.maxLength}" style="text-align: center;"></td>
-                            <td th:text="${item.sortOrder}" style="text-align: center;"></td>
-                            <td><a th:href="|@{/admin/m/ext/guestbookType/edit_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon"></i></a> <a th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div th:replace="fragments/footer_admin">底部</div>
-    </div>
-    </div>
-    </div>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=site,child=guestbookType)">菜单栏</div>
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>站点管理</cite></a> <a href="#">留言板类型</a> <a><cite>列表</cite></a>
+					</span>
+				</div>
+				<blockquote class="layui-elem-quote layui-quote-nm">
+					<div class="layui-inline">
+						<div class="layui-input-inline">
+							<a th:href="@{/admin/m/ext/guestbookType/add.gsp}" class="layui-btn"><i class="layui-icon">&#xe608;</i> 新增</a>
+						</div>
+					</div>
+				</blockquote>
+				<table cellspacing="0" width="100%" class="layui-table" lay-even="" lay-skin="row">
+					<thead>
+						<tr>
+							<th width="40">#</th>
+							<th width="40">状态</th>
+							<th>类型名称</th>
+							<th>类型编码</th>
+							<th>开放模式</th>
+							<th>审核模式</th>
+							<th>验证码模式</th>
+							<th>最大长度</th>
+							<th>排序</th>
+							<th width="90">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${guestbookTypeList.records == null or guestbookTypeList.records.size() == 0}">
+							<td colspan="10" style="text-align: center;">暂时没有数据</td>
+						</tr>
+						<tr th:each="item,itemStat:${guestbookTypeList.records}">
+							<td th:text="${guestbookTypeList.pageSize*(guestbookTypeList.page-1)+itemStat.index+1}" style="text-align: center;"></td>
+							<td class="layui-form"><input lay-filter="filter" th:id="${item.id}" lay-skin="switch" type="checkbox" th:attr="checked=${item.enabled ==1}"></td>
+							<td th:text="${item.typeName}" style="text-align: center;"></td>
+							<td th:text="${item.codeNum}" style="text-align: center;"></td>
+							<td style="text-align: center;"><label th:if="${item.openType==1}" style="color: red;">关闭留言</label> <label th:if="${item.openType==2}" style="color: green;">开放前台会员</label> <label th:if="${item.openType==3}">前台会员及游客</label></td>
+							<td style="text-align: center;"><label th:if="${item.verifyType==1}">不需要审核</label> <label th:if="${item.verifyType==2}">游客需要审核</label> <label th:if="${item.verifyType==3}">游客及前台会员</label> <label th:if="${item.verifyType==4}">所有人员</label></td>
+							<td style="text-align: center;"><label th:if="${item.captchaType==1}">不需要验证码</label> <label th:if="${item.captchaType==2}">游客需要验证</label> <label th:if="${item.captchaType==3}">游客及前台会员</label> <label th:if="${item.captchaType==4}">所有人员</label></td>
+							<td th:text="${item.maxLength}" style="text-align: center;"></td>
+							<td th:text="${item.sortOrder}" style="text-align: center;"></td>
+							<td><a th:href="|@{/admin/m/ext/guestbookType/edit_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon"></i></a> <a th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div th:replace="fragments/footer_admin">底部</div>
+	</div>
+	</div>
+	</div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
 </html>
