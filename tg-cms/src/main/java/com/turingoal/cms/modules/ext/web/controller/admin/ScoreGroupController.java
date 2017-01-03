@@ -196,6 +196,13 @@ public class ScoreGroupController {
     @RequestMapping(value = "/delete_{id}.gsp", method = RequestMethod.POST)
     @ResponseBody
     public final JsonResultBean delete(@PathVariable("id") final String id) throws BusinessException {
+        // 删除计分组的同时删除计分组下面的计分项
+        List<ScoreItem> list = scoreGroupService.findItem(id);
+        if (!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                scoreGroupService.deleteItem(list.get(i).getId());
+            }
+        }
         scoreGroupService.delete(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
