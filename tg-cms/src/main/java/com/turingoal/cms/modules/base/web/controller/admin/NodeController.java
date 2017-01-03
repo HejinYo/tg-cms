@@ -82,6 +82,26 @@ public class NodeController {
     }
 
     /**
+     * 检查名称是否重复
+     */
+    @RequestMapping(value = "/checkNoddName.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkNoddName(@ModelAttribute("noddName") final String noddName, @ModelAttribute("id") final String id) throws BusinessException {
+        Node node = nodeService.getByNoddName(noddName);
+        return !(node != null && !id.equals(node.getId()));
+    }
+
+    /**
+     * 检查编码是否重复
+     */
+    @RequestMapping(value = "/checkCodeNum.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkCodeNum(@ModelAttribute("codeNum") final String codeNum, @ModelAttribute("id") final String id) throws BusinessException {
+        Node node = nodeService.getByCode(codeNum);
+        return !(node != null && !id.equals(node.getId()));
+    }
+
+    /**
      * 新增页面
      */
     @RequestMapping(value = "/add_{parendId}.gsp", method = RequestMethod.GET)

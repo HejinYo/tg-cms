@@ -38,7 +38,7 @@
 						</thead>
 						<tbody>
 							<tr th:if="${imgList.records == null or imgList.records.size() == 0}">
-								<td colspan="4" style="text-align: center;">暂时没有数据</td>
+								<td colspan="5" style="text-align: center;">暂时没有数据</td>
 							</tr>
 							<tr th:each="item,itemStat:${imgList.records}">
 								<td th:text="${imgList.pageSize*(imgList.page-1)+itemStat.index+1}" style="text-align: center;"></td>

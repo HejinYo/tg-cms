@@ -27,6 +27,11 @@ public interface NodeService {
     Node get(final String id);
 
     /**
+     * 通过栏目名称获取
+     */
+    Node getByNoddName(final String noddName);
+
+    /**
      * 通过codeNum得到一个 栏目
      */
     Node getByCode(final String codeNum);

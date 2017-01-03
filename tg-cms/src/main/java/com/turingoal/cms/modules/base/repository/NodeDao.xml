@@ -42,6 +42,11 @@
     </select>
     
     <!-- 通过codeNum得到一个 Node-->
+    <select id="getByNoddName" parameterType="com.turingoal.cms.modules.base.domain.query.NodeQuery" resultType="com.turingoal.cms.modules.base.domain.Node">
+        SELECT * FROM tg_cms_m_base_node WHERE nodd_name = #{noddName}
+    </select>
+    
+    <!-- 通过codeNum得到一个 Node-->
     <select id="getByCode" parameterType="com.turingoal.cms.modules.base.domain.query.NodeQuery" resultType="com.turingoal.cms.modules.base.domain.Node">
         SELECT * FROM tg_cms_m_base_node WHERE code_num = #{codeNum}
     </select>

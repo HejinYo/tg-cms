@@ -36,17 +36,17 @@
 						</div>
 					</div>
 					<div class="layui-form-item">
+                        <label class="layui-form-label">排序：<span style="color: red">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="number" name="sortOrder" th:field="*{sortOrder}" min="1" max="99" step="1" value="1" required class="layui-input" maxlength="31">
+                        </div>
+                    </div>
+					<div class="layui-form-item">
 						<label class="layui-form-label">meta描述：</label>
 						<div class="layui-input-block">
-							<textarea type="textarea" name="metaDescription" th:field="*{metaDescription}" placeholder="最多输入140字" lay-verify="metaDescription" required autocomplete="off" class="layui-textarea" autofocus="autofocus" maxlength="150"></textarea>
+							<textarea type="textarea" name="metaDescription" th:field="*{metaDescription}" placeholder="最多输入140字" lay-verify="metaDescription" autocomplete="off" class="layui-textarea" autofocus="autofocus" maxlength="150"></textarea>
 						</div>
-					</div>
-					<div class="layui-form-item">
-						<label class="layui-form-label">排序：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<input type="number" name="sortOrder" th:field="*{sortOrder}" min="1" max="99" step="1" value="1" required class="layui-input" maxlength="31">
-						</div>
-					</div>
+					</div>					
 					<div class="layui-form-item">
 						<div class="layui-input-block">
 							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
@@ -63,6 +63,36 @@
 </html>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    var result = false;
+    var id = /*[[${result.id}]]*/;
+    //检查职务是否存在
+    function checkTypeName(typeName){
+        $.ajax({
+            url:/*[[@{/admin/m/base/specialType/checkTypeName.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"id":id,"typeName":typeName},
+            dataType:"json",
+            success:function(data){              
+                result = data;              
+            }                                   
+        });
+        return result;
+    }
+    //检查头衔是否存在
+    function checkMetaKeywords(metaKeywords){
+        $.ajax({
+            url:/*[[@{/admin/m/base/specialType/checkMetaKeywords.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"id":id,"metaKeywords":metaKeywords},
+            dataType:"json",
+            success:function(data){              
+                result = data;          
+            }                                   
+        });
+        return result;
+    }
     var form = layui.form();
     //自定义验证规则
     form.verify({
@@ -71,6 +101,8 @@
                 return '类型名称不能为空哦！';
             } else if (value.length > 20) {
                 return '类型名称不能太长哦，最长20个字！';
+            } else if (checkTypeName(value)==false){
+                return '该类型名称已存在，请勿重复提交！';
             }
         },
         metaKeywords : function(value) {
@@ -78,17 +110,19 @@
                 return 'meta关键字不能为空哦！';
             } else if (value.length > 100) {
                 return 'meta关键字不能太长哦，最长100个字！';
+            } else if (checkMetaKeywords(value)==false){
+                return '该meta关键字已存在，请勿重复提交！';
             }
         },
-        sortOrder: function(value) {
+        sortOrder : function(value) {
             if (value.length < 1) {
                 return '排序不能小于1！';
-            } else if (value.length >99) {
+            } else if (value.length > 99) {
                 return '排序不能大于99！';
             }
         },
-        metaDescription: function(value) {
-           if (value.length > 140) {
+        metaDescription : function(value) {
+            if (value.length > 140) {
                 return 'meta描述不能太长哦，最长140个字！';
             }
         }

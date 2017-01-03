@@ -41,6 +41,22 @@ public class AdSlotServiceImpl implements AdSlotService {
     }
 
     /**
+     * 通过名称等到一个留言板类型
+     */
+    @MethodLog(name = "通过名称等到一个留言板类型", description = "通过名称等到一个留言板类型")
+    public AdSlot getBySlotName(final String slotName) {
+        return adSlotDao.getBySlotName(slotName);
+    }
+
+    /**
+     * 通过编码的得到一个留言板类型
+     */
+    @MethodLog(name = "通过编码的得到一个留言板类型", description = "通过编码的得到一个留言板类型")
+    public AdSlot getByCodeNum(final String codeNum) {
+        return adSlotDao.getByCodeNum(codeNum);
+    }
+
+    /**
      * 新增 广告位
      */
     @MethodLog(name = "新增广告位", description = "新增一个广告位")
@@ -105,4 +121,5 @@ public class AdSlotServiceImpl implements AdSlotService {
     public List<AdSlot> findList(final AdSlotQuery query) {
         return adSlotDao.find(query);
     }
+
 }

@@ -29,8 +29,8 @@
 					<thead>
 						<tr>
 							<th style="width: 40px;">#</th>
-							<th>栏目名称</th>
 							<th style="width: 60px;">状态</th>
+							<th>栏目名称</th>							
 							<th>栏目代码</th>
 							<th>栏目模板</th>
 							<th>文档模板</th>
@@ -42,12 +42,12 @@
 					</thead>
 					<tbody>
 						<tr th:if="${nodeList == null or nodeList.size() == 0}">
-							<td colspan="6" style="text-align: center;">暂时没有数据</td>
+							<td colspan="10" style="text-align: center;">暂时没有数据</td>
 						</tr>
 						<tr th:each="item,itemStat:${nodeList}">
-							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>
-							<td th:text="${item.noddName}" style="text-align: center;"></td>
+							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>							
 							<td class="layui-form"><input lay-filter="filter" th:id="${item.id}" lay-skin="switch" type="checkbox" th:attr="checked=${item.enabled ==1}"></td>
+							<td th:text="${item.noddName}" style="text-align: center;"></td>
 							<td th:text="${item.codeNum}"></td>
 							<td th:text="${item.nodeTemplate}" style="text-align: center;"></td>
 							<td th:text="${item.infoTemplate}"></td>

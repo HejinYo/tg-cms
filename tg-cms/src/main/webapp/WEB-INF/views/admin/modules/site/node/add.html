@@ -90,15 +90,15 @@
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">排序：</label>
+						<label class="layui-form-label">排序：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input type="number" name="sortOrder" placeholder="请输入排序" value="1" min="1" max="99" lay-verify="sortOrder" required autocomplete="off" class="layui-input" autofocus="autofocus" min="1" max="99">
+							<input type="number" name="sortOrder" placeholder="请输入排序" value="1" min="1" max="99" lay-verify="sortOrder" required autocomplete="off" class="layui-input" autofocus="autofocus">
 						</div>
 					</div>
 					<div class="layui-form-item">
-						<label class="layui-form-label">链接地址：</label>
+						<label class="layui-form-label">链接地址：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input type="text" name="nodeLink" placeholder="请输入链接地址" lay-verify="nodeLink" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+							<input type="text" name="nodeLink" placeholder="请输入链接地址" lay-verify="nodeLink" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="150">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -235,6 +235,36 @@
         })
     }
    
+    var result = false;
+    //检查职务是否存在
+    function checkNoddName(noddName){
+        $.ajax({
+            url:/*[[@{/admin/m/base/node/checkNoddName.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"noddName":noddName},
+            dataType:"json",
+            success:function(data){              
+                result = data.success;              
+            }                                   
+        });
+        return result;
+    }
+    //检查头衔是否存在
+    function checkCodeNum(codeNum){
+        $.ajax({
+            url:/*[[@{/admin/m/base/node/checkCodeNum.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"codeNum":codeNum},
+            dataType:"json",
+            success:function(data){              
+                result = data.success;          
+            }                                   
+        });
+        return result;
+    }
+    
     var form = layui.form();
     //自定义验证规则
     form.verify({
@@ -243,6 +273,8 @@
                 return '栏目名称至少得2个字哦！';
             } else if (value.length > 20) {
                 return '栏目名称太长哦，最长20个字！';
+            } else if (checkNoddName(value)==false){
+                return '该栏目名称已存在，请勿重复提交！';
             }
         },
         codeNum : function(value) {
@@ -250,6 +282,8 @@
                 return '栏目代码至少得2个字哦！';
             } else if (value.length > 20) {
                 return '栏目代码不能太长哦，最长20个字！';
+            } else if (checkCodeNum(value)==false){
+                return '该栏目代码已存在，请勿重复提交！';
             }
         },
         nodeLink : function(value) {
@@ -276,6 +310,13 @@
                 return '排序字段不能小于1！';
             } else if (value.length > 99) {
                 return '排序字段不能大于99！';
+            }
+        },
+        nodeLink : function(value){
+            if(value.length<1){
+                return '链接地址不能为空！';
+            } else if(value.length >140){
+                return '链接地址不能大于140个字符！';
             }
         }
     });

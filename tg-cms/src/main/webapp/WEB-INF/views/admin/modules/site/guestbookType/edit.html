@@ -101,6 +101,36 @@
 </html>
 <script th:inline="javascript">
     /*<![CDATA[*/
+     var result = false;
+     var id = /*[[${result.id}]]*/;
+    //检查职务是否存在
+    function checkTypeName(typeName){
+        $.ajax({
+            url:/*[[@{/admin/m/ext/guestbookType/checkTypeName.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"id":id,"typeName":typeName},
+            dataType:"json",
+            success:function(data){              
+                result = data;              
+            }                                   
+        });
+        return result;
+    }
+    //检查头衔是否存在
+    function checkCodeNum(codeNum){
+        $.ajax({
+            url:/*[[@{/admin/m/ext/guestbookType/checkCodeNum.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"id":id,"codeNum":codeNum},
+            dataType:"json",
+            success:function(data){              
+                result = data;          
+            }                                   
+        });
+        return result;
+    }
     var form = layui.form();
     //自定义验证规则
     form.verify({
@@ -109,6 +139,8 @@
                 return '类型名称不能为空哦！';
             } else if (value.length > 20) {
                 return '类型名称不能太长哦，最长20个字！';
+            } else if(checkTypeName(value)==false){
+                return '该类型名称已经存在，请勿重复提交！';
             }
         },
         codeNum : function(value) {
@@ -116,6 +148,8 @@
                 return '类型编码不能为空哦！';
             } else if (value.length > 20) {
                 return '类型编码不能太长哦，最长20个字！';
+            } else if(checkCodeNum(value)==false){
+                return '该类型名称已经存在，请勿重复提交！';
             }
         },
         maxLength : function(value) {

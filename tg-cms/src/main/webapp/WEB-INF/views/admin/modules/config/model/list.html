@@ -56,7 +56,7 @@
 					</thead>
 					<tbody>
 						<tr th:if="${modelList == null or modelList.size() == 0}">
-							<td colspan="6" style="text-align: center;">暂时没有数据</td>
+							<td colspan="5" style="text-align: center;">暂时没有数据</td>
 						</tr>
 						<tr th:each="item,itemStat:${modelList}">
 							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>

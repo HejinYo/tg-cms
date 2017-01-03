@@ -102,6 +102,14 @@ public class NodeServiceImpl implements NodeService {
     }
 
     /**
+     * 通过栏目名称获取
+     */
+    @MethodLog(name = "通过栏目名称获取", description = "通过栏目名称获取")
+    public Node getByNoddName(final String noddName) {
+        return nodeDao.getByNoddName(noddName);
+    }
+
+    /**
      * 通过codeNum得到一个 栏目
      */
     @MethodLog(name = "通过codeNum得到一个 栏目", description = "通过codeNum得到一个 栏目")
