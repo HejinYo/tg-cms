@@ -15,9 +15,6 @@
 					<span class="layui-breadcrumb"> <a><cite>系统监控</cite></a> <a><cite>操作日志</cite></a>
 					</span>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 系统的操作日志
-				</blockquote>
 				<!--/*******操作*******/-->
 				<form th:action="@{/admin/c/monitor/log/listOperate.gsp}" method="get">
 					<div class="layui-form-item">
@@ -72,7 +69,7 @@
 <div th:replace="fragments/import_js_admin">引入js</div>
 <script th:inline="javascript">
     /*<![CDATA[*/
- var result = /*[[${operateList}]]*/;
+    var result = /*[[${operateList}]]*/;
     $(function(){
         $("#simpleQueryParam").val(GetQueryString("simpleQueryParam"));
         $("#startTime").val(GetQueryString("startTime"));
@@ -88,11 +85,9 @@
             }
         };
         tg_basePage(option);
-    })
-    
-        layui.use('laydate', function() {
+    });
+    layui.use('laydate', function() {
         var laydate = layui.laydate;
-
         var start = {
             min : '',
             max : '2099-06-16 23:59:59',
@@ -102,7 +97,6 @@
                 end.start = datas //将结束日的初始值设定为开始日
             }
         };
-
         var end = {
             min : '',
             max : '2099-06-16 23:59:59',
@@ -111,7 +105,6 @@
                 start.max = datas; //结束日选好后，重置开始日的最大日期
             }
         };
-
         document.getElementById('startTime').onclick = function() {
             start.elem = this;
             laydate(start);
@@ -121,7 +114,6 @@
             laydate(end);
         }
     });
-
     /*]]>*/
 </script>
 </html>
