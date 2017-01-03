@@ -107,18 +107,9 @@
 						</a>
 					</dd>
 				</dl></li>
-
 			<!--/* 全局配置 */-->
 			<li class="layui-nav-item" th:classappend="${parent=='gconfig'} ? 'layui-nav-itemed'"><a href="javascript:;"> 全局配置</a>
 				<dl class="layui-nav-child">
-					<dd th:classappend="${child=='publishPoint'} ? 'layui-this'">
-						<a th:href="@{/admin/m/base/publishPoint/list.gsp}"> <i class="layui-icon">&#xe643;</i> <cite> 发布点配置 </cite>
-						</a>
-					</dd>
-					<dd th:classappend="${child=='global'} ? 'layui-this'">
-						<a th:href="@{/admin/c/global/edit.gsp}"> <i class="layui-icon">&#xe617;</i> <cite> 全局参数</cite>
-						</a>
-					</dd>
 					<dd th:classappend="${child=='template'} ? 'layui-this'">
 						<a th:href="@{/admin/m/base/template/list.gsp}"> <i class="layui-icon">&#xe629;</i> <cite> 模板配置</cite>
 						</a>
@@ -135,9 +126,16 @@
 						<a th:href="@{/admin/m/ext/scoreGroup/list.gsp}"> <i class="layui-icon">&#xe64d;</i> <cite> 评分组配置</cite>
 						</a>
 					</dd>
+					<dd th:classappend="${child=='publishPoint'} ? 'layui-this'">
+						<a th:href="@{/admin/m/base/publishPoint/list.gsp}"> <i class="layui-icon">&#xe643;</i> <cite> 发布点配置 </cite>
+						</a>
+					</dd>
+					<dd th:classappend="${child=='global'} ? 'layui-this'">
+						<a th:href="@{/admin/c/global/edit.gsp}"> <i class="layui-icon">&#xe617;</i> <cite> 全局参数</cite>
+						</a>
+					</dd>
 				</dl></li>
-
-			<!--/* 公共部分  */-->
+			<!--/* 用户权限  */-->
 			<li class="layui-nav-item" th:classappend="${parent=='uum'} ? 'layui-nav-itemed'"><a href="javascript:;"> 用户权限</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='user'} ? 'layui-this'">
@@ -145,6 +143,7 @@
 						</a>
 					</dd>
 				</dl></li>
+			<!--/* 系统监控  */-->
 			<li class="layui-nav-item" th:classappend="${parent=='monitor'} ? 'layui-nav-itemed'"><a href="javascript:;"> 系统监控</a>
 				<dl class="layui-nav-child">
 					<dd th:classappend="${child=='logLoginList'} ? 'layui-this'">
