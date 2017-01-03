@@ -30,28 +30,28 @@
 						<tr>
 							<th width="40">序号</th>
 							<th width="40">状态</th>
-							<th>类型名称</th>
-							<th>关键字</th>
-							<th>描述</th>
-							<th>浏览总数</th>
-							<th>创建日期</th>
-							<th>排序</th>
+							<th width="200">类型名称</th>
+							<th width="100">关键字</th>
+							<th width="40">排序</th>
+                            <th width="80">浏览总数</th>
+							<th >描述</th>							
+							<th width="200">创建日期</th>							
 							<th width="90">操作</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${specialTypeList.records == null or specialTypeList.records.size() == 0}">
-							<td colspan="8" style="text-align: center;">暂时没有数据</td>
+							<td colspan="9" style="text-align: center;">暂时没有数据</td>
 						</tr>
 						<tr th:each="item,itemStat:${specialTypeList.records}">
 							<td th:text="${specialTypeList.pageSize*(specialTypeList.page-1)+itemStat.index+1}" style="text-align: center;"></td>
 							<td class="layui-form"><input lay-filter="filter" th:id="${item.id}" lay-skin="switch" type="checkbox" th:attr="checked=${item.enabled ==1}"></td>
 							<td th:text="${item.typeName}" style="text-align: center;"></td>
-							<td th:text="${item.metaKeywords}" style="text-align: center;"></td>
-							<td th:text="${item.metaDescription}" style="text-align: center;"></td>
-							<td th:text="${item.viewsCount}" style="text-align: center;"></td>
-							<td th:text="${item.createDataTime}==null?'':${#dates.format(item.createDataTime,'yyyy-MM-dd HH:mm:ss')}" style="text-align: center;"></td>
+							<td th:text="${item.metaKeywords}" style="text-align: center;"></td>							
 							<td th:text="${item.sortOrder}" style="text-align: center;"></td>
+							<td th:text="${item.viewsCount}" style="text-align: center;"></td>
+							<td th:text="${item.metaDescription}" style="text-align: center;"></td>
+							<td th:text="${item.createDataTime}==null?'':${#dates.format(item.createDataTime,'yyyy-MM-dd HH:mm:ss')}" style="text-align: center;"></td>							
 							<td><a th:href="|@{/admin/m/base/specialType/edit_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon"></i></a> <a th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
 						</tr>
 					</tbody>
