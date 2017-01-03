@@ -15,9 +15,6 @@
 					<span class="layui-breadcrumb"> <a><cite>站点管理</cite></a> <a href="#">广告位管理</a> <a><cite>列表</cite></a>
 					</span>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 广告位管理
-				</blockquote>
 				<blockquote class="layui-elem-quote layui-quote-nm">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
@@ -107,7 +104,6 @@
           });
         }    
     });  
-    
     var deleteUrl = /*[[@{/admin/m/ext/adSlot/delete_{id}.gsp}]]*/;
     function del(id){
         tg_deleteItem(deleteUrl.replace('{id}',id), function(){
