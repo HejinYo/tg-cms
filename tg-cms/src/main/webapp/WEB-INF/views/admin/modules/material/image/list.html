@@ -28,8 +28,8 @@
 							<tr>
 								<th width="40" class="text-center">#</th>
 								<th class="text-center">图片名称</th>
-								<th class="text-center">图片大小</th>
 								<th class="text-center">图片路径</th>
+								<th class="text-center">图片大小</th>
 								<th width="90" class="text-center">操作</th>
 							</tr>
 						</thead>
@@ -39,9 +39,9 @@
 							</tr>
 							<tr th:each="item,itemStat:${imgList.records}">
 								<td th:text="${imgList.pageSize*(imgList.page-1)+itemStat.index+1}" style="text-align: center;"></td>
-								<td th:text="${item.imgName}" style="text-align: center;"></td>
-								<td th:text="${item.imgLength}" style="text-align: center;"></td>
+								<td th:text="${item.imgName}"></td>
 								<td th:text="${item.imgPath}"></td>
+								<td th:text="${item.imgLength}"></td>
 								<td><a th:href="|@{/admin/m/base/image/show_}${item.id}.gsp|" class="layui-btn layui-btn-primary layui-btn-small"><i class="layui-icon">&#xe615;</i></a> <a th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
 							</tr>
 						</tbody>
