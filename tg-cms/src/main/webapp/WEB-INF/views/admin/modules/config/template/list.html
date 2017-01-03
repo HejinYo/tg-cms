@@ -15,9 +15,6 @@
 					<span class="layui-breadcrumb"> <a><cite>全局配置</cite></a> <a href="#">模版配置</a> <a><cite>列表</cite></a>
 					</span>
 				</div>
-				<blockquote class="layui-elem-quote layui-quote-nm" style="color: #FF5722">
-					<i class="layui-icon">&#xe60b;</i> 模版配置
-				</blockquote>
 				<blockquote class="layui-elem-quote layui-quote-nm">
 					<div class="layui-inline">
 						<div class="layui-input-inline">
@@ -42,10 +39,8 @@
 							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>
 							<td th:text="${item.templateName}" style="text-align: center;"></td>
 							<td th:text="${item.codeNum}" style="text-align: center;"></td>
-							<td>
-							<a th:href="|@{/admin/m/base/template/edit_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon"></i></a>
-							<a th:href="|@{/admin/m/base/template/templateTab_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon">模版编辑</i></a>  
-							<a th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
+							<td><a th:href="|@{/admin/m/base/template/edit_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon"></i></a> <a th:href="|@{/admin/m/base/template/templateTab_}${item.id}.gsp|" class="layui-btn layui-btn-small"> <i class="layui-icon">模版编辑</i></a> <a
+								th:onclick="|del('${item.id}')|" class="layui-btn layui-btn-normal layui-btn-small"> <i class="layui-icon"></i></a></td>
 						</tr>
 					</tbody>
 				</table>
