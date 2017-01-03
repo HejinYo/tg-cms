@@ -32,26 +32,57 @@
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">模板内容：<span style="color: red">*</span></label>
-						<div class="layui-input-block">
-							<textarea name="content" style="background: #DDDDDD;" th:utext="${result.content}" rows="25" required class="layui-textarea"></textarea>
+						<div class="layui-input-block" style="position: relative;">
+							<div id="numDiv" style="position: absolute; left: 0; top: 0; width: 35px;">
+								<textarea id="num" style="width: 35px; line-height: 20px; padding: 7px; background: #666666; overflow: hidden; border: 0; resize: none;" readonly="readonly" rows="25"></textarea>
+							</div>
+							<div id="contentDiv" style="padding-left: 46px;">
+								<textarea onkeyup="keyUp()" onscroll="document.getElementById('num').scrollTop = this.scrollTop;" id="content" name="content" style="background: #DDDDDD; resize: none;outline:none" th:utext="${result.content}" rows="25" required class="layui-textarea"></textarea>
+							</div>
 						</div>
 					</div>
-					<div class="layui-form-item">
-						<div class="layui-input-block">
-							<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
-							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-						</div>
-					</div>
-				</form>
 			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-submit="" lay-filter="submit1">立即提交</button>
+					<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+				</div>
+			</div>
+			</form>
 		</div>
-		<div th:replace="fragments/footer_admin">底部</div>
+	</div>
+	<div th:replace="fragments/footer_admin">底部</div>
 	</div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
 </html>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    $(function() {
+        var ch = $("#contentDiv").height();
+        $("#numDiv").height(ch);
+        keyUp();
+    })
+
+    function keyUp() {
+        var obj = document.getElementById("content");
+        var str = obj.value;
+        str = str.replace(/\r/gi, "");
+        str = str.split("\n");
+        n = str.length;
+        var lineobj = document.getElementById("num");
+        var num = '';
+        for (var i = 1; i <= n; i++) {
+            if (document.all) {
+                num += i + "\r\n";
+            } else {
+                num += i + "\n";
+            }
+        }
+        lineobj.value = num;
+        num = "";
+    }
+
     var form = layui.form();
     //自定义验证规则
     form.verify({
