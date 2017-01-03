@@ -61,16 +61,16 @@
     form.verify({
         templateName : function(value) {
             if (value.length < 2) {
-                return '协议至少得2个字哦！';
+                return '模版名称至少得2个字哦！';
             } else if (value.length > 20) {
-                return '协议不能太长哦，最长20个字！';
+                return '模版名称不能太长哦，最长20个字！';
             }
         },
         codeNum : function(value) {
             if (value.length < 2) {
-                return '服务端口号至少得2个字哦！';
+                return '模版代码至少得2个字哦！';
             } else if (value.length > 20) {
-                return '服务端口号不能太长哦，最长20个字！';
+                return '模版代码不能太长哦，最长20个字！';
             }
         },
         description : function(value) {
