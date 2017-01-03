@@ -30,8 +30,10 @@
     <!--插件-->
     <plugins>
         <!-- 分页插件PageHelper -->
-        <plugin interceptor="com.github.pagehelper.PageHelper">
-            <property name="dialect" value="postgresql"/>
+         <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!--默认情况下会使用 PageHelper 方式进行分页，如果想要实现自己的分页逻辑，可以实现 Dialect(com.github.pagehelper.Dialect) 接口，然后配置该属性为实现类的全限定名称。 -->
+            <!--分页插件会自动检测当前的数据库链接，自动选择合适的分页方式。 你可以配置helperDialect属性来指定分页插件使用哪种方言。 -->
+            <property name="helperDialect" value="postgresql"/>
             <!-- 该参数默认为false，设置为true时，会将RowBounds第一个参数offset当成pageNum页码使用，和startPage中的pageNum效果一样-->
             <property name="offsetAsPageNum" value="false"/>
             <!-- 该参数默认为false，设置为true时，使用RowBounds分页会进行count查询 -->
