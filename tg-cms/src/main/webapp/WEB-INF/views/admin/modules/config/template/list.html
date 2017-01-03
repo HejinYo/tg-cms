@@ -36,7 +36,7 @@
 					</thead>
 					<tbody>
 						<tr th:if="${templateList == null or templateList.size() == 0}">
-							<td colspan="6" style="text-align: center;">暂时没有数据</td>
+							<td colspan="4" style="text-align: center;">暂时没有数据</td>
 						</tr>
 						<tr th:each="item,itemStat:${templateList}">
 							<td th:text="${itemStat.index+1}" style="text-align: center;"></td>

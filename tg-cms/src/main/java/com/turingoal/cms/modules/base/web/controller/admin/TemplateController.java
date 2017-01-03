@@ -128,7 +128,12 @@ public class TemplateController {
      */
     @RequestMapping(value = "/delete_{id}.gsp", method = RequestMethod.POST)
     @ResponseBody
-    public final JsonResultBean delete(@PathVariable("id") final String id) throws BusinessException {
+    public final JsonResultBean delete(@PathVariable("id") final String id, final HttpServletRequest request) throws BusinessException {
+        Template template = templateService.get(id);
+        File file = new File(request.getServletContext().getRealPath("/") + "/template/" + template.getCodeNum());
+        if (file != null) {
+            deleteDir(file);
+        }
         templateService.delete(id);
         return new JsonResultBean(JsonResultBean.SUCCESS);
     }
@@ -143,7 +148,7 @@ public class TemplateController {
         tabId = id;
         return mav;
     }
-    
+
     /**
      * 选择模板页面
      */
@@ -152,6 +157,23 @@ public class TemplateController {
         ModelAndView mav = new ModelAndView(SELECT_TEMPLATE_PAGE);
         mav.addObject("fileName", fileName);
         return mav;
+    }
+
+    /**
+     * 删除目录及文件
+     */
+    private static boolean deleteDir(final File dir) {
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+        }
+        // 目录此时为空，可以删除
+        return dir.delete();
     }
 
     /**
