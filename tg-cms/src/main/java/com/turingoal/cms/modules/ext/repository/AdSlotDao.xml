@@ -13,6 +13,16 @@
         SELECT * FROM tg_cms_m_ext_ad_slot WHERE id = #{id}
     </select>
     
+    <!-- 通过名称等到一个留言板类型-->
+    <select id="getBySlotName" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.AdSlot">
+        SELECT * FROM tg_cms_m_ext_ad_slot WHERE slot_name = #{slotName}
+    </select>
+    
+    <!-- 通过编码的得到一个留言板类型-->
+    <select id="getByCodeNum" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.AdSlot">
+        SELECT * FROM tg_cms_m_ext_ad_slot WHERE code_num = #{codeNum}
+    </select>
+    
     <!-- 新增 广告位信息 -->
     <insert id="add" parameterType="com.turingoal.cms.modules.ext.domain.form.AdSlotForm">
         INSERT INTO tg_cms_m_ext_ad_slot (

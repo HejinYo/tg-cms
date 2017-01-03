@@ -39,6 +39,22 @@ public class GuestbookTypeServiceImpl implements GuestbookTypeService {
     }
 
     /**
+     * 通过名称等到一个留言板类型
+     */
+    @MethodLog(name = "通过名称等到一个留言板类型", description = "通过名称等到一个留言板类型")
+    public GuestbookType getByTypeName(final String typeName) {
+        return guestbookTypeDao.getByTypeName(typeName);
+    }
+
+    /**
+     * 通过编码的得到一个留言板类型
+     */
+    @MethodLog(name = "通过编码的得到一个留言板类型", description = "通过编码的得到一个留言板类型")
+    public GuestbookType getByCodeNum(final String codeNum) {
+        return guestbookTypeDao.getByCodeNum(codeNum);
+    }
+
+    /**
      * 新增 留言板类型
      */
     @MethodLog(name = "新增留言板类型", description = "新增一个留言板类型，返回id")
@@ -77,4 +93,5 @@ public class GuestbookTypeServiceImpl implements GuestbookTypeService {
     public void disable(final String id) {
         guestbookTypeDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
     }
+
 }

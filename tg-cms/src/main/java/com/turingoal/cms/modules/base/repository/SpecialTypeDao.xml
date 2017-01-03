@@ -13,6 +13,16 @@
         SELECT * FROM tg_cms_m_base_special_type WHERE id = #{id}
     </select>
     
+    <!-- 通过名称获取-->
+    <select id="getByTypeName" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.SpecialType">
+        SELECT * FROM tg_cms_m_base_special_type WHERE type_name = #{typeName}
+    </select>
+    
+    <!-- 通过名称获取-->
+    <select id="getByMetaKeywords" parameterType="string" resultType="com.turingoal.cms.modules.base.domain.SpecialType">
+        SELECT * FROM tg_cms_m_base_special_type WHERE meta_keywords= #{metaKeywords}
+    </select>
+    
     <!-- 新增 友情链接类型 -->
     <insert id="add" parameterType="com.turingoal.cms.modules.base.domain.form.SpecialTypeForm">
         INSERT INTO tg_cms_m_base_special_type (

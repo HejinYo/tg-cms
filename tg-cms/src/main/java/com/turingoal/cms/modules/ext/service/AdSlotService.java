@@ -27,6 +27,16 @@ public interface AdSlotService {
     AdSlot get(final String id);
 
     /**
+     * 通过名称等到一个留言板类型
+     */
+    AdSlot getBySlotName(final String slotName);
+
+    /**
+     * 通过编码的得到一个留言板类型
+     */
+    AdSlot getByCodeNum(final String codeNum);
+    
+    /**
      * 新增 广告位
      */
     void add(final AdSlotForm form);

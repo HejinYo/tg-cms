@@ -92,7 +92,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">排序：</label>
 						<div class="layui-input-block">
-							<input type="number" th:field="*{sortOrder}" value="1" min="1" max="99" name="sortOrder" placeholder="请输入排序" lay-verify="sortOrder" required autocomplete="off" class="layui-input" autofocus="autofocus" min="1" max="99">
+							<input type="number" th:field="*{sortOrder}" value="1" min="1" max="99" name="sortOrder" placeholder="请输入排序" lay-verify="sortOrder" required autocomplete="off" class="layui-input" autofocus="autofocus">
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -234,7 +234,36 @@
             parent.push(node);
         })
     }
-   
+    var result = false;
+    var id = /*[[${result.id}]]*/;
+    //检查职务是否存在
+    function checkNoddName(noddName){
+        $.ajax({
+            url:/*[[@{/admin/m/base/node/checkNoddName.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"id":id,"noddName":noddName},
+            dataType:"json",
+            success:function(data){              
+                result = data;              
+            }                                   
+        });
+        return result;
+    }
+    //检查头衔是否存在
+    function checkCodeNum(codeNum){
+        $.ajax({
+            url:/*[[@{/admin/m/base/node/checkCodeNum.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"id":id,"codeNum":codeNum},
+            dataType:"json",
+            success:function(data){              
+                result = data;          
+            }                                   
+        });
+        return result;
+    }
     var form = layui.form();
     //自定义验证规则
     form.verify({
@@ -243,6 +272,8 @@
                 return '栏目名称至少得2个字哦！';
             } else if (value.length > 20) {
                 return '栏目名称太长哦，最长20个字！';
+            } else if (checkNoddName(value)==false){
+                return '该栏目名称已存在，请勿重复提交！';
             }
         },
         codeNum : function(value) {
@@ -250,6 +281,8 @@
                 return '栏目代码至少得2个字哦！';
             } else if (value.length > 20) {
                 return '栏目代码不能太长哦，最长20个字！';
+            } else if (checkCodeNum(value)==false){
+                return '该栏目代码已存在，请勿重复提交！';
             }
         },
         nodeLink : function(value) {
@@ -276,6 +309,13 @@
                 return '排序字段不能小于1！';
             } else if (value.length > 99) {
                 return '排序字段不能大于99！';
+            }
+        },
+        nodeLink : function(value){
+            if(value.length<1){
+                return '链接地址不能为空！';
+            } else if(value.length >140){
+                return '链接地址不能大于140个字符！';
             }
         }
     });

@@ -40,6 +40,22 @@ public class SpecialTypeServiceImpl implements SpecialTypeService {
     }
 
     /**
+     * 通过名称获取
+     */
+    @MethodLog(name = "通过名称获取", description = "通过名称获取")
+    public SpecialType getByTypeName(final String typeName) {
+        return specialTypeDao.getByTypeName(typeName);
+    }
+
+    /**
+     * 通过关键字获取
+     */
+    @MethodLog(name = "通过关键字获取", description = "通过关键字获取")
+    public SpecialType getByMetaKeywords(final String metaKeywords) {
+        return specialTypeDao.getByMetaKeywords(metaKeywords);
+    }
+
+    /**
      * 新增 专题类型
      */
     @MethodLog(name = "新增专题类型", description = "新增一个专题类型，返回id")
@@ -81,4 +97,5 @@ public class SpecialTypeServiceImpl implements SpecialTypeService {
     public void disable(final String id) {
         specialTypeDao.changeEnabled(id, ConstantEnabledValue.DISABLED_INT);
     }
+
 }

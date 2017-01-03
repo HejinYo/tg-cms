@@ -74,6 +74,26 @@ public class SpecialTypeController {
     }
 
     /**
+     * 检查名称是否重复
+     */
+    @RequestMapping(value = "/checkTypeName.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkTypeName(@ModelAttribute("typeName") final String typeName, @ModelAttribute("id") final String id) throws BusinessException {
+        SpecialType specialType = specialTypeService.getByTypeName(typeName);
+        return !(specialType != null && !id.equals(specialType.getId()));
+    }
+
+    /**
+     * 检查编码是否重复
+     */
+    @RequestMapping(value = "/checkMetaKeywords.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkMetaKeywords(@ModelAttribute("metaKeywords") final String metaKeywords, @ModelAttribute("id") final String id) throws BusinessException {
+        SpecialType specialType = specialTypeService.getByMetaKeywords(metaKeywords);
+        return !(specialType != null && !id.equals(specialType.getId()));
+    }
+
+    /**
      * 新增页面
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.GET)

@@ -22,6 +22,16 @@ public interface SpecialTypeDao {
     SpecialType get(final String id);
 
     /**
+     * 通过名称获取
+     */
+    SpecialType getByTypeName(final String typeName);
+
+    /**
+     * 通过关键字获取
+     */
+    SpecialType getByMetaKeywords(final String metaKeywords);
+
+    /**
      * 新增 友情链接类型
      */
     void add(final SpecialTypeForm form);

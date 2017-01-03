@@ -74,6 +74,26 @@ public class AdSlotController {
     }
 
     /**
+     * 检查名称是否重复
+     */
+    @RequestMapping(value = "/checkSlotName.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkTypeName(@ModelAttribute("slotName") final String slotName, @ModelAttribute("id") final String id) throws BusinessException {
+        AdSlot adSlot = adSlotService.getBySlotName(slotName);
+        return !(adSlot != null && !id.equals(adSlot.getId()));
+    }
+
+    /**
+     * 检查编码是否重复
+     */
+    @RequestMapping(value = "/checkCodeNum.gsp", method = RequestMethod.POST)
+    @ResponseBody
+    public final boolean checkCodeNum(@ModelAttribute("codeNum") final String codeNum, @ModelAttribute("id") final String id) throws BusinessException {
+        AdSlot adSlot = adSlotService.getByCodeNum(codeNum);
+        return !(adSlot != null && !id.equals(adSlot.getId()));
+    }
+
+    /**
      * 返回广告位新增界面
      */
     @RequestMapping(value = "/add.gsp", method = RequestMethod.GET)

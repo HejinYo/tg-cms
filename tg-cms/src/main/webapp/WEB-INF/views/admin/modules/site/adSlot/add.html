@@ -91,6 +91,35 @@
 </html>
 <script th:inline="javascript">
     /*<![CDATA[*/
+    var result = false;
+    //检查职务是否存在
+    function checkSlotName(slotName){
+        $.ajax({
+            url:/*[[@{/admin/m/ext/adSlot/checkSlotName.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"slotName":slotName},
+            dataType:"json",
+            success:function(data){              
+                result = data.success;              
+            }                                   
+        });
+        return result;
+    }
+    //检查头衔是否存在
+    function checkCodeNum(codeNum){
+        $.ajax({
+            url:/*[[@{/admin/m/ext/adSlot/checkCodeNum.gsp}]]*/,
+            type:"post",
+            async : false,
+            data:{"codeNum":codeNum},
+            dataType:"json",
+            success:function(data){              
+                result = data.success;          
+            }                                   
+        });
+        return result;
+    }
     var form = layui.form();
     //自定义验证规则
     form.verify({
@@ -99,6 +128,8 @@
                 return '广告位名称不能为空哦！';
             } else if (value.length > 20) {
                 return '广告位名称不能太长哦，最长20个字！';
+            } else if(checkSlotName(value)==false){
+                return '该广告位名称已经存在，请勿重复提交！';
             }
         },
         codeNum : function(value) {
@@ -106,6 +137,8 @@
                 return '广告位编码不能为空哦！';
             } else if (value.length > 20) {
                 return '广告位编码不能太长哦，最长20个字！';
+            } else if(checkCodeNum(value)==false){
+                return '该广告位编码已经存在，请勿重复提交！';
             }
         },
         slotTemplate : function(value) {
@@ -113,7 +146,7 @@
                 return '广告位模板不能为空哦！';
             } else if (value.length > 20) {
                 return '广告位模板不能太长哦，最长20个字！';
-            }
+            } 
         },
         width : function(value) {
             if (value.length < 1) {

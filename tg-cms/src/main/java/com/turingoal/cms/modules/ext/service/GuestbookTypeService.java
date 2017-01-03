@@ -21,6 +21,16 @@ public interface GuestbookTypeService {
     GuestbookType get(final String id);
 
     /**
+     * 通过名称等到一个留言板类型
+     */
+    GuestbookType getByTypeName(final String typeName);
+
+    /**
+     * 通过编码的得到一个留言板类型
+     */
+    GuestbookType getByCodeNum(final String codeNum);
+
+    /**
      * 新增 留言板类型
      */
     void add(final GuestbookTypeForm form);

@@ -72,7 +72,7 @@
             data:{"typeName":typeName},
             dataType:"json",
             success:function(data){              
-                result = data;              
+                result = data.success;              
             }                                   
         });
         return result;
@@ -86,7 +86,7 @@
             data:{"codeNum":codeNum},
             dataType:"json",
             success:function(data){              
-                result = data;              
+                result = data.success;          
             }                                   
         });
         return result;
