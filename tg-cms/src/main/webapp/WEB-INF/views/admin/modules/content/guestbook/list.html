@@ -19,7 +19,7 @@
 					</span>
 				</div>
 				<!--/*******操作*******/-->
-				<form th:action="@{/admin/m/ext/guestbook/list.gsp}" id="typeForm" method="get">
+				<form th:action="@{/admin/m/ext/guestbook/list.gsp}" id="typeForm" method="get" class="layui-form">
 					<div class="layui-form-item">
 						<blockquote class="layui-elem-quote layui-quote-nm">
 							<div class="layui-inline">
@@ -58,7 +58,7 @@
 							<td th:text="${item.typeName}">所属类型</td>
 							<td th:text="${item.title}">留言标题</td>
 							<td th:text="${item.gbContent}">留言内容</td>
-							<td th:text="${item.gbDate}">留言日期</td>
+							<td th:text="${item.gbDate!=null?#dates.format(item.gbDate,'yyyy-MM-dd HH:mm:ss'):''}">留言日期</td>
 							<td th:text="${item.replyed==1?'是':'否'}">是否回复</td>
 							<td th:text="${item.recommend==1?'是':'否'}">是否推荐</td>
 							<td style="text-align: center;"><a class="layui-btn layui-btn-small" th:href="@{/admin/m/ext/guestbook/edit_{id}.gsp(id=${item.id})}"><i class="layui-icon">&#xe642;</i></a>
@@ -97,7 +97,7 @@
         });
     })
 
-    var deleteUrl = /*[[@{/admin/m/ext/guestbook/delete_{id}.htm}]]*/;
+    var deleteUrl = /*[[@{/admin/m/ext/guestbook/delete_{id}.gsp}]]*/;
     function deleted(id) {
         tg_deleteItem(deleteUrl.replace('{id}',id), function(){
             location.reload();

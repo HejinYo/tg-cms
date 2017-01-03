@@ -46,7 +46,9 @@ public class FriendlinkServiceImpl implements FriendlinkService {
      */
     @MethodLog(name = "通过id得到友情链接", description = "通过id得到一个友情链接")
     public Friendlink get(final String id) {
-        return friendlinkDao.get(id);
+        Friendlink friendlink = friendlinkDao.get(id);
+        friendlink.setImgPath(SystemHelper.getGlobal().getContextPath() + friendlink.getImgPath());
+        return friendlink;
     }
 
     /**

@@ -173,6 +173,7 @@ public class CmsImageServiceImpl implements CmsImageService {
         }
         result.put("success", true);
         result.put("obj", form.getId());
+        result.put("path", SystemHelper.getGlobal().getContextPath() + form.getImgPath());
         return result;
     }
 
