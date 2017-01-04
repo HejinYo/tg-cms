@@ -7,85 +7,91 @@
 <!--/***** 当前页css  end *****/-->
 </head>
 <body>
-    <div class="layui-layout layui-layout-admin">
-        <div th:replace="fragments/nav_admin">导航栏</div>
-        <div th:replace="fragments/menu_admin::menu(parent=content,child=ad)">菜单栏</div>
-        <!--/*******内容*******/-->
-        <div class="layui-body">
-            <div class="layui-main">
-                <!--/***** 面包屑 *****/-->
-                <div class="layui-elem-quote" style="margin-top: 10px;">
-                    <span class="layui-breadcrumb"> <a><cite>内容管理</cite></a><a th:href="@{/admin/m/base/ad/list.gsp}">广告管理</a><a><cite>修改</cite></a>
-                    </span>
-                </div>
-                <!--/*******操作*******/-->
-                <form th:action="@{/admin/m/ext/ad/edit.gsp}" id="editForm" th:object="${result}" role="form" method="post" class="layui-form">
-                    <input th:field="*{id}" type="text" hidden="true" />
-                    <fieldset class="layui-elem-field layui-field-title">
-                        <legend>广告管理-修改</legend>
-                    </fieldset>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">广告位：<span style="color: red">*</span></label>
-                        <div class="layui-input-block">
-                            <select th:field="*{adSlotId}" lay-verify="required"><option th:if="${adSlot.size()<=0}" value="">暂无</option>
-                                <option th:each="data : ${adSlot}" th:value="${data.id}" th:text="${data.slotName}"></option></select>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">广告名称：<span style="color: red">*</span></label>
-                        <div class="layui-input-block">
-                            <input type="text" th:field="*{adName}" required lay-verify="adName" placeholder="请输入广告名称" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">开始时间：<span style="color: red">*</span></label>
-                        <div class="layui-input-block">
-                            <input type="text" th:field="*{beginTime}" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">结束时间：</label>
-                        <div class="layui-input-block">
-                            <input type="text" th:field="*{endTime}" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">广告url：<span style="color: red">*</span></label>
-                        <div class="layui-input-block">
-                            <input type="text" th:field="*{adUrl}" required lay-verify="url" placeholder="请输入广告url" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">广告文字：</label>
-                        <div class="layui-input-block">
-                            <input type="text" th:field="*{adText}" lay-verify="adText" placeholder="请输入广告文字" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">广告代码：<span style="color: red">*</span></label>
-                        <div class="layui-input-block">
-                            <input type="text" th:field="*{adScript}" required lay-verify="adText" placeholder="请输入广告代码" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">广告图片:</label>
-                        <div class="layui-input-block"></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">广告flash:</label>
-                        <div class="layui-input-block"></div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
-                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div th:replace="fragments/footer_admin">底部版权信息等</div>
-    </div>
+	<div class="layui-layout layui-layout-admin">
+		<div th:replace="fragments/nav_admin">导航栏</div>
+		<div th:replace="fragments/menu_admin::menu(parent=content,child=ad)">菜单栏</div>
+		<!--/*******内容*******/-->
+		<div class="layui-body">
+			<div class="layui-main">
+				<!--/***** 面包屑 *****/-->
+				<div class="layui-elem-quote" style="margin-top: 10px;">
+					<span class="layui-breadcrumb"> <a><cite>内容管理</cite></a><a th:href="@{/admin/m/base/ad/list.gsp}">广告管理</a><a><cite>修改</cite></a>
+					</span>
+				</div>
+				<!--/*******操作*******/-->
+				<form th:action="@{/admin/m/ext/ad/edit.gsp}" id="editForm" th:object="${result}" role="form" method="post" class="layui-form">
+					<input th:field="*{id}" type="text" hidden="true" />
+					<fieldset class="layui-elem-field layui-field-title">
+						<legend>广告管理-修改</legend>
+					</fieldset>
+					<div class="layui-form-item">
+						<label class="layui-form-label">广告位：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<select th:field="*{adSlotId}" lay-verify="required"><option th:if="${adSlot.size()<=0}" value="">暂无</option>
+								<option th:each="data : ${adSlot}" th:value="${data.id}" th:text="${data.slotName}"></option></select>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">广告名称：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{adName}" required lay-verify="adName" placeholder="请输入广告名称" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">开始时间：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{beginTime}" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">结束时间：</label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{endTime}" lay-verify="date" placeholder="yyyy-mm-dd" autocomplete="off" class="layui-input" onclick="layui.laydate({elem: this})">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">广告url：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{adUrl}" required lay-verify="url" placeholder="请输入广告url" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">广告文字：</label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{adText}" lay-verify="adText" placeholder="请输入广告文字" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">广告代码：<span style="color: red">*</span></label>
+						<div class="layui-input-block">
+							<input type="text" th:field="*{adScript}" required lay-verify="adText" placeholder="请输入广告代码" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">广告图片:</label>
+						<div class="layui-input-block" id="adIimageDiv">
+							<img id="adIimageShow" width="164" th:src="|@{${result.imagePath}}|"><br /> <br />
+							<input id="adIimage" type="file" name="file" class="layui-upload-file"><input id="InputadIimage" type="text" th:value="*{adIimage}" name="adIimage" hidden="hidden">
+						</div>
+					</div>
+					<div class="layui-form-item layui-form-text">
+						<label class="layui-form-label">广告flash:</label>
+						<div class="layui-input-block" id="adFlashDiv">
+							<img th:if="${result.flashPath!=null and result.flashPath!=''}" id="adFlashShow" width="164" th:src="|@{${result.flashPath}}|"><br />
+							<br /> <input id="adFlash" type="file" name="file" class="layui-upload-file"><input id="InputadFlash" type="text" th:value="*{adFlash}" name="adFlash" hidden="hidden">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div th:replace="fragments/footer_admin">底部版权信息等</div>
+	</div>
 </body>
 <div th:replace="fragments/import_js_admin">引入js</div>
 <!--/***** 当前页js start *****/-->
@@ -93,21 +99,77 @@
     /*<![CDATA[*/
     var form = layui.form();
     var $ = layui.jquery;
+    
+    layui.use('upload', function() {
+        url = BASE_URL + 'admin/m/base/image/uploadImg';
+        tg_upload("adIimage", url);
+        tg_upload("adFlash", url);
+    });
+    
+    function tg_upload(id, url) {
+        if($("#Input" + id).length<=0){
+            $("#" + id).after('<input id="Input'+id+'" type="text" value="" name="'+id+'" hidden="hidden">');
+        }
+        var fileName;
+        //文件上传
+        layui.upload({
+            url : url,//上传接口
+            elem : '#' + id,
+            ext : 'jpg|png|gif', //图片格式限制
+            before : function(input) {
+                layer.msg('文件上传中');
+            },
+            success : function(res) { //上传成功后的回调
+                if(res.success){
+                    $("#" + id).parent().next().text("上传成功");
+                    $("#Input" + id).attr("value", res.obj);
+                    if($("#"+id+"Show").length<=0){
+                        $("#" + id+"Div").prepend('<img id="'+id+'Show" width="164">');
+                    }
+                    $("#"+id+"Show").attr("src", res.path);
+                }
+            }
+        });
+    }
+    
     //自定义验证规则
     var rules = {
             adName : function(value) {
-                if (value.length < 1 || value.length > 20) {
-                    return '广告名称在1~20个字符之间';
+                if (value.length <= 0) {
+                    return '广告名称必填';
+                }else if (value.length > 20) {
+                    return '广告名称在不能超过20个字符';
+                }
+            },
+            adUrl : function(value){
+                if(value.length > 40){
+                    return '广告url不能超过40个字符';
+                }else if(!/(^#)|(^http(s*):\/\/[^\s]+\.[^\s]+)/.test(value)){
+                    return '链接格式不正确'
+                }
+            },
+            beginTime : function(value) {
+                if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                    return '日期格式不正确';
+                }
+            },
+            endTime : function(value) {
+                if (value.length > 0) {
+                    if(!/^(\d{4})[-\/](\d{1}|0\d{1}|1[0-2])([-\/](\d{1}|0\d{1}|[1-2][0-9]|3[0-1]))*$/.test(value)){
+                        return '日期格式不正确';
+                    }
                 }
             },
             adText : function(value) {
                 if (value.length > 50) {
-                    return '广告文字不能超过50个字符之间';
+                    return '广告文字不能超过50个字符';
                 }
             },
             adScript : function(value) {
-                if (value.length < 1 || value.length > 20) {
-                    return '广告代码必填并且不能超过20个字符';
+                if (value.length <= 0 || value.length > 20) {
+                    return '广告代码必填';
+                }else if(value.length > 20){
+                    return '广告代码不能超过20个字符';
                 }
             }
     };

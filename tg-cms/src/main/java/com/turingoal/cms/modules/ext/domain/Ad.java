@@ -22,4 +22,6 @@ public class Ad implements Serializable {
     private String adFlash; // flash
     private Integer sortOrder; // 排序
     private String slotName;
+    private String imagePath; // 图片地址
+    private String flashPath; // flash地址
 }

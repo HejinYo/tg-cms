@@ -66,13 +66,17 @@
 							<input type="text" name="adScript" required lay-verify="adScript" placeholder="请输入广告代码" autocomplete="off" class="layui-input">
 						</div>
 					</div>
-					<div class="layui-form-item">
+					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">广告图片:</label>
-						<div class="layui-input-block"></div>
+						<div class="layui-input-block">
+							<img id="adIimageShow" width="164"><br /> <input id="adIimage" type="file" name="file" class="layui-upload-file">
+						</div>
 					</div>
-					<div class="layui-form-item">
+					<div class="layui-form-item layui-form-text">
 						<label class="layui-form-label">广告flash:</label>
-						<div class="layui-input-block"></div>
+						<div class="layui-input-block">
+							<img id="adFlashShow" width="164"><br /> <input id="adFlash" type="file" name="file" class="layui-upload-file">
+						</div>
 					</div>
 					<div class="layui-form-item">
 						<div class="layui-input-block">
@@ -92,6 +96,34 @@
     /*<![CDATA[*/
     var form = layui.form();
     var $ = layui.jquery;
+    
+    layui.use('upload', function() {
+        url = BASE_URL + 'admin/m/base/image/uploadImg';
+        tg_upload("adIimage", url);
+        tg_upload("adFlash", url);
+    });
+    
+    function tg_upload(id, url) {
+        $("#" + id).after('<input id="Input'+id+'" type="text" value="" name="'+id+'" hidden="hidden">');
+        var fileName;
+        //文件上传
+        layui.upload({
+            url : url,//上传接口
+            elem : '#' + id,
+            ext : 'jpg|png|gif', //图片格式限制
+            before : function(input) {
+                layer.msg('文件上传中');
+            },
+            success : function(res) { //上传成功后的回调
+                if(res.success){
+                    $("#" + id).parent().next().text("上传成功");
+                    $("#Input" + id).attr("value", res.obj);
+                    $("#"+id+"Show").attr("src", res.path);
+                }
+            }
+        });
+    }
+    
   //自定义验证规则
     var rules = {
         adName : function(value) {

@@ -29,7 +29,10 @@
     
     <!-- 通过id得到一条广告信息-->
     <select id="get" parameterType="string" resultType="com.turingoal.cms.modules.ext.domain.Ad">
-        SELECT * FROM tg_cms_m_ext_ad WHERE id = #{id}
+        SELECT image.img_path image_path, flash.img_path flash_path, ad.* FROM tg_cms_m_ext_ad ad
+        LEFT JOIN tg_cms_m_base_image image ON image.id = ad.ad_iimage
+        LEFT JOIN tg_cms_m_base_image flash ON flash.id = ad.ad_flash
+        WHERE ad.id = #{id}
     </select>
     
     <!-- 新增 一条广告管理信息 -->

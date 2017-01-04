@@ -19,7 +19,7 @@
 					</span>
 				</div>
 				<!--/*******操作*******/-->
-				<form th:action="@{/admin/m/ext/ad/list.gsp}" id="typeForm" method="get">
+				<form th:action="@{/admin/m/ext/ad/list.gsp}" id="typeForm" method="get" class="layui-form">
 					<div class="layui-form-item">
 						<blockquote class="layui-elem-quote layui-quote-nm">
 							<div class="layui-inline">
@@ -30,10 +30,11 @@
 							<div class="layui-inline" style="float: right;">
 								<div class="layui-input-inline">
 									<select id="adSlotId" name="adSlotId" class="layui-select"><option value="">全部广告类型</option>
-										<option th:each="data : ${slot}" th:value="${data.id}" th:text="${data.slotName}"></option></select>
+										<option value="4b04aeb5f1374d63ad17a96c0ecf5bc4">测试</option>
+										<option value="d37b6e2f42c54384867cd76fbc4511a0">测试1</option></select>
 								</div>
 								<div class="layui-input-inline" style="width: 200px;">
-									<input type="text" name="type" value="2" hidden="hidden"> <input type="search" id="simpleQueryParam" name="simpleQueryParam" placeholder="关键字" autocomplete="off" class="layui-input">
+									<input type="search" id="simpleQueryParam" name="simpleQueryParam" placeholder="关键字" autocomplete="off" class="layui-input">
 								</div>
 								<button class="layui-btn" lay-submit="" lay-filter="searchForm">
 									<i class="layui-icon">&#xe615;</i>
@@ -84,9 +85,11 @@
 <script th:inline="javascript">
     /*<![CDATA[*/
     var result = /*[[${adList}]]*/;
+    var form = layui.form();
     $(function(){
         $("#simpleQueryParam").val(GetQueryString("simpleQueryParam"));
         $("#adSlotId").val(GetQueryString("adSlotId"));
+        form.render();
         var option = {
             listUrl : /*[[@{/admin/m/ext/ad/list.gsp?}]]*/,
             totalPages : result.totalPages,
