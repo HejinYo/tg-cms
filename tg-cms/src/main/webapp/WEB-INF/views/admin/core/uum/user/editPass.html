@@ -25,19 +25,19 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">原密码：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input name="oldUserPass" lay-verify="oldUserPass" required placeholder="请输入原密码" type="password" class="layui-input" />
+							<input name="oldUserPass" lay-verify="oldUserPass" required placeholder="请输入原密码" type="password" class="layui-input" maxLength="12" />
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">新密码：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input id="userPass" name="userPass" lay-verify="userPass" required placeholder="请输入新密码" type="password" class="layui-input" />
+							<input id="userPass" name="userPass" lay-verify="userPass" required placeholder="请输入新密码" type="password" class="layui-input" maxLength="12" />
 						</div>
 					</div>
 					<div class="layui-form-item">
 						<label class="layui-form-label">确认密码：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input name="userPass2" lay-verify="userPass2" required placeholder="请确认新密码" type="password" class="layui-input" />
+							<input name="userPass2" lay-verify="userPass2" required placeholder="请确认新密码" type="password" class="layui-input" maxLength="12" />
 						</div>
 					</div>
 					<div class="layui-form-item">
@@ -68,6 +68,8 @@
         oldUserPass : function(value) {
             if (value.length <= 0) {
                 return '请输入原密码！';
+            } else if (value.length > 12) {
+                return '原密码长度不能大于12个字符！';
             } else if (checkOldPass(value) == 'false') {
                 return '原密码输入不正确！';
             } else if (value == $('#userPass').val()) {

@@ -71,9 +71,9 @@
 </html>
 <script th:inline="javascript">
     /*<![CDATA[*/
-     var editable = /*[[${result.editable}]]*/;
+    var editable = /*[[${result.editable}]]*/;
     var url = /*[[@{/admin/index.gsp}]]*/;
-    if(editable =1){
+    if(editable ==2){
         layer.alert("该用户信息不可修改");
         setTimeout(function(){
             window.location.href=url; 
