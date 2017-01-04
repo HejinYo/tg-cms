@@ -27,4 +27,6 @@ public class Global implements Serializable {
     private String contextPath; // 上下文路径
     private Integer withDomain; // 是否URL包含域名
     private Integer uploadsPublishpointId; // 附件发布点   
+    
+    private String imgPath;
 }

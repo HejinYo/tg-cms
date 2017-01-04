@@ -4,7 +4,9 @@
 <mapper namespace="com.turingoal.cms.core.repository.GlobalDao">   
      <!-- 获取全局配置 -->
     <select id="get" resultType="com.turingoal.cms.core.domain.Global">
-        SELECT * FROM tg_c_global LIMIT 1
+        SELECT global.*,image.img_path as img_path FROM tg_c_global global
+        LEFT JOIN tg_cms_m_base_image image ON global.no_pic = image.id
+        LIMIT 1
     </select>
   
     <!-- 修改 全局配置  -->

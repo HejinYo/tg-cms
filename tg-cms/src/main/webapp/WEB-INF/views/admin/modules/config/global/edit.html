@@ -110,7 +110,7 @@
 						<div class="layui-form-item">
 							<label class="layui-form-label">暂无图片：</label>
 							<div class="layui-input-block">
-								<img id="imgShow" th:src="|/uploads${result.noPic}|" th:onerror="|this.src='@{/resources/imgs/common/no_pic.png}'|" width="164"> <br /> <br /> <input id="noPic" type="file" name="noPic" lay-type="images" class="layui-upload-file">
+								<img id="imgShow" th:src="*{imgPath}" th:onerror="|this.src='@{/resources/imgs/common/no_pic.png}'|" width="164"> <br /> <br /> <input id="noPic" type="file" name="file" lay-type="images" class="layui-upload-file">
 							</div>
 						</div>
 						<div class="layui-form-item">
@@ -155,16 +155,16 @@
            form.render('select');
         }
     });
-    
-    var showImgUrl = /*[[@{/fore/common/showImage_}]]*/;
+ 
     var $ = layui.jquery;
     var form = layui.form();
     layui.use('upload', function() {
-        url = BASE_URL + 'admin/common/uploadImage.htm';       
+        url = BASE_URL + 'admin/m/base/image/uploadImg';       
         tg_upload("noPic", url);
     });
     function tg_upload(id, url) {
-        $("#" + id).after('<input id="Input'+id+'" type="text" value="" name="'+id+'" hidden="hidden">');
+        var noPic = /*[[${result.noPic}]]*/;
+        $("#" + id).after('<input id="Input'+id+'" type="text" value="'+noPic+'" name="'+id+'" hidden="hidden">');
         var fileName;
         //文件上传
         layui.upload({
@@ -176,8 +176,8 @@
             },
             success : function(res) { //上传成功后的回调
                 $("#" + id).parent().next().text("上传成功");
-                $("#Input" + id).attr("value", res.msg);
-                $("#imgShow").attr("src", showImgUrl+res.msg+'.htm');
+                $("#Input" + id).attr("value", res.obj);
+                $("#imgShow").attr("src", res.path);
             }
         });
     }

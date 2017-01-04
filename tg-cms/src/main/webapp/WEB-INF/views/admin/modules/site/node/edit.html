@@ -56,13 +56,13 @@
 						<div class="layui-inline" style="width: 350px;">
 							<label class="layui-form-label">栏目模板：<span style="color: red">*</span></label>
 							<div class="layui-input-block">
-								<input name="nodeTemplate" th:field="*{nodeTemplate}" placeholder="请输入栏目模板" type="text" class="layui-input" /> <a onclick="select(1)" th:href="@{/admin/m/base/template/selectTemplate_nodeTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i> </a>
+								<input name="nodeTemplate" th:field="*{nodeTemplate}" placeholder="请输入栏目模板" type="text" class="layui-input" maxLength="25"/> <a onclick="select(1)" th:href="@{/admin/m/base/template/selectTemplate_nodeTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i> </a>
 							</div>
 						</div>
 						<div class="layui-inline" style="width: 350px;">
 							<label class="layui-form-label">文档模板：<span style="color: red">*</span></label>
 							<div class="layui-input-block">
-								<input name="infoTemplate" th:field="*{infoTemplate}" placeholder="请输入文档模板" type="text" class="layui-input" /><a onclick="select(2)" th:href="@{/admin/m/base/template/selectTemplate_infoTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i></a>
+								<input name="infoTemplate" th:field="*{infoTemplate}" placeholder="请输入文档模板" type="text" class="layui-input" maxLength="25"/><a onclick="select(2)" th:href="@{/admin/m/base/template/selectTemplate_infoTemplate.gsp}" class="layui-btn" type="button"><i class="layui-icon">&#xe615;</i></a>
 							</div>
 						</div>
 					</div>
@@ -95,7 +95,7 @@
 					<div class="layui-form-item">
 						<label class="layui-form-label">链接地址：<span style="color: red">*</span></label>
 						<div class="layui-input-block">
-							<input type="text" th:field="*{nodeLink}" name="nodeLink" placeholder="请输入链接地址" lay-verify="nodeLink" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="21">
+							<input type="text" th:field="*{nodeLink}" name="nodeLink" placeholder="请输入链接地址" lay-verify="nodeLink" required autocomplete="off" class="layui-input" autofocus="autofocus" maxlength="150">
 						</div>
 					</div>
 					<div class="layui-form-item">
